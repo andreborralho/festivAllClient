@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.festivall_new;
+package com.festivallclient;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;
