@@ -27,7 +27,7 @@ function populateDB(tx) {
 }
 
 // Transaction error callback
-function errorCB(err) {
+function errorCB(err) { alert();
     console.log("Error processing SQL: "+err.code);
 }
 // Transaction success callback
