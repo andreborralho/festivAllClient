@@ -10,14 +10,13 @@ function onDeviceReady() {
 // Populate the database
 function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
-    tx.executeSql('CREATE TABLE FESTIVALS (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))');
-        //', coordinates VARCHAR(255), city VARCHAR(255), logo VARCHAR(255), template VARCHAR(255), map VARCHAR(255))');
+    tx.executeSql('CREATE TABLE FESTIVALS (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), coordinates VARCHAR(255), city VARCHAR(255), ' +
+        'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), updated_at DATETIME)');
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         $.each(data, function(){
-            tx.executeSql('INSERT INTO FESTIVALS (id, name) VALUES (' + this.id +', "' + this.name + '")');
-               // + f.coord + '", "'+ f.city +'", "' +f.logo_url +'", "' + f.back_url +'", "' +f.map_url +'")');
-                 /* + this.updated_at +')*/
+            tx.executeSql('INSERT INTO FESTIVALS (id, name, coordinates, city, logo, map, template, updated_at) VALUES (' + this.id +', "' + this.name + '", "' +
+                this.coord +'", "' + this.city + '", "' + this.logo_url +'", "' + this.map_url + '", "' + this.back_url + '", "' + this.updated_at +'")');
         });
 
         queryDB(tx);
@@ -33,7 +32,7 @@ function querySuccess(tx, results) {
     var len = results.rows.length;
 
     for (var i=0; i<len; i++){
-        alert(results.rows.item(i).name); //+ " " + results.rows.item(i).city+ " " + results.rows.item(i).logo+ " " + results.rows.item(i).coordinates);
+        alert(results.rows.item(i).updated_at + " " + results.rows.item(i).map);
         //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
     }
 }

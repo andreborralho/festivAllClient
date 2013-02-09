@@ -4,7 +4,6 @@
     <list default="true" id="2ec325f0-3d9b-4801-93d7-8b693ab12162" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/MainActivity.apk" afterPath="$PROJECT_DIR$/bin/MainActivity.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/resources.ap_" afterPath="$PROJECT_DIR$/bin/resources.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/data.js" afterPath="$PROJECT_DIR$/assets/www/js/data.js" />
     </list>
     <ignored path="festivAll_new.iws" />
@@ -37,7 +36,7 @@
       <file leaf-file-name="data.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/www/js/data.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="20" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.44470868">
+            <state line="24" column="0" selection-start="1105" selection-end="1105" vertical-scroll-proportion="0.48513675">
               <folding />
             </state>
           </provider>
@@ -338,7 +337,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/js/data.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="20" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.44470868">
+        <state line="24" column="0" selection-start="1105" selection-end="1105" vertical-scroll-proportion="0.48513675">
           <folding />
         </state>
       </provider>
