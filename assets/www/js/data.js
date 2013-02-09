@@ -4,20 +4,22 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
     var db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 200000);
-    db.transaction(populateDB, errorCB, successCB);
+    db.transaction(populateDB, errorCB, querySuccess);
 }
 
 // Populate the database
 function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
-    tx.executeSql('CREATE TABLE FESTIVALS (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), ' +
-        'coordinates VARCHAR(255), city VARCHAR(255), logo VARCHAR(255), template VARCHAR(255), map VARCHAR(255), tickets TEXT, transports TEXT)', querySuccess, errorCB);
+    tx.executeSql('CREATE TABLE FESTIVALS (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))');
+        //', coordinates VARCHAR(255), city VARCHAR(255), logo VARCHAR(255), template VARCHAR(255), map VARCHAR(255))');
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         $.each(data, function(){
-            tx.executeSql('INSERT INTO FESTIVALS (id, name, coordinates, city, logo, template, map, tickets, transports) VALUES (' + this.id+', "' + this.name +'", "' + this.coord + '", "'+ this.city +'", "' +this.logo_url +'", "' +
-                this.back_url +'", "' +this.map_url +'", "' + this.tickets +'", "' + this.transports +'")'); /* + this.updated_at +')*/
+            tx.executeSql('INSERT INTO FESTIVALS (id, name) VALUES (' + this.id +', "' + this.name + '")');
+               // + f.coord + '", "'+ f.city +'", "' +f.logo_url +'", "' + f.back_url +'", "' +f.map_url +'")');
+                 /* + this.updated_at +')*/
         });
+
         queryDB(tx);
     });
 }
@@ -26,21 +28,17 @@ function populateDB(tx) {
 function errorCB(err) {alert(err);
     console.log("Error processing SQL: "+err);
 }
-// Transaction success callback
-function successCB() {
-    var db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 200000);
-    db.transaction(queryDB, errorCB);
-}
-// Query the database
-function queryDB(tx) {
-    tx.executeSql('SELECT * FROM FESTIVALS', [], querySuccess, errorCB);
-}
 // Query the success callback
 function querySuccess(tx, results) {
     var len = results.rows.length;
 
     for (var i=0; i<len; i++){
-        alert(results.rows.item(i).name + " " + results.rows.item(i).city+ " " + results.rows.item(i).logo+ " " + results.rows.item(i).coordinates);
+        alert(results.rows.item(i).name); //+ " " + results.rows.item(i).city+ " " + results.rows.item(i).logo+ " " + results.rows.item(i).coordinates);
         //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
     }
+}
+
+// Query the database
+function queryDB(tx) {
+    tx.executeSql('SELECT * FROM FESTIVALS', [], querySuccess, errorCB);
 }
