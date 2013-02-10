@@ -3,8 +3,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 // Cordova is ready
 function onDeviceReady() {
-    var db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 200000);
-    db.transaction(populateDB, errorCB, querySuccess);
+    window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 200000);
+    db.transaction(populateDB, errorCB, successCB);
 }
 
 // Populate the database
@@ -14,27 +14,39 @@ function populateDB(tx) {
         'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets TEXT, transports TEXT, updated_at DATETIME)');
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
-        $.each(data, function(){
-            tx.executeSql('INSERT INTO FESTIVALS (id, name, coordinates, city, logo, map, template, tickets, transports, updated_at) VALUES (' + this.id +', "' + this.name + '", "' +
-                this.coord +'", "' + this.city + '", "' + this.logo_url +'", "' + this.map_url + '", "' + this.back_url + '", "' +this.tickets + '", "' + this.transports + '" ,"' + this.updated_at +'")');
+        $.each(data, function(k,v){
+			db.transaction(function(tx){
+            tx.executeSql('INSERT INTO FESTIVALS (id, name, coordinates, city, logo, map, template, tickets, transports, updated_at) VALUES (' + v.id +
+			', "' + v.name + '", "' + v.coord +'", "' + v.city + '", "' + v.logo_url +'", "' + v.map_url + '", "' + v.back_url + '", "' +v.tickets + '", "' + 
+			v.transports + '" ,"' + v.updated_at +'")');
+			}, errorCB, successCB);
         });
-
-        queryDB(tx);
+		db.transaction(queryDB, errorCB);
     });
+
+}
+
+// Transaction success callback
+function successCB(err) {
+    console.log("Transaction Success!");
 }
 
 // Transaction error callback
-function errorCB(err) {alert(err);
-    console.log("Error processing SQL: "+err);
+function errorCB(err) {
+	console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
+
 // Query the success callback
 function querySuccess(tx, results) {
     var len = results.rows.length;
 
+	var str = "";
     for (var i=0; i<len; i++){
-        alert(results.rows.item(i).tickets + " " + results.rows.item(i).transports);
+		
+        str += "name :" + results.rows.item(i).name + "\n";
         //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
     }
+	alert(str);
 }
 
 // Query the database
