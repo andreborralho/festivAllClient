@@ -5,6 +5,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     var db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 200000);
     db.transaction(populateDB, errorCB, querySuccess);
+    loadApp();
 }
 
 // Populate the database
@@ -40,4 +41,39 @@ function querySuccess(tx, results) {
 // Query the database
 function queryDB(tx) {
     tx.executeSql('SELECT * FROM FESTIVALS', [], querySuccess, errorCB);
+}
+
+
+function loadApp() {
+    Ext.Loader.setConfig({
+        enabled: true
+    });
+
+    Ext.application({
+        name: 'SenchaFiddle',
+
+        launch: function() {
+            var ExtPanel = Ext.create('ExtPanel', {
+                fullscreen: true,
+                html: '<p style="color:orange">Hello from your first Sencha Touch App made by Sencha Fiddle.</p>' +
+                    ''
+
+            });
+        }
+    });
+
+    Ext.define('Kitchensink.view.Fade', {
+        extend: 'Ext.Panel',
+        requires: ['Kitchensink.view.LoremIpsum2'],
+        config: {
+            cls: 'card card5',
+            scrollable: true,
+            items: [{
+                docked: 'top',
+                html: 'Fade Animation'
+            }, {
+                xtype: 'loremipsum2'
+            }]
+        }
+    });
 }
