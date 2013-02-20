@@ -4,10 +4,24 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
-    db.transaction(populateDB, errorCB, successCB);
-    sync("http://festivall.eu/festivals.json", function(){alert("Synchronization Finished!");});
-    loadApp();
-    //db.transaction(queryDB, errorCB);
+
+	//checks if the application is running for the first time
+	$.ajax({
+        url: "http://festivall.eu",
+        dataType:"html",
+        success:function (changes) {
+			if(localStorage["firstRun"] == undefined){
+				db.transaction(populateDB, errorCB, successCB);
+				localStorage.setItem("firstRun", false);
+			}else if(!localStorage["firstRun"]) 
+					sync("http://festivall.eu/festivals.json", function(){alert("Synchronization Finished!");});
+        },
+        error: function(model, response) {
+            alert("No internet connection! " + response);
+        }
+    });
+
+    //loadApp(); o que é isto?
 
 }
 
@@ -15,9 +29,12 @@ function onDeviceReady() {
 function getLastSync(callback) {
     this.db.transaction(
         function(tx) {
-            var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS";
+            var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS, " +
+			"SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATION, GALLERIES, COUNTRIES";
+			alert("executing query @sync");
             tx.executeSql(sql, [],
                 function(tx, results) {
+					alert("finished query @sync");
                     var lastSync = results.rows.item(0).lastSync;
                     alert("last synchronization date : " + lastSync);
                     callback(lastSync);
@@ -48,7 +65,7 @@ function applyChanges(response, callback) {
     callback();
 }
 
-
+//Synchronization algorithm logic
 function sync(syncURL, callback ) {
     getLastSync(function(lastSync){
         getChanges(syncURL, lastSync,
@@ -88,6 +105,7 @@ function populateDB(tx) {
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         insertData(data);
+		db.transaction(queryDB, errorCB);
     });
 
 }
