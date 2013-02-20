@@ -192,7 +192,7 @@ function insertData(data){
 
 // Transaction success callback
 function successCB(err) {
-    //console.log("Transaction Success: " + err);
+    console.log("Transaction Success: " + err);
 }
 
 // Transaction error callback
@@ -217,7 +217,7 @@ function querySuccess(tx, results) {
 
 // Query the database
 function queryDB(tx) {
-    tx.executeSql('SELECT * FROM FESTIVALS', [], querySuccess, errorCB);
+    tx.executeSql('SELECT name FROM FESTIVALS', [], querySuccess, errorCB);
 }
 
 function loadApp() {
@@ -238,18 +238,4 @@ function loadApp() {
         }
     });
 
-    Ext.define('Kitchensink.view.Fade', {
-        extend: 'Ext.Panel',
-        requires: ['Kitchensink.view.LoremIpsum2'],
-        config: {
-            cls: 'card card5',
-            scrollable: true,
-            items: [{
-                docked: 'top',
-                html: 'Fade Animation'
-            }, {
-                xtype: 'loremipsum2'
-            }]
-        }
-    });
 }
