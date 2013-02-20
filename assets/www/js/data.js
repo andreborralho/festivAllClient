@@ -21,13 +21,13 @@ function onDeviceReady() {
         }
     });
 
-    //
+    //loadApp(); o que é isto?
 
 }
 
 // Get the last synchronization date
 function getLastSync(callback) {
-   this.db.transaction(
+    this.db.transaction(
         function(tx) {
             var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS, " +
 			"SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATION, GALLERIES, COUNTRIES";
@@ -56,7 +56,7 @@ function getChanges(syncURL, modifiedSince, callback) {
             alert(response.responseText);
         }
     });
- 
+
 }
 
 // Apply the changes to cache webSQL database
@@ -90,17 +90,17 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
 
     tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255),  city VARCHAR(255), ' +
-		'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
-		'day_id INTEGER, description TEXT(1024), time TIME, updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE NOTIFICATIONS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, text TEXT(1024), updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
-	tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))'); 
+        'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
+        'day_id INTEGER, description TEXT(1024), time TIME, updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE NOTIFICATIONS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, text TEXT(1024), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
 
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
@@ -216,7 +216,7 @@ function successCB(err) {
 // Transaction error callback
 function errorCB(err) {
     alert("Error processing SQL: " + err);
-	//console.log("Error processing SQL: " + err.code + " : " + err.message);
+    //console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
 // Query the success callback
@@ -224,16 +224,50 @@ function querySuccess(tx, results) {
     alert("query results");
     var len = results.rows.length;
 
-	var str = "";
+    var str = "";
     for (var i=0; i<len; i++){
-		
+
         str += "name :" + results.rows.item(i).name + "\n";
         //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
     }
-	alert(str);
+    alert(str);
 }
 
 // Query the database
 function queryDB(tx) {
     tx.executeSql('SELECT * FROM FESTIVALS', [], querySuccess, errorCB);
+}
+
+function loadApp() {
+    Ext.Loader.setConfig({
+        enabled: true
+    });
+
+    Ext.application({
+        name: 'SenchaFiddle',
+
+        launch: function() {
+            var ExtPanel = Ext.create('ExtPanel', {
+                fullscreen: true,
+                html: '<p style="color:orange">Hello from your first Sencha Touch App made by Sencha Fiddle.</p>' +
+                    ''
+
+            });
+        }
+    });
+
+    Ext.define('Kitchensink.view.Fade', {
+        extend: 'Ext.Panel',
+        requires: ['Kitchensink.view.LoremIpsum2'],
+        config: {
+            cls: 'card card5',
+            scrollable: true,
+            items: [{
+                docked: 'top',
+                html: 'Fade Animation'
+            }, {
+                xtype: 'loremipsum2'
+            }]
+        }
+    });
 }
