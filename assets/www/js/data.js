@@ -4,19 +4,22 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
+    alert(localStorage["firstRun"]);
 
-	//checks if the application is running for the first time
-	$.ajax({
+    //checks if the application is running for the first time
+    $.ajax({
         url: "http://festivall.eu",
         dataType:"html",
         success:function (changes) {
-			if(localStorage["firstRun"] == undefined){
-				db.transaction(populateDB, errorCB, successCB);
-				localStorage.setItem("firstRun", false);
-			}else if(!localStorage["firstRun"]) 
-					sync("http://festivall.eu/festivals.json", function(){
-                        alert("Synchronization Finished!");
-                    });
+            if(localStorage["firstRun"] == undefined){
+                db.transaction(populateDB, errorCB, successCB);
+                localStorage.setItem("firstRun", false);
+            }else if(localStorage["firstRun"] == false){
+                alert("syncing");
+                sync("http://festivall.eu/festivals.json", function(){
+                    alert("Synchronization Finished!");
+                });
+            }
         },
         error: function(model, response) {
             alert("No internet connection! " + response);
@@ -24,20 +27,22 @@ function onDeviceReady() {
     });
 
     createFestivalsPage();
-    //loadApp(); o que é isto?
+    //load Sencha app
+    //loadApp();
 
 }
+
 
 // Get the last synchronization date
 function getLastSync(callback) {
     this.db.transaction(
         function(tx) {
             var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS, " +
-			"SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATIONS, GALLERIES, COUNTRIES";
-			alert("executing query @sync");
+                "SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATIONS, GALLERIES, COUNTRIES";
+            alert("executing query @sync");
             tx.executeSql(sql, [],
                 function(tx, results) {
-					alert("finished query @sync");
+                    alert("finished query @sync");
                     var lastSync = results.rows.item(0).lastSync;
                     alert("last synchronization date : " + lastSync);
                     callback(lastSync);
@@ -92,7 +97,7 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS GALLERIES');
     tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
 
-    tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255), city VARCHAR(255), ' +
+    tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255),  city VARCHAR(255), ' +
         'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
         'day_id INTEGER, description TEXT(1024), time TIME, updated_at DATETIME)');
@@ -108,7 +113,7 @@ function populateDB(tx) {
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         insertData(data);
-		db.transaction(queryDB, errorCB);
+        db.transaction(queryDB, errorCB);
     });
 
 }
@@ -120,8 +125,8 @@ function insertData(data){
                 db.transaction(function(tx){
                     console.log("Inserting in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets, transports, updated_at) VALUES (' + l.id +
-                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
-                        l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');}, errorCB, successCB);
+                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coord +'", "' + l.city + '", "' + l.logo_url +'", "' + l.map_url + '", "' + l.back_url + '", "'+
+                        l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');}, errorCB,successCB);
             });
         }
 
@@ -167,20 +172,20 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO COMMENTS (id, festival_id, text, updated_at) VALUES (' + l.id +
+                    tx.executeSql('INSERT OR REPLACE INTO NOTIFICATIONS (id, festival_id, text, updated_at) VALUES (' + l.id +
                         ', ' + l.festival_id + ', "' + l.text + '", "' + l.updated_at + '")');	}, errorCB, successCB);
             });
         }
-
-        /*else if(k=='photos'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO PHOTOS (id, show_id, small, large, updated_at) VALUES (' + l.id +
-                        ', ' + l.show_id + ', "' + l.small + '", "' + l.large + '", "' + l.updated_at + '")');	}, errorCB, successCB);
-            });
-        }*/
-
+        /*
+         else if(k=='photos'){
+         $.each(v, function(i, l){
+         db.transaction(function(tx){
+         console.log("Inserting in " + k);
+         tx.executeSql('INSERT OR REPLACE INTO PHOTOS (id, show_id, small, large, updated_at) VALUES (' + l.id +
+         ', ' + l.show_id + ', "' + l.small + '", "' + l.large + '", "' + l.updated_at + '")');	}, errorCB, successCB);
+         });
+         }
+         */
         else if(k=='galleries'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
@@ -205,7 +210,9 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Deleting from " + k);
-                    tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  'WHERE id=' + l.id +  ')');}, errorCB, successCB);
+                    alert('DELETE FROM ' + l.table.toString().toUpperCase() + ' WHERE id=' + l.element );
+                    tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );}, errorCB, successCB);
+                alert("PopulateDB completed!");
             });
         }
     });
@@ -213,12 +220,12 @@ function insertData(data){
 
 // Transaction success callback
 function successCB(err) {
-    console.log("Transaction Success: " + err);
+    //console.log("Transaction Success: " + err);
 }
 
 // Transaction error callback
 function errorCB(err) {
-    alert("Error processing SQL: " + err);
+    alert("Error processing SQL: " + err.message + err.code);
     //console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
