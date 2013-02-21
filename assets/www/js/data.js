@@ -171,7 +171,7 @@ function insertData(data){
                         ', ' + l.festival_id + ', "' + l.text + '", "' + l.updated_at + '")');	}, errorCB, successCB);
             });
         }
-
+/*
         else if(k=='photos'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
@@ -180,7 +180,7 @@ function insertData(data){
                         ', ' + l.show_id + ', "' + l.small + '", "' + l.large + '", "' + l.updated_at + '")');	}, errorCB, successCB);
             });
         }
-
+*/
         else if(k=='galleries'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
