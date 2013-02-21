@@ -14,7 +14,8 @@ function onDeviceReady() {
             if(localStorage["firstRun"] == undefined){
                 db.transaction(populateDB, errorCB, successCB);
                 localStorage.setItem("firstRun", false);
-            }else if(localStorage["firstRun"] == false){
+            }
+            else if(localStorage["firstRun"] == "false"){
                 alert("syncing");
                 sync("http://festivall.eu/festivals.json", function(){
                     alert("Synchronization Finished!");
@@ -125,8 +126,8 @@ function insertData(data){
                 db.transaction(function(tx){
                     console.log("Inserting in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets, transports, updated_at) VALUES (' + l.id +
-                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coord +'", "' + l.city + '", "' + l.logo_url +'", "' + l.map_url + '", "' + l.back_url + '", "'+
-                        l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');}, errorCB,successCB);
+                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
+                        l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');}, errorCB, successCB);
             });
         }
 
