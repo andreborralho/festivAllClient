@@ -4,7 +4,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
-
+	alert(localStorage["firstRun"]);
+	
 	//checks if the application is running for the first time
 	$.ajax({
         url: "http://festivall.eu",
@@ -13,16 +14,18 @@ function onDeviceReady() {
 			if(localStorage["firstRun"] == undefined){
 				db.transaction(populateDB, errorCB, successCB);
 				localStorage.setItem("firstRun", false);
-			}else if(!localStorage["firstRun"]) 
+			}else if(localStorage["firstRun"] == false){
+					alert("syncing");
 					sync("http://festivall.eu/festivals.json", function(){alert("Synchronization Finished!");});
+					}
         },
         error: function(model, response) {
             alert("No internet connection! " + response);
         }
     });
 
-    //loadApp(); o que é isto?
-
+    //load Sencha app
+    //loadApp();
 }
 
 // Get the last synchronization date
@@ -30,7 +33,7 @@ function getLastSync(callback) {
     this.db.transaction(
         function(tx) {
             var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS, " +
-			"SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATION, GALLERIES, COUNTRIES";
+			"SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATIONS, GALLERIES, COUNTRIES";
 			alert("executing query @sync");
             tx.executeSql(sql, [],
                 function(tx, results) {
@@ -164,7 +167,7 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO COMMENTS (id, festival_id, text, updated_at) VALUES (' + l.id +
+                    tx.executeSql('INSERT OR REPLACE INTO NOTIFICATIONS (id, festival_id, text, updated_at) VALUES (' + l.id +
                         ', ' + l.festival_id + ', "' + l.text + '", "' + l.updated_at + '")');	}, errorCB, successCB);
             });
         }
@@ -202,7 +205,9 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Deleting from " + k);
-                    tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  'WHERE id=' + l.id +  ')');}, errorCB, successCB);
+					alert('DELETE FROM ' + l.table.toString().toUpperCase() + ' WHERE id=' + l.element );
+                    tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );}, errorCB, successCB);
+                    alert("PopulateDB completed!");
             });
         }
     });
@@ -215,7 +220,7 @@ function successCB(err) {
 
 // Transaction error callback
 function errorCB(err) {
-    alert("Error processing SQL: " + err);
+    alert("Error processing SQL: " + err.message + err.code);
     //console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
