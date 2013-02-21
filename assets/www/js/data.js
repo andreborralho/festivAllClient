@@ -14,13 +14,16 @@ function onDeviceReady() {
 				db.transaction(populateDB, errorCB, successCB);
 				localStorage.setItem("firstRun", false);
 			}else if(!localStorage["firstRun"]) 
-					sync("http://festivall.eu/festivals.json", function(){alert("Synchronization Finished!");});
+					sync("http://festivall.eu/festivals.json", function(){
+                        alert("Synchronization Finished!");
+                    });
         },
         error: function(model, response) {
             alert("No internet connection! " + response);
         }
     });
 
+    createFestivalsPage();
     //loadApp(); o que é isto?
 
 }
@@ -30,7 +33,7 @@ function getLastSync(callback) {
     this.db.transaction(
         function(tx) {
             var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS, " +
-			"SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATION, GALLERIES, COUNTRIES";
+			"SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATIONS, GALLERIES, COUNTRIES";
 			alert("executing query @sync");
             tx.executeSql(sql, [],
                 function(tx, results) {
@@ -89,7 +92,7 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS GALLERIES');
     tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
 
-    tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255),  city VARCHAR(255), ' +
+    tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255), city VARCHAR(255), ' +
         'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
         'day_id INTEGER, description TEXT(1024), time TIME, updated_at DATETIME)');
@@ -117,8 +120,8 @@ function insertData(data){
                 db.transaction(function(tx){
                     console.log("Inserting in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets, transports, updated_at) VALUES (' + l.id +
-                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coord +'", "' + l.city + '", "' + l.logo_url +'", "' + l.map_url + '", "' + l.back_url + '", "'+
-                        l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');}, errorCB,successCB);
+                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
+                        l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');}, errorCB, successCB);
             });
         }
 
@@ -169,14 +172,14 @@ function insertData(data){
             });
         }
 
-        else if(k=='photos'){
+        /*else if(k=='photos'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Inserting in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO PHOTOS (id, show_id, small, large, updated_at) VALUES (' + l.id +
                         ', ' + l.show_id + ', "' + l.small + '", "' + l.large + '", "' + l.updated_at + '")');	}, errorCB, successCB);
             });
-        }
+        }*/
 
         else if(k=='galleries'){
             $.each(v, function(i, l){

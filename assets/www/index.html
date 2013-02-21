@@ -1,19 +1,36 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>Storage Example</title>
+    <title>FestivAll</title>
 
     <link href="lib/touch/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/festivals.css" />
+
     <script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="lib/touch/sencha-touch.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/data.js"></script>
+      <script type="text/javascript" charset="utf-8" src="js/festivals.js"></script>
   </head>
   
   <body>
-    <h1>Example</h1>
-    <p>Open Database</p>
-  <div id="example" style="opacity:1"></div>
+
+    <div id="festivals_page">
+
+        <div id="titleBar">
+            <img src="img/logo_Festivall.png" alt="FestivAll" width="62%" height="117%"/>
+        </div>
+
+        <div class="mainContainer">
+
+                <ul id="mainList" class="list">
+
+                    <div id="mainButtons"></div>
+                </ul>
+
+        </div>
+
+    </div>
 
   </body>
 </html>
