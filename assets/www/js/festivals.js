@@ -18,9 +18,7 @@ function queryFestivalsSuccess(tx, results) {
     var len = results.rows.length;
 
     for (var i=0; i<len; i++){
-        alert(results.rows.item(i).logo);
-        $('#mainButtons').append('<a id="festival_' + results.rows.item(i).id +'" class="mainButton"></a>');
-        $('#festival_'+this.id).append("<img src='" + results.rows.item(i).logo + "' height=100% width='100%'/>");
-
+        $('#mainButtons').append('<div id="festival_' + results.rows.item(i).id +'" class="mainButton"></div>');
+        $('#festival_'+results.rows.item(i).id).append('<img src="' + results.rows.item(i).logo + '" height="100%" width="100%"/>');
     }
 }

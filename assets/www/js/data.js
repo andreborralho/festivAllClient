@@ -4,7 +4,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
-    alert(localStorage["firstRun"]);
+    //alert(localStorage["firstRun"]);
 
     //checks if the application is running for the first time
     $.ajax({
@@ -40,7 +40,7 @@ function getLastSync(callback) {
         function(tx) {
             var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS, " +
                 "SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATIONS, GALLERIES, COUNTRIES";
-            alert("executing query @sync");
+
             tx.executeSql(sql, [],
                 function(tx, results) {
                     alert("finished query @sync");
@@ -114,7 +114,7 @@ function populateDB(tx) {
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         insertData(data);
-        db.transaction(queryDB, errorCB);
+        //db.transaction(queryDB, errorCB);
     });
 
 }
