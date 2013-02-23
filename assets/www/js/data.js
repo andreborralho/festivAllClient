@@ -4,7 +4,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
-    //alert(localStorage["firstRun"]);
 
     //checks if the application is running for the first time
     $.ajax({
@@ -16,14 +15,14 @@ function onDeviceReady() {
                 localStorage.setItem("firstRun", false);
             }
             else if(localStorage["firstRun"] == "false"){
-                alert("syncing");
+                window.FestivallToaster.showMessage('Syncing...');
                 sync("http://festivall.eu/festivals.json", function(){
-                    alert("Synchronization Finished!");
+                    window.FestivallToaster.showMessage('Synchronization Finished!');
                 });
             }
         },
         error: function(model, response) {
-            alert("No internet connection! " + response);
+            window.FestivallToaster.showMessage("No internet connection! " + response);
         }
     });
 
@@ -52,7 +51,7 @@ function getLastSync(callback) {
             tx.executeSql(sql, [],
                 function(tx, results) {
                     var lastSync = results.rows.item(0).lastSync;
-                    alert("last synchronization date : " + lastSync);
+                    //alert("last synchronization date : " + lastSync);
                     callback(lastSync);
                 }, errorCB);
         }
@@ -123,7 +122,7 @@ function populateDB(tx) {
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         insertData(data);
         //db.transaction(queryDB, errorCB);
-		alert("Finished creating the DB");
+        window.FestivallToaster.showMessage("Finished creating the DB");
     });
 
 }
@@ -220,7 +219,7 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Deleting from " + k);
-                    alert('DELETE FROM ' + l.table.toString().toUpperCase() + ' WHERE id=' + l.element );
+                    //alert('DELETE FROM ' + l.table.toString().toUpperCase() + ' WHERE id=' + l.element );
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );}, errorCB, successCB);
             });
         }
@@ -240,7 +239,6 @@ function errorCB(tx, err) {
 
 // Query the success callback
 function querySuccess(tx, results) {
-    alert("query results");
     var len = results.rows.length;
 
     var str = "";
@@ -249,7 +247,6 @@ function querySuccess(tx, results) {
         str += "name :" + results.rows.item(i).name + "\n";
         //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
     }
-    alert(str);
 }
 
 // Query the database
@@ -268,8 +265,7 @@ function loadApp() {
         launch: function() {
             var ExtPanel = Ext.create('ExtPanel', {
                 fullscreen: true,
-                html: '<p style="color:orange">Hello from your first Sencha Touch App made by Sencha Fiddle.</p>' +
-                    ''
+                html: '<p style="color:orange">Hello from your first Sencha Touch App made by Sencha Fiddle.</p>'
 
             });
         }

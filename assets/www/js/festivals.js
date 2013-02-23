@@ -1,13 +1,7 @@
 function createFestivalsPage(){
-
     db.transaction(queryFestivals, errorCB);
-
-    /*screenWidth = window.innerWidth * 0.994;
-    screenHeight = window.innerHeight * 0.997;
-    $('bo').css('height', screenHeight);
-    $('#wrapper').css('width', screenWidth);*/
-
 }
+
 function queryFestivals(tx) {
     tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorCB);
 }
