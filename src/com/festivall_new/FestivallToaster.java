@@ -13,8 +13,7 @@ public class FestivallToaster{
 		mGap = gap; 
 	} 
 
-	public void showMessage(String message) 
-	{ 
+	public void showMessage(String message)	{ 
 		Toast.makeText(mGap, message, Toast.LENGTH_LONG).show(); 
 	} 
 
