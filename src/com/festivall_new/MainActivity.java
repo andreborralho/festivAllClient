@@ -8,8 +8,12 @@ public class MainActivity extends DroidGap {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		super.loadUrl("file:///android_asset/www/index.html");
+		super.onCreate(savedInstanceState); 
+		super.init();
+		
+        FestivallToaster toaster = new FestivallToaster(this, appView); 
+        appView.addJavascriptInterface(toaster, "FestivallToaster"); 
+		super.loadUrl("file:///android_asset/www/index.html");        
 	}
 
 	@Override
@@ -18,5 +22,5 @@ public class MainActivity extends DroidGap {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-
+	
 }
