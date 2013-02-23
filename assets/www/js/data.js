@@ -36,14 +36,21 @@ function onDeviceReady() {
 
 // Get the last synchronization date
 function getLastSync(callback) {
-    this.db.transaction(
+    db.transaction(
         function(tx) {
-            var sql = "SELECT MAX(updated_at) as lastSync FROM FESTIVALS, " +
-                "SHOWS, DAYS, PHOTOS, USERS, COMMENTS, STAGES, NOTIFICATIONS, GALLERIES, COUNTRIES";
-
+            var sql = "SELECT MAX(lastSync) as lastSync FROM("  
+					+ "SELECT MAX(updated_at) as lastSync FROM FESTIVALS UNION ALL " 
+					+ "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
+					+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
             tx.executeSql(sql, [],
                 function(tx, results) {
-                    alert("finished query @sync");
                     var lastSync = results.rows.item(0).lastSync;
                     alert("last synchronization date : " + lastSync);
                     callback(lastSync);
@@ -87,6 +94,7 @@ function sync(syncURL, callback ) {
 
 // Populate the database
 function populateDB(tx) {
+	alert("Creating DB");
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
     tx.executeSql('DROP TABLE IF EXISTS SHOWS');
     tx.executeSql('DROP TABLE IF EXISTS DAYS');
@@ -115,6 +123,7 @@ function populateDB(tx) {
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         insertData(data);
         //db.transaction(queryDB, errorCB);
+		alert("Finished creating the DB");
     });
 
 }
@@ -213,7 +222,6 @@ function insertData(data){
                     console.log("Deleting from " + k);
                     alert('DELETE FROM ' + l.table.toString().toUpperCase() + ' WHERE id=' + l.element );
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );}, errorCB, successCB);
-                alert("PopulateDB completed!");
             });
         }
     });
@@ -225,8 +233,8 @@ function successCB(err) {
 }
 
 // Transaction error callback
-function errorCB(err) {
-    alert("Error processing SQL: " + err.message + err.code);
+function errorCB(tx, err) {
+    alert("Error processing SQL: " + err + ", " + err.message + ", " + err.code);
     //console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
