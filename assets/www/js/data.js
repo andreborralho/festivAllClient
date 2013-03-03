@@ -3,9 +3,10 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 // Cordova is ready
 function onDeviceReady() {
+	changePage('#festivals_container');
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
 
-    //checks if the application is running for the first time
+    //Check if the application is running for the first time
     $.ajax({
         url: "http://festivall.eu",
         dataType:"html",
@@ -27,9 +28,17 @@ function onDeviceReady() {
     });
 
     createFestivalsPage();
-    //load Sencha app
-    //loadApp();
+}
 
+// Set the visibility for the current app page
+function changePage(page){
+	$("#festivals_container").css('display', 'none');
+	$("#festival_container").css('display', 'none');
+	$("#lineup_container").css('display', 'none');
+	$("#info_container").css('display', 'none');
+	$("#show_container").css('display', 'none');
+
+	$(page).css('display', 'block');
 }
 
 
@@ -121,7 +130,6 @@ function populateDB(tx) {
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         insertData(data);
-        //db.transaction(queryDB, errorCB);
         window.FestivallToaster.showMessage("Finished creating the DB");
     });
 
@@ -237,38 +245,3 @@ function errorCB(tx, err) {
     //console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
-// Query the success callback
-function querySuccess(tx, results) {
-    var len = results.rows.length;
-
-    var str = "";
-    for (var i=0; i<len; i++){
-
-        str += "name :" + results.rows.item(i).name + "\n";
-        //console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
-    }
-}
-
-// Query the database
-function queryDB(tx) {
-    tx.executeSql('SELECT name FROM FESTIVALS', [], querySuccess, errorCB);
-}
-
-function loadApp() {
-    Ext.Loader.setConfig({
-        enabled: true
-    });
-
-    Ext.application({
-        name: 'SenchaFiddle',
-
-        launch: function() {
-            var ExtPanel = Ext.create('ExtPanel', {
-                fullscreen: true,
-                html: '<p style="color:orange">Hello from your first Sencha Touch App made by Sencha Fiddle.</p>'
-
-            });
-        }
-    });
-
-}

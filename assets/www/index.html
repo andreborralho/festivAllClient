@@ -1,34 +1,142 @@
-<!DOCTYPE HTML>
 <html>
-  <head>
-    <title>FestivAll</title>
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+	
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 
-    <link href="lib/touch/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/festivals.css" />
-
+    <script type="text/javascript" charset="utf-8" src="lib/zepto.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="lib/cordova-2.3.0.js"></script>
-    <script type="text/javascript" charset="utf-8" src="lib/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="lib/touch/sencha-touch.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/data.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/festivals.js"></script>
-  </head>
-  
-  <body>
 
-    <div id="festivals_page">
 
-        <div id="titleBar">
-            <img src="img/logo_Festivall.png" alt="FestivAll" width="62%" height="117%"/>
+</head>
+
+<body>
+
+<div class="frame">
+
+    <div  id="festivals_container" class="page_container">
+        <div id="festivals_page" class="transition page stage_center">
+            <div id="festivals_logo_bar">
+                <img src="img/logo_Festivall.png" alt="FestivAll" width="62%" height="117%"/>
+            </div>
+			 <div id="festivals_swipe_bar" class="swipe_bar">
+                <span> festival 			search </span>
+            </div>
+            <div id="festivals_frame" class="scroll_wrapper">
+                <div id="festivals_scroller" class="scroller"><!-- este div � necess�rio?-->
+                    <div id="festivals_buttons">
+					</div>
+                </div>
+            </div>
         </div>
 
-
-        <div class="mainContainer">
-
-            <div id="mainButtons"></div>
-
-        </div>
-
+		<div id="search_page" class="transition page stage_right">
+			<div id="search_swipe_bar" class="swipe_bar">
+				<!-- barra de swipe da pagina dum festival -->
+				<span>Search</span>
+			</div>
+			<div id="search_bar">
+				<span> lupa </span>
+			</div>
+		</div>
+	</div>
+	
+	<div  id="festival_container" class="page_container">
+		<div id="festival_page"	class="transition page stage_center">
+			<div id="festival_swipe_bar" class="swipe_bar">
+				Festival
+			</div>
+			<div id="festival_swipe_frame" class="wrapper">
+				<div id="festival_countdown">
+					<p>25 dias, etc, etc</p>
+				</div>
+				<div id="lineup_button" class="festival_page_button">Lineup</div>
+				<div id="map_button" class="festival_page_button">Map</div>
+				<div id="info_button" class="festival_page_button" >Info</div>
+			</div>
+		</div>
+		<div id="shows_page" class="transition page stage_right">
+			<div id="shows_swipe_bar" class="swipe_bar">
+				<!-- barra de swipe da pagina dum festival -->
+				Artistas
+			</div>
+			<div id="shows_swipe_frame" class="wrapper">
+				<!-- cat�logo dos artistas do festival -->
+				<span>bands swipe frame</span>
+			</div>
+		</div>
     </div>
 
-  </body>
+	<div  id="lineup_container" class="page_container">
+	<!-- possivelmente ser� gerado por JQuery
+		<div id="festival_page"	class="transition page stage-center">
+			<div id="lineup_days_swipe_bar" class="swipe_ou_bot�es?">
+			</div>
+			<div id="lineup_stages_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="lineup_frame">
+			</div>
+		</div>
+	-->
+	</div>
+
+	<div  id="info_container" class="page_container">
+		<div id="tickets_page"	class="transition page stage_left">
+			<div id="tickets_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="tickets_swipe_frame" class="wrapper">
+			</div>
+		</div>
+		<div id="transports_page"	class="transition page stage_center">
+			<div id="transports_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="transports_swipe_frame" class="wrapper">
+			</div>
+		</div>
+		<div id="weather_page"	class="transition page stage_right">
+			<div id="weather_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="weather_swipe_frame" class="wrapper">
+			</div>
+		</div>
+	</div>
+
+	<div  id="show_container" class="page_container">
+		<div id="show_page"	class="transition page stage_center">
+			<div id="show_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="show_swipe_frame" class="wrapper">
+			</div>
+		</div>
+		<div id="band_photos_page"	class="transition page stage_right">
+			<div id="band_photos_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="band_photos_swipe_frame" class="wrapper">
+			</div>
+		</div>
+		<div id="show_comments_page"	class="transition page stage_left">
+			<div id="show_comments_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="show_comments_swipe_frame" class="wrapper">
+			</div>
+		</div>
+		<div id="band_videos_page"	class="transition page stage_right">
+			<div id="band_videos_swipe_bar" class="swipe_bar">
+			</div>
+			<div id="band_videos_swipe_frame" class="wrapper">
+			</div>
+		</div>
+	</div>
+	
+	
+	
+</div>
+
+	<script src="js/iscroll.js"></script>
+    <script src="js/swipe.js"></script>
+
+
+</body>
 </html>
