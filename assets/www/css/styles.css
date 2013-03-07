@@ -1,0 +1,120 @@
+body {
+    font-family: helvetica neue;
+    background-color: #E7EAEC;
+    text-align: center;
+    margin:0;
+    padding: 0;
+}
+
+/* classes estruturais*/
+
+.frame {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color: #F1F2F2;
+    border: 1px solid #BCBEC0;
+    border-radius: 4px;
+}
+
+.page_container {
+    position:absolute;
+    top:20px;
+    right:20px;
+    bottom:0;
+    left:20px;
+    overflow: hidden;
+    -webkit-transform:translate3d(0,0,0);
+}
+
+/* classes do swipe */
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.stage_center {
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.stage_left {
+    left: -100%;
+    z-index: 0;
+}
+
+.stage_right {
+    left: 100%;
+    z-index: 0;
+}
+
+.transition {
+
+    -webkit-transition-duration: .400s;
+
+}
+
+/* classes do scroll */
+
+.scroll_wrapper{
+	position:absolute;
+    z-index:1;
+    overflow:auto;
+}
+
+.scroller {
+	position:absolute; z-index:1;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	width:100%;
+	padding:0;
+}
+
+/* classes do Festivals */
+
+
+#festivals_logo_bar{
+    height: 13%;
+    padding: 2% 0 3% 0;
+}
+
+#festivals_frame {    
+    top:100px;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+.festival_button{
+    width: 85px;
+    height: 85px;
+    border: 1px solid #DBDBDB;
+    display: inline-block;
+
+    margin: 0 1% 2% 1%;
+}
+
+
+/* classes dum festival */
+
+
+#festival_countdown{
+    font-size: 50pt;
+    height: 40%;
+    width: 100%;
+}
+
+
+.festival_page_button{
+	border: 1px solid black;
+	text-align: center;
+}
+
+
+
+
+
