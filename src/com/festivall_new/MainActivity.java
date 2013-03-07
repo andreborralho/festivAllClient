@@ -6,10 +6,16 @@ import org.apache.cordova.DroidGap;
 
 public class MainActivity extends DroidGap {
 
+	private FestivallToaster toaster;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		super.loadUrl("file:///android_asset/www/index.html");
+		super.onCreate(savedInstanceState); 
+		super.init();
+		
+        toaster = new FestivallToaster(this, appView); 
+        appView.addJavascriptInterface(toaster, "FestivallToaster"); 
+		super.loadUrl("file:///android_asset/www/index.html");        
 	}
 
 	@Override
@@ -18,5 +24,5 @@ public class MainActivity extends DroidGap {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-
+	
 }
