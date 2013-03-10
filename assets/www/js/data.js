@@ -1,10 +1,10 @@
 // Wait for Cordova to load
-document.addEventListener("deviceready", onDeviceReady, false);
 
-// Cordova is ready
-function onDeviceReady() {
-	changePage('#festivals_container');
-    window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
+document.addEventListener("load", initDisplays, false); 
+
+// Set the visibility for the current app page
+function initDisplays(){
+window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
 
     //Check if the application is running for the first time
     $.ajax({
@@ -14,6 +14,7 @@ function onDeviceReady() {
             if(localStorage["firstRun"] == undefined){
                 db.transaction(populateDB, errorCB, successCB);
                 localStorage.setItem("firstRun", false);
+				//window.FestivallToaster.showMessage('Database Created!');
             }
             else if(localStorage["firstRun"] == "false"){
                 window.FestivallToaster.showMessage('Syncing...');
@@ -27,19 +28,33 @@ function onDeviceReady() {
         }
     });
 
-    createFestivalsPage();
+	// Create de app pages container
+    createFestivalsContainer();
+	
+	$("#festival_container").css('display', 'none');
+	$("#lineup_container").css('display', 'none');
+	$("#info_container").css('display', 'none');
+	$("#show_container").css('display', 'none');
+	
+	$("#festivals_container").css('display', 'block');
+
 }
 
-// Set the visibility for the current app page
-function changePage(page){
+function changeContainers(page){
 	$("#festivals_container").css('display', 'none');
 	$("#festival_container").css('display', 'none');
 	$("#lineup_container").css('display', 'none');
 	$("#info_container").css('display', 'none');
 	$("#show_container").css('display', 'none');
-
+	
 	$(page).css('display', 'block');
 }
+
+// Cordova is ready
+function onDeviceReady() {
+    
+}
+
 
 
 // Get the last synchronization date
@@ -102,7 +117,7 @@ function sync(syncURL, callback ) {
 
 // Populate the database
 function populateDB(tx) {
-	alert("Creating DB");
+    window.FestivallToaster.showMessage("Creating the DataBase...");
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
     tx.executeSql('DROP TABLE IF EXISTS SHOWS');
     tx.executeSql('DROP TABLE IF EXISTS DAYS');
@@ -119,7 +134,7 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
         'day_id INTEGER, description TEXT(1024), time TIME, updated_at DATETIME)');
     tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
+    //tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
@@ -130,7 +145,6 @@ function populateDB(tx) {
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
         insertData(data);
-        window.FestivallToaster.showMessage("Finished creating the DB");
     });
 
 }
@@ -150,7 +164,7 @@ function insertData(data){
         else if(k=='stages'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    console.log("Inserting in " + k);
+                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.festival_id + ', "' + l.updated_at+')');
                     tx.executeSql('INSERT OR REPLACE INTO STAGES (id, name, festival_id, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.festival_id + ', "' + l.updated_at +'")');	}, errorCB,  successCB);
             });
@@ -218,7 +232,7 @@ function insertData(data){
                 db.transaction(function(tx){
                     console.log("Inserting in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO SHOWS (id, name, festival_id, stage_id, day_id, description, time, updated_at) VALUES (' + l.id +
-                        ', "' + l.name_id + '", ' + l.festival_id + ', ' + l.stage_id + ', ' + l.day_id + ', "' + l.description +
+                        ', "' + l.name + '", ' + l.festival_id + ', ' + l.stage_id + ', ' + l.day_id + ', "' + l.description +
                         '", "' + l.time + '", "' + l.updated_at + '")');	}, errorCB, successCB);
             });
         }
@@ -231,16 +245,19 @@ function insertData(data){
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );}, errorCB, successCB);
             });
         }
+        createFestivalsContainer();
+        window.FestivallToaster.showMessage('Database Created!');
     });
 }
 
 // Transaction success callback
 function successCB(err) {
+
     //console.log("Transaction Success: " + err);
 }
 
 // Transaction error callback
-function errorCB(tx, err) {
+function errorCB(err) {
     alert("Error processing SQL: " + err + ", " + err.message + ", " + err.code);
     //console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
