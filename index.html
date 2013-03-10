@@ -1,1 +1,406 @@
-festivall
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FestivAll</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+    a { /* Prevent less to complie rgba(0, 0, 0, 0) to transparent*/
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-focus-ring-color: rgba(0, 0, 0, 0); 
+    }
+    </style>
+</head>
+
+<body id="frame">
+
+    <div id="festivals" data-role="container">
+
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <h1 id="logo"><span class="ir"></span>Festivall</h1>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <nav class="swipe_bar" data-role="swipe_bar">
+            <ul>
+                <li>
+                    <a class="not_current prev" href="#">Menu</a>
+                </li>
+                <li>
+                    <a href="#">Festivais</a>
+                </li>
+                <li>
+                    <a class="not_current next" href="#">Pesquisa</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="festivals_carousel" data-role="carousel">
+
+            <!-- First-Page -->
+            <div id="festivals_page" data-role="page">
+                <ul id="festivals_buttons" class="festival_list padded">
+
+                    <!-- para apagar
+                    <li class="item">
+                        <a href="#">
+                            <img src="img/demo-festival.png">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <img src="img/demo-festival.png">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <img src="img/demo-festival.png">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <img src="img/demo-festival.png">
+                        </a>
+                    </li>
+                    <!-- /para apagar -->
+
+                </ul>
+            </div>
+
+            <!-- Second-Page -->
+            <div id="search_page" data-role="page">
+
+                <form class="input_wrap">
+                    <input class="input_field" type="text" placeholder="Nome de uma banda">
+                    <button class="input_button" type="submit"><h1>0</h1></button>
+                </form>
+
+                <ul class="list" data-role="list">
+                    <li class="row">
+                        <div class="column fixed bdr_r">
+                            <time>
+                                <span>7 Ago</span>
+                                <span>14h00</span>
+                            </time>
+                        </div>
+                        <div class="column">
+                            <h2 class="band-name">Rihanna</h2>
+                            <p>Rock In Rio</p>
+                        </div>
+                        <div class="column fixed bdr_l">
+                            <span>%</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed bdr_r">
+                            <time>
+                                <span>7 Ago</span>
+                                <span>14h00</span>
+                            </time>
+                        </div>
+                        <div class="column">
+                            <h2 class="band-name">Red Hot Chilli Peppers</h2>
+                            <p>Rock In Rio</p>
+                        </div>
+                        <div class="column fixed bdr_l">
+                            <span>%</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed bdr_r">
+                            <time>
+                                <span>7 Ago</span>
+                                <span>14h00</span>
+                            </time>
+                        </div>
+                        <div class="column">
+                            <h2 class="band-name">Pearl Jam</h2>
+                            <p>Rock In Rio</p>
+                        </div>
+                        <div class="column fixed bdr_l">
+                            <span>%</span>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ============================== FESTIVAL - single ===================================== -->
+    <div id="festival" data-role="container">
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <h1>
+                        <span class="ir icon_arrow"></span>
+                        <span class="festival_title">{Nome_festival}</span>
+                    </h1>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <!-- Swipe_bar -->
+        <nav class="swipe_bar" data-role="swipe_bar">
+            <ul>
+                <li>
+                    <a class="not_current prev hidden" href="#">Menu</a>
+                </li>
+                <li>
+                    <a href="#">Festivais</a>
+                </li>
+                <li>
+                    <a class="not_current next" href="#">Pesquisa</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Pages wrap -->
+        <div id="festival_carousel" data-role="carousel">
+
+            <div id="festival_page" data-role="page">
+                <div id="festival_countdown">
+                    <p>25 dias</p>
+                </div>
+                <div id="festival_days"></div>
+                <div id="festival_city"></div>
+                <div id="lineup_button" class="festival_page_button">Lineup</div>
+                <div id="map_button" class="festival_page_button">Map</div>
+                <div id="info_button" class="festival_page_button" >Info</div>
+            </div>
+
+            <div id="shows_page" data-role="page">
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- ============================== LINEUP (cartaz) ===================================== -->
+    <div id="lineup" data-role="container">
+
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <h1><span class="ir icon_arrow"></span>Primavera Sound</h1>
+                    <h2>Cartaz</h2>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <!-- Button_bar -->
+        <nav class="button_bar" data-role="button_bar">
+            <ul>
+                <li class="item">
+                    <a href="#">7 Ago</a>
+                </li>
+                <li class="item">
+                    <a href="#">8 Ago</a>
+                </li>
+                <li class="item">
+                    <a href="#">9 Ago</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Swipe_bar -->
+        <nav class="swipe_bar" data-role="swipe_bar">
+            <ul>
+                <li>
+                    <a class="not_current prev" href="#">Menu</a>
+                </li>
+                <li>
+                    <a href="#">Festivais</a>
+                </li>
+                <li>
+                    <a class="not_current next" href="#">Pesquisa</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="lineup_carousel" data-role="carousel">
+            <!-- possivelmente ser� gerado por JQuery
+                <div id="festival_page" class="transition page stage-center">
+                    <div id="lineup_days_swipe_bar" class="swipe_ou_bot�es?">
+                    </div>
+                    <div id="lineup_stages_swipe_bar" class="swipe_bar">
+                    </div>
+                    <div id="lineup_frame">
+                    </div>
+                </div>
+            -->
+        </div>
+    </div>
+
+
+    <!-- ============================== INFO ===================================== -->
+    <div id="info" data-role="container">
+
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <h1>
+                        <span class="ir icon_arrow"></span>
+                        <span class="festival_title">{Nome_Festival}</span>
+                    </h1>
+                    <h2>Info</h2>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <!-- Swipe_bar -->
+        <nav class="swipe_bar" data-role="swipe_bar">
+            <ul>
+                <li>
+                    <a class="not_current prev hidden" href="#">Menu</a>
+                </li>
+                <li>
+                    <a href="#">Bilhetes</a>
+                </li>
+                <li>
+                    <a class="not_current next" href="#">Como chegar</a>
+                </li>
+                <li>
+                    <a class="hidden" href="#">Weather</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Carousel -->
+        <div id="info_carousel" data-role="carousel">
+            <div id="tickets_page" data-role="page">
+            </div>
+
+            <div id="transports_page" data-role="page">
+            </div>
+
+            <div id="weather_page" data-role="page">
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ================================ MAP ====================================== -->
+    <div id="map" data-role="container">
+
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <h1>
+                        <span class="ir icon_arrow"></span>
+                        <span class="festival_title">{Nome_Festival}</span>
+                    </h1>
+                    <h2>Mapa</h2>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <!-- page -->
+        <div id="map_page" data-role="page">
+        </div>
+    </div>
+
+
+
+    <!-- ======================================================================================= -->
+    <!-- ============================== SHOW (single band) ===================================== -->
+    <div id="show" data-role="container">
+
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <h1>
+                        <span class="ir icon_arrow"></span>
+                        <span class="show_title">{Título_Banda}</span>
+                    </h1>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <!-- Swipe_bar -->
+        <nav class="swipe_bar" data-role="swipe_bar">
+            <ul>
+                <li>
+                    <a class="not_current prev hidden" href="#">Menu</a>
+                </li>
+                <li>
+                    <a href="#">Banda</a>
+                </li>
+                <li>
+                    <a class="not_current next" href="#">Fotos</a>
+                </li>
+                <li>
+                    <a class="hidden" href="#">Vídeos</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Carousel -->
+        <div id="show_carousel" data-role="carousel">
+            <div id="show_page" data-role="page">
+            </div>
+
+            <div id="band_photos_page" data-role="page">
+            </div>
+
+            <div id="show_comments_page" data-role="page">
+            </div>
+            <div id="band_videos_page" data-role="page">
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="lib/jq.mobi.js"></script>
+    <script type="text/javascript" src="lib/jq.carousel.js"></script>
+    <script type="text/javascript" src="lib/cordova-2.3.0.js"></script>
+    
+    <!-- Data -->
+    <script type="text/javascript" src="js/data.js"></script>
+    <!-- Homepage -->
+    <script type="text/javascript" src="js/festivals.js"></script>
+    <!-- Single Festival -->
+    <script type="text/javascript" src="js/festival.js"></script>
+    <script type="text/javascript" src="js/shows.js"></script>
+    <script type="text/javascript" src="js/info.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <!-- Show - Band -->
+    <script type="text/javascript" src="js/show.js"></script>
+
+</body>
+</html>
