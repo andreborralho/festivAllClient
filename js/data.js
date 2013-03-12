@@ -41,7 +41,7 @@ function onDeviceReady() {
     });
 
 	// Create de app pages container
-    createFestivalsContainer();
+    //createFestivalsContainer();
 }
 
 
@@ -55,7 +55,7 @@ function getLastSync(callback) {
 					+ "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
 					+ "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
 					//+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
-					+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
+					//+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
 					+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
 					+ "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
 					//+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
@@ -112,7 +112,7 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS SHOWS');
     tx.executeSql('DROP TABLE IF EXISTS DAYS');
     //tx.executeSql('DROP TABLE IF EXISTS PHOTOS');
-    tx.executeSql('DROP TABLE IF EXISTS USERS');
+    //tx.executeSql('DROP TABLE IF EXISTS USERS');
     tx.executeSql('DROP TABLE IF EXISTS COMMENTS');
     tx.executeSql('DROP TABLE IF EXISTS STAGES');
     //tx.executeSql('DROP TABLE IF EXISTS NOTIFICATIONS');
@@ -126,13 +126,13 @@ function populateDB(tx) {
         'day_id INTEGER, photo VARCHAR(255), description TEXT(1024), time TIME, updated_at DATETIME)');
     tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
+    //tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE NOTIFICATIONS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, text TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
-    tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), url VARCHAR(255), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, url VARCHAR(255), updated_at DATETIME)');
 
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
@@ -256,7 +256,7 @@ function insertData(data){
             });
         }
         createFestivalsContainer();
-        window.FestivallToaster.showMessage('Database Created!');
+        //window.FestivallToaster.showMessage('Database Created!');
     });
 }
 

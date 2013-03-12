@@ -227,6 +227,12 @@ a {
   padding: 12px;
   border: 1px solid #dbdbdb;
 }
+.festival_page_button{
+    float: left;
+    width: 49%;
+    height: 12%;
+    border: 1px solid #FFFFFF;
+}
 /* classes estruturais*/
 
 /* classes do Festivals */

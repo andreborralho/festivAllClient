@@ -14,7 +14,17 @@ window.addEventListener('load', init_festivals, false);
 function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
 		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorCB);
-		}, errorCB);
+    }, errorCB);
+    /*var init_scroller = function () {
+        $("#myscroller").scroller({
+            scrollBars: true,
+            verticalScroll: true,
+            horizontalScroll: false,
+            vScrollCSS: "jqmScrollbar",
+            hScrollCSS: "jqmScrollbar"
+        });
+    };
+    window.addEventListener("load", init_scroller, false);*/
 }
 
 // Callback for the festivals query

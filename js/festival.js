@@ -10,7 +10,7 @@ function init_festival() {
 
 // Queries the local Database for a festival
 function createFestivalContainer(festival_id){
-    init_festival();
+    //init_festival();
 
     db.transaction(function (tx) {
         tx.executeSql('SELECT FESTIVALS.*, DAYS.DATE AS day_date ' +
