@@ -35,6 +35,11 @@ function queryFestivalSuccess(tx, results) {
 
 
     $('.festival_title').text(festival.name);
+
+    $('.festival_title').bind('click', function(){
+        changeContainers("#festivals");
+    });
+
     $('#festival_countdown').text();
     $('#festival_city').text(festival.city);
 

@@ -21,7 +21,6 @@ function createFestivalsContainer(){
 function queryFestivalsSuccess(tx, results) {
 	$('#festivals_carousel').css('display', 'block');
 
-
     var len = results.rows.length;
     for (var i=0; i<len; i++){
         var festival = results.rows.item(i);
