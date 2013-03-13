@@ -15,7 +15,6 @@ function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
 		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorQueryCB);
     }, errorCB);
-
     /*var init_scroller = function () {
         $("#myscroller").scroller({
             scrollBars: true,
