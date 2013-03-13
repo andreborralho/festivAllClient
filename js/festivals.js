@@ -13,8 +13,9 @@ function init_festivals() {
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
-		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorCB);
+		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorQueryCB);
     }, errorCB);
+
     /*var init_scroller = function () {
         $("#myscroller").scroller({
             scrollBars: true,
