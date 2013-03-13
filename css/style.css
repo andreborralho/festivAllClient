@@ -152,6 +152,7 @@ table {
 -------------------------------------------------------------------------- */
 
 body {
+  overflow: hidden;
   background-color: #232323;
   font-family: Helvetica, sans-serif;
   color: white;
