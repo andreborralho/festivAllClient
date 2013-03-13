@@ -13,7 +13,7 @@ window.addEventListener('load', init_festivals, false);
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
-		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorCB);
+		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorQueryCB);
 		}, errorCB);
 }
 
