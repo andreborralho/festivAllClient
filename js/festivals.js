@@ -8,7 +8,7 @@ function init_festivals() {
 		preventDefaults:false
 	});
 }
-window.addEventListener('load', init_festivals, false);
+//window.addEventListener('load', init_festivals, false);
 
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
@@ -45,6 +45,6 @@ function queryFestivalsSuccess(tx, results) {
             createFestivalContainer(this.id.replace("festival_", ""));
         });
     }
-
+    init_festivals();
 
 }

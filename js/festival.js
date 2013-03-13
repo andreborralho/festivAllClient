@@ -53,7 +53,7 @@ function queryFestivalSuccess(tx, results) {
         createMapContainer(festival.map);
     });
 
-
+    $('#festival_days').text("");
     for (var i=0; i<festivals.length; i++){
         festival = festivals.item(i);
         $('#festival_days').append(festival.day_date +", ");

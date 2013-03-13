@@ -67,5 +67,7 @@ function queryFestivalShowsSuccess(tx, results) {
         });
 
         show_name_previous_letter = show_name_letter;
+
 	}
+    init_festival();
 }

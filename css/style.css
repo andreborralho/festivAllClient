@@ -233,6 +233,11 @@ a {
     height: 12%;
     border: 1px solid #FFFFFF;
 }
+.show_letter{
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    font-size: 15px;
+}
 /* classes estruturais*/
 
 /* classes do Festivals */
