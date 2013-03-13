@@ -15,6 +15,7 @@ function createShowContainer(show_id){
 
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM SHOWS WHERE ID='+show_id, [], queryShowSuccess, errorQueryCB);
+        tx.executeSql('SELECT * FROM VIDEOS WHERE SHOW_ID='+show_id, [], queryShowVideosSuccess, errorQueryCB);
     }, errorCB);
 }
 
