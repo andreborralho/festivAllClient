@@ -27,8 +27,9 @@ function createFestivalContainer(festival_id){
 // Success callback for the the query of one festival
 function queryFestivalSuccess(tx, results) {
 
-    var festival = results.rows.item(0);
     var festivals = results.rows;
+    var festival = results.rows.item(0);
+
 
     var festival_date = festival.day_date.toString();
 
