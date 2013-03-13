@@ -23,6 +23,6 @@ function createShowContainer(show_id){
 function queryShowSuccess(tx, results) {
 
     var show = results.rows.item(0);
-    $('#show_title').text(show.name);
+    $('.show_title').text(show.name);
 
 }

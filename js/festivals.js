@@ -8,13 +8,24 @@ function init_festivals() {
 		preventDefaults:false
 	});
 }
-window.addEventListener('load', init_festivals, false);
+//window.addEventListener('load', init_festivals, false);
 
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
 		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorQueryCB);
-		}, errorCB);
+    }, errorCB);
+
+    /*var init_scroller = function () {
+        $("#myscroller").scroller({
+            scrollBars: true,
+            verticalScroll: true,
+            horizontalScroll: false,
+            vScrollCSS: "jqmScrollbar",
+            hScrollCSS: "jqmScrollbar"
+        });
+    };
+    window.addEventListener("load", init_scroller, false);*/
 }
 
 // Callback for the festivals query
@@ -35,6 +46,6 @@ function queryFestivalsSuccess(tx, results) {
             createFestivalContainer(this.id.replace("festival_", ""));
         });
     }
-
+    init_festivals();
 
 }

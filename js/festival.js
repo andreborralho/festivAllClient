@@ -10,7 +10,7 @@ function init_festival() {
 
 // Queries the local Database for a festival
 function createFestivalContainer(festival_id){
-    init_festival();
+    //init_festival();
 
     db.transaction(function (tx) {
         tx.executeSql('SELECT FESTIVALS.*, DAYS.DATE AS day_date ' +
@@ -63,7 +63,7 @@ function queryFestivalSuccess(tx, results) {
         createMapContainer(festival.map);
     });
 
-
+    $('#festival_days').text("");
     for (var i=0; i<festivals.length; i++){
         festival = festivals.item(i);
         $('#festival_days').append(festival.day_date +", ");

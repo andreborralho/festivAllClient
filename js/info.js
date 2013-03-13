@@ -21,6 +21,9 @@ function createInfoContainer(festival_id){
 function queryInfoSuccess(tx, results) {
 
     var festival = results.rows.item(0);
-    $('#tickets_page').append(festival.tickets);
-    $('#transports_page').append(festival.transports);
+
+    $('#tickets_page').text(festival.tickets);
+    $('#tickets_page').text().replace(/\r\n/g, "<br>");
+    $('#transports_page').text(festival.transports);
+    //$('#transports_page').value.replace(/\n/g, "<br />");
 }
