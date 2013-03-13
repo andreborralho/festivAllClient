@@ -1,17 +1,16 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
-window.addEventListener("load", initDisplays, false); 
+window.addEventListener("load", initDisplays, false);
 
 // Set the visibility for the current app page
 function initDisplays(){
-	$('[data-role="container"]').css('display', 'none');
-	$('#festivals').css('display', 'block');
+    $('[data-role="container"]').css('display', 'none');
+    $('#festivals').css('display', 'block');
 }
 
 function changeContainers(page){
-	$('[data-role="container"]').css('display', 'none');
-
-	$(page).css('display', 'block');
+    $('[data-role="container"]').css('display', 'none');
+    $(page).css('display', 'block');
 }
 
 // Cordova is ready
@@ -24,9 +23,8 @@ function onDeviceReady() {
         dataType:"html",
         success:function (changes) {
             if(localStorage["firstRun"] == undefined){
-                db.transaction(populateDB, errorCB, successCB);
+                db.transaction(populateDB, errorCB, successCreateDBCB);
                 localStorage.setItem("firstRun", false);
-				//window.FestivallToaster.showMessage('Database Created!');
             }
             else if(localStorage["firstRun"] == "false"){
                 window.FestivallToaster.showMessage('Syncing...');
@@ -36,39 +34,41 @@ function onDeviceReady() {
             }
         },
         error: function(model, response) {
+            createFestivalsContainer();
             window.FestivallToaster.showMessage("No internet connection!");
         }
     });
-
-	// Create de app pages container
-    createFestivalsContainer();
 }
-
+// Callback for create db transaction
+function successCreateDBCB(){
+    window.FestivallToaster.showMessage('Database Created!');
+}
 
 
 // Get the last synchronization date
 function getLastSync(callback) {
     db.transaction(
         function(tx) {
-            var sql = "SELECT MAX(lastSync) as lastSync FROM("  
-					+ "SELECT MAX(updated_at) as lastSync FROM FESTIVALS UNION ALL " 
-					+ "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
-					+ "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
-					//+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
-					+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
-					+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
-					+ "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
-					//+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
-					+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
-                    + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-					+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+            var sql = "SELECT MAX(lastSync) as lastSync FROM("
+                + "SELECT MAX(updated_at) as lastSync FROM FESTIVALS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
             tx.executeSql(sql, [],
                 function(tx, results) {
+
                     var lastSync = results.rows.item(0).lastSync;
                     //alert("last synchronization date : " + lastSync);
                     callback(lastSync);
-                }, errorCB);
-        }
+                }, errorQueryCB);
+        }, errorCB
     );
 }
 
@@ -126,13 +126,13 @@ function populateDB(tx) {
         'day_id INTEGER, photo VARCHAR(255), description TEXT(1024), time TIME, updated_at DATETIME)');
     tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
+    //tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE NOTIFICATIONS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, text TEXT(1024), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
+    //tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
-    tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), url VARCHAR(255), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, url VARCHAR(255), updated_at DATETIME)');
 
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
@@ -196,14 +196,14 @@ function insertData(data){
             });
         }
         /*
-        else if(k=='notifications'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO NOTIFICATIONS (id, festival_id, text, updated_at) VALUES (' + l.id +
-                        ', ' + l.festival_id + ', "' + l.text + '", "' + l.updated_at + '")');	}, errorCB, successCB);
-            });
-        }*/
+         else if(k=='notifications'){
+         $.each(v, function(i, l){
+         db.transaction(function(tx){
+         console.log("Inserting in " + k);
+         tx.executeSql('INSERT OR REPLACE INTO NOTIFICATIONS (id, festival_id, text, updated_at) VALUES (' + l.id +
+         ', ' + l.festival_id + ', "' + l.text + '", "' + l.updated_at + '")');	}, errorCB, successCB);
+         });
+         }*/
         /*
          else if(k=='photos'){
          $.each(v, function(i, l){
@@ -214,7 +214,7 @@ function insertData(data){
          });
          }
          */
-        else if(k=='galleries'){
+        /*else if(k=='galleries'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     //console.log("Inserting in " + k);
@@ -223,7 +223,7 @@ function insertData(data){
                 }, errorCB, successCB);
             });
 
-        }
+        }*/
 
         else if(k=='shows'){
             $.each(v, function(i, l){
@@ -240,9 +240,9 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     //console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO VIDEOS (id, name, url, show_id, updated_at) VALUES (' + l.id +
-                        ', "' + l.name + '", "' + l.url + '", ' + l.show_id + ', "' + l.updated_at + '")');
-                    }, errorCB, successCB);
+                    tx.executeSql('INSERT OR REPLACE INTO VIDEOS (id, name, show_id, url, updated_at) VALUES (' + l.id +
+                        ', "' + l.name + '", ' + l.show_id + ', "' + l.url + '", "' + l.updated_at + '")');
+                }, errorCB, successCB);
             });
         }
 
@@ -250,19 +250,18 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Deleting from " + k);
-                    //alert('DELETE FROM ' + l.table.toString().toUpperCase() + ' WHERE id=' + l.element );
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 }, errorCB, successCB);
             });
         }
-        createFestivalsContainer();
-        window.FestivallToaster.showMessage('Database Created!');
     });
+    //Create festivals container after insertions
+    createFestivalsContainer();
 }
 
 // Transaction success callback
-function successCB(err) {
-    //console.log("Transaction Success: " + err);
+function successCB() {
+    console.log("Transaction Success: ");
 }
 
 // Transaction error callback
@@ -271,3 +270,8 @@ function errorCB(err) {
     console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
+function errorQueryCB(tx, err){
+    alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
+    console.log("Error processing SQL query: " + err.code + " : " + err.message);
+
+}
