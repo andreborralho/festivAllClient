@@ -152,7 +152,8 @@ table {
 -------------------------------------------------------------------------- */
 
 body {
-  background-color: #232323;
+  overflow: hidden;
+  background: url(../img/bg.png);
   font-family: Helvetica, sans-serif;
   color: white;
   line-height: 1.2em;
@@ -162,6 +163,13 @@ a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-focus-ring-color: transparent;
+}
+.heading1 {
+  font-size: 1.3125em;
+  font-weight: normal;
+}
+.content_list {
+  margin: 15px 0;
 }
 .input_wrap {
   position: relative;
@@ -196,7 +204,8 @@ a {
 .swipe_bar {
   position: relative;
   padding: 10px;
-  background-color: #373737;
+  background-color: #b43a34;
+  box-shadow: 0 5px 15px 1px #555555;
   text-align: center;
 }
 .swipe_bar .not_current {
@@ -214,7 +223,7 @@ a {
   min-height: 60px;
   border-bottom: 1px solid #373737;
 }
-.list .band-name {
+.list .band_name {
   text-transform: uppercase;
   font-weight: normal;
 }
@@ -226,17 +235,6 @@ a {
   width: 33.33%;
   padding: 12px;
   border: 1px solid #dbdbdb;
-}
-.festival_page_button{
-    float: left;
-    width: 49%;
-    height: 12%;
-    border: 1px solid #FFFFFF;
-}
-.show_letter{
-    border-top: 1px solid #ffffff;
-    border-bottom: 1px solid #ffffff;
-    font-size: 15px;
 }
 /* classes estruturais*/
 
