@@ -22,8 +22,8 @@ function queryInfoSuccess(tx, results) {
 
     var festival = results.rows.item(0);
 
-    $('#tickets_page').text(festival.tickets);
-    $('#tickets_page').text().replace(/\r\n/g, "<br>");
+    $('#tickets_page').html(festival.tickets);
+    $('#tickets_page').html().replace(/\r\n/g, "<br>");
     $('#transports_page').text(festival.transports);
     //$('#transports_page').value.replace(/\n/g, "<br />");
 }
