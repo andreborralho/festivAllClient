@@ -252,6 +252,15 @@ function insertData(data){
                     console.log("Deleting from " + k);
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 }, errorCB, successCB);
+                //Updates de timestamp of 'a' festival with the date of the most recent synchronization
+                db.transaction(function(tx){
+                    tx.executeSql('SELECT * FROM FESTIVALS', [], function(tx, results){
+                        var festival_id = results.rows.item(0);
+                        db.transaction(function(tx){
+                            tx.executeSql('UPDATE updated_at FROM FESTIVALS WHERE id=' + festival_id);
+                        }, errorCB, successCB);
+                    }, errorQueryCB );
+                }, errorCB);
             });
         }
     });
