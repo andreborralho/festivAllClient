@@ -254,6 +254,7 @@ function insertData(data){
                 }, errorCB, successCB);
                 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
                 db.transaction(function(tx){
+                    console.log("Updating updated_at");
                     tx.executeSql('SELECT * FROM FESTIVALS', [], function(tx, results){
                         var festival_id = results.rows.item(0);
                         db.transaction(function(tx){

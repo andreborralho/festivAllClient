@@ -3,7 +3,7 @@
 
 // Inits carousel for show_container
 var show_carousel;
-function initShow() {
+function initShowCarousel() {
 	show_carousel=$("#show_carousel").carousel({
 		preventDefaults:false
 	});				
@@ -17,6 +17,8 @@ function createShowContainer(show_id){
         tx.executeSql('SELECT * FROM SHOWS WHERE ID='+show_id, [], queryShowSuccess, errorQueryCB);
         tx.executeSql('SELECT * FROM VIDEOS WHERE SHOW_ID='+show_id, [], queryShowVideosSuccess, errorQueryCB);
     }, errorCB);
+    initShowCarousel();
+
 }
 
 // Success callback for the the query of one festival

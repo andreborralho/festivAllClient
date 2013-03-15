@@ -2,7 +2,7 @@
 
 // Inits carousel for festival_container
 var festival_carousel;
-function init_festival() {
+function initFestival() {
     festival_carousel=$('#festival_carousel').carousel({
         preventDefaults:false
     });
@@ -35,15 +35,14 @@ function queryFestivalSuccess(tx, results) {
 
     var festival_date = festival.day_date.toString();
 
-        festival_date = festival_date.replace(/-/g,'/');
+     festival_date = festival_date.replace(/-/g,'/');
 
-        var curr_date = new Date();
+    var curr_date = new Date();
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
-    var days_left =  new Date();
-    days_left.setTime(diff);
-    
-        alert("days left : " + days_left.getUTCDate());
+
+    var dhms = dhm(diff).toString();
+
 
     $('.festival_title').text(festival.name);
 
@@ -51,7 +50,7 @@ function queryFestivalSuccess(tx, results) {
         changeContainers("#festivals");
     });
 
-    $('#festival_countdown').text(days_left.getUTCDate() + 'days left!');
+    $('#festival_countdown').text(dhms.split(':')[0] + 'days left!');
 
 
     $('#festival_countdown').text();
@@ -73,4 +72,13 @@ function queryFestivalSuccess(tx, results) {
         $('#festival_days').append(festival.day_date +", ");
 
     }
+}
+
+function dhm(t){
+    var cd = 24 * 60 * 60 * 1000,
+        ch = 60 * 60 * 1000,
+        d = Math.floor(t / cd),
+        h = '0' + Math.floor( (t - d * cd) / ch),
+        m = '0' + Math.round( (t - d * cd - h * ch) / 60000);
+    return [d, h.substr(-2), m.substr(-2)].join(':');
 }
