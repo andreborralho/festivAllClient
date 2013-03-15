@@ -26,8 +26,10 @@ function queryShowSuccess(tx, results) {
     $('.show_title').text(show.name);
     $('.show_title').bind('click', function(){
         changeContainers("#festival");
+        //createFestivalContainer(this.id.replace("festival_", ""));
     });
 
     $('#show_photo').html('<img src="' + show.photo + '">');
-    $('#show_description').text(show.description);
+    $('#show_description').html(show.description);
+    initShow();
 }

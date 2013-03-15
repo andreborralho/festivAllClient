@@ -2,7 +2,7 @@
 
 // Inits carousel for festival_container
 var festival_carousel;
-function init_festival() {
+function initFestival() {
     festival_carousel=$('#festival_carousel').carousel({
         preventDefaults:false
     });
@@ -10,7 +10,6 @@ function init_festival() {
 
 // Queries the local Database for a festival
 function createFestivalContainer(festival_id){
-    //init_festival();
 
     db.transaction(function (tx) {
         tx.executeSql('SELECT FESTIVALS.*, DAYS.DATE AS day_date ' +
@@ -37,13 +36,12 @@ function queryFestivalSuccess(tx, results) {
 
         festival_date = festival_date.replace(/-/g,'/');
 
-        var curr_date = new Date();
+    var curr_date = new Date();
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
     var days_left =  new Date();
     days_left.setTime(diff);
-    
-        alert("days left : " + days_left.getUTCDate());
+
 
     $('.festival_title').text(festival.name);
 
@@ -53,8 +51,6 @@ function queryFestivalSuccess(tx, results) {
 
     $('#festival_countdown').text(days_left.getUTCDate() + 'days left!');
 
-
-    $('#festival_countdown').text();
     $('#festival_city').text(festival.city);
 
     $('#info_button').bind('click', function(){
@@ -68,7 +64,7 @@ function queryFestivalSuccess(tx, results) {
     });
 
     $('#festival_days').text("");
-    for (var i=0; i<festivals.length; i++){
+    for(var i=0; i<festivals.length; i++){
         festival = festivals.item(i);
         $('#festival_days').append(festival.day_date +", ");
 
