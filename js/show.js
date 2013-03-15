@@ -11,7 +11,7 @@ function initShow() {
 
 // Queries the local Database for a show
 function createShowContainer(show_id){
-    initShow();
+    //initShow();
 
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM SHOWS WHERE ID='+show_id, [], queryShowSuccess, errorQueryCB);
@@ -24,5 +24,10 @@ function queryShowSuccess(tx, results) {
 
     var show = results.rows.item(0);
     $('.show_title').text(show.name);
+    $('.show_title').bind('click', function(){
+        changeContainers("#festival");
+    });
 
+    $('#show_photo').html('<img src="' + show.photo + '">');
+    $('#show_description').text(show.description);
 }

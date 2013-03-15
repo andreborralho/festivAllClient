@@ -8,14 +8,13 @@ function init_festivals() {
 		preventDefaults:false
 	});
 }
-//window.addEventListener('load', init_festivals, false);
+window.addEventListener('load', init_festivals, false);
 
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
 		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorQueryCB);
     }, errorCB);
-
     /*var init_scroller = function () {
         $("#myscroller").scroller({
             scrollBars: true,

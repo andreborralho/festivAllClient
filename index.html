@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v3">
     <style>
     a { /* Prevent less to complie rgba(0, 0, 0, 0) to transparent*/
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -22,7 +23,8 @@
         <header class="header row" data-role="header">
             <div class="column">
                 <a href="#">
-                    <h1 id="logo"><span class="ir"></span>Festivall</h1>
+                    <span class="ir icon_logo"></span>
+                    <h1 class="heading1">FestivAll</h1>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -48,7 +50,15 @@
 
             <!-- First-Page -->
             <div id="festivals_page" data-role="page">
-                <ul id="festivals_buttons" class="festival_list padded"></ul>
+                <ul id="festivals_buttons" class="festival_list padded">
+                <!--
+                    <li class="item">
+                        <a href="#">
+                            <img src="img/demo-festival.png">
+                        </a>
+                    </li>
+                -->
+                </ul>
             </div>
 
             <!-- Second-Page -->
@@ -68,7 +78,7 @@
                             </time>
                         </div>
                         <div class="column">
-                            <h2 class="band-name">Rihanna</h2>
+                            <h3 class="band_name">Rihanna</h3>
                             <p>Rock In Rio</p>
                         </div>
                         <div class="column fixed bdr_l">
@@ -83,7 +93,7 @@
                             </time>
                         </div>
                         <div class="column">
-                            <h2 class="band-name">Red Hot Chilli Peppers</h2>
+                            <h3 class="band_name">Red Hot Chilli Peppers</h3>
                             <p>Rock In Rio</p>
                         </div>
                         <div class="column fixed bdr_l">
@@ -98,7 +108,7 @@
                             </time>
                         </div>
                         <div class="column">
-                            <h2 class="band-name">Pearl Jam</h2>
+                            <h3 class="band_name">Pearl Jam</h3>
                             <p>Rock In Rio</p>
                         </div>
                         <div class="column fixed bdr_l">
@@ -119,10 +129,8 @@
         <header class="header row" data-role="header">
             <div class="column">
                 <a href="#">
-                    <h3>
-                        <span class="ir icon_arrow"></span>
-                        <span class="festival_title">{Nome_festival}</span>
-                    </h3>
+                    <span class="ir icon_arrow"></span>
+                    <h1 class="festival_title heading1">{Nome_festival}</h1>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -174,11 +182,9 @@
         <header class="header row" data-role="header">
             <div class="column">
                 <a href="#">
-                    <h3>
-                        <span class="ir icon_arrow"></span>
-                        <span class="festival_title">{Nome_festival}</span>
-                    </h3>
-                    <h4>Cartaz</h4>
+                    <span class="ir icon_arrow"></span>
+                    <h1 class="festival_title heading1">{Nome_festival}</h1>
+                    <h2 class="page_title heading2">Cartaz</h2>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -238,11 +244,9 @@
         <header class="header row" data-role="header">
             <div class="column">
                 <a href="#">
-                    <h3>
-                        <span class="ir icon_arrow"></span>
-                        <span class="festival_title">{Nome_Festival}</span>
-                    </h3>
-                    <h4>Info</h4>
+                    <span class="ir icon_arrow"></span>
+                    <h1 class="festival_title heading1">{Nome_festival}</h1>
+                    <h2 class="page_title heading2">Info</h2>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -290,11 +294,9 @@
         <header class="header row" data-role="header">
             <div class="column">
                 <a href="#">
-                    <h3>
-                        <span class="ir icon_arrow"></span>
-                        <span class="festival_title">{Nome_Festival}</span>
-                    </h3>
-                    <h4>Mapa</h4>
+                    <span class="ir icon_arrow"></span>
+                    <h1 class="festival_title heading1">{Nome_festival}</h1>
+                    <h2 class="page_title heading2">Mapa</h2>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -317,10 +319,8 @@
         <header class="header row" data-role="header">
             <div class="column">
                 <a href="#">
-                    <h3>
-                        <span class="ir icon_arrow"></span>
-                        <span class="show_title">{Título_Banda}</span>
-                    </h3>
+                    <span class="ir icon_arrow"></span>
+                    <h1 class="show_title heading1">{Título_Banda}</h1>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -349,6 +349,21 @@
         <!-- Carousel -->
         <div id="show_carousel" data-role="carousel">
             <div id="show_page" data-role="page">
+                <div id="show_photo">
+                    <img src="img/show450x240.jpg">
+                </div>
+                <div class="padded">
+                    <h3 class="heading3">{Pearl Jam}</h3>
+                    <ul class="content_list">
+                        <li id="show_festival">{Festival}</li>
+                        <li id="show_stage">{Palco}</li>
+                        <li>
+                            <span id="show_date">{1 Ago}</span> | 
+                            <span id="show_time">{19h00}</span>
+                        </li>
+                    </ul>
+                    <p class="content_text" id="show_description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa.</p>
+                </div>
             </div>
 
             <!--div id="band_photos_page" data-role="page">
