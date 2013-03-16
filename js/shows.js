@@ -61,6 +61,33 @@ function queryFestivalShowsSuccess(tx, results) {
             '<div class="show_entry_stage">' +show.stage_name+'</div>' +
             '<div class="show_entry_stage">' +show.day_date.slice(8,10) + " " + month +' | ' + show.time.slice(11,16) +'</div>');
 
+
+        $('#shows_page_list').append('<li></li>');
+
+        if(show_name_letter != show_name_previous_letter)
+            $('#shows_page_list li').append(
+                '<header class="list_header"><span>' + show_name_letter + '</span></header>' +
+                '<ul class="list">' +
+                    '<li id="#show_' + show_id + '" class="row">' +
+                    '</li>' +
+                '</ul>'
+            );
+
+        $('#show_'+show_id).append(
+            '<div class="column fixed bdr_r">' +
+                '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
+                '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
+            '</div>' +
+            '<div class="column">' +
+                '<h3 class="band_name">' + show.name + '</h3>' +
+                '<p class="stage_name">' + show.stage_name + '</p>' +
+            '</div>'/* +
+            '<div class="column fixed bdr_l">' +
+                '<span>%</span>' +
+            '</div>'*/
+        );
+
+
         $('#show_'+show_id).bind('click', function(){
             changeContainers("#show");
             createShowContainer(this.id.replace("show_", ""));

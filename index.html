@@ -142,13 +142,13 @@
         <nav class="swipe_bar" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a class="not_current prev hidden" href="#">Menu</a>
+                    <a class="not_current hidden" href="#">Menu</a>
                 </li>
                 <li>
-                    <a href="#">Festivais</a>
+                    <a href="#">Festival</a>
                 </li>
                 <li>
-                    <a class="not_current next" href="#">Pesquisa</a>
+                    <a class="not_current next" href="#">Artistas</a>
                 </li>
             </ul>
         </nav>
@@ -156,7 +156,7 @@
         <!-- Pages wrap -->
         <div id="festival_carousel" data-role="carousel">
 
-            <div id="festival_page" data-role="page">
+            <div id="festival_page" class="hidden" data-role="page">
                 <div id="festival_countdown">
                     <p>25 dias</p>
                 </div>
@@ -167,13 +167,35 @@
                 <div id="info_button" class="festival_page_button" >Info</div>
             </div>
 
+            <!-- Artistas A-Z -->
             <div id="shows_page" data-role="page">
+
+                <!--
+                <ul id="shows_page_list">
+                    <li>
+                        <header class="list_header">
+                            <span class="show_letter">B</span>
+                        </header>
+                        <ul class="list" data-role="list">
+                            <li class="row">
+                                <div class="column fixed bdr_r">
+                                    <span class="show_date">7 Ago</span>
+                                    <span class="show_time">14h00</span>
+                                </div>
+                                <div class="column">
+                                    <h3 class="band_name">Rihanna</h3>
+                                    <p class="stage_name">Palco Coiso</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                -->
+
             </div>
 
         </div>
     </div>
-
-
 
     <!-- ============================== LINEUP (cartaz) ===================================== -->
     <div id="lineup" data-role="container">
@@ -348,8 +370,36 @@
 
         <!-- Carousel -->
         <div id="show_carousel" data-role="carousel">
+
             <div id="band_videos_page" data-role="page">
+                <ul class="list">
+                    <li class="row">
+                        <a href="#">
+                            <div class="column fixed">
+                                <span class="icon_videoplay"></span>
+                                <img class="video_preview" src="img/video_preview.jpg">
+                            </div>
+                            <div class="column valign_top">
+                                <h3 class="video_name">{Nome do vídeo}</h3>
+                                <p class="video_description p_small">{Lorem ipsum dolor sit amet, consectetuer adipiscing elit.}</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="row">
+                        <a href="#">
+                            <div class="column fixed">
+                                <span class="icon_videoplay"></span>
+                                <img class="video_preview" src="img/video_preview.jpg">
+                            </div>
+                            <div class="column valign_top">
+                                <h3 class="video_name">{Nome do vídeo}</h3>
+                                <p class="video_description p_small">{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam enim leo, egestas id, condimentum at.}</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
+
             <div id="show_page" data-role="page">
                 <div id="show_photo">
                     <img src="img/show450x240.jpg">
@@ -366,7 +416,7 @@
                 </div>
             </div>
 
-            <!--div id="band_photos_page" data-role="page">
+            <!--div id="show_photos_page" data-role="page">
             </div-->
 
             <!--div id="show_comments_page" data-role="page">
