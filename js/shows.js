@@ -14,44 +14,7 @@ function queryFestivalShowsSuccess(tx, results) {
         numeric_month = show.day_date.slice(5,7);
         show_name_letter = show.name.slice(0,1);
 
-        switch(numeric_month){
-            case "01":
-                month = "January";
-                break;
-            case "02":
-                month = "February";
-                break;
-            case "03":
-                month = "March";
-                break;
-            case "04":
-                month = "April";
-                break;
-            case "05":
-                month = "May";
-                break;
-            case "06":
-                month = "June";
-                break;
-            case "07":
-                month = "July";
-                break;
-            case "08":
-                month = "August";
-                break;
-            case "09":
-                month = "September";
-                break;
-            case "10":
-                month = "October";
-                break;
-            case "11":
-                month = "November";
-                break;
-            case "12":
-                month = "December";
-                break;
-        }
+        month = changeNumberToMonth(numeric_month);
 
         if(show_name_letter != show_name_previous_letter)
             $('#shows_page').append('<div class="show_letter">' + show_name_letter + '</div>');
@@ -70,4 +33,48 @@ function queryFestivalShowsSuccess(tx, results) {
 
 	}
     initFestival();
+}
+
+
+function changeNumberToMonth(numeric_month){
+    var month;
+    switch(numeric_month){
+        case "01":
+            month = "Janeiro";
+            break;
+        case "02":
+            month = "Fevereiro";
+            break;
+        case "03":
+            month = "Março";
+            break;
+        case "04":
+            month = "Abril";
+            break;
+        case "05":
+            month = "Maio";
+            break;
+        case "06":
+            month = "Junho";
+            break;
+        case "07":
+            month = "Julho";
+            break;
+        case "08":
+            month = "Agosto";
+            break;
+        case "09":
+            month = "Setembro";
+            break;
+        case "10":
+            month = "Outubro";
+            break;
+        case "11":
+            month = "Novembro";
+            break;
+        case "12":
+            month = "Dezembro";
+            break;
+    }
+    return month;
 }

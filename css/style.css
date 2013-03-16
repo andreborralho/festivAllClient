@@ -246,6 +246,23 @@ a {
     max-width: 250% !important;
     width: 250%;
 }
+
+.weather_entry{
+    width: 100%;
+    border-bottom: 1px solid #373737;
+}
+.weather_text{
+    width: 70%;
+}
+.weather_img{
+    width: 29%;
+}
+
+.weather_date, .weather_description, .weather_temperature{
+    width: 100%;
+}
+
+
 /* classes estruturais*/
 
 /* classes do Festivals */
