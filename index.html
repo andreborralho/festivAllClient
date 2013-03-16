@@ -123,8 +123,8 @@
     </div>
 
 
-    <!-- ============================== FESTIVAL - single ===================================== -->
-    <div id="festival" data-role="container">
+    <!-- ============================== FESTIVAL - before- single ===================================== -->
+    <div id="before_festival" data-role="container">
         <!-- header -->
         <header class="header row" data-role="header">
             <div class="column">
@@ -142,59 +142,81 @@
         <nav class="swipe_bar" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a class="not_current hidden" href="#">Menu</a>
+                    <a class="not_current prev hidden" href="#">Menu</a>
                 </li>
                 <li>
-                    <a href="#">Festival</a>
+                    <a href="#">Festivais</a>
                 </li>
                 <li>
-                    <a class="not_current next" href="#">Artistas</a>
+                    <a class="not_current next" href="#">Pesquisa</a>
                 </li>
             </ul>
         </nav>
 
         <!-- Pages wrap -->
-        <div id="festival_carousel" data-role="carousel">
+        <div id="before_festival_carousel" data-role="carousel">
 
-            <div id="festival_page" data-role="page">
+            <div id="before_festival_page" data-role="page">
                 <div id="festival_countdown">
-                    <!--<p>25 dias</p>-->
+                    <p>25 dias</p>
                 </div>
                 <div id="festival_days"></div>
                 <div id="festival_city"></div>
-                <div id="lineup_button" class="festival_page_button">Cartaz</div>
-                <div id="map_button" class="festival_page_button">Mapa</div>
-                <div id="info_button" class="festival_page_button" >Informação</div>
+                <div id="lineup_button" class="festival_page_button">Lineup</div>
+                <div id="map_button" class="festival_page_button">Map</div>
+                <div id="info_button" class="festival_page_button" >Info</div>
             </div>
 
-            <!-- Artistas A-Z -->
             <div id="shows_page" data-role="page">
-
-                <ul id="shows_page_list">
-                    <!--
-                    <li>
-                        <header class="list_header">
-                            <span class="show_letter">B</span>
-                        </header>
-                        <ul class="list" data-role="list">
-                            <li class="row">
-                                <div class="column fixed bdr_r">
-                                    <span class="show_date">7 Ago</span>
-                                    <span class="show_time">14h00</span>
-                                </div>
-                                <div class="column">
-                                    <h3 class="band_name">Rihanna</h3>
-                                    <p class="stage_name">Palco Coiso</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    -->
-                </ul>
-
             </div>
 
         </div>
+    </div>
+
+    <!-- ============================== FESTIVAL - during - single ===================================== -->
+
+    <div id="during_festival" data-role="container">
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <span class="ir icon_arrow"></span>
+                    <h1 class="festival_title heading1">{Nome_festival}</h1>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <!-- Pages wrap -->
+
+        <div id="during_festival_page" data-role="page">
+        </div>
+
+    </div>
+
+    <!-- ============================== FESTIVAL - during - single ===================================== -->
+
+    <div id="after_festival" data-role="container">
+        <!-- header -->
+        <header class="header row" data-role="header">
+            <div class="column">
+                <a href="#">
+                    <span class="ir icon_arrow"></span>
+                    <h1 class="festival_title heading1">{Nome_festival}</h1>
+                </a>
+            </div>
+            <div class="column fixed centered bdr_l">
+                <a href="#" class="icon-menu"><h1>=</h1></a>
+            </div>
+        </header>
+
+        <!-- Pages wrap -->
+
+        <div id="after_festival_page" data-role="page">
+        </div>
+
     </div>
 
     <!-- ============================== LINEUP (cartaz) ===================================== -->
@@ -268,7 +290,7 @@
                 <a href="#">
                     <span class="ir icon_arrow"></span>
                     <h1 class="festival_title heading1">{Nome_festival}</h1>
-                    <h3 class="page_title heading2">Info</h3>
+                    <h2 class="page_title heading2">Info</h2>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -296,73 +318,13 @@
 
         <!-- Carousel -->
         <div id="info_carousel" data-role="carousel">
-
-
-            <div id="weather_page" data-role="page">
-                <div id="weather_current" class="weather_entry">
-                    <div id="weather_text_current" class="weather_text">
-                        <div id="weather_temperature_current" class="weather_temperature"></div>
-                        <div id="weather_description_current" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img_current" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day1" class="weather_entry">
-                    <div id="weather_text1" class="weather_text">
-                        <div id="weather_date1" class="weather_date"></div>
-                        <div class="weather_temperature">
-                            <span id="weather_max_temperature1"></span>
-                            <span id="weather_min_temperature1"></span>
-                        </div>
-                        <div id="weather_description1" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img1" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day2" class="weather_entry">
-                    <div id="weather_text2" class="weather_text">
-                        <div id="weather_date2" class="weather_date"></div>
-                        <div id="weather_max_temperature2" class="weather_temperature"></div>
-                        <div id="weather_min_temperature2" class="weather_temperature"></div>
-                        <div id="weather_description2" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img2" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day3" class="weather_entry">
-                    <div id="weather_text3" class="weather_text">
-                        <div id="weather_date3" class="weather_date"></div>
-                        <div id="weather_max_temperature3" class="weather_temperature"></div>
-                        <div id="weather_min_temperature3" class="weather_temperature"></div>
-                        <div id="weather_description3" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img3" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day4" class="weather_entry">
-                    <div id="weather_text4" class="weather_text">
-                        <div id="weather_date4" class="weather_date"></div>
-                        <div id="weather_max_temperature4" class="weather_temperature"></div>
-                        <div id="weather_min_temperature4" class="weather_temperature"></div>
-                        <div id="weather_description4" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img4" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day5" class="weather_entry">
-                    <div id="weather_text5" class="weather_text">
-                        <div id="weather_date5" class="weather_date"></div>
-                        <div id="weather_max_temperature5" class="weather_temperature"></div>
-                        <div id="weather_min_temperature5" class="weather_temperature"></div>
-                        <div id="weather_description5" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img5" class="weather_img"></div>
-                </div>
-            </div>
             <div id="tickets_page" data-role="page">
             </div>
 
             <div id="transports_page" data-role="page">
+            </div>
+
+            <div id="weather_page" data-role="page">
             </div>
         </div>
 
@@ -430,36 +392,8 @@
 
         <!-- Carousel -->
         <div id="show_carousel" data-role="carousel">
-
             <div id="band_videos_page" data-role="page">
-                <ul class="list">
-                    <li class="row">
-                        <a href="#">
-                            <div class="column fixed">
-                                <span class="icon_videoplay"></span>
-                                <img class="video_preview" src="img/video_preview.jpg">
-                            </div>
-                            <div class="column valign_top">
-                                <h3 class="video_name">{Nome do vídeo}</h3>
-                                <p class="video_description p_small">{Lorem ipsum dolor sit amet, consectetuer adipiscing elit.}</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="row">
-                        <a href="#">
-                            <div class="column fixed">
-                                <span class="icon_videoplay"></span>
-                                <img class="video_preview" src="img/video_preview.jpg">
-                            </div>
-                            <div class="column valign_top">
-                                <h3 class="video_name">{Nome do vídeo}</h3>
-                                <p class="video_description p_small">{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam enim leo, egestas id, condimentum at.}</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
             </div>
-
             <div id="show_page" data-role="page">
                 <div id="show_photo">
                     <img src="img/show450x240.jpg">
@@ -476,7 +410,7 @@
                 </div>
             </div>
 
-            <!--div id="show_photos_page" data-role="page">
+            <!--div id="band_photos_page" data-role="page">
             </div-->
 
             <!--div id="show_comments_page" data-role="page">

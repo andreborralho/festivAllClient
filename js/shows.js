@@ -59,7 +59,8 @@ function queryFestivalShowsSuccess(tx, results) {
         show_name_previous_letter = show_name_letter;
 
 	}
-    initFestival();
+    //inits the before_festival_carousel
+    $('#before_festival_carousel').carousel({preventDefaults:false});
 }
 
 

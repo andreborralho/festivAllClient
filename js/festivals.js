@@ -41,7 +41,6 @@ function queryFestivalsSuccess(tx, results) {
 
         $('#festival_'+festival_id).bind('click', function(){
 
-			changeContainers("#festival");
             createFestivalContainer(this.id.replace("festival_", ""));
         });
     }

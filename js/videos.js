@@ -22,6 +22,6 @@ function queryShowVideosSuccess(tx, results){
         //$('.video_name').text(video_name);
         //$('video_description').text(video_description);
     }
-    initShow();
+    //initShow();
 
 }
