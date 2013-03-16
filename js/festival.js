@@ -28,13 +28,8 @@ function queryFestivalSuccess(tx, results) {
 
     var festival = results.rows.item(0);
     var festivals = results.rows;
-    var festival_first_day = festival.day_date;
-
-    var current_date = new Date().toDateString();
-
     var festival_date = festival.day_date.toString();
-
-     festival_date = festival_date.replace(/-/g,'/');
+    festival_date = festival_date.replace(/-/g,'/');
 
     var curr_date = new Date();
     var first_day_date = new Date(festival_date);
@@ -50,12 +45,13 @@ function queryFestivalSuccess(tx, results) {
         changeContainers("#festivals");
     });
 
-    $('#festival_countdown').text(dhms.split(':')[0] + 'days left!');
+    $('#festival_countdown').text("Faltam " + dhms.split(':')[0] + " dias!");
 
-    $('#festival_city').text(festival.city);
+    $('#festival_city').text("Local: " + festival.city);
 
     $('#info_button').bind('click', function(){
         changeContainers("#info");
+        $('#info_button').unbind();
         createInfoContainer(festival.id);
     });
 
@@ -64,11 +60,41 @@ function queryFestivalSuccess(tx, results) {
         createMapContainer(festival.map);
     });
 
-    $('#festival_days').text("");
+    $('#festival_days').empty();
+    var festival_day, festival_day_first_number, festival_day_second_number,
+        festival_month, numeric_month, next_numeric_month, festival_next_month;
+
     for(var i=0; i<festivals.length; i++){
         festival = festivals.item(i);
-        $('#festival_days').append(festival.day_date +", ");
 
+        festival_day = festival.day_date.slice(8,10);
+        festival_day_first_number = festival_day.slice(0,1).replace("0", "");
+        festival_day_second_number = festival_day.slice(1,2);
+        festival_day = festival_day_first_number + festival_day_second_number;
+
+        numeric_month = festival.day_date.slice(5,7);
+        festival_month = changeNumberToMonth(numeric_month);
+
+        if(i < festivals.length - 2){
+            next_numeric_month = festivals.item(i+1).day_date.slice(5,7);
+            festival_next_month = changeNumberToMonth(next_numeric_month);
+
+            if(festival_month == festival_next_month)
+                $('#festival_days').append(festival_day +", ");
+            else
+                $('#festival_days').append(festival_day + " de " + festival_month);
+        }
+        else if(i == festivals.length - 2){
+            next_numeric_month = festivals.item(i+1).day_date.slice(5,7);
+            festival_next_month = changeNumberToMonth(next_numeric_month);
+
+            if(festival_month == festival_next_month)
+                $('#festival_days').append(festival_day);
+            else
+                $('#festival_days').append(festival_day + " de " + festival_month);
+        }
+        else
+            $('#festival_days').append(" e " + festival_day + " de " + festival_month);
     }
 }
 
