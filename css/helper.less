@@ -39,6 +39,11 @@
     text-align: center;
 }
 
+
+.valign_top {
+    vertical-align: top !important;
+}
+
 // Border Right, Left
 .bdr_r {
     border-right: 1px solid @grey;
@@ -97,16 +102,20 @@
 /* Grid Table
 ------------------------------------------------------------------------ */
 .row {
+    position: relative;
     display: table;
     width: 100%;
 }
 .column {
     display: table-cell;
-    .padded;
+    //.padded;
     vertical-align: middle;
     &.fixed {
         width: 60px;
         text-align: center;
+    }
+    &:not(.fixed) {
+        .padded;
     }
 }
 

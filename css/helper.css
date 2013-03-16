@@ -23,6 +23,9 @@
 .centered {
   text-align: center;
 }
+.valign_top {
+  vertical-align: top !important;
+}
 .bdr_r {
   border-right: 1px solid #373737;
 }
@@ -76,15 +79,18 @@
 ------------------------------------------------------------------------ */
 
 .row {
+  position: relative;
   display: table;
   width: 100%;
 }
 .column {
   display: table-cell;
-  padding: 10px;
   vertical-align: middle;
 }
 .column.fixed {
   width: 60px;
   text-align: center;
+}
+.column:not(.fixed) {
+  padding: 10px;
 }

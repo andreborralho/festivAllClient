@@ -83,6 +83,9 @@ table {
 .centered {
   text-align: center;
 }
+.valign_top {
+  vertical-align: top !important;
+}
 .bdr_r {
   border-right: 1px solid #373737;
 }
@@ -136,24 +139,27 @@ table {
 ------------------------------------------------------------------------ */
 
 .row {
+  position: relative;
   display: table;
   width: 100%;
 }
 .column {
   display: table-cell;
-  padding: 10px;
   vertical-align: middle;
 }
 .column.fixed {
   width: 60px;
   text-align: center;
 }
+.column:not(.fixed) {
+  padding: 10px;
+}
 /* GLOBAL
 -------------------------------------------------------------------------- */
 
 body {
   overflow: hidden;
-  background: url(../img/bg.png);
+  background: url(../img/bg.png) #232323;
   font-family: Helvetica, sans-serif;
   color: white;
   line-height: 1.2em;
@@ -163,6 +169,10 @@ a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-focus-ring-color: transparent;
+}
+.p_small {
+  font-size: 0.875em;
+  line-height: 1.1em;
 }
 .heading1 {
   font-size: 1.3125em;
@@ -192,6 +202,19 @@ a {
   height: 50px;
   width: 60px;
 }
+.list .row {
+  min-height: 60px;
+  border-bottom: 1px solid #373737;
+}
+.list .band_name {
+  text-transform: uppercase;
+  font-weight: normal;
+}
+.list_header {
+  padding: 10px;
+  background-color: #b43a34;
+  color: white;
+}
 /* HEADER
 -------------------------------------------------------------------------- */
 
@@ -203,14 +226,15 @@ a {
 
 .swipe_bar {
   position: relative;
-  /*padding: 10px;*/
-  background-color: #b43a34;
-  box-shadow: 0 5px 15px 1px #555555;
+  padding: 6px;
+  background-color: #373737;
+  box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 .swipe_bar .not_current {
   position: absolute;
-  top: 10px;
+  top: 6px;
   color: #aaaaaa !important;
 }
 .swipe_bar .not_current.prev {
@@ -219,33 +243,48 @@ a {
 .swipe_bar .not_current.next {
   right: 1px;
 }
-.list .row {
-  min-height: 60px;
-  border-bottom: 1px solid #373737;
-}
-.list .band_name {
-  text-transform: uppercase;
-  font-weight: normal;
-}
 /* HOME
 -------------------------------------------------------------------------- */
 
 .festival_list .item {
   float: left;
-  width: 30%;
-  height: 19%;
-  /*border: 1px solid #dbdbdb;*/
-  margin: 1.8%;
+  width: 33.33%;
+  padding: 12px;
+  border: 1px solid #dbdbdb;
 }
-.festival_list .item img{
-    width: 100%;
-    height: 100%;
+#band_videos_page .column {
+  height: 80px;
+}
+#band_videos_page .column.fixed {
+  width: 100px;
+  position: relative;
+}
+.icon_videoplay {
+  position: absolute;
+  top: 30px;
+  left: 27px;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  background: url(../img/sprite.png) 0 -144px;
+}
 
+.weather_entry{
+    width: 100%;
+    border-bottom: 1px solid #373737;
 }
-#map_page img{
-    max-width: 250% !important;
-    width: 250%;
+.weather_text{
+    width: 70%;
 }
+.weather_img{
+    width: 29%;
+}
+
+.weather_date, .weather_description, .weather_temperature{
+    width: 100%;
+}
+
+
 /* classes estruturais*/
 
 /* classes do Festivals */
@@ -291,17 +330,16 @@ a {
     height: 100%;
 
 }
-*/
+
 .show_entry, .show_letter{
     width: 100%;
     float: left;
     text-align: left;
-    border-bottom: 1px solid #cccccc;
-    padding: 8px 0 3px 0;
+    border-bottom: 1px solid #000;
 }
 .show_entry_name{
     width: 100%;
-}/*
+}
 .show_entry_stage{
     width: 100%;
 }
