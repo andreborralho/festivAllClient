@@ -16,14 +16,16 @@ function queryFestivalShowsSuccess(tx, results) {
 
         month = changeNumberToMonth(numeric_month);
 
+        /* APAGAR
         if(show_name_letter != show_name_previous_letter)
+
             $('#shows_page').append('<div class="show_letter">' + show_name_letter + '</div>');
 
 		$('#shows_page').append('<div id="show_' + show_id + '" class="show_entry"></div>');
 		$('#show_'+show_id).append('<div class="show_entry_name">'+show.name+'</div>' +
             '<div class="show_entry_stage">' +show.stage_name+'</div>' +
             '<div class="show_entry_stage">' +show.day_date.slice(8,10) + " " + month +' | ' + show.time.slice(11,16) +'</div>');
-
+            */
 
         $('#shows_page_list').append('<li></li>');
 
