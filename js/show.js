@@ -33,5 +33,4 @@ function queryShowSuccess(tx, results) {
 
     $('#show_photo').html('<img src="' + show.photo + '">');
     $('#show_description').html(show.description);
-    initShow();
 }

@@ -70,4 +70,6 @@ function queryFestivalShowsSuccess(tx, results) {
 
 	}
     initFestival();
+    //inits the before_festival_carousel
+    $('#before_festival_carousel').carousel({preventDefaults:false});
 }

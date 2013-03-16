@@ -13,6 +13,7 @@ function changeContainers(page){
     $(page).css('display', 'block');
 }
 
+
 // Cordova is ready
 function onDeviceReady() {
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
@@ -108,6 +109,7 @@ function sync(syncURL, callback ) {
 // Populate the database
 function populateDB(tx) {
     window.FestivallToaster.showMessage("Creating the DataBase...");
+
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
     tx.executeSql('DROP TABLE IF EXISTS SHOWS');
     tx.executeSql('DROP TABLE IF EXISTS DAYS');
@@ -255,10 +257,11 @@ function insertData(data){
                 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
                 db.transaction(function(tx){
                     console.log("Updating updated_at");
-                    tx.executeSql('SELECT * FROM FESTIVALS', [], function(tx, results){
-                        var festival_id = results.rows.item(0);
+                    tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
+                        var festival = results.rows.item(0);
                         db.transaction(function(tx){
-                            tx.executeSql('UPDATE updated_at FROM FESTIVALS WHERE id=' + festival_id);
+                            tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
+                            '" WHERE id=' + festival.id);
                         }, errorCB, successCB);
                     }, errorQueryCB );
                 }, errorCB);
