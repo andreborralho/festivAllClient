@@ -55,7 +55,7 @@ function buildLineup(stages, days){
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('<div id="lineup_show_' + show.id + '">' + show.name + ' ' + show.time + '</div>');
                                 $('#lineup_show_' + show.id ).bind('click', function(){
                                     changeContainers("#show");
-                                    createShowContainer(this.id.replace("show_", ""));
+                                    createShowContainer(this.id.replace("lineup_show_", ""));
                                 });
                             }
                             if(s == len -1){
