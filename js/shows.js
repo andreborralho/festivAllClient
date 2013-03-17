@@ -14,39 +14,26 @@ function queryFestivalShowsSuccess(tx, results) {
         numeric_month = show.day_date.slice(5,7);
         show_name_letter = show.name.slice(0,1);
 
-        month = changeNumberToMonth(numeric_month);
+        month = changeNumberToMonthAbrev(numeric_month);
 
-        /* APAGAR
-        if(show_name_letter != show_name_previous_letter)
+        if(show_name_letter != show_name_previous_letter){
+            $('#shows_page_list').append('<li id="show_letter_' + show_name_letter +'"></li>');
 
-            $('#shows_page').append('<div class="show_letter">' + show_name_letter + '</div>');
-
-		$('#shows_page').append('<div id="show_' + show_id + '" class="show_entry"></div>');
-		$('#show_'+show_id).append('<div class="show_entry_name">'+show.name+'</div>' +
-            '<div class="show_entry_stage">' +show.stage_name+'</div>' +
-            '<div class="show_entry_stage">' +show.day_date.slice(8,10) + " " + month +' | ' + show.time.slice(11,16) +'</div>');
-            */
-
-        $('#shows_page_list').append('<li></li>');
-
-        if(show_name_letter != show_name_previous_letter)
-            $('#shows_page_list li').append(
-                '<header class="list_header"><span>' + show_name_letter + '</span></header>' +
-                '<ul class="list">' +
-                    '<li id="#show_' + show_id + '" class="row">' +
-                    '</li>' +
-                '</ul>'
-            );
-
-        $('#show_'+show_id).append(
+            $('#show_letter_' + show_name_letter).append(
+                '<header class="list_header row"><span>' + show_name_letter + '</span></header>' +
+                '<ul id="show_list_letter_' + show_name_letter +'" class="list"></ul>');
+        }
+        
+        $('#show_list_letter_'+show_name_letter).append('<li id="show_' + show_id + '" class="row">' +
             '<div class="column fixed bdr_r">' +
-                '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
+                '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span><br>' +
                 '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
             '</div>' +
             '<div class="column">' +
                 '<h3 class="band_name">' + show.name + '</h3>' +
                 '<p class="stage_name">' + show.stage_name + '</p>' +
-            '</div>'/* +
+            '</div></li>'
+        /* +
             '<div class="column fixed bdr_l">' +
                 '<span>%</span>' +
             '</div>'*/
@@ -61,49 +48,50 @@ function queryFestivalShowsSuccess(tx, results) {
         show_name_previous_letter = show_name_letter;
 
 	}
+    console.log($('#shows_page_list').html());
     //inits the before_festival_carousel
     $('#before_festival_carousel').carousel({preventDefaults:false});
 }
 
 
-function changeNumberToMonth(numeric_month){
+function changeNumberToMonthAbrev(numeric_month){
     var month;
     switch(numeric_month){
         case "01":
-            month = "Janeiro";
+            month = "Jan";
             break;
         case "02":
-            month = "Fevereiro";
+            month = "Fev";
             break;
         case "03":
-            month = "Março";
+            month = "Mar";
             break;
         case "04":
-            month = "Abril";
+            month = "Abr";
             break;
         case "05":
-            month = "Maio";
+            month = "Mai";
             break;
         case "06":
-            month = "Junho";
+            month = "Jun";
             break;
         case "07":
-            month = "Julho";
+            month = "Jul";
             break;
         case "08":
-            month = "Agosto";
+            month = "Ago";
             break;
         case "09":
-            month = "Setembro";
+            month = "Set";
             break;
         case "10":
-            month = "Outubro";
+            month = "Out";
             break;
         case "11":
-            month = "Novembro";
+            month = "Nov";
             break;
         case "12":
-            month = "Dezembro";
+            month = "Dez";
             break;
     }
     return month;
