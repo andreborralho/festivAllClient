@@ -12,22 +12,17 @@ function initLineup() {
 // Queries the local Database for a show
 function createLineupContainer(festival_id){
     db.transaction(function (tx) {
-        tx.executeSql('SELECT * FROM SHOWS WHERE ID='+show_id, [], queryLineupSuccess, errorQueryCB);
-        tx.executeSql('SELECT * FROM VIDEOS WHERE SHOW_ID='+show_id, [], queryShowVideosSuccess, errorQueryCB);
+        tx.executeSql('SELECT * FROM DAYS WHERE ID='+festival_id + 'ORDER BY date', [], queryLineupSuccess, errorQueryCB);
     }, errorCB);
 }
 
 // Success callback for the the query of one festival
 function queryLineupSuccess(tx, results) {
 
-    var show = results.rows.item(0);
-    $('.show_title').text(show.name);
-    $('.show_title').bind('click', function(){
-        changeContainers("#festival");
-        //createFestivalContainer(this.id.replace("festival_", ""));
-    });
+    var days = results.rows;
+    var days_length = days.length;
 
-    $('#show_photo').html('<img src="' + show.photo + '">');
-    $('#show_description').html(show.description);
-    initLineup();
+    for(var i = 0; i<days_length; i++){
+        var day_numdays.item(i).date;
+    }
 }
