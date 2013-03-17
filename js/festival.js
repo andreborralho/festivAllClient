@@ -37,7 +37,7 @@ function queryFestivalSuccess(tx, results) {
     }
     else if ( diff > 0){ //before festival
         changeContainers("#before_festival");
-        createBeforeFestival(festival, diff);
+        createBeforeFestival(festival, festivals, diff);
     }
 
     /*
@@ -51,7 +51,7 @@ function queryFestivalSuccess(tx, results) {
 }
 
 
-function createBeforeFestival(festival, diff){
+function createBeforeFestival(festival, festivals, diff){
 
     db.transaction(function (tx){
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
@@ -164,4 +164,47 @@ function dhm(t){
         h = '0' + Math.floor( (t - d * cd) / ch),
         m = '0' + Math.round( (t - d * cd - h * ch) / 60000);
     return [d, h.substr(-2), m.substr(-2)].join(':');
+}
+
+function changeNumberToMonth(numeric_month){
+    var month;
+    switch(numeric_month){
+        case "01":
+            month = "Janeiro";
+            break;
+        case "02":
+            month = "Fevereiro";
+            break;
+        case "03":
+            month = "Março";
+            break;
+        case "04":
+            month = "Abril";
+            break;
+        case "05":
+            month = "Maio";
+            break;
+        case "06":
+            month = "Junho";
+            break;
+        case "07":
+            month = "Julho";
+            break;
+        case "08":
+            month = "Agosto";
+            break;
+        case "09":
+            month = "Setembro";
+            break;
+        case "10":
+            month = "Outubro";
+            break;
+        case "11":
+            month = "Novembro";
+            break;
+        case "12":
+            month = "Dezembro";
+            break;
+    }
+    return month;
 }
