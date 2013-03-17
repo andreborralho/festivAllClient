@@ -211,7 +211,7 @@ a {
   font-weight: normal;
 }
 .list_header {
-  padding: 10px;
+  padding: 5px;
   background-color: #b43a34;
   color: white;
 }
@@ -226,10 +226,10 @@ a {
 
 .swipe_bar {
   position: relative;
-  padding: 6px;
+  padding: 6px 0;
   background-color: #373737;
-  box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);
+ /* box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);*/
   text-align: center;
 }
 .swipe_bar .not_current {
