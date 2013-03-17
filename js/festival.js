@@ -65,6 +65,12 @@ function createBeforeFestival(festival, diff){
 
     $('#festival_city').text("Local: " + festival.city);
 
+    $('#lineup_button').bind('click', function(){
+        changeContainers("#lineup");
+        $('#lineup_button').unbind();
+        createLineupContainer(festival.id);
+    });
+
     $('#info_button').bind('click', function(){
         changeContainers("#info");
         $('#info_button').unbind();
