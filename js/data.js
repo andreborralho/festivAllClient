@@ -65,8 +65,8 @@ function getLastSync(callback) {
             tx.executeSql(sql, [],
                 function(tx, results) {
 
-                    var lastSync = results.rows.item(0).lastSync;
-                    //alert("last synchronization date : " + lastSync);
+                    var lastSync = results.rows.item(0).lastSync.replace("T"," ");
+                    alert("last synchronization date : " + lastSync);
                     callback(lastSync);
                 }, errorQueryCB);
         }, errorCB
