@@ -21,16 +21,16 @@ function queryInfoSuccess(tx, results) {
 
     var festival = results.rows.item(0);
     var coordinates = festival.coordinates;
-
     coordinates = coordinates.split(" ");
 
     var latitude = coordinates[0];
     var longitude = coordinates[1];
 
-    $('#tickets_page').html(festival.tickets);
-    $('#tickets_page').html().replace(/\r\n/g, "<br>");
-    $('#transports_page').text(festival.transports);
-    //$('#transports_page').value.replace(/\n/g, "<br />");
+    var tickets_html_tags = festival.tickets.replace(/\r\n/g, "<br>");
+    $('#tickets_page').html(tickets_html_tags);
+
+    var transports_html_tags = festival.transports.replace(/\r\n/g, "<br>");
+    $('#transports_page').html(transports_html_tags);
 
     $.getJSON('http://free.worldweatheronline.com/feed/weather.ashx?q='+ latitude +',' + longitude +'&format=json&num_of_days=5&key=553a8863c6144236131203', function(data) {
         $.each(data, function(k,v){

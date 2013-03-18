@@ -52,7 +52,7 @@ function buildLineup(stages, days){
 
                             for(var l = 0; l <shows.length; l ++){
                                 var show = shows.item(l);
-                                $('#' + day.id + '_' + stage.id + '_lineup_frame').append('<div id="lineup_show_' + show.id + '">' + show.name + ' ' + show.time + '</div>');
+                                $('#' + day.id + '_' + stage.id + '_lineup_frame').append('<div id="lineup_show_' + show.id + '">' + show.name + ' ' + show.time.slice(11,16) + '</div>');
                                 $('#lineup_show_' + show.id ).bind('click', function(){
                                     changeContainers("#show");
                                     createShowContainer(this.id.replace("lineup_show_", ""));
@@ -71,8 +71,12 @@ function buildLineup(stages, days){
 
 function finishLineupStage(day){
     $('#lineup_carousel_' + day.id).carousel({preventDefaults:false});
-    $('#lineup_day_buttons').append('<li id="' + day.id + '_day_button" class="item">' + day.date  + '</div>');
 
+    var show_day = day.date.slice(8,10);
+    var numeric_month = day.date.slice(5,7);
+    var month = changeNumberToMonthAbrev(numeric_month);
+
+    $('#lineup_day_buttons').append('<li id="' + day.id + '_day_button" class="item">' + show_day + ' ' + month + '</div>');
 
     $('#' + day.id + '_day_button').bind('click', function(){
         //set visibility to the correct carousel in the lineup frame

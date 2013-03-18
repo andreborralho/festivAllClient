@@ -46,5 +46,7 @@ function queryShowSuccess(tx, results) {
 
     $('#show_date').text(show_day + " de " + show_month);
     $('#show_time').text(show.time.slice(11,16));
-    $('#show_description').html(show.description);
+
+    var description_html_tags = show.description.replace(/\r\n/g, "<br>");
+    $('#show_description').html(description_html_tags);
 }
