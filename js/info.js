@@ -10,7 +10,7 @@ function initInfo() {
 }
 // Queries the local Database for a show
 function createInfoContainer(festival_id){
-
+    $('.page_title').text("Info");
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM FESTIVALS WHERE ID='+festival_id, [], queryInfoSuccess, errorCB);
     }, errorCB);

@@ -39,16 +39,13 @@ function queryFestivalShowsSuccess(tx, results) {
             '</div>'*/
         );
 
-
         $('#show_'+show_id).bind('click', function(){
             changeContainers("#show");
             createShowContainer(this.id.replace("show_", ""));
         });
 
         show_name_previous_letter = show_name_letter;
-
 	}
-    console.log($('#shows_page_list').html());
     //inits the before_festival_carousel
     $('#before_festival_carousel').carousel({preventDefaults:false});
 }

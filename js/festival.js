@@ -25,6 +25,7 @@ function queryFestivalSuccess(tx, results) {
     //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     $('.festival_title').text(festival.name);
+    $('.page_title').text("");
 
     $('.festival_title').bind('click', function(){
         changeContainers("#festivals");
