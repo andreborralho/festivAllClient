@@ -11,6 +11,14 @@ function initInfo() {
 // Queries the local Database for a show
 function createInfoContainer(festival_id){
     $('.page_title').text("Info");
+
+    $('.column').bind('click', function(){
+        $('.column').unbind();
+
+        changeContainers("#festival");
+        createFestivalContainer(festival_id);
+    });
+
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM FESTIVALS WHERE ID='+festival_id, [], queryInfoSuccess, errorCB);
     }, errorCB);
@@ -18,6 +26,7 @@ function createInfoContainer(festival_id){
 
 // Success callback for the the query of one festival
 function queryInfoSuccess(tx, results) {
+    incrementHistory("#festival");
 
     var festival = results.rows.item(0);
     var coordinates = festival.coordinates;

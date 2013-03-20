@@ -1,5 +1,7 @@
 // FESTIVAL_CONTAINER
 
+var current_festival_id;
+
 // Queries the local Database for a festival
 function createFestivalContainer(festival_id){
 
@@ -15,20 +17,23 @@ function queryFestivalSuccess(tx, results) {
 
     var festival = results.rows.item(0);
     var festivals = results.rows;
-    var festival_date = festival.day_date.toString();
-    festival_date = festival_date.replace(/-/g,'/');
+    var festival_date = festival.day_date.toString().replace(/-/g,'/');
 
     var curr_date = new Date();
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
     //diff = -1; //descomentar esta linha para experimentar o festival durante
+    current_festival_id = festival.id;
+    incrementHistory("#festivals");
 
     $('.festival_title').text(festival.name);
     $('.page_title').text("");
 
-    $('.festival_title').bind('click', function(){
+    $('.column').bind('click', function(){
         changeContainers("#festivals");
+        incrementHistory("exit");
+        $('.column').unbind();
     });
 
 
@@ -47,8 +52,6 @@ function queryFestivalSuccess(tx, results) {
         createAfterFestival();
 
     }*/
-
-
 }
 
 
@@ -80,6 +83,7 @@ function createBeforeFestival(festival, festivals, diff){
 
     $('#map_button').bind('click', function(){
         changeContainers("#map");
+        $('#map_button').unbind();
         createMapContainer(festival.map);
     });
 

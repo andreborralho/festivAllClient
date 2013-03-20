@@ -245,7 +245,9 @@ a {
 }
 /* HOME
 -------------------------------------------------------------------------- */
-
+#festivals_page{
+  height: 80%;
+}
 .festival_list .item {
   float: left;
   width: 30%;

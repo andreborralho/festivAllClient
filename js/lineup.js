@@ -11,6 +11,15 @@ function createLineupContainer(festival_id){
 function queryLineupSuccess(tx, results) {
     $('#lineup_day_buttons').empty();
     $('#lineup_frame').empty();
+
+    incrementHistory("#festival");
+
+    $('.column').bind('click', function(){
+        changeContainers("#festival");
+        $('.column').unbind();
+        createFestivalContainer(current_festival_id);
+    });
+
     var days = results.rows;
 
     //Gets stages id's and names

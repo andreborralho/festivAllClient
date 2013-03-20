@@ -29,11 +29,16 @@ function createShowContainer(show_id){
 function queryShowSuccess(tx, results) {
 
     var show = results.rows.item(0);
+    current_festival_id = show.festival_id;
+
     $('.show_title').text(show.name);
-    $('.show_title').bind('click', function(){
+    $('.column').bind('click', function(){
+        $('.column').unbind();
+
         changeContainers("#festival");
         createFestivalContainer(show.festival_id);
     });
+    incrementHistory("#festival");
 
     var show_day = show.day_date.slice(8,10);
     var numeric_month = show.day_date.slice(5,7);

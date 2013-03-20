@@ -2,8 +2,10 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
 
+var history_array = [];
 // Set the visibility for the current app page
 function initDisplays(){
+
     $('[data-role="container"]').css('display', 'none');
     $('#festivals').css('display', 'block');
 }
@@ -16,6 +18,7 @@ function changeContainers(page){
 
 // Cordova is ready
 function onDeviceReady() {
+    document.addEventListener("backbutton", backButton, false);
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
 
     //Check if the application is running for the first time
@@ -217,15 +220,15 @@ function insertData(data){
          }
          */
         /*else if(k=='galleries'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    //console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO GALLERIES (id, festival_id, photo, updated_at) VALUES (' + l.id +
-                        ', ' + l.festival_id + ', "' + l.photo + '", "' + l.updated_at + '")');
-                }, errorCB, successCB);
-            });
+         $.each(v, function(i, l){
+         db.transaction(function(tx){
+         //console.log("Inserting in " + k);
+         tx.executeSql('INSERT OR REPLACE INTO GALLERIES (id, festival_id, photo, updated_at) VALUES (' + l.id +
+         ', ' + l.festival_id + ', "' + l.photo + '", "' + l.updated_at + '")');
+         }, errorCB, successCB);
+         });
 
-        }*/
+         }*/
 
         else if(k=='shows'){
             $.each(v, function(i, l){
@@ -261,7 +264,7 @@ function insertData(data){
                         var festival = results.rows.item(0);
                         db.transaction(function(tx){
                             tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
-                            '" WHERE id=' + festival.id);
+                                '" WHERE id=' + festival.id);
                         }, errorCB, successCB);
                     }, errorQueryCB );
                 }, errorCB);
@@ -287,4 +290,23 @@ function errorQueryCB(tx, err){
     alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
     console.log("Error processing SQL query: " + err.code + " : " + err.message);
 
+}
+
+
+function backButton(){
+    var history_popped = history_array.pop();
+
+    if(history_popped == "exit")
+        navigator.app.exitApp();
+    else if(history_popped == "#festival"){
+        changeContainers(history_popped);
+        createFestivalContainer(current_festival_id);
+    }
+    else{
+        changeContainers(history_popped);
+    }
+}
+
+function incrementHistory(page){
+    history_array.push(page);
 }
