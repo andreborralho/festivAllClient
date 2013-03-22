@@ -159,14 +159,43 @@
         <div id="before_festival_carousel" data-role="carousel">
 
             <div id="before_festival_page" data-role="page">
-                <div id="festival_countdown">
-                    <!--<p>25 dias</p>-->
+                <div class="padded">
+                    <p id="festival_countdown">
+                        <span>Faltam</span>
+                        <span class="days">25</span>
+                        <span>dias</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <span>></span>
+                            <span id="festival_days">Dias 7, 8 e 9 de Setembro</span>
+                        </li>
+                        <li>
+                            <span>></span>
+                            <span id="festival_city">Atalaia, Amora, Seixal</span>
+                        </li>
+                        <li>
+                            <span>></span>
+                            <span id="festival_price">Entre 18€ e 22€</span>
+                        </li>
+                    </ul>
                 </div>
-                <div id="festival_days"></div>
-                <div id="festival_city"></div>
-                <div id="lineup_button" class="festival_page_button">Lineup</div>
-                <div id="map_button" class="festival_page_button">Map</div>
-                <div id="info_button" class="festival_page_button" >Info</div>
+                <nav class="nav_bottom">
+                    <ul class="row">
+                        <li class="column">
+                            <a href="#" id="lineup_button">Cartaz</a>
+                        </li>
+                        <li class="column">
+                            <a href="#" class="" id="map_button">Mapa</a>
+                        </li>
+                        <li class="column">
+                            <a href="#" class="" id="info_button">Info</a>
+                        </li>
+                        <li class="column">
+                            <a href="#" class="no_border" id="info_gallery">Galeria</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <div id="shows_page" data-role="page">

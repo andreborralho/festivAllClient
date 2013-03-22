@@ -7,7 +7,7 @@ var history_array = [];
 function initDisplays(){
 
     $('[data-role="container"]').css('display', 'none');
-    $('#festivals').css('display', 'block');
+    $('#before_festival').css('display', 'block');
 }
 
 function changeContainers(page){
