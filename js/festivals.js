@@ -26,6 +26,11 @@ function createFestivalsContainer(){
 function queryFestivalsSuccess(tx, results) {
 	$('#festivals_carousel').css('display', 'block');
 
+    var left = $('#search_nav_bar').offset().left;
+    $('#search_nav_bar').bind('click', function(){
+        $('#search_nav_bar').css({left:left}).animate({'height': '50%'},'slow');
+    });
+
     incrementHistory("exit");
 
     var len = results.rows.length;

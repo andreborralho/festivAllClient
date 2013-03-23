@@ -1,20 +1,11 @@
 // INFO_CONTAINER
 
-
-// Inits carousel for info_container
-var info_carousel;
-function initInfo() {
-    info_carousel=$('#info_carousel').carousel({
-        preventDefaults:false
-    });
-}
 // Queries the local Database for a show
 function createInfoContainer(festival_id){
     $('.page_title').text("Info");
 
     $('.column').bind('click', function(){
         $('.column').unbind();
-
         changeContainers("#festival");
         createFestivalContainer(festival_id);
     });
@@ -27,6 +18,70 @@ function createInfoContainer(festival_id){
 // Success callback for the the query of one festival
 function queryInfoSuccess(tx, results) {
     incrementHistory("#festival");
+
+    $('#info_carousel').remove();
+    $('#info').append('' +
+        '<div id="info_carousel" data-role="carousel">' +
+            '<div id="tickets_page" data-role="page"></div>' +
+            '<div id="transports_page" data-role="page"></div>' +
+            '<div id="weather_page" data-role="page">' +
+                '<div id="weather_current" class="weather_entry">' +
+                    '<div id="weather_text_current" class="weather_text">' +
+                        '<div id="weather_temperature_current" class="weather_temperature"></div>' +
+                        '<div id="weather_description_current" class="weather_description"></div>' +
+                    '</div>' +
+                    '<div id="weather_img_current" class="weather_img"></div>' +
+                '</div>' +
+                '<div id="weather_day1" class="weather_entry">' +
+                    '<div id="weather_text1" class="weather_text">' +
+                        '<div id="weather_date1" class="weather_date"></div>' +
+                        '<div class="weather_temperature">' +
+                            '<span id="weather_max_temperature1"></span>' +
+                            '<span id="weather_min_temperature1"></span>' +
+                        '</div>' +
+                        '<div id="weather_description1" class="weather_description"></div>' +
+                    '</div>' +
+                    '<div id="weather_img1" class="weather_img"></div>' +
+                '</div>' +
+                '<div id="weather_day2" class="weather_entry">' +
+                    '<div id="weather_text2" class="weather_text">' +
+                        '<div id="weather_date2" class="weather_date"></div>' +
+                        '<div id="weather_max_temperature2" class="weather_temperature"></div>' +
+                        '<div id="weather_min_temperature2" class="weather_temperature"></div>' +
+                        '<div id="weather_description2" class="weather_description"></div>' +
+                    '</div>' +
+                    '<div id="weather_img2" class="weather_img"></div>' +
+                '</div>' +
+                '<div id="weather_day3" class="weather_entry">' +
+                    '<div id="weather_text3" class="weather_text">' +
+                        '<div id="weather_date3" class="weather_date"></div>' +
+                        '<div id="weather_max_temperature3" class="weather_temperature"></div>' +
+                        '<div id="weather_min_temperature3" class="weather_temperature"></div>' +
+                        '<div id="weather_description3" class="weather_description"></div>' +
+                    '</div>' +
+                    '<div id="weather_img3" class="weather_img"></div>' +
+                '</div>' +
+                '<div id="weather_day4" class="weather_entry">' +
+                    '<div id="weather_text4" class="weather_text">' +
+                        '<div id="weather_date4" class="weather_date"></div>' +
+                        '<div id="weather_max_temperature4" class="weather_temperature"></div>' +
+                        '<div id="weather_min_temperature4" class="weather_temperature"></div>' +
+                        '<div id="weather_description4" class="weather_description"></div>' +
+                    '</div>' +
+                    '<div id="weather_img4" class="weather_img"></div>' +
+                '</div>' +
+                '<div id="weather_day5" class="weather_entry">' +
+                    '<div id="weather_text5" class="weather_text">' +
+                        '<div id="weather_date5" class="weather_date"></div>' +
+                        '<div id="weather_max_temperature5" class="weather_temperature"></div>' +
+                        '<div id="weather_min_temperature5" class="weather_temperature"></div>' +
+                        '<div id="weather_description5" class="weather_description"></div>' +
+                    '</div>' +
+                    '<div id="weather_img5" class="weather_img"></div>' +
+                '</div>' +
+            '</div>' +
+        '</div>');
+
 
     var festival = results.rows.item(0);
     var coordinates = festival.coordinates;
@@ -41,7 +96,8 @@ function queryInfoSuccess(tx, results) {
     var transports_html_tags = festival.transports.replace(/\r\n/g, "<br>");
     $('#transports_page').html(transports_html_tags);
 
-    $.getJSON('http://free.worldweatheronline.com/feed/weather.ashx?q='+ latitude +',' + longitude +'&format=json&num_of_days=5&key=553a8863c6144236131203', function(data) {
+    $.getJSON('http://free.worldweatheronline.com/feed/weather.ashx?q='+ latitude +',' + longitude +
+        '&format=json&num_of_days=5&key=553a8863c6144236131203', function(data) {
         $.each(data, function(k,v){
             $.each(v, function(weather_key, weather_value){
                 if(weather_key=="current_condition"){
@@ -132,6 +188,8 @@ function queryInfoSuccess(tx, results) {
                 }
             });
         });
-        initInfo();
+
+        // Inits carousel for info_container
+        $('#info_carousel').carousel({preventDefaults:false});
     });
 }

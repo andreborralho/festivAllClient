@@ -3,6 +3,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
 
 var history_array = [];
+var show_visited = false;
+
 // Set the visibility for the current app page
 function initDisplays(){
 

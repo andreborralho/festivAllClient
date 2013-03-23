@@ -8,6 +8,7 @@ function queryFestivalShowsSuccess(tx, results) {
     var show, show_id;
     var show_name_letter, show_name_previous_letter, numeric_month, month;
 
+    $('#shows_page_list').empty();
 	for (var i=0; i<len; i++){
         show = shows.item(i);
 		show_id = shows.item(i).id;
@@ -46,6 +47,8 @@ function queryFestivalShowsSuccess(tx, results) {
 
         show_name_previous_letter = show_name_letter;
 	}
+
+    show_visited = false;
     //inits the before_festival_carousel
     $('#before_festival_carousel').carousel({preventDefaults:false});
 }
