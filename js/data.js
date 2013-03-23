@@ -7,7 +7,7 @@ var history_array = [];
 function initDisplays(){
 
     $('[data-role="container"]').css('display', 'none');
-    $('#lineup').css('display', 'block');
+    $('#info').css('display', 'block');
 }
 
 function changeContainers(page){
