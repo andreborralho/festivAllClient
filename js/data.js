@@ -9,7 +9,7 @@ var show_visited = false;
 function initDisplays(){
 
     $('[data-role="container"]').css('display', 'none');
-    $('#festivals').css('display', 'block');
+    $('#info').css('display', 'block');
 }
 
 function changeContainers(page){

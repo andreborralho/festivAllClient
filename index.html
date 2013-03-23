@@ -10,7 +10,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/style.css?v3">
     <style>
-    a { /* Prevent less to complie rgba(0, 0, 0, 0) to transparent*/
+    a { /* Prevent less to complie rgba(0,0,0,0) to transparent*/
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-focus-ring-color: rgba(0, 0, 0, 0); 
     }
@@ -156,14 +156,44 @@
         <div id="before_festival_carousel" data-role="carousel">
 
             <div id="before_festival_page" data-role="page">
-                <div id="festival_countdown">
-                    <!--<p>25 dias</p>-->
+                <div class="padded">
+                    <p id="festival_countdown">
+                        <span>Faltam</span>
+                        <span class="days">25</span>
+                        <span>dias</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <span>></span>
+                            <span id="festival_days">Dias 7, 8 e 9 de Setembro</span>
+                        </li>
+                        <li>
+                            <span>></span>
+                            <span id="festival_city">Atalaia, Amora, Seixal</span>
+                        </li>
+                        <li>
+                            <span>></span>
+                            <span id="festival_price">Entre 18€ e 22€</span>
+                        </li>
+                    </ul>
                 </div>
-                <div id="festival_days"></div>
-                <div id="festival_city"></div>
-                <div id="lineup_button" class="festival_page_button">Cartaz</div>
-                <div id="map_button" class="festival_page_button">Mapa</div>
-                <div id="info_button" class="festival_page_button" >Informação</div>
+
+                <nav class="nav_bottom">
+                    <ul class="row">
+                        <li class="column">
+                            <a href="#" class="item" id="lineup_button">Cartaz</a>
+                        </li>
+                        <li class="column">
+                            <a href="#" class="item" id="map_button">Mapa</a>
+                        </li>
+                        <li class="column">
+                            <a href="#" class="item" id="info_button">Informação</a>
+                        </li>
+                        <li class="column">
+                            <a href="#" class="item no_border" id="info_gallery">Galeria</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <div id="shows_page" data-role="page">
@@ -237,9 +267,18 @@
             </div>
         </header>
 
-        <!-- Button_bar -->
-        <nav class="button_bar" data-role="button_bar">
-            <ul id="lineup_day_buttons">
+        <!-- Nav top -->
+        <nav class="nav_top" data-role="button_nav">
+            <ul class="row">
+                <li class="column one-third">
+                    <a href="#" class="item">7 Ago</a>
+                </li>
+                <li class="column one-third">
+                    <a href="#" class="item">8 Ago</a>
+                </li>
+                <li class="column one-third">
+                    <a href="#" class="item">9 Ago</a>
+                </li>
             </ul>
         </nav>
 
@@ -247,19 +286,64 @@
         <nav class="swipe_bar" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a class="not_current prev" href="#">Menu</a>
+                    <a class="not_current prev" href="#">Palco Arraial</a>
                 </li>
                 <li>
-                    <a href="#">Festivais</a>
+                    <a href="#">Palco 25 Abril</a>
                 </li>
                 <li>
-                    <a class="not_current next" href="#">Pesquisa</a>
+                    <a class="not_current next" href="#">Novos valores</a>
                 </li>
             </ul>
         </nav>
 
-        <div id="lineup_frame">
-        </div>
+        <ul id="lineup_frame" class="list" data-role="list">
+            <li class="row">
+                <div class="column fixed bdr_r">
+                    <time>
+                        <span>7 Ago</span>
+                        <span>14h00</span>
+                    </time>
+                </div>
+                <div class="column">
+                    <h3 class="band_name">Rihanna</h3>
+                    <p>Rock In Rio</p>
+                </div>
+                <div class="column fixed bdr_l">
+                    <span>%</span>
+                </div>
+            </li>
+            <li class="row">
+                <div class="column fixed bdr_r">
+                    <time>
+                        <span>7 Ago</span>
+                        <span>14h00</span>
+                    </time>
+                </div>
+                <div class="column">
+                    <h3 class="band_name">Rihanna</h3>
+                    <p>Rock In Rio</p>
+                </div>
+                <div class="column fixed bdr_l">
+                    <span>%</span>
+                </div>
+            </li>
+            <li class="row">
+                <div class="column fixed bdr_r">
+                    <time>
+                        <span>7 Ago</span>
+                        <span>14h00</span>
+                    </time>
+                </div>
+                <div class="column">
+                    <h3 class="band_name">Rihanna</h3>
+                    <p>Rock In Rio</p>
+                </div>
+                <div class="column fixed bdr_l">
+                    <span>%</span>
+                </div>
+            </li>
+        </ul>
     </div>
 
 
@@ -304,6 +388,55 @@
             </div>
 
             <div id="weather_page" data-role="page">
+
+                <ul class="list" data-role="list">
+                    <li class="row">
+                        <div class="column fixed bdr_r">
+                            <strong class="week_day">Qui</strong>
+                            <span>8 Ago</span>
+                        </div>
+                        <div class="column centered bdr_r">
+                            <span>6</span>
+                        </div>
+                        <div class="column">
+                            <span>21º / 29º</span>
+                        </div>
+                        <div class="column fixed bdr_l">
+                            <span>%</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed bdr_r">
+                            <strong class="week_day">Sex</strong>
+                            <span>8 Ago</span>
+                        </div>
+                        <div class="column centered bdr_r">
+                            <span>6</span>
+                        </div>
+                        <div class="column">
+                            <span>21º / 29º</span>
+                        </div>
+                        <div class="column fixed bdr_l">
+                            <span>%</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed bdr_r">
+                            <strong class="week_day">Sáb</strong>
+                            <span>8 Ago</span>
+                        </div>
+                        <div class="column centered bdr_r">
+                            <span>6</span>
+                        </div>
+                        <div class="column">
+                            <span>21º / 29º</span>
+                        </div>
+                        <div class="column fixed bdr_l">
+                            <span>%</span>
+                        </div>
+                    </li>
+                </ul>
+
                 <div id="weather_current" class="weather_entry">
                     <div id="weather_text_current" class="weather_text">
                         <div id="weather_temperature_current" class="weather_temperature"></div>
@@ -465,15 +598,14 @@
 
     <!-- Data -->
     <script type="text/javascript" src="js/data.js"></script>
+
     <!-- Homepage -->
     <script type="text/javascript" src="js/festivals.js"></script>
-
-    <!-- Lineup -->
-    <script type="text/javascript" src="js/lineup.js"></script>
 
     <!-- Single Festival -->
     <script type="text/javascript" src="js/festival.js"></script>
     <script type="text/javascript" src="js/shows.js"></script>
+    <script type="text/javascript" src="js/lineup.js"></script>
     <script type="text/javascript" src="js/info.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
 

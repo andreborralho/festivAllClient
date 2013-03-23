@@ -18,7 +18,7 @@
   display: none;
 }
 .padded {
-  padding: 10px;
+  padding: 15px;
 }
 .centered {
   text-align: center;
@@ -31,6 +31,9 @@
 }
 .bdr_l {
   border-left: 1px solid #373737;
+}
+.no_border {
+  border: none !important;
 }
 /* Grid Flexbox
 ------------------------------------------------------------------------
@@ -85,12 +88,17 @@
 }
 .column {
   display: table-cell;
+  padding: 15px;
   vertical-align: middle;
 }
 .column.fixed {
-  width: 60px;
+  width: 65px;
   text-align: center;
-}
-.column:not(.fixed) {
   padding: 10px;
+}
+.one-quarter {
+  width: 25%;
+}
+.one-third {
+  width: 33.33%;
 }
