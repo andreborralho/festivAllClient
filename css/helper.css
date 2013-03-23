@@ -33,7 +33,7 @@
   border-left: 1px solid #373737;
 }
 .no_border {
-  border: none;
+  border: none !important;
 }
 /* Grid Flexbox
 ------------------------------------------------------------------------
@@ -96,4 +96,7 @@
 }
 .column:not(.fixed) {
   padding: 10px;
+}
+.one-quarter {
+  width: 25%;
 }

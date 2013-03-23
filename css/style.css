@@ -93,7 +93,7 @@ table {
   border-left: 1px solid #373737;
 }
 .no_border {
-  border: none;
+  border: none !important;
 }
 /* Grid Flexbox
 ------------------------------------------------------------------------
@@ -156,6 +156,9 @@ table {
 }
 .column:not(.fixed) {
   padding: 10px;
+}
+.one-quarter {
+  width: 25%;
 }
 /* GLOBAL
 -------------------------------------------------------------------------- */
@@ -252,13 +255,14 @@ a {
   width: 100%;
 }
 .nav_bottom .column {
+  width: 25%;
   padding: 0;
 }
 .nav_bottom a {
   display: block;
-  padding: 10px 0;
+  padding: 20px 0;
   border-right: 1px solid #373737;
-  background-color: red;
+  background-color: #b43a34;
   text-align: center;
 }
 /* HOME
