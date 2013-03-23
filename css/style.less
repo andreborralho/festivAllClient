@@ -74,6 +74,7 @@ a {
 .header {
     height: 60px;
     border-bottom: 1px solid @maincolor;
+    background-color: @bgcolor;
 }
 
 
@@ -82,9 +83,7 @@ a {
     position: relative;
     padding: 6px;
     background-color: @grey;
-    @box-shadow: 0 5px 25px 6px rgba(0,0,0,0.8);
-    box-shadow:         @box-shadow;
-    -webkit-box-shadow: @box-shadow;
+    .box-shadow(0 6px 25px 6px rgba(0,0,0,0.6));
     text-align: center;
     .not_current {
         position: absolute;
@@ -94,21 +93,29 @@ a {
     .not_current.prev {left: 1px;}
     .not_current.next {right: 1px;}
 }
+.nav_top,
+.nav_bottom {
+    width: 100%;
+    .column {
+        padding: 0;
+    }
+    .item {
+        display: block;
+        padding: 18px 0;
+        border-right: 1px solid @grey;
+        background-color: @maincolor;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+}
 
 .nav_bottom {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    .box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));
     .column {
         .one-quarter;
-        padding: 0;
-    }
-    a {
-        display: block;
-        padding: 20px 0;
-        border-right: 1px solid @grey;
-        background-color: @maincolor;
-        text-align: center;
     }
 }
 

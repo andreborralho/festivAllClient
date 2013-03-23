@@ -160,6 +160,9 @@ table {
 .one-quarter {
   width: 25%;
 }
+.one-third {
+  width: 33.33%;
+}
 /* GLOBAL
 -------------------------------------------------------------------------- */
 
@@ -227,6 +230,7 @@ a {
 .header {
   height: 60px;
   border-bottom: 1px solid #b43a34;
+  background-color: #232323;
 }
 /*===============Main Nav=================*/
 
@@ -234,8 +238,9 @@ a {
   position: relative;
   padding: 6px;
   background-color: #373737;
-  box-shadow: 0 5px 25px 6px rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 0 5px 25px 6px rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 .swipe_bar .not_current {
@@ -249,21 +254,33 @@ a {
 .swipe_bar .not_current.next {
   right: 1px;
 }
+.nav_top,
+.nav_bottom {
+  width: 100%;
+}
+.nav_top .column,
+.nav_bottom .column {
+  padding: 0;
+}
+.nav_top .item,
+.nav_bottom .item {
+  display: block;
+  padding: 18px 0;
+  border-right: 1px solid #373737;
+  background-color: #b43a34;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
 .nav_bottom {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  -webkit-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
 }
 .nav_bottom .column {
   width: 25%;
-  padding: 0;
-}
-.nav_bottom a {
-  display: block;
-  padding: 20px 0;
-  border-right: 1px solid #373737;
-  background-color: #b43a34;
-  text-align: center;
 }
 /* HOME
 -------------------------------------------------------------------------- */

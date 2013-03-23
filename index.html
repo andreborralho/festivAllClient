@@ -183,16 +183,16 @@
                 <nav class="nav_bottom">
                     <ul class="row">
                         <li class="column">
-                            <a href="#" id="lineup_button">Cartaz</a>
+                            <a href="#" class="item" id="lineup_button">Cartaz</a>
                         </li>
                         <li class="column">
-                            <a href="#" class="" id="map_button">Mapa</a>
+                            <a href="#" class="item" id="map_button">Mapa</a>
                         </li>
                         <li class="column">
-                            <a href="#" class="" id="info_button">Info</a>
+                            <a href="#" class="item" id="info_button">Info</a>
                         </li>
                         <li class="column">
-                            <a href="#" class="no_border" id="info_gallery">Galeria</a>
+                            <a href="#" class="item no_border" id="info_gallery">Galeria</a>
                         </li>
                     </ul>
                 </nav>
@@ -269,9 +269,18 @@
             </div>
         </header>
 
-        <!-- Button_bar -->
-        <nav class="button_bar" data-role="button_bar">
-            <ul id="lineup_day_buttons">
+        <!-- Nav top -->
+        <nav class="nav_top" data-role="button_nav">
+            <ul class="row">
+                <li class="column one-third">
+                    <a href="#" class="item">7 Ago</a>
+                </li>
+                <li class="column one-third">
+                    <a href="#" class="item">8 Ago</a>
+                </li>
+                <li class="column one-third">
+                    <a href="#" class="item">9 Ago</a>
+                </li>
             </ul>
         </nav>
 
@@ -279,19 +288,64 @@
         <nav class="swipe_bar" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a class="not_current prev" href="#">Menu</a>
+                    <a class="not_current prev" href="#">Palco Arraial</a>
                 </li>
                 <li>
-                    <a href="#">Festivais</a>
+                    <a href="#">Palco 25 Abril</a>
                 </li>
                 <li>
-                    <a class="not_current next" href="#">Pesquisa</a>
+                    <a class="not_current next" href="#">Novos valores</a>
                 </li>
             </ul>
         </nav>
 
-        <div id="lineup_frame">
-        </div>
+        <ul id="lineup_frame" class="list" data-role="list">
+            <li class="row">
+                <div class="column fixed bdr_r">
+                    <time>
+                        <span>7 Ago</span>
+                        <span>14h00</span>
+                    </time>
+                </div>
+                <div class="column">
+                    <h3 class="band_name">Rihanna</h3>
+                    <p>Rock In Rio</p>
+                </div>
+                <div class="column fixed bdr_l">
+                    <span>%</span>
+                </div>
+            </li>
+            <li class="row">
+                <div class="column fixed bdr_r">
+                    <time>
+                        <span>7 Ago</span>
+                        <span>14h00</span>
+                    </time>
+                </div>
+                <div class="column">
+                    <h3 class="band_name">Rihanna</h3>
+                    <p>Rock In Rio</p>
+                </div>
+                <div class="column fixed bdr_l">
+                    <span>%</span>
+                </div>
+            </li>
+            <li class="row">
+                <div class="column fixed bdr_r">
+                    <time>
+                        <span>7 Ago</span>
+                        <span>14h00</span>
+                    </time>
+                </div>
+                <div class="column">
+                    <h3 class="band_name">Rihanna</h3>
+                    <p>Rock In Rio</p>
+                </div>
+                <div class="column fixed bdr_l">
+                    <span>%</span>
+                </div>
+            </li>
+        </ul>
     </div>
 
 
