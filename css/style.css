@@ -78,7 +78,7 @@ table {
   display: none;
 }
 .padded {
-  padding: 10px;
+  padding: 15px;
 }
 .centered {
   text-align: center;
@@ -148,13 +148,12 @@ table {
 }
 .column {
   display: table-cell;
+  padding: 15px;
   vertical-align: middle;
 }
 .column.fixed {
-  width: 60px;
+  width: 65px;
   text-align: center;
-}
-.column:not(.fixed) {
   padding: 10px;
 }
 .one-quarter {
@@ -212,7 +211,7 @@ a {
   width: 60px;
 }
 .list .row {
-  min-height: 60px;
+  min-height: 65px;
   border-bottom: 1px solid #373737;
 }
 .list .band_name {
@@ -220,7 +219,7 @@ a {
   font-weight: normal;
 }
 .list_header {
-  padding: 10px;
+  padding: 15px;
   background-color: #b43a34;
   color: white;
 }
@@ -307,6 +306,13 @@ a {
   display: block;
   font-size: 140px;
   line-height: 125px;
+}
+/* WEATHER
+-------------------------------------------------------------------------- */
+
+.week_day {
+  display: block;
+  text-transform: uppercase;
 }
 #band_videos_page .column {
   height: 80px;
