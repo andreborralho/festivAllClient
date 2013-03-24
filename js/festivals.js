@@ -5,7 +5,17 @@
 var festivals_carousel, festivals_scroll;
 function initFestivals() {
 	festivals_carousel=$('#festivals_carousel').carousel({
-		preventDefaults:false
+        preventDefaults:false,
+        pagingFunction:function(index){
+            if(index == 0){
+                $('#festivals_nav_item').removeClass('not_current');
+                $('#search_nav_item').addClass('not_current next');
+            }
+            else if(index == 1){
+                $('#search_nav_item').removeClass('not_current next');
+                $('#festivals_nav_item').addClass('not_current prev');
+            }
+        }
 	});
     festivals_scroll=$('#festivals_buttons').scroller();
 }

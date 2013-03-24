@@ -168,6 +168,8 @@ function queryInfoSuccess(tx, results) {
                                         weather_description_selector.text("Céu limpo com nuvens e aguaceiros");
                                     else if(desc_value == "Patchy light rain")
                                         weather_description_selector.text("Períodos de chuva");
+                                    else if(desc_value == "Heavy rain")
+                                        weather_description_selector.text("Chuva forte");
                                     else if(desc_value == "Light rain shower")
                                         weather_description_selector.text("Chuva fraca");
                                     else if(desc_value == "Moderate or heavy rain shower")
@@ -190,6 +192,25 @@ function queryInfoSuccess(tx, results) {
         });
 
         // Inits carousel for info_container
-        $('#info_carousel').carousel({preventDefaults:false});
+        $('#info_carousel').carousel({
+            preventDefaults:false,
+            pagingFunction:function(index){
+                if(index == 0){
+                    $('#tickets_nav_item').removeClass('not_current prev');
+                    $('#transports_nav_item').addClass('not_current next');
+                    $('#weather_nav_item').addClass('hidden');
+                }
+                else if(index == 1){
+                    $('#transports_nav_item').removeClass('not_current next prev');
+                    $('#tickets_nav_item').addClass('not_current prev').removeClass('hidden');
+                    $('#weather_nav_item').addClass('not_current next').removeClass('hidden');
+                }
+                else if(index == 2){
+                    $('#weather_nav_item').removeClass('not_current next');
+                    $('#transports_nav_item').addClass('not_current prev');
+                    $('#tickets_nav_item').addClass('hidden');
+                }
+            }
+        });
     });
 }

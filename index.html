@@ -35,18 +35,19 @@
         </header>
 
         <nav class="swipe_bar row" data-role="swipe_bar">
-            <ul>
-                <li>
+            <ul id="festivals_bar">
+                <!--<li>
                     <a class="not_current prev" href="#">Menu</a>
+                </li>-->
+                <li>
+                    <a id="festivals_nav_item" href="#">Festivais</a>
                 </li>
                 <li>
-                    <a href="#">Festivais</a>
-                </li>
-                <li>
-                    <a id ="search_nav_bar" class="not_current next" href="#">Pesquisa</a>
+                    <a id="search_nav_item" class="not_current next" href="#">Pesquisa</a>
                 </li>
             </ul>
         </nav>
+
 
         <div id="festivals_carousel" data-role="carousel">
 
@@ -144,10 +145,10 @@
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a href="#">Festivais</a>
+                    <a id="festival_nav_item" href="#">Festival</a>
                 </li>
                 <li>
-                    <a class="not_current next" href="#">Bandas</a>
+                    <a id="shows_nav_item" class="not_current next" href="#">Bandas</a>
                 </li>
             </ul>
         </nav>
@@ -178,8 +179,8 @@
                     </ul>
                 </div>
 
-                <nav class="nav_bottom">
-                    <ul class="row">
+                <nav class="nav_bottom row">
+                    <ul>
                         <li class="column">
                             <a href="#" class="item" id="lineup_button">Cartaz</a>
                         </li>
@@ -269,22 +270,25 @@
 
         <!-- Nav top -->
         <nav class="nav_top" data-role="button_nav">
-            <ul class="row">
-                <li class="column one-third">
+            <ul id="lineup_day_buttons" class="row">
+                <li class="column one-quarter">
                     <a href="#" class="item">7 Ago</a>
                 </li>
-                <li class="column one-third">
+                <li class="column one-quarter">
                     <a href="#" class="item">8 Ago</a>
                 </li>
-                <li class="column one-third">
+                <li class="column one-quarter">
+                    <a href="#" class="item">9 Ago</a>
+                </li>
+                <li class="column one-quarter">
                     <a href="#" class="item">9 Ago</a>
                 </li>
             </ul>
         </nav>
 
         <!-- Swipe_bar -->
-        <nav class="swipe_bar" data-role="swipe_bar">
-            <ul>
+        <nav class="swipe_bar row" data-role="swipe_bar">
+            <ul id="lineup_stages_bar">
                 <li>
                     <a class="not_current prev" href="#">Palco Arraial</a>
                 </li>
@@ -368,13 +372,13 @@
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a href="#">Bilhetes</a>
+                    <a id="tickets_nav_item" href="#">Bilhetes</a>
                 </li>
                 <li>
-                    <a class="not_current next" href="#">Como chegar</a>
+                    <a id="transports_nav_item" class="not_current next" href="#">Como Chegar</a>
                 </li>
                 <li>
-                    <a class="hidden" href="#">Meteorologia</a>
+                    <a id="weather_nav_item" class="hidden" href="#">Tempo</a>
                 </li>
             </ul>
         </nav>
@@ -384,10 +388,10 @@
             <div id="tickets_page" data-role="page">
             </div>
 
-            <div id="transports_page" data-role="page">
+            <div id="transports_page" class="padded" data-role="page">
             </div>
 
-            <div id="weather_page" data-role="page">
+            <div id="weather_page" class="padded" data-role="page">
 
                 <ul class="list" data-role="list">
                     <li class="row">
@@ -498,7 +502,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 
@@ -548,10 +551,10 @@
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a href="#">Banda</a>
+                    <a id="show_nav_item" href="#">Banda</a>
                 </li>
                 <li>
-                    <a class="not_current next" href="#">Vídeos</a>
+                    <a id="videos_nav_item" class="not_current next" href="#">Vídeos</a>
                 </li>
             </ul>
         </nav>
@@ -564,13 +567,14 @@
                     <img src="img/show450x240.jpg">
                 </div>
                 <div class="padded">
-                    <ul class="content_list">
+                    <ul>
                         <li id="show_stage">{Palco}</li>
                         <li>
                             <span id="show_date">{1 Ago}</span> | 
                             <span id="show_time">{19h00}</span>
                         </li>
                     </ul>
+                    <br>
                     <p class="content_text" id="show_description"></p>
                 </div>
             </div>

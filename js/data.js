@@ -9,7 +9,7 @@ var show_visited = false;
 function initDisplays(){
 
     $('[data-role="container"]').css('display', 'none');
-    $('#info').css('display', 'block');
+    $('#festivals').css('display', 'block');
 }
 
 function changeContainers(page){
@@ -70,7 +70,7 @@ function getLastSync(callback) {
             tx.executeSql(sql, [],
                 function(tx, results) {
 
-                    var lastSync = results.rows.item(0).lastSync;
+                    var lastSync = results.rows.item(0).lastSync.replace("T"," ");
                     //alert("last synchronization date : " + lastSync);
                     callback(lastSync);
                 }, errorQueryCB);

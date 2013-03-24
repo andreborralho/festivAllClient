@@ -25,15 +25,17 @@ function queryFestivalShowsSuccess(tx, results) {
                 '<ul id="show_list_letter_' + show_name_letter +'" class="list"></ul>');
         }
         
-        $('#show_list_letter_'+show_name_letter).append('<li id="show_' + show_id + '" class="row">' +
-            '<div class="column fixed bdr_r">' +
-                '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span><br>' +
-                '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
-            '</div>' +
-            '<div class="column">' +
-                '<h3 class="band_name">' + show.name + '</h3>' +
-                '<p class="stage_name">' + show.stage_name + '</p>' +
-            '</div></li>'
+        $('#show_list_letter_'+show_name_letter).append(
+            '<li id="show_' + show_id + '" class="row">' +
+                '<div class="column fixed bdr_r">' +
+                    '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span><br>' +
+                    '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
+                '</div>' +
+                '<div class="column">' +
+                    '<h3 class="band_name">' + show.name + '</h3>' +
+                    '<p class="stage_name">' + show.stage_name + '</p>' +
+                '</div>' +
+            '</li>'
         /* +
             '<div class="column fixed bdr_l">' +
                 '<span>%</span>' +
@@ -41,6 +43,7 @@ function queryFestivalShowsSuccess(tx, results) {
         );
 
         $('#show_'+show_id).bind('click', function(){
+            $('#show_'+this.id.replace("show_", "")).css('color','#373737');
             changeContainers("#show");
             createShowContainer(this.id.replace("show_", ""));
         });
@@ -49,8 +52,21 @@ function queryFestivalShowsSuccess(tx, results) {
 	}
 
     show_visited = false;
+
     //inits the before_festival_carousel
-    $('#before_festival_carousel').carousel({preventDefaults:false});
+    $('#before_festival_carousel').carousel({
+        preventDefaults:false,
+        pagingFunction:function(index){
+            if(index == 0){
+                $('#festival_nav_item').removeClass('not_current');
+                $('#shows_nav_item').addClass('not_current next');
+            }
+            else if(index == 1){
+                $('#shows_nav_item').removeClass('not_current next');
+                $('#festival_nav_item').addClass('not_current prev');
+            }
+        }
+    });
 }
 
 
