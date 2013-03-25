@@ -3,6 +3,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
 
 var history_array = [];
+var show_visited = false;
+
 // Set the visibility for the current app page
 function initDisplays(){
 
@@ -68,9 +70,7 @@ function getLastSync(callback) {
             tx.executeSql(sql, [],
                 function(tx, results) {
 
-                    var lastSync = results.rows.item(0).lastSync;
-                    lastSync = lastSync.replace(" ", "T");
-
+                    var lastSync = results.rows.item(0).lastSync.replace("T"," ");
                     //alert("last synchronization date : " + lastSync);
                     callback(lastSync);
                 }, errorQueryCB);

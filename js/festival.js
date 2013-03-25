@@ -54,6 +54,23 @@ function queryFestivalSuccess(tx, results) {
     }*/
 }
 
+function appendFestivalHTML(){
+    $('#before_festival_carousel').remove();
+    $('#before_festival').append('' +
+        '<div id="before_festival_carousel" data-role="carousel">' +
+            '<div id="before_festival_page" data-role="page">' +
+                '<div id="festival_countdown"></div>' +
+                '<div id="festival_days"></div>' +
+                '<div id="festival_city"></div>' +
+                '<div id="lineup_button" class="festival_page_button">Cartaz</div>' +
+                '<div id="map_button" class="festival_page_button">Mapa</div>' +
+                '<div id="info_button" class="festival_page_button" >Informação</div>' +
+            '</div>' +
+            '<div id="shows_page" data-role="page">' +
+                '<ul id="shows_page_list"></ul>' +
+            '</div>' +
+        '</div>');
+}
 
 function createBeforeFestival(festival, festivals, diff){
 
@@ -62,6 +79,9 @@ function createBeforeFestival(festival, festivals, diff){
             'FROM SHOWS INNER JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID INNER JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
             'WHERE SHOWS.FESTIVAL_ID='+festival.id +' ORDER BY SHOWS.NAME', [], queryFestivalShowsSuccess, errorQueryCB);
     }, errorCB);
+
+    if(!show_visited)
+        appendFestivalHTML();
 
     var dhms = dhm(diff).toString();
 

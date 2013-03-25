@@ -78,7 +78,7 @@ table {
   display: none;
 }
 .padded {
-  padding: 10px;
+  padding: 15px;
 }
 .centered {
   text-align: center;
@@ -91,6 +91,9 @@ table {
 }
 .bdr_l {
   border-left: 1px solid #373737;
+}
+.no_border {
+  border: none !important;
 }
 /* Grid Flexbox
 ------------------------------------------------------------------------
@@ -145,14 +148,19 @@ table {
 }
 .column {
   display: table-cell;
+  padding: 15px;
   vertical-align: middle;
 }
 .column.fixed {
-  width: 60px;
+  width: 65px;
   text-align: center;
-}
-.column:not(.fixed) {
   padding: 10px;
+}
+.one-quarter {
+  width: 25%;
+}
+.one-third {
+  width: 33.33%;
 }
 /* GLOBAL
 -------------------------------------------------------------------------- */
@@ -203,7 +211,7 @@ a {
   width: 60px;
 }
 .list .row {
-  min-height: 60px;
+  min-height: 65px;
   border-bottom: 1px solid #373737;
 }
 .list .band_name {
@@ -211,7 +219,7 @@ a {
   font-weight: normal;
 }
 .list_header {
-  padding: 5px;
+  padding: 15px;
   background-color: #b43a34;
   color: white;
 }
@@ -221,15 +229,17 @@ a {
 .header {
   height: 60px;
   border-bottom: 1px solid #b43a34;
+  background-color: #232323;
 }
 /*===============Main Nav=================*/
 
 .swipe_bar {
   position: relative;
-  padding: 6px 0;
+  padding: 6px;
   background-color: #373737;
- /* box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: 0 5px 15px 1px rgba(0, 0, 0, 0.6);*/
+  -webkit-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 .swipe_bar .not_current {
@@ -243,11 +253,37 @@ a {
 .swipe_bar .not_current.next {
   right: 1px;
 }
+.nav_top,
+.nav_bottom {
+  width: 100%;
+}
+.nav_top .column,
+.nav_bottom .column {
+  padding: 0;
+}
+.nav_top .item,
+.nav_bottom .item {
+  display: block;
+  padding: 18px 0;
+  border-right: 1px solid #373737;
+  background-color: #b43a34;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+.nav_bottom {
+  position: absolute;
+  bottom: 0;
+  -webkit-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
+}
+.nav_bottom .column {
+  width: 25%;
+}
 /* HOME
 -------------------------------------------------------------------------- */
-#festivals_page{
-  height: 80%;
-}
+
 .festival_list .item {
   float: left;
   width: 30%;
@@ -257,6 +293,26 @@ a {
 .festival_list img {
   width: 100%;
   height: 100%;
+}
+/* BEFORE FESTIVAL
+-------------------------------------------------------------------------- */
+
+#festival_countdown {
+  margin: 15px 0 20px;
+  font-size: 20px;
+  text-align: center;
+}
+#festival_countdown .days {
+  display: block;
+  font-size: 140px;
+  line-height: 125px;
+}
+/* WEATHER
+-------------------------------------------------------------------------- */
+
+.week_day {
+  display: block;
+  text-transform: uppercase;
 }
 #band_videos_page .column {
   height: 80px;

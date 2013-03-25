@@ -1,17 +1,8 @@
 // SHOW_CONTAINER
 
 
-// Inits carousel for show_container
-var show_carousel;
-function initShowCarousel() {
-	show_carousel=$("#show_carousel").carousel({
-		preventDefaults:false
-	});				
-}
-
 // Queries the local Database for a show
 function createShowContainer(show_id){
-    //initShow();
 
     db.transaction(function (tx) {
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date,' +
@@ -21,8 +12,6 @@ function createShowContainer(show_id){
             ' WHERE SHOWS.ID='+show_id, [], queryShowSuccess, errorQueryCB);
         tx.executeSql('SELECT * FROM VIDEOS WHERE SHOW_ID='+show_id, [], queryShowVideosSuccess, errorQueryCB);
     }, errorCB);
-    initShowCarousel();
-
 }
 
 // Success callback for the the query of one festival
@@ -34,10 +23,11 @@ function queryShowSuccess(tx, results) {
     $('.show_title').text(show.name);
     $('.column').bind('click', function(){
         $('.column').unbind();
-
         changeContainers("#festival");
         createFestivalContainer(show.festival_id);
     });
+
+    show_visited = true;
     incrementHistory("#festival");
 
     var show_day = show.day_date.slice(8,10);
@@ -52,6 +42,25 @@ function queryShowSuccess(tx, results) {
     $('#show_date').text(show_day + " de " + show_month);
     $('#show_time').text(show.time.slice(11,16));
 
-    var description_html_tags = show.description.replace(/\r\n/g, "<br>");
-    $('#show_description').html(description_html_tags);
+    if(show.description == "null"){
+        $('#show_description').html("Descrição da banda ainda não dísponivel.");}
+    else{
+        var description_html_tags = show.description.replace(/\r\n/g, "<br>");
+        $('#show_description').html(description_html_tags);
+    }
+
+    //inits the show_carousel
+    $('#show_carousel').carousel({
+        preventDefaults:false,
+        pagingFunction:function(index){
+            if(index == 0){
+                $('#show_nav_item').removeClass('not_current');
+                $('#videos_nav_item').addClass('not_current next');
+            }
+            else if(index == 1){
+                $('#videos_nav_item').removeClass('not_current next');
+                $('#show_nav_item').addClass('not_current prev');
+            }
+        }
+    });
 }
