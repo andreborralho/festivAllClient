@@ -17,7 +17,6 @@ function initFestivals() {
             }
         }
 	});
-    festivals_scroll=$('#festivals_buttons').scroller();
 }
 
 
@@ -34,12 +33,8 @@ function createFestivalsContainer(){
 
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
+    //var logo = '<img src="img/logo.png">FestivAll'
 	$('#festivals_carousel').css('display', 'block');
-
-    var left = $('#search_nav_bar').offset().left;
-    $('#search_nav_bar').bind('click', function(){
-        $('#search_nav_bar').css({left:left}).animate({'height': '50%'},'slow');
-    });
 
     incrementHistory("exit");
 
@@ -56,6 +51,7 @@ function queryFestivalsSuccess(tx, results) {
             createFestivalContainer(this.id.replace("festival_", ""));
         });
     }
+    $('#festivals_buttons').scroller();
     initFestivals();
 
 }

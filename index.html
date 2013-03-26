@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>FestivAll</title>
@@ -19,20 +19,23 @@
 
 <body id="frame">
 
-    <div id="festivals" data-role="container">
+    <!-- MAIN HEADER SKELETON -->
+    <header id="header" class="header row" data-role="header">
+        <!--<div id="header_icon" class="">-->
+        <div id="header_link" class="column">
+            <a href="#">
+                <h1 id="header_title" class="heading1">FestivAll</h1>
+                <h2 id="header_subtitle" class="heading2"></h2>
 
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_logo"></span>
-                    <h1 class="heading1">FestivAll</h1>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
+            </a>
+        </div>
+        <div class="column fixed centered bdr_l">
+            <a href="#" class="icon-menu"><h1>=</h1></a>
+        </div>
+    </header>
+
+
+    <div id="festivals" data-role="container">
 
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul id="festivals_bar">
@@ -52,16 +55,18 @@
         <div id="festivals_carousel" data-role="carousel">
 
             <!-- First-Page -->
-            <div id="festivals_page" data-role="page">
-                <ul id="festivals_buttons" class="festival_list padded">
-                <!--
-                    <li class="item">
-                        <a href="#">
-                            <img src="img/demo-festival.png">
-                        </a>
-                    </li>
-                -->
-                </ul>
+            <div id="festivals_page" data-role="page" >
+                <div id="festivals_scroll_wrapper" style="max-height:390px;max-width:100%;">
+                    <ul id="festivals_buttons" class="festival_list">
+                    <!--
+                        <li class="item">
+                            <a href="#">
+                                <img src="img/demo-festival.png">
+                            </a>
+                        </li>
+                    -->
+                    </ul>
+                </div>
             </div>
 
             <!-- Second-Page -->
@@ -71,55 +76,10 @@
                     <input class="input_field" type="text" placeholder="Nome de uma banda">
                     <button class="input_button" type="submit"><h1>0</h1></button>
                 </form>
-
-                <ul class="list" data-role="list">
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <time>
-                                <span>7 Ago</span>
-                                <span>14h00</span>
-                            </time>
-                        </div>
-                        <div class="column">
-                            <h3 class="band_name">Rihanna</h3>
-                            <p>Rock In Rio</p>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <time>
-                                <span>7 Ago</span>
-                                <span>14h00</span>
-                            </time>
-                        </div>
-                        <div class="column">
-                            <h3 class="band_name">Red Hot Chilli Peppers</h3>
-                            <p>Rock In Rio</p>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <time>
-                                <span>7 Ago</span>
-                                <span>14h00</span>
-                            </time>
-                        </div>
-                        <div class="column">
-                            <h3 class="band_name">Pearl Jam</h3>
-                            <p>Rock In Rio</p>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                </ul>
-
+                <div id="search_scroll_wrapper" style="max-height:390px;max-width:100%;">
+                    <ul id="search_list" class="list" data-role="list">
+                    </ul>
+                </div>
             </div>
 
         </div>
@@ -128,18 +88,7 @@
 
     <!-- ============================== FESTIVAL - before- single ===================================== -->
     <div id="before_festival" data-role="container">
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_arrow"></span>
-                    <h1 class="festival_title heading1">{Nome_festival}</h1>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
+
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
@@ -152,75 +101,11 @@
                 </li>
             </ul>
         </nav>
-
-        <!-- Pages wrap -->
-        <div id="before_festival_carousel" data-role="carousel">
-
-            <div id="before_festival_page" data-role="page">
-                <div class="padded">
-                    <p id="festival_countdown">
-                        <span>Faltam</span>
-                        <span class="days">25</span>
-                        <span>dias</span>
-                    </p>
-                    <ul>
-                        <li>
-                            <span>></span>
-                            <span id="festival_days">Dias 7, 8 e 9 de Setembro</span>
-                        </li>
-                        <li>
-                            <span>></span>
-                            <span id="festival_city">Atalaia, Amora, Seixal</span>
-                        </li>
-                        <li>
-                            <span>></span>
-                            <span id="festival_price">Entre 18€ e 22€</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <nav class="nav_bottom row">
-                    <ul>
-                        <li class="column">
-                            <a href="#" class="item" id="lineup_button">Cartaz</a>
-                        </li>
-                        <li class="column">
-                            <a href="#" class="item" id="map_button">Mapa</a>
-                        </li>
-                        <li class="column">
-                            <a href="#" class="item" id="info_button">Informação</a>
-                        </li>
-                        <li class="column">
-                            <a href="#" class="item no_border" id="info_gallery">Galeria</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
-            <div id="shows_page" data-role="page">
-                <ul id="shows_page_list">
-                </ul>
-            </div>
-
-        </div>
     </div>
 
     <!-- ============================== FESTIVAL - during - single ===================================== -->
 
     <div id="during_festival" data-role="container">
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_arrow"></span>
-                    <h1 class="festival_title heading1">{Nome_festival}</h1>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
-
         <!-- Pages wrap -->
 
         <div id="during_festival_page" data-role="page">
@@ -231,18 +116,6 @@
     <!-- ============================== FESTIVAL - after - single ===================================== -->
 
     <div id="after_festival" data-role="container">
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_arrow"></span>
-                    <h1 class="festival_title heading1">{Nome_festival}</h1>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
 
         <!-- Pages wrap -->
 
@@ -254,119 +127,25 @@
     <!-- ============================== LINEUP (cartaz) ===================================== -->
     <div id="lineup" data-role="container">
 
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_arrow"></span>
-                    <h2 class="festival_title heading1">{Nome_festival}</h2>
-                    <h4 class="page_title heading2">Cartaz</h4>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
-
         <!-- Nav top -->
         <nav class="nav_top" data-role="button_nav">
             <ul id="lineup_day_buttons" class="row">
-                <li class="column one-quarter">
-                    <a href="#" class="item">7 Ago</a>
-                </li>
-                <li class="column one-quarter">
-                    <a href="#" class="item">8 Ago</a>
-                </li>
-                <li class="column one-quarter">
-                    <a href="#" class="item">9 Ago</a>
-                </li>
-                <li class="column one-quarter">
-                    <a href="#" class="item">9 Ago</a>
-                </li>
             </ul>
         </nav>
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul id="lineup_stages_bar">
-                <li>
-                    <a class="not_current prev" href="#">Palco Arraial</a>
-                </li>
-                <li>
-                    <a href="#">Palco 25 Abril</a>
-                </li>
-                <li>
-                    <a class="not_current next" href="#">Novos valores</a>
-                </li>
             </ul>
         </nav>
 
         <ul id="lineup_frame" class="list" data-role="list">
-            <li class="row">
-                <div class="column fixed bdr_r">
-                    <time>
-                        <span>7 Ago</span>
-                        <span>14h00</span>
-                    </time>
-                </div>
-                <div class="column">
-                    <h3 class="band_name">Rihanna</h3>
-                    <p>Rock In Rio</p>
-                </div>
-                <div class="column fixed bdr_l">
-                    <span>%</span>
-                </div>
-            </li>
-            <li class="row">
-                <div class="column fixed bdr_r">
-                    <time>
-                        <span>7 Ago</span>
-                        <span>14h00</span>
-                    </time>
-                </div>
-                <div class="column">
-                    <h3 class="band_name">Rihanna</h3>
-                    <p>Rock In Rio</p>
-                </div>
-                <div class="column fixed bdr_l">
-                    <span>%</span>
-                </div>
-            </li>
-            <li class="row">
-                <div class="column fixed bdr_r">
-                    <time>
-                        <span>7 Ago</span>
-                        <span>14h00</span>
-                    </time>
-                </div>
-                <div class="column">
-                    <h3 class="band_name">Rihanna</h3>
-                    <p>Rock In Rio</p>
-                </div>
-                <div class="column fixed bdr_l">
-                    <span>%</span>
-                </div>
-            </li>
         </ul>
     </div>
 
 
     <!-- ============================== INFO ===================================== -->
     <div id="info" data-role="container">
-
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_arrow"></span>
-                    <h2 class="festival_title heading1">{Nome_festival}</h2>
-                    <h4 class="page_title heading2">Info</h4>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
@@ -382,145 +161,12 @@
                 </li>
             </ul>
         </nav>
-
-        <!-- Carousel -->
-        <div id="info_carousel" data-role="carousel">
-            <div id="tickets_page" data-role="page">
-            </div>
-
-            <div id="transports_page" class="padded" data-role="page">
-            </div>
-
-            <div id="weather_page" class="padded" data-role="page">
-
-                <ul class="list" data-role="list">
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <strong class="week_day">Qui</strong>
-                            <span>8 Ago</span>
-                        </div>
-                        <div class="column centered bdr_r">
-                            <span>6</span>
-                        </div>
-                        <div class="column">
-                            <span>21º / 29º</span>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <strong class="week_day">Sex</strong>
-                            <span>8 Ago</span>
-                        </div>
-                        <div class="column centered bdr_r">
-                            <span>6</span>
-                        </div>
-                        <div class="column">
-                            <span>21º / 29º</span>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <strong class="week_day">Sáb</strong>
-                            <span>8 Ago</span>
-                        </div>
-                        <div class="column centered bdr_r">
-                            <span>6</span>
-                        </div>
-                        <div class="column">
-                            <span>21º / 29º</span>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                </ul>
-
-                <div id="weather_current" class="weather_entry">
-                    <div id="weather_text_current" class="weather_text">
-                        <div id="weather_temperature_current" class="weather_temperature"></div>
-                        <div id="weather_description_current" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img_current" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day1" class="weather_entry">
-                    <div id="weather_text1" class="weather_text">
-                        <div id="weather_date1" class="weather_date"></div>
-                        <div class="weather_temperature">
-                            <span id="weather_max_temperature1"></span>
-                            <span id="weather_min_temperature1"></span>
-                        </div>
-                        <div id="weather_description1" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img1" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day2" class="weather_entry">
-                    <div id="weather_text2" class="weather_text">
-                        <div id="weather_date2" class="weather_date"></div>
-                        <div id="weather_max_temperature2" class="weather_temperature"></div>
-                        <div id="weather_min_temperature2" class="weather_temperature"></div>
-                        <div id="weather_description2" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img2" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day3" class="weather_entry">
-                    <div id="weather_text3" class="weather_text">
-                        <div id="weather_date3" class="weather_date"></div>
-                        <div id="weather_max_temperature3" class="weather_temperature"></div>
-                        <div id="weather_min_temperature3" class="weather_temperature"></div>
-                        <div id="weather_description3" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img3" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day4" class="weather_entry">
-                    <div id="weather_text4" class="weather_text">
-                        <div id="weather_date4" class="weather_date"></div>
-                        <div id="weather_max_temperature4" class="weather_temperature"></div>
-                        <div id="weather_min_temperature4" class="weather_temperature"></div>
-                        <div id="weather_description4" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img4" class="weather_img"></div>
-                </div>
-
-                <div id="weather_day5" class="weather_entry">
-                    <div id="weather_text5" class="weather_text">
-                        <div id="weather_date5" class="weather_date"></div>
-                        <div id="weather_max_temperature5" class="weather_temperature"></div>
-                        <div id="weather_min_temperature5" class="weather_temperature"></div>
-                        <div id="weather_description5" class="weather_description"></div>
-                    </div>
-                    <div id="weather_img5" class="weather_img"></div>
-                </div>
-            </div>
-        </div>
     </div>
 
 
     <!-- ================================ MAP ====================================== -->
     <div id="map" data-role="container">
 
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_arrow"></span>
-                    <h2 class="festival_title heading1">{Nome_festival}</h2>
-                    <h4 class="page_title heading2">Mapa</h4>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
 
         <!-- page -->
         <div id="map_page" data-role="page">
@@ -533,19 +179,6 @@
     <!-- ============================== SHOW (single band) ===================================== -->
     <div id="show" data-role="container">
 
-        <!-- header -->
-        <header class="header row" data-role="header">
-            <div class="column">
-                <a href="#">
-                    <span class="ir icon_arrow"></span>
-                    <h2 class="show_title heading1">{Título_Banda}</h2>
-                    <h4 class="page_title heading2"></h4>
-                </a>
-            </div>
-            <div class="column fixed centered bdr_l">
-                <a href="#" class="icon-menu"><h1>=</h1></a>
-            </div>
-        </header>
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
