@@ -1,6 +1,6 @@
 // FESTIVAL_CONTAINER
 
-var current_festival_id;
+var current_festival_id, current_festival_name;
 
 // Queries the local Database for a festival
 function createFestivalContainer(festival_id){
@@ -25,25 +25,24 @@ function queryFestivalSuccess(tx, results) {
 
     //diff = -1; //descomentar esta linha para experimentar o festival durante
     current_festival_id = festival.id;
+    current_festival_name = festival.name;
     incrementHistory("#festivals");
 
-    $('.festival_title').text(festival.name);
-    $('.page_title').text("");
-
-    $('.column').bind('click', function(){
-        changeContainers("#festivals");
+    $('#header_link').bind('click', function(){
+        $('#header_link').unbind();
         incrementHistory("exit");
-        $('.column').unbind();
+        changeContainers("#festivals", "FestivAll", "");
     });
 
 
     if(diff < 0){ //during festival
-        changeContainers("#during_festival");
         createDuringFestival(festival);
+        changeContainers("#during_festival", current_festival_name, "");
+
     }
     else if ( diff > 0){ //before festival
-        changeContainers("#before_festival");
         createBeforeFestival(festival, festivals, diff);
+        changeContainers("#before_festival", current_festival_name, "");
     }
 
     /*
@@ -67,7 +66,9 @@ function appendFestivalHTML(){
                 '<div id="info_button" class="festival_page_button" >Informação</div>' +
             '</div>' +
             '<div id="shows_page" data-role="page">' +
-                '<ul id="shows_page_list"></ul>' +
+                '<div id="shows_scroll_wrapper" style="max-height:390px;max-width:100%;">' +
+                    '<ul id="shows_page_list"></ul>' +
+                '</div>' +
             '</div>' +
         '</div>');
 }
@@ -90,21 +91,23 @@ function createBeforeFestival(festival, festivals, diff){
     $('#festival_city').text("Local: " + festival.city);
 
     $('#lineup_button').bind('click', function(){
-        changeContainers("#lineup");
         $('#lineup_button').unbind();
         createLineupContainer(festival.id);
+        changeContainers("#lineup", current_festival_name, "Cartaz");
+
     });
 
     $('#info_button').bind('click', function(){
-        changeContainers("#info");
         $('#info_button').unbind();
         createInfoContainer(festival.id);
+        changeContainers("#info", current_festival_name, "Informação");
     });
 
     $('#map_button').bind('click', function(){
-        changeContainers("#map");
         $('#map_button').unbind();
         createMapContainer(festival.map);
+        changeContainers("#map", current_festival_name, "Mapa");
+
     });
 
     $('#festival_days').empty();

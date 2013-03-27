@@ -5,13 +5,12 @@
 function createMapContainer(festival_map) {
     incrementHistory("#festival");
 
-    $('.page_title').text("Mapa");
 
-    $('.column').bind('click', function(){
-        $('.column').unbind();
+    $('#header_title').bind('click', function(){
+        $('#header_title').unbind();
 
-        changeContainers("#festival");
         createFestivalContainer(current_festival_id);
+        changeContainers("#festival", current_festival_name, "");
     });
 
     $('#map_page').html('<img src="' + festival_map +'">');

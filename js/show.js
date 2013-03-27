@@ -20,11 +20,10 @@ function queryShowSuccess(tx, results) {
     var show = results.rows.item(0);
     current_festival_id = show.festival_id;
 
-    $('.show_title').text(show.name);
-    $('.column').bind('click', function(){
-        $('.column').unbind();
-        changeContainers("#festival");
+    $('#header_title').bind('click', function(){
+        $('#header_title').unbind();
         createFestivalContainer(show.festival_id);
+        changeContainers("#festival", current_festival_name, "");
     });
 
     show_visited = true;

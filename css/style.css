@@ -1,7 +1,5 @@
 * {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 img {
   max-width: 100%;
@@ -183,9 +181,15 @@ a {
   line-height: 1.1em;
 }
 .heading1 {
-  font-size: 1.3125em;
+  font-size: 1.1em;
   font-weight: normal;
 }
+
+.heading2 {
+    font-size: 0.8em;
+    font-weight: normal;
+}
+
 .content_list {
   margin: 15px 0;
 }
@@ -231,8 +235,8 @@ a {
 /* HEADER
 -------------------------------------------------------------------------- */
 
-.header {
-  height: 60px;
+#header {
+  height: 14%;
   border-bottom: 1px solid #b43a34;
   background-color: #232323;
 }
@@ -242,9 +246,7 @@ a {
   position: relative;
   padding: 6px 0;
   background-color: #373737;
-/*  -webkit-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);*/
+  /*-webkit-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);*/
   text-align: center;
 }
 .swipe_bar .not_current {

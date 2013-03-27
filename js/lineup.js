@@ -15,10 +15,10 @@ function queryLineupSuccess(tx, results) {
 
     incrementHistory("#festival");
 
-    $('.column').bind('click', function(){
-        changeContainers("#festival");
-        $('.column').unbind();
+    $('#header_title').bind('click', function(){
+        $('#header_title').unbind();
         createFestivalContainer(current_festival_id);
+        changeContainers("#festival", current_festival_name, "");
     });
 
     var days = results.rows;
