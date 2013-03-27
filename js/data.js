@@ -15,6 +15,8 @@ function initDisplays(){
 function changeContainers(page){
     $('[data-role="container"]').css('display', 'none');
     $(page).css('display', 'block');
+    /*$('[data-role="container"]').css('opacity','0');
+    $(page).css('opacity','1');*/
 }
 
 

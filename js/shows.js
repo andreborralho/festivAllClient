@@ -43,7 +43,6 @@ function queryFestivalShowsSuccess(tx, results) {
         );
 
         $('#show_'+show_id).bind('click', function(){
-            $('#show_'+this.id.replace("show_", "")).css('color','#373737');
             changeContainers("#show");
             createShowContainer(this.id.replace("show_", ""));
         });

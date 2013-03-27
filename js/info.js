@@ -23,62 +23,60 @@ function queryInfoSuccess(tx, results) {
     $('#info').append('' +
         '<div id="info_carousel" data-role="carousel">' +
             '<div id="tickets_page" data-role="page"></div>' +
+
             '<div id="transports_page" data-role="page"></div>' +
+
             '<div id="weather_page" data-role="page">' +
-                '<div id="weather_current" class="weather_entry">' +
-                    '<div id="weather_text_current" class="weather_text">' +
-                        '<div id="weather_temperature_current" class="weather_temperature"></div>' +
-                        '<div id="weather_description_current" class="weather_description"></div>' +
-                    '</div>' +
+                '<div id="weather_current" class="row">' +
                     '<div id="weather_img_current" class="weather_img"></div>' +
+                    '<div id="weather_temperature_current" class="weather_temperature"></div>' +
+                    '<div id="weather_description_current" class="weather_description"></div>' +
                 '</div>' +
-                '<div id="weather_day1" class="weather_entry">' +
-                    '<div id="weather_text1" class="weather_text">' +
-                        '<div id="weather_date1" class="weather_date"></div>' +
-                        '<div class="weather_temperature">' +
-                            '<span id="weather_max_temperature1"></span>' +
-                            '<span id="weather_min_temperature1"></span>' +
-                        '</div>' +
-                        '<div id="weather_description1" class="weather_description"></div>' +
+                '<li id="weather_day1" class="row">' +
+                    '<div id="weather_date1" class="column fixed bdr_r"></div>' +
+                    '<div class="column fixed">' +
+                        '<span id="weather_max_temperature1"></span><br>' +
+                        '<span id="weather_min_temperature1"></span>' +
                     '</div>' +
-                    '<div id="weather_img1" class="weather_img"></div>' +
-                '</div>' +
-                '<div id="weather_day2" class="weather_entry">' +
-                    '<div id="weather_text2" class="weather_text">' +
-                        '<div id="weather_date2" class="weather_date"></div>' +
-                        '<div id="weather_max_temperature2" class="weather_temperature"></div>' +
-                        '<div id="weather_min_temperature2" class="weather_temperature"></div>' +
-                        '<div id="weather_description2" class="weather_description"></div>' +
+                    '<div id="weather_description1" class="column"></div>' +
+                    '<div id="weather_img1" class="column fixed"></div>' +
+                '</li>' +
+                '<li id="weather_day2" class="row">' +
+                    '<div id="weather_date2" class="column fixed bdr_r"></div>' +
+                    '<div class="column fixed">' +
+                        '<span id="weather_max_temperature2"></span><br>' +
+                        '<span id="weather_min_temperature2"></span>' +
                     '</div>' +
-                    '<div id="weather_img2" class="weather_img"></div>' +
-                '</div>' +
-                '<div id="weather_day3" class="weather_entry">' +
-                    '<div id="weather_text3" class="weather_text">' +
-                        '<div id="weather_date3" class="weather_date"></div>' +
-                        '<div id="weather_max_temperature3" class="weather_temperature"></div>' +
-                        '<div id="weather_min_temperature3" class="weather_temperature"></div>' +
-                        '<div id="weather_description3" class="weather_description"></div>' +
+                    '<div id="weather_description2" class="column"></div>' +
+                    '<div id="weather_img2" class="column fixed"></div>' +
+                '</li>' +
+                '<li id="weather_day3" class="row">' +
+                    '<div id="weather_date3" class="column fixed bdr_r"></div>' +
+                    '<div class="column fixed">' +
+                        '<span id="weather_max_temperature3"></span><br>' +
+                        '<span id="weather_min_temperature3"></span>' +
                     '</div>' +
-                    '<div id="weather_img3" class="weather_img"></div>' +
-                '</div>' +
-                '<div id="weather_day4" class="weather_entry">' +
-                    '<div id="weather_text4" class="weather_text">' +
-                        '<div id="weather_date4" class="weather_date"></div>' +
-                        '<div id="weather_max_temperature4" class="weather_temperature"></div>' +
-                        '<div id="weather_min_temperature4" class="weather_temperature"></div>' +
-                        '<div id="weather_description4" class="weather_description"></div>' +
+                    '<div id="weather_description3" class="column"></div>' +
+                    '<div id="weather_img3" class="column fixed"></div>' +
+                '</li>' +
+                '<li id="weather_day4" class="row">' +
+                    '<div id="weather_date4" class="column fixed bdr_r"></div>' +
+                    '<div class="column fixed">' +
+                        '<span id="weather_max_temperature4"></span><br>' +
+                        '<span id="weather_min_temperature4"></span>' +
                     '</div>' +
-                    '<div id="weather_img4" class="weather_img"></div>' +
-                '</div>' +
-                '<div id="weather_day5" class="weather_entry">' +
-                    '<div id="weather_text5" class="weather_text">' +
-                        '<div id="weather_date5" class="weather_date"></div>' +
-                        '<div id="weather_max_temperature5" class="weather_temperature"></div>' +
-                        '<div id="weather_min_temperature5" class="weather_temperature"></div>' +
-                        '<div id="weather_description5" class="weather_description"></div>' +
+                    '<div id="weather_description4" class="column"></div>' +
+                    '<div id="weather_img4" class="column fixed"></div>' +
+                '</li>' +
+                '<li id="weather_day5" class="row">' +
+                    '<div id="weather_date5" class="column fixed bdr_r"></div>' +
+                    '<div class="column fixed">' +
+                        '<span id="weather_max_temperature5"></span><br>' +
+                        '<span id="weather_min_temperature5"></span>' +
                     '</div>' +
-                    '<div id="weather_img5" class="weather_img"></div>' +
-                '</div>' +
+                    '<div id="weather_description5" class="column"></div>' +
+                    '<div id="weather_img5" class="column fixed"></div>' +
+                '</li>' +
             '</div>' +
         '</div>');
 
@@ -113,12 +111,14 @@ function queryInfoSuccess(tx, results) {
 
                                 if(desc_value == "Sunny" || desc_value == "Clear")
                                     weather_description_selector.text("Céu limpo");
+                                else if(desc_value == "Moderate rain")
+                                    weather_description_selector.text("Chuva moderada");
                                 else if(desc_value == "Partly Cloudy")
                                     weather_description_selector.text("Nuvens com abertas");
                                 else if(desc_value == "Patchy rain nearby")
-                                    weather_description_selector.text("Céu limpo com nuvens e aguaceiros");
-                                else if(desc_value == "Patchy light rain")
                                     weather_description_selector.text("Períodos de chuva");
+                                else if(desc_value == "Patchy light rain")
+                                    weather_description_selector.text("Períodos de chuva fraca");
                                 else if(desc_value == "Light rain shower")
                                     weather_description_selector.text("Chuva fraca");
                                 else if(desc_value == "Moderate or heavy rain shower")
@@ -151,10 +151,10 @@ function queryInfoSuccess(tx, results) {
                                 $('#weather_date'+day_index).text(weather_day + " de " + weather_month);
                             }
                             if(temperature_key=="tempMaxC"){
-                                $('#weather_max_temperature'+day_index).text(temperature_value);
+                                $('#weather_max_temperature'+day_index).text(temperature_value + "ºC");
                             }
                             if(temperature_key=="tempMinC"){
-                                $('#weather_min_temperature'+day_index).text(temperature_value);
+                                $('#weather_min_temperature'+day_index).text(temperature_value + "ºC");
                             }
                             if(temperature_key=="weatherDesc"){
                                 var weather_description_selector = $('#weather_description'+day_index);

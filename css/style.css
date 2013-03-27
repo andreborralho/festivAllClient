@@ -78,7 +78,7 @@ table {
   display: none;
 }
 .padded {
-  padding: 15px;
+  padding: 10px;
 }
 .centered {
   text-align: center;
@@ -148,13 +148,13 @@ table {
 }
 .column {
   display: table-cell;
-  padding: 15px;
+  padding: 10px 5px;
   vertical-align: middle;
 }
 .column.fixed {
   width: 65px;
   text-align: center;
-  padding: 10px;
+
 }
 .one-quarter {
   width: 25%;
@@ -219,10 +219,15 @@ a {
   font-weight: normal;
 }
 .list_header {
-  padding: 15px;
+  padding: 5px;
   background-color: #b43a34;
   color: white;
 }
+.transition{
+    -webkit-transition: all 0.4s ease-in-out;
+}
+
+
 /* HEADER
 -------------------------------------------------------------------------- */
 
@@ -235,11 +240,11 @@ a {
 
 .swipe_bar {
   position: relative;
-  padding: 6px;
+  padding: 6px 0;
   background-color: #373737;
-  -webkit-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
+/*  -webkit-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);*/
   text-align: center;
 }
 .swipe_bar .not_current {
@@ -274,9 +279,9 @@ a {
 .nav_bottom {
   position: absolute;
   bottom: 0;
-  -webkit-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
+ /* -webkit-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);*/
 }
 .nav_bottom .column {
   width: 25%;
@@ -335,7 +340,6 @@ a {
   width: 250%;
 }
 .weather_entry {
-  width: 100%;
   border-bottom: 1px solid #373737;
 }
 .weather_text {

@@ -19,14 +19,14 @@
 
 <body id="frame">
 
-    <div id="festivals" data-role="container">
+    <div id="festivals" class="transition" data-role="container">
 
         <!-- header -->
         <header class="header row" data-role="header">
             <div class="column">
                 <a href="#">
                     <span class="ir icon_logo"></span>
-                    <h1 class="heading1">FestivAll</h1>
+                    <h1 class="heading1"><img src="img/logo.png">FestivAll</h1>
                 </a>
             </div>
             <div class="column fixed centered bdr_l">
@@ -52,7 +52,7 @@
         <div id="festivals_carousel" data-role="carousel">
 
             <!-- First-Page -->
-            <div id="festivals_page" data-role="page">
+            <div id="festivals_page" class="transition" data-role="page">
                 <ul id="festivals_buttons" class="festival_list padded">
                 <!--
                     <li class="item">
@@ -127,7 +127,7 @@
 
 
     <!-- ============================== FESTIVAL - before- single ===================================== -->
-    <div id="before_festival" data-role="container">
+    <div id="before_festival" class="transition" data-role="container">
         <!-- header -->
         <header class="header row" data-role="header">
             <div class="column">
@@ -388,10 +388,10 @@
             <div id="tickets_page" data-role="page">
             </div>
 
-            <div id="transports_page" class="padded" data-role="page">
+            <div id="transports_page" data-role="page">
             </div>
 
-            <div id="weather_page" class="padded" data-role="page">
+            <div id="weather_page" data-role="page">
 
                 <ul class="list" data-role="list">
                     <li class="row">
@@ -439,9 +439,9 @@
                             <span>%</span>
                         </div>
                     </li>
-                </ul>
 
-                <div id="weather_current" class="weather_entry">
+
+                <div id="weather_current" class="weather_entry row">
                     <div id="weather_text_current" class="weather_text">
                         <div id="weather_temperature_current" class="weather_temperature"></div>
                         <div id="weather_description_current" class="weather_description"></div>
@@ -449,17 +449,18 @@
                     <div id="weather_img_current" class="weather_img"></div>
                 </div>
 
-                <div id="weather_day1" class="weather_entry">
-                    <div id="weather_text1" class="weather_text">
-                        <div id="weather_date1" class="weather_date"></div>
-                        <div class="weather_temperature">
-                            <span id="weather_max_temperature1"></span>
-                            <span id="weather_min_temperature1"></span>
-                        </div>
-                        <div id="weather_description1" class="weather_description"></div>
+                <li id="weather_day1" class="row">
+                    <!--div id="weather_text1" class="weather_text column fixed bdr_r"-->
+                    <div id="weather_date1" class="column fixed bdr_r"></div>
+                    <div id="weather_description1" class="column centered bdr_r"></div>
+
+                    <div class="column">
+                        <span id="weather_max_temperature1"></span>
+                        <span id="weather_min_temperature1"></span>
                     </div>
-                    <div id="weather_img1" class="weather_img"></div>
-                </div>
+                    <!--/div-->
+                    <div id="weather_img1" class="column fixed bdr_l"></div>
+                </li>
 
                 <div id="weather_day2" class="weather_entry">
                     <div id="weather_text2" class="weather_text">
@@ -500,6 +501,7 @@
                     </div>
                     <div id="weather_img5" class="weather_img"></div>
                 </div>
+                </ul>
             </div>
         </div>
     </div>
