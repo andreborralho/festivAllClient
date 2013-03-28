@@ -26,19 +26,19 @@
             <a href="#">
                 <h1 id="header_title" class="heading1">FestivAll</h1>
                 <h2 id="header_subtitle" class="heading2"></h2>
-
             </a>
         </div>
         <div class="column fixed centered bdr_l">
             <a href="#" class="icon-menu"><h1>=</h1></a>
         </div>
+
     </header>
 
 
-    <div id="festivals" data-role="container">
+    <div id="festivals" class="container" data-role="container">
 
         <nav class="swipe_bar row" data-role="swipe_bar">
-            <ul id="festivals_bar">
+            <ul>
                 <!--<li>
                     <a class="not_current prev" href="#">Menu</a>
                 </li>-->
@@ -52,17 +52,17 @@
         </nav>
 
 
-        <div id="festivals_carousel" data-role="carousel">
+        <div id="festivals_carousel" class="carousel" data-role="carousel">
 
             <!-- First-Page -->
-            <div id="festivals_page" data-role="page" >
-                <div id="festivals_scroll_wrapper" style="max-height:390px;max-width:100%;">
+            <div id="festivals_page" class="page" data-role="page" >
+                <div id="festivals_scroll_wrapper" class="scroll_wrapper">
                     <ul id="festivals_buttons" class="festival_list"></ul>
                 </div>
             </div>
 
             <!-- Second-Page -->
-            <div id="search_page" data-role="page">
+            <div id="search_page" class="page" data-role="page">
 
                 <form class="input_wrap">
                     <input class="input_field" type="text" placeholder="Nome de uma banda">
@@ -79,7 +79,7 @@
 
 
     <!-- ============================== FESTIVAL - before- single ===================================== -->
-    <div id="before_festival" data-role="container">
+    <div id="before_festival" class="container" data-role="container">
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
@@ -136,7 +136,7 @@
 
 
     <!-- ============================== INFO ===================================== -->
-    <div id="info" data-role="container">
+    <div id="info" class="container" data-role="container">
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
@@ -158,18 +158,15 @@
     <!-- ================================ MAP ====================================== -->
     <div id="map" data-role="container">
 
-
         <!-- page -->
-        <div id="map_page" data-role="page">
-        </div>
+        <div id="map_page" data-role="page"></div>
     </div>
 
 
 
     <!-- ======================================================================================= -->
     <!-- ============================== SHOW (single band) ===================================== -->
-    <div id="show" data-role="container">
-
+    <div id="show" class="container" data-role="container">
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
@@ -184,22 +181,25 @@
         </nav>
 
         <!-- Carousel -->
-        <div id="show_carousel" data-role="carousel">
+        <div id="show_carousel" class="carousel" data-role="carousel">
 
-            <div id="show_page" data-role="page">
-                <div id="show_photo">
-                    <img src="img/show450x240.jpg">
-                </div>
-                <div class="padded">
-                    <ul>
-                        <li id="show_stage">{Palco}</li>
-                        <li>
-                            <span id="show_date">{1 Ago}</span> | 
-                            <span id="show_time">{19h00}</span>
-                        </li>
-                    </ul>
-                    <br>
-                    <p class="content_text" id="show_description"></p>
+            <div id="show_page" class="page" data-role="page">
+                <div id="show_scroll_wrapper" class="scroll_wrapper">
+                    <div id="show_scroller">
+                        <div id="show_photo"></div>
+
+                        <div class="padded">
+                            <ul>
+                                <li id="show_stage">{Palco}</li>
+                                <li>
+                                    <span id="show_date">{1 Ago}</span> |
+                                    <span id="show_time">{19h00}</span>
+                                </li>
+                            </ul>
+                            <br>
+                            <p class="content_text" id="show_description"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -213,7 +213,6 @@
 
         </div>
     </div>
-
 
 
     <!-- JAVASCRIPT -->

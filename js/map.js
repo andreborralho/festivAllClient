@@ -5,7 +5,6 @@
 function createMapContainer(festival_map) {
     incrementHistory("#festival");
 
-
     $('#header_title').bind('click', function(){
         $('#header_title').unbind();
 

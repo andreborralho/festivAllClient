@@ -56,7 +56,7 @@ function queryFestivalSuccess(tx, results) {
 function appendFestivalHTML(){
     $('#before_festival_carousel').remove();
     $('#before_festival').append('' +
-        '<div id="before_festival_carousel" data-role="carousel">' +
+        '<div id="before_festival_carousel" class="carousel" data-role="carousel">' +
             '<div id="before_festival_page" data-role="page">' +
                 '<div id="festival_countdown"></div>' +
                 '<div id="festival_days"></div>' +
@@ -65,8 +65,9 @@ function appendFestivalHTML(){
                 '<div id="map_button" class="festival_page_button">Mapa</div>' +
                 '<div id="info_button" class="festival_page_button" >Informação</div>' +
             '</div>' +
-            '<div id="shows_page" data-role="page">' +
-                '<div id="shows_scroll_wrapper" style="max-height:390px;max-width:100%;">' +
+
+            '<div id="shows_page" class="page" data-role="page">' +
+                '<div id="shows_scroll_wrapper" class="scroll_wrapper">' +
                     '<ul id="shows_page_list"></ul>' +
                 '</div>' +
             '</div>' +

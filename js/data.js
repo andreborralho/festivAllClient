@@ -14,6 +14,8 @@ function initDisplays(){
 
     $('[data-role="container"]').css('display', 'none');
     $('#festivals').css('display', 'block');
+    var container_height = $('#header').height()-2 + "px";
+    $('#header').css('height', container_height);
 }
 
 function changeContainers(page, title, subtitle){

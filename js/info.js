@@ -4,9 +4,9 @@
 function createInfoContainer(festival_id){
 
     $('#header_link').bind('click', function(){
-        $('#header_link').unbind();
+        $('#header_link').unbind();alert(festival_id);
         createFestivalContainer(festival_id);
-        changeContainers("#festival",current_festival_name, "");
+        changeContainers("#before_festival", current_festival_name, "");
     });
 
     db.transaction(function (tx) {
@@ -20,12 +20,22 @@ function queryInfoSuccess(tx, results) {
 
     $('#info_carousel').remove();
     $('#info').append('' +
-        '<div id="info_carousel" data-role="carousel">' +
+        '<div id="info_carousel" class="carousel" data-role="carousel">' +
 
-            '<div id="tickets_page" data-role="page"><div id="tickets_wrapper" style="max-height:390px;max-width:100%;"><div id="tickets_scroller"></div></div></div>' +
-            '<div id="transports_page" data-role="page"><div id=transports_wrapper style="max-height:390px;max-width:100%;"><div id="transports_scroller"></div></div></div>' +
-            '<div id="weather_page" data-role="page">' +
-                '<div id="weather_wrapper" style="max-height:390px;max-width:100%;">' +
+            '<div id="tickets_page" class="page" data-role="page">' +
+                '<div id="tickets_wrapper" class="scroll_wrapper">' +
+                    '<div id="tickets_scroller"></div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div id="transports_page" class="page" data-role="page">' +
+                '<div id=transports_wrapper class="scroll_wrapper">' +
+                    '<div id="transports_scroller"></div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div id="weather_page" class="page" data-role="page">' +
+                '<div id="weather_wrapper" class="scroll_wrapper">' +
                     '<div id="weather_scroller">' +
                         '<div id="weather_current" class="weather_entry">' +
                             '<div id="weather_text_current" class="weather_text">' +
@@ -35,13 +45,12 @@ function queryInfoSuccess(tx, results) {
                             '<div id="weather_img_current" class="weather_img"></div>' +
                         '</div>' +
                         '<div id="weather_day1" class="weather_entry">' +
-                                '<div id="weather_date1" class="weather_date"></div>' +
-                                '<div class="weather_temperature">' +
-                                    '<span id="weather_max_temperature1"></span>' +
-                                    '<span id="weather_min_temperature1"></span>' +
-                                '</div>' +
-                                '<div id="weather_description1" class="weather_description"></div>' +
+                            '<div id="weather_date1" class="weather_date"></div>' +
+                            '<div class="weather_temperature">' +
+                                '<span id="weather_max_temperature1"></span>' +
+                                '<span id="weather_min_temperature1"></span>' +
                             '</div>' +
+                            '<div id="weather_description1" class="weather_description"></div>' +
                             '<div id="weather_img1" class="weather_img"></div>' +
                         '</div>' +
                         '<div id="weather_day2" class="weather_entry">' +

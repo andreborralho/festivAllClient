@@ -33,7 +33,7 @@ function queryShowSuccess(tx, results) {
     var numeric_month = show.day_date.slice(5,7);
     var show_month = changeNumberToMonth(numeric_month);
 
-    $('.page_title').text(show.festival_name);
+    $('#header_subtitle').text(show.festival_name);
 
     $('#show_photo').html('<img width="100%" src="' + show.photo + '">');
     $('#show_stage').text(show.stage_name);
@@ -47,6 +47,8 @@ function queryShowSuccess(tx, results) {
         var description_html_tags = show.description.replace(/\r\n/g, "<br>");
         $('#show_description').html(description_html_tags);
     }
+
+
 
     //inits the show_carousel
     $('#show_carousel').carousel({
@@ -62,4 +64,5 @@ function queryShowSuccess(tx, results) {
             }
         }
     });
+    $('#show_scroller').scroller();
 }
