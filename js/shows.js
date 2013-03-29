@@ -42,16 +42,20 @@ function queryFestivalShowsSuccess(tx, results) {
             '</div>'*/
         );
 
-        $('#show_'+show_id).bind('click', function(){
-            $('#show_'+this.id.replace("show_", "")).css('color','#373737');
-            changeContainers("#show");
-            createShowContainer(this.id.replace("show_", ""));
-        });
+        (function (show_name){
+            $('#show_'+show_id).bind('click', function(){
+                $('#show_'+this.id.replace("show_", "")).css('color','#373737');
+                createShowContainer(this.id.replace("show_", ""));
+                changeContainers("#show", show_name, current_festival_name);
+            });
+        })(show.name);
 
         show_name_previous_letter = show_name_letter;
 	}
 
     show_visited = false;
+
+    $('#shows_page_list').scroller();
 
     //inits the before_festival_carousel
     $('#before_festival_carousel').carousel({

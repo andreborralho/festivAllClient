@@ -5,24 +5,37 @@ window.addEventListener("load", initDisplays, false);
 var history_array = [];
 var show_visited = false;
 
+
 // Set the visibility for the current app page
+
+setHeight();
+
 function initDisplays(){
 
     $('[data-role="container"]').css('display', 'none');
     $('#festivals').css('display', 'block');
+    var container_height = $('#header').height()-2 + "px";
+    $('#header').css('height', container_height);
 }
 
-function changeContainers(page){
+function changeContainers(page, title, subtitle){
     $('[data-role="container"]').css('display', 'none');
+    $('#header_title').text(title);
+    $('#header_subtitle').text(subtitle);
     $(page).css('display', 'block');
+    /*$('[data-role="container"]').css('opacity','0');
+    $(page).css('opacity','1');*/
 }
 
+function setHeight(){
+    var screen_height = window.innerHeight;
+    $('body').css('height', screen_height + "px");
+}
 
 // Cordova is ready
 function onDeviceReady() {
     document.addEventListener("backbutton", backButton, false);
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
-
     //Check if the application is running for the first time
     $.ajax({
         url: "http://festivall.eu",

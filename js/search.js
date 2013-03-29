@@ -33,9 +33,11 @@ function createSearchPage(){
                              '</div>' +
                         '</li>');
                 }
+                $('#search_list').scroller();
                 //init carousel
                 initFestivals();
             }, errorQueryCb);
         }, errorCB);
     });
+
 }
