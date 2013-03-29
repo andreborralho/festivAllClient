@@ -310,7 +310,7 @@ a {
 /* WEATHER
 -------------------------------------------------------------------------- */
 
-.week_day {
+.weather_weekday {
   display: block;
   text-transform: uppercase;
 }

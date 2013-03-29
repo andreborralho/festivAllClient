@@ -393,50 +393,28 @@
 
             <div id="weather_page" class="padded" data-role="page">
 
+                <div id="weather_current">
+                    <div class="row">
+                        <div class="column">
+                            <img src="" id="weather_img_current">
+                        </div>
+                        <div class="column">
+                            <span id="weather_temperature_current">15º</span>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="list" data-role="list">
                     <li class="row">
                         <div class="column fixed bdr_r">
-                            <strong class="week_day">Qui</strong>
-                            <span>8 Ago</span>
+                            <strong class="weather_weekday">Sex</strong>
+                            <span class="weather_date1">8 Ago</span>
                         </div>
                         <div class="column centered bdr_r">
-                            <span>6</span>
+                            <img id="weather_img1" src="">6
                         </div>
                         <div class="column">
-                            <span>21º / 29º</span>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <strong class="week_day">Sex</strong>
-                            <span>8 Ago</span>
-                        </div>
-                        <div class="column centered bdr_r">
-                            <span>6</span>
-                        </div>
-                        <div class="column">
-                            <span>21º / 29º</span>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="column fixed bdr_r">
-                            <strong class="week_day">Sáb</strong>
-                            <span>8 Ago</span>
-                        </div>
-                        <div class="column centered bdr_r">
-                            <span>6</span>
-                        </div>
-                        <div class="column">
-                            <span>21º / 29º</span>
-                        </div>
-                        <div class="column fixed bdr_l">
-                            <span>%</span>
+                            <span id="weather_min_temperature1">xxº</span> / <span id="weather_max_temperature1">xxº</span>
                         </div>
                     </li>
                 </ul>
@@ -598,7 +576,6 @@
     <script type="text/javascript" src="lib/jq.carousel.js"></script>
     <script type="text/javascript" src="lib/jq.scroller.js"></script>
     <script type="text/javascript" src="lib/cordova-2.3.0.js"></script>
-
 
     <!-- Data -->
     <script type="text/javascript" src="js/data.js"></script>
