@@ -1,0 +1,368 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+img {
+  max-width: 100%;
+}
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+img,
+small,
+strong,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+tbody,
+tr,
+th,
+td,
+article,
+aside,
+footer,
+header,
+hgroup,
+nav,
+section,
+time,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+.ir {
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+}
+.hidden {
+  display: none;
+}
+.padded {
+  padding: 15px;
+}
+.centered {
+  text-align: center;
+}
+.valign_top {
+  vertical-align: top !important;
+}
+.bdr_r {
+  border-right: 1px solid #373737;
+}
+.bdr_l {
+  border-left: 1px solid #373737;
+}
+.no_border {
+  border: none !important;
+}
+/* Grid Flexbox
+------------------------------------------------------------------------
+.row {
+    //display: -webkit-flex; //new syntax (not supported by android 2.*)
+    display: box;
+    display: -moz-box;
+    display: -webkit-box;
+    &.v-center { // Center content vertically
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        box-align: center;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .stretch {
+        height: 100%; // mantain div top-to-bottom
+    }
+}
+
+.column {
+    padding: 12px;
+    &.flex1 {
+        //-webkit-flex: 1; //new syntax (not supported by android 2.*)
+        -webkit-box-flex: 1;
+           -moz-box-flex: 1;
+                box-flex: 1;
+    }
+    &.flex2 {
+        -webkit-box-flex: 2;
+           -moz-box-flex: 2;
+                box-flex: 2;
+    }
+    &.flex3 {
+        -webkit-box-flex: 3;
+           -moz-box-flex: 3;
+                box-flex: 3;
+    }
+}
+.col-fixed {
+    width: 60px;
+}
+*/
+
+/* Grid Table
+------------------------------------------------------------------------ */
+
+.row {
+  position: relative;
+  display: table;
+  width: 100%;
+}
+.column {
+  display: table-cell;
+  padding: 15px;
+  vertical-align: middle;
+}
+.column.fixed {
+  width: 65px;
+  text-align: center;
+  padding: 10px;
+}
+.one-quarter {
+  width: 25%;
+}
+.one-third {
+  width: 33.33%;
+}
+/* GLOBAL
+-------------------------------------------------------------------------- */
+
+body {
+  overflow: hidden;
+  background: url(../img/bg.png) #232323;
+  font-family: Helvetica, sans-serif;
+  color: white;
+  line-height: 1.2em;
+}
+a {
+  color: white;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-focus-ring-color: transparent;
+}
+.p_small {
+  font-size: 0.875em;
+  line-height: 1.1em;
+}
+.heading1 {
+  font-size: 1.3125em;
+  font-weight: normal;
+}
+.content_list {
+  margin: 15px 0;
+}
+.input_wrap {
+  position: relative;
+}
+.input_field {
+  width: 100%;
+  height: 50px;
+  padding: 4px 67px 4px 10px;
+  border: 3px solid #b43a34;
+  background-color: #232323;
+  font-size: 16px;
+  color: white;
+}
+.input_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background: #b43a34;
+  height: 50px;
+  width: 60px;
+}
+.list .row {
+  min-height: 65px;
+  border-bottom: 1px solid #373737;
+}
+.list .band_name {
+  text-transform: uppercase;
+  font-weight: normal;
+}
+.list_header {
+  padding: 15px;
+  background-color: #b43a34;
+  color: white;
+}
+/*---Scroll Structure--*/
+
+.container {
+  height: 86%;
+}
+.carousel {
+  height: 93%;
+}
+.page {
+  height: 100%;
+}
+.scroll_wrapper {
+  max-height: 100%;
+}
+.transition {
+  -webkit-transition: all 0.4s ease-in-out;
+}
+/* HEADER
+-------------------------------------------------------------------------- */
+
+.header {
+  height: 60px;
+  border-bottom: 1px solid #b43a34;
+  background-color: #232323;
+}
+/*===============Main Nav=================*/
+
+.swipe_bar {
+  position: relative;
+  padding: 6px;
+  background-color: #373737;
+  text-align: center;
+}
+.swipe_bar .not_current {
+  position: absolute;
+  top: 6px;
+  color: #aaaaaa !important;
+}
+.swipe_bar .not_current.prev {
+  left: 1px;
+}
+.swipe_bar .not_current.next {
+  right: 1px;
+}
+.nav_top,
+.nav_bottom {
+  width: 100%;
+}
+.nav_top .column,
+.nav_bottom .column {
+  padding: 0;
+}
+.nav_top .item,
+.nav_bottom .item {
+  display: block;
+  padding: 18px 0;
+  border-right: 1px solid #373737;
+  background-color: #b43a34;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+.nav_bottom {
+  position: absolute;
+  bottom: 0;
+}
+.nav_bottom .column {
+  width: 25%;
+}
+/* HOME
+-------------------------------------------------------------------------- */
+
+.festival_list .item {
+  float: left;
+  width: 30%;
+  height: 19%;
+  margin: 1.8%;
+}
+.festival_list img {
+  width: 100%;
+  height: 100%;
+}
+/* BEFORE FESTIVAL
+-------------------------------------------------------------------------- */
+
+#festival_countdown {
+  margin: 15px 0 20px;
+  font-size: 20px;
+  text-align: center;
+}
+#festival_countdown .days {
+  display: block;
+  font-size: 140px;
+  line-height: 125px;
+}
+/* WEATHER
+-------------------------------------------------------------------------- */
+
+.weather_weekday {
+  display: block;
+  text-transform: uppercase;
+}
+.weather_entry {
+  width: 100%;
+  border-bottom: 1px solid #373737;
+}
+.weather_text {
+  width: 70%;
+}
+.weather_img {
+  width: 29%;
+}
+.weather_date,
+.weather_description,
+.weather_temperature {
+  width: 100%;
+}
+#weather_current {
+  border-bottom: 1px solid #373737;
+}
+#weather_temperature_current {
+  font-size: 30px;
+}
+#band_videos_page .column {
+  height: 80px;
+}
+#band_videos_page .column.fixed {
+  width: 100px;
+  position: relative;
+}
+.icon_videoplay {
+  position: absolute;
+  top: 30px;
+  left: 27px;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  background: url(../img/sprite.png) 0 -144px;
+}
+#map_page img {
+  max-width: 250% !important;
+  width: 250%;
+}

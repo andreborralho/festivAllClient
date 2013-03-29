@@ -69,6 +69,24 @@ a {
     color: #FFF;
 }
 
+/*---Scroll Structure--*/
+.container {
+    height: 86%;
+}
+.carousel {
+    height: 93%;
+}
+.page {
+    height: 100%;
+}
+.scroll_wrapper {
+    max-height: 100%;
+}
+.transition{
+    -webkit-transition: all 0.4s ease-in-out;
+}
+
+
 /* HEADER
 -------------------------------------------------------------------------- */
 .header {
@@ -83,7 +101,7 @@ a {
     position: relative;
     padding: 6px;
     background-color: @grey;
-    .box-shadow(0 6px 25px 6px rgba(0,0,0,0.6));
+    //.box-shadow(0 6px 25px 6px rgba(0,0,0,0.6));
     text-align: center;
     .not_current {
         position: absolute;
@@ -113,7 +131,7 @@ a {
 .nav_bottom {
     position: absolute;
     bottom: 0;
-    .box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));
+    //.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));
     .column {
         .one-quarter;
     }
@@ -158,6 +176,25 @@ a {
     display: block;
     text-transform: uppercase;
 }
+.weather_entry{
+    width: 100%;
+    border-bottom: 1px solid #373737;
+}
+.weather_text{
+    width: 70%;
+}
+.weather_img{
+    width: 29%;
+}
+.weather_date, .weather_description, .weather_temperature{
+    width: 100%;
+}
+#weather_current {
+    border-bottom: 1px solid @grey;
+}
+#weather_temperature_current {
+    font-size: 30px;
+}
 
 
 //================================ SHOW VIDEOS===================
@@ -186,17 +223,4 @@ a {
 #map_page img {
     max-width: 250% !important;
     width: 250%;
-}
-.weather_entry{
-    width: 100%;
-    border-bottom: 1px solid #373737;
-}
-.weather_text{
-    width: 70%;
-}
-.weather_img{
-    width: 29%;
-}
-.weather_date, .weather_description, .weather_temperature{
-    width: 100%;
 }
