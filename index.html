@@ -23,15 +23,12 @@
     <header id="header" class="header row" data-role="header">
         <!--<div id="header_icon" class="">-->
         <div id="header_link" class="column">
-            <a href="#">
-                <h1 id="header_title" class="heading1">FestivAll</h1>
-                <h2 id="header_subtitle" class="heading2"></h2>
-            </a>
+            <h1 id="header_title" class="heading1">FestivAll</h1>
+            <h2 id="header_subtitle" class="heading2"></h2>
         </div>
         <div class="column fixed centered bdr_l">
             <a href="#" class="icon-menu"><h1>=</h1></a>
         </div>
-
     </header>
 
 
@@ -53,7 +50,18 @@
 
 
         <div id="festivals_carousel" class="carousel" data-role="carousel">
+            <!-- Second-Page -->
+            <div id="search_page" class="page" data-role="page">
 
+                <div class="input_wrap">
+                    <input id="search_input" class="input_field" type="text" placeholder="Nome de uma banda...">
+                    <div id="search_button"><h1>0</h1></div>
+                </div>
+                <div id="search_scroll_wrapper" style="max-height:390px;max-width:100%;">
+                    <ul id="search_list" class="list" data-role="list">
+                    </ul>
+                </div>
+            </div>
             <!-- First-Page -->
             <div id="festivals_page" class="page" data-role="page" >
                 <div id="festivals_scroll_wrapper" class="scroll_wrapper">
@@ -61,24 +69,12 @@
                 </div>
             </div>
 
-            <!-- Second-Page -->
-            <div id="search_page" class="page" data-role="page">
-
-                <form class="input_wrap">
-                    <input class="input_field" type="text" placeholder="Nome de uma banda">
-                    <button class="input_button" type="submit"><h1>0</h1></button>
-                </form>
-                <div id="search_scroll_wrapper" style="max-height:390px;max-width:100%;">
-                    <ul id="search_list" class="list" data-role="list">
-                    </ul>
-                </div>
-            </div>
 
         </div>
     </div>
 
 
-    <!-- ============================== FESTIVAL - before- single ===================================== -->
+    <!-- ============================== FESTIVAL - before - single ===================================== -->
     <div id="before_festival" class="container" data-role="container">
 
         <!-- Swipe_bar -->
@@ -190,10 +186,10 @@
 
                         <div class="padded">
                             <ul>
-                                <li id="show_stage">{Palco}</li>
+                                <li id="show_stage"></li>
                                 <li>
-                                    <span id="show_date">{1 Ago}</span> |
-                                    <span id="show_time">{19h00}</span>
+                                    <span id="show_date"></span> |
+                                    <span id="show_time"></span>
                                 </li>
                             </ul>
                             <br>
@@ -238,7 +234,6 @@
     <script type='text/javascript' src='js/search.js'></script>
 
     <!-- Show - Band -->
-    <script type="text/javascript" src="js/videos.js"></script>
     <script type="text/javascript" src="js/show.js"></script>
     <script type="text/javascript" src="js/videos.js"></script>
 

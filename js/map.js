@@ -3,13 +3,11 @@
 
 // Queries the local Database for a map
 function createMapContainer(festival_map) {
-    incrementHistory("#festival");
+    //incrementHistory("#festival");
 
-    $('#header_title').bind('click', function(){
-        $('#header_title').unbind();
-
+    $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
-        changeContainers("#festival", current_festival_name, "");
+        changeContainers("#before_festival", current_festival_name, "");
     });
 
     $('#map_page').html('<img src="' + festival_map +'">');

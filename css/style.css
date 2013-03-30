@@ -173,7 +173,7 @@ a {
   position: relative;
 }
 .input_field {
-  width: 100%;
+  width: 80%;
   height: 50px;
   padding: 4px 67px 4px 10px;
   border: 3px solid #b43a34;
@@ -181,7 +181,7 @@ a {
   font-size: 16px;
   color: white;
 }
-.input_button {
+#search_button {
   position: absolute;
   top: 0;
   right: 0;
@@ -271,7 +271,7 @@ a {
 .festival_list .item {
   float: left;
   width: 30%;
-  height: 19%;
+  height: 25%;
   margin: 1.8%;
 }
 .festival_list img {

@@ -26,30 +26,24 @@ function queryFestivalSuccess(tx, results) {
     //diff = -1; //descomentar esta linha para experimentar o festival durante
     current_festival_id = festival.id;
     current_festival_name = festival.name;
-    incrementHistory("#festivals");
 
-    $('#header_link').bind('click', function(){
+    $('#header_link').unbind().bind('click', function(){
         $('#header_link').unbind();
-        incrementHistory("exit");
         changeContainers("#festivals", "FestivAll", "");
     });
-
 
     if(diff < 0){ //during festival
         createDuringFestival(festival);
         changeContainers("#during_festival", current_festival_name, "");
-
     }
     else if ( diff > 0){ //before festival
         createBeforeFestival(festival, festivals, diff);
         changeContainers("#before_festival", current_festival_name, "");
     }
-
     /*
     else if (){ //after festival
         changeContainers("#after_festival");
         createAfterFestival();
-
     }*/
 }
 
@@ -76,14 +70,14 @@ function appendFestivalHTML(){
 
 function createBeforeFestival(festival, festivals, diff){
 
+    appendFestivalHTML();
+
     db.transaction(function (tx){
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
             'FROM SHOWS INNER JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID INNER JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
             'WHERE SHOWS.FESTIVAL_ID='+festival.id +' ORDER BY SHOWS.NAME', [], queryFestivalShowsSuccess, errorQueryCB);
     }, errorCB);
 
-    if(!show_visited)
-        appendFestivalHTML();
 
     var dhms = dhm(diff).toString();
 
@@ -91,24 +85,19 @@ function createBeforeFestival(festival, festivals, diff){
 
     $('#festival_city').text("Local: " + festival.city);
 
-    $('#lineup_button').bind('click', function(){
-        $('#lineup_button').unbind();
+    $('#lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
         changeContainers("#lineup", current_festival_name, "Cartaz");
-
     });
 
-    $('#info_button').bind('click', function(){
-        $('#info_button').unbind();
+    $('#info_button').unbind().bind('click', function(){
         createInfoContainer(festival.id);
         changeContainers("#info", current_festival_name, "Informação");
     });
 
-    $('#map_button').bind('click', function(){
-        $('#map_button').unbind();
+    $('#map_button').unbind().bind('click', function(){
         createMapContainer(festival.map);
         changeContainers("#map", current_festival_name, "Mapa");
-
     });
 
     $('#festival_days').empty();

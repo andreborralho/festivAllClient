@@ -10,6 +10,7 @@ function createShowContainer(show_id){
             ' FROM SHOWS INNER JOIN STAGES ON SHOWS.STAGE_ID = STAGES.ID INNER JOIN DAYS ON SHOWS.DAY_ID = DAYS.ID' +
             ' INNER JOIN FESTIVALS ON SHOWS.FESTIVAL_ID = FESTIVALS.ID' +
             ' WHERE SHOWS.ID='+show_id, [], queryShowSuccess, errorQueryCB);
+
         tx.executeSql('SELECT * FROM VIDEOS WHERE SHOW_ID='+show_id, [], queryShowVideosSuccess, errorQueryCB);
     }, errorCB);
 }
@@ -20,14 +21,10 @@ function queryShowSuccess(tx, results) {
     var show = results.rows.item(0);
     current_festival_id = show.festival_id;
 
-    $('#header_title').bind('click', function(){
-        $('#header_title').unbind();
+    $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(show.festival_id);
         changeContainers("#festival", current_festival_name, "");
     });
-
-    show_visited = true;
-    incrementHistory("#festival");
 
     var show_day = show.day_date.slice(8,10);
     var numeric_month = show.day_date.slice(5,7);
@@ -47,8 +44,6 @@ function queryShowSuccess(tx, results) {
         var description_html_tags = show.description.replace(/\r\n/g, "<br>");
         $('#show_description').html(description_html_tags);
     }
-
-
 
     //inits the show_carousel
     $('#show_carousel').carousel({

@@ -3,8 +3,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
 
 var history_array = [];
-var show_visited = false;
-
 
 // Set the visibility for the current app page
 
@@ -23,6 +21,7 @@ function changeContainers(page, title, subtitle){
     $('#header_title').text(title);
     $('#header_subtitle').text(subtitle);
     $(page).css('display', 'block');
+    incrementHistory(page);
     /*$('[data-role="container"]').css('opacity','0');
     $(page).css('opacity','1');*/
 }
@@ -36,6 +35,7 @@ function setHeight(){
 function onDeviceReady() {
     document.addEventListener("backbutton", backButton, false);
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
+
     //Check if the application is running for the first time
     $.ajax({
         url: "http://festivall.eu",
@@ -46,21 +46,21 @@ function onDeviceReady() {
                 localStorage.setItem("firstRun", false);
             }
             else if(localStorage["firstRun"] == "false"){
-                window.FestivallToaster.showMessage('Syncing...');
+                window.FestivallToaster.showMessage('Sincronizando...');
                 sync("http://festivall.eu/festivals.json", function(){
-                    window.FestivallToaster.showMessage('Synchronization Finished!');
+                    window.FestivallToaster.showMessage('Sincronização terminada!');
                 });
             }
         },
         error: function(model, response) {
             createFestivalsContainer();
-            window.FestivallToaster.showMessage("No internet connection!");
+            window.FestivallToaster.showMessage("Conexão à internet falhada!");
         }
     });
 }
 // Callback for create db transaction
 function successCreateDBCB(){
-    window.FestivallToaster.showMessage('Database Created!');
+    window.FestivallToaster.showMessage('Base de dados criada!');
 }
 
 
@@ -80,6 +80,7 @@ function getLastSync(callback) {
                 //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+
             tx.executeSql(sql, [],
                 function(tx, results) {
 
@@ -126,7 +127,7 @@ function sync(syncURL, callback ) {
 
 // Populate the database
 function populateDB(tx) {
-    window.FestivallToaster.showMessage("Creating the DataBase...");
+    window.FestivallToaster.showMessage("Base de dados a ser construída...");
 
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
     tx.executeSql('DROP TABLE IF EXISTS SHOWS');
@@ -309,14 +310,11 @@ function errorQueryCB(tx, err){
 
 
 function backButton(){
+    history_array.pop();
     var history_popped = history_array.pop();
 
-    if(history_popped == "exit")
+    if(history_popped == undefined)
         navigator.app.exitApp();
-    else if(history_popped == "#festival"){
-        changeContainers(history_popped);
-        createFestivalContainer(current_festival_id);
-    }
     else{
         changeContainers(history_popped);
     }

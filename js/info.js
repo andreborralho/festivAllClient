@@ -3,8 +3,7 @@
 // Queries the local Database for a show
 function createInfoContainer(festival_id){
 
-    $('#header_link').bind('click', function(){
-        $('#header_link').unbind();alert(festival_id);
+    $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(festival_id);
         changeContainers("#before_festival", current_festival_name, "");
     });
@@ -16,7 +15,7 @@ function createInfoContainer(festival_id){
 
 // Success callback for the the query of one festival
 function queryInfoSuccess(tx, results) {
-    incrementHistory("#festival");
+    //incrementHistory("#festival");
 
     $('#info_carousel').remove();
     $('#info').append('' +
@@ -126,28 +125,7 @@ function queryInfoSuccess(tx, results) {
                         if(temperature_key=="weatherDesc"){
                             var weather_description_selector = $('#weather_description_current');
                             $.each(temperature_value[0], function(desc_key, desc_value){
-
-                                if(desc_value == "Sunny" || desc_value == "Clear")
-                                    weather_description_selector.text("Céu limpo");
-                                else if(desc_value == "Moderate rain")
-                                    weather_description_selector.text("Chuva moderada");
-                                else if(desc_value == "Partly Cloudy")
-                                    weather_description_selector.text("Nuvens com abertas");
-                                else if(desc_value == "Patchy rain nearby")
-                                    weather_description_selector.text("Períodos de chuva");
-                                else if(desc_value == "Patchy light rain")
-                                    weather_description_selector.text("Períodos de chuva fraca");
-                                else if(desc_value == "Light rain shower")
-                                    weather_description_selector.text("Chuva fraca");
-                                else if(desc_value == "Moderate or heavy rain shower")
-                                    weather_description_selector.text("Chuva forte ou moderada");
-                                else if(desc_value == "Mist")
-                                    weather_description_selector.text("Nevoeiro");
-                                else
-                                    weather_description_selector.text(desc_value);
-
-
-
+                                weather_description_selector.text(translateWeatherDescription(desc_value));
                             });
                         }
                         if(temperature_key=="weatherIconUrl"){
@@ -177,25 +155,7 @@ function queryInfoSuccess(tx, results) {
                             if(temperature_key=="weatherDesc"){
                                 var weather_description_selector = $('#weather_description'+day_index);
                                 $.each(temperature_value[0], function(desc_key, desc_value){
-
-                                    if(desc_value == "Sunny" || desc_value == "Clear")
-                                        weather_description_selector.text("Céu limpo");
-                                    else if(desc_value == "Partly Cloudy")
-                                        weather_description_selector.text("Nuvens com abertas");
-                                    else if(desc_value == "Patchy rain nearby")
-                                        weather_description_selector.text("Céu limpo com nuvens e aguaceiros");
-                                    else if(desc_value == "Patchy light rain")
-                                        weather_description_selector.text("Períodos de chuva");
-                                    else if(desc_value == "Heavy rain")
-                                        weather_description_selector.text("Chuva forte");
-                                    else if(desc_value == "Light rain shower")
-                                        weather_description_selector.text("Chuva fraca");
-                                    else if(desc_value == "Moderate or heavy rain shower")
-                                        weather_description_selector.text("Chuva forte ou moderada");
-                                    else if(desc_value == "Mist")
-                                        weather_description_selector.text("Nevoeiro");
-                                    else
-                                        weather_description_selector.text(desc_value);
+                                    weather_description_selector.text(translateWeatherDescription(desc_value));
                                 });
                             }
                             if(temperature_key=="weatherIconUrl"){
@@ -230,8 +190,33 @@ function queryInfoSuccess(tx, results) {
                 }
             }
         });
-    })
+    });
 
     $('#weather_scroller').scroller();
 
+}
+
+function translateWeatherDescription(desc_value){
+    if(desc_value == "Sunny" || desc_value == "Clear")
+        return "Céu limpo";
+    else if(desc_value == "Moderate rain")
+        return "Chuva moderada";
+    else if(desc_value == "Partly Cloudy")
+        return "Nuvens com abertas";
+    else if(desc_value == "Patchy rain nearby")
+        return "Períodos de chuva";
+    else if(desc_value == "Patchy light rain")
+        return "Períodos de chuva fraca";
+    else if(desc_value == "Heavy rain")
+        return "Chuva forte";
+    else if(desc_value == "Light rain shower" || desc_value == "Light rain")
+        return "Chuva fraca";
+    else if(desc_value == "Moderate or heavy rain shower")
+        return "Chuva forte ou moderada";
+    else if(desc_value == "Torrential rain shower")
+        return "Chuva torrencial";
+    else if(desc_value == "Mist")
+        return "Nevoeiro";
+    else
+        return desc_value;
 }
