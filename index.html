@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v3">
+    <link rel="stylesheet" type="text/css" href="css/hj/style.css?v3">
     <style>
     a { /* Prevent less to complie rgba(0,0,0,0) to transparent*/
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -30,7 +30,6 @@
             <a href="#" class="icon-menu"><h1>=</h1></a>
         </div>
     </header>
-
 
     <div id="festivals" class="container" data-role="container">
 
@@ -148,6 +147,154 @@
                 </li>
             </ul>
         </nav>
+
+        <!-- Carousel -->
+        <div id="info_carousel" data-role="carousel">
+            <div id="tickets_page" data-role="page">
+            </div>
+
+            <div id="transports_page" class="padded" data-role="page">
+            </div>
+
+            <div id="weather_page" data-role="page">
+
+                <div id="weather_current">
+                    <div class="row">
+                        <div class="column centered">
+                            <img src="" id="weather_img_current">
+                        </div>
+                        <div class="column centered">
+                            <span id="weather_temperature_current">15º</span>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="list" data-role="list">
+                    <li class="row">
+                        <div class="column fixed">
+                            <strong class="weather_weekday1">Sex</strong>
+                            <span class="weather_date1">8 Ago</span>
+                        </div>
+                        <div class="column centered">
+                            <img id="weather_img1" src="">
+                        </div>
+                        <div class="column">
+                            <span id="weather_min_temperature1">xxº</span> / <span id="weather_max_temperature1">xxº</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed">
+                            <strong class="weather_weekday2">Sex</strong>
+                            <span class="weather_date2">8 Ago</span>
+                        </div>
+                        <div class="column centered">
+                            <img id="weather_img2" src="">
+                        </div>
+                        <div class="column">
+                            <span id="weather_min_temperature2">xxº</span> / <span id="weather_max_temperature2">xxº</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed">
+                            <strong class="weather_weekday3">Sex</strong>
+                            <span class="weather_date3">8 Ago</span>
+                        </div>
+                        <div class="column centered">
+                            <img id="weather_img3" src="">
+                        </div>
+                        <div class="column">
+                            <span id="weather_min_temperature3">xxº</span> / <span id="weather_max_temperature3">xxº</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed">
+                            <strong class="weather_weekday4">Sex</strong>
+                            <span class="weather_date4">8 Ago</span>
+                        </div>
+                        <div class="column centered">
+                            <img id="weather_img4" src="">
+                        </div>
+                        <div class="column">
+                            <span id="weather_min_temperature4">xxº</span> / <span id="weather_max_temperature4">xxº</span>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="column fixed">
+                            <strong class="weather_weekday5">Sex</strong>
+                            <span class="weather_date5">8 Ago</span>
+                        </div>
+                        <div class="column centered">
+                            <img id="weather_img5" src="">
+                        </div>
+                        <div class="column">
+                            <span id="weather_min_temperature5">xxº</span> / <span id="weather_max_temperature5">xxº</span>
+                        </div>
+                    </li>
+                </ul>
+
+<!--
+                <div id="weather_current" class="weather_entry">
+                    <div id="weather_text_current" class="weather_text">
+                        <div id="weather_temperature_current" class="weather_temperature"></div>
+                        <div id="weather_description_current" class="weather_description"></div>
+                    </div>
+                    <div id="weather_img_current" class="weather_img"></div>
+                </div>
+
+                <div id="weather_day1" class="weather_entry">
+                    <div id="weather_text1" class="weather_text">
+                        <div id="weather_date1" class="weather_date"></div>
+                        <div class="weather_temperature">
+                            <span id="weather_max_temperature1"></span>
+                            <span id="weather_min_temperature1"></span>
+                        </div>
+                        <div id="weather_description1" class="weather_description"></div>
+                    </div>
+                    <div id="weather_img1" class="weather_img"></div>
+                </div>
+
+                <div id="weather_day2" class="weather_entry">
+                    <div id="weather_text2" class="weather_text">
+                        <div id="weather_date2" class="weather_date"></div>
+                        <div id="weather_max_temperature2" class="weather_temperature"></div>
+                        <div id="weather_min_temperature2" class="weather_temperature"></div>
+                        <div id="weather_description2" class="weather_description"></div>
+                    </div>
+                    <div id="weather_img2" class="weather_img"></div>
+                </div>
+
+                <div id="weather_day3" class="weather_entry">
+                    <div id="weather_text3" class="weather_text">
+                        <div id="weather_date3" class="weather_date"></div>
+                        <div id="weather_max_temperature3" class="weather_temperature"></div>
+                        <div id="weather_min_temperature3" class="weather_temperature"></div>
+                        <div id="weather_description3" class="weather_description"></div>
+                    </div>
+                    <div id="weather_img3" class="weather_img"></div>
+                </div>
+
+                <div id="weather_day4" class="weather_entry">
+                    <div id="weather_text4" class="weather_text">
+                        <div id="weather_date4" class="weather_date"></div>
+                        <div id="weather_max_temperature4" class="weather_temperature"></div>
+                        <div id="weather_min_temperature4" class="weather_temperature"></div>
+                        <div id="weather_description4" class="weather_description"></div>
+                    </div>
+                    <div id="weather_img4" class="weather_img"></div>
+                </div>
+
+                <div id="weather_day5" class="weather_entry">
+                    <div id="weather_text5" class="weather_text">
+                        <div id="weather_date5" class="weather_date"></div>
+                        <div id="weather_max_temperature5" class="weather_temperature"></div>
+                        <div id="weather_min_temperature5" class="weather_temperature"></div>
+                        <div id="weather_description5" class="weather_description"></div>
+                    </div>
+                    <div id="weather_img5" class="weather_img"></div>
+                </div>
+-->
+            </div>
+        </div>
     </div>
 
 
@@ -217,7 +364,6 @@
     <script type="text/javascript" src="lib/jq.carousel.js"></script>
     <script type="text/javascript" src="lib/jq.scroller.js"></script>
     <script type="text/javascript" src="lib/cordova-2.3.0.js"></script>
-
 
     <!-- Data -->
     <script type="text/javascript" src="js/data.js"></script>
