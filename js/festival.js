@@ -26,37 +26,31 @@ function queryFestivalSuccess(tx, results) {
     //diff = -1; //descomentar esta linha para experimentar o festival durante
     current_festival_id = festival.id;
     current_festival_name = festival.name;
-    incrementHistory("#festivals");
 
-    $('#header_link').bind('click', function(){
+    $('#header_link').unbind().bind('click', function(){
         $('#header_link').unbind();
-        incrementHistory("exit");
         changeContainers("#festivals", "FestivAll", "");
     });
-
 
     if(diff < 0){ //during festival
         createDuringFestival(festival);
         changeContainers("#during_festival", current_festival_name, "");
-
     }
     else if ( diff > 0){ //before festival
         createBeforeFestival(festival, festivals, diff);
         changeContainers("#before_festival", current_festival_name, "");
     }
-
     /*
     else if (){ //after festival
         changeContainers("#after_festival");
         createAfterFestival();
-
     }*/
 }
 
 function appendFestivalHTML(){
     $('#before_festival_carousel').remove();
     $('#before_festival').append('' +
-        '<div id="before_festival_carousel" data-role="carousel">' +
+        '<div id="before_festival_carousel" class="carousel" data-role="carousel">' +
             '<div id="before_festival_page" data-role="page">' +
                 '<div id="festival_countdown"></div>' +
                 '<div id="festival_days"></div>' +
@@ -65,8 +59,9 @@ function appendFestivalHTML(){
                 '<div id="map_button" class="festival_page_button">Mapa</div>' +
                 '<div id="info_button" class="festival_page_button" >Informação</div>' +
             '</div>' +
-            '<div id="shows_page" data-role="page">' +
-                '<div id="shows_scroll_wrapper" style="max-height:390px;max-width:100%;">' +
+
+            '<div id="shows_page" class="page" data-role="page">' +
+                '<div id="shows_scroll_wrapper" class="scroll_wrapper">' +
                     '<ul id="shows_page_list"></ul>' +
                 '</div>' +
             '</div>' +
@@ -75,14 +70,14 @@ function appendFestivalHTML(){
 
 function createBeforeFestival(festival, festivals, diff){
 
+    appendFestivalHTML();
+
     db.transaction(function (tx){
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
             'FROM SHOWS INNER JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID INNER JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
             'WHERE SHOWS.FESTIVAL_ID='+festival.id +' ORDER BY SHOWS.NAME', [], queryFestivalShowsSuccess, errorQueryCB);
     }, errorCB);
 
-    if(!show_visited)
-        appendFestivalHTML();
 
     var dhms = dhm(diff).toString();
 
@@ -90,24 +85,19 @@ function createBeforeFestival(festival, festivals, diff){
 
     $('#festival_city').text("Local: " + festival.city);
 
-    $('#lineup_button').bind('click', function(){
-        $('#lineup_button').unbind();
+    $('#lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
         changeContainers("#lineup", current_festival_name, "Cartaz");
-
     });
 
-    $('#info_button').bind('click', function(){
-        $('#info_button').unbind();
+    $('#info_button').unbind().bind('click', function(){
         createInfoContainer(festival.id);
         changeContainers("#info", current_festival_name, "Informação");
     });
 
-    $('#map_button').bind('click', function(){
-        $('#map_button').unbind();
+    $('#map_button').unbind().bind('click', function(){
         createMapContainer(festival.map);
         changeContainers("#map", current_festival_name, "Mapa");
-
     });
 
     $('#festival_days').empty();

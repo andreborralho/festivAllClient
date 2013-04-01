@@ -10,6 +10,7 @@ function createShowContainer(show_id){
             ' FROM SHOWS INNER JOIN STAGES ON SHOWS.STAGE_ID = STAGES.ID INNER JOIN DAYS ON SHOWS.DAY_ID = DAYS.ID' +
             ' INNER JOIN FESTIVALS ON SHOWS.FESTIVAL_ID = FESTIVALS.ID' +
             ' WHERE SHOWS.ID='+show_id, [], queryShowSuccess, errorQueryCB);
+
         tx.executeSql('SELECT * FROM VIDEOS WHERE SHOW_ID='+show_id, [], queryShowVideosSuccess, errorQueryCB);
     }, errorCB);
 }
@@ -20,20 +21,16 @@ function queryShowSuccess(tx, results) {
     var show = results.rows.item(0);
     current_festival_id = show.festival_id;
 
-    $('#header_title').bind('click', function(){
-        $('#header_title').unbind();
+    $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(show.festival_id);
         changeContainers("#festival", current_festival_name, "");
     });
-
-    show_visited = true;
-    incrementHistory("#festival");
 
     var show_day = show.day_date.slice(8,10);
     var numeric_month = show.day_date.slice(5,7);
     var show_month = changeNumberToMonth(numeric_month);
 
-    $('.page_title').text(show.festival_name);
+    $('#header_subtitle').text(show.festival_name);
 
     $('#show_photo').html('<img width="100%" src="' + show.photo + '">');
     $('#show_stage').text(show.stage_name);
@@ -62,4 +59,5 @@ function queryShowSuccess(tx, results) {
             }
         }
     });
+    $('#show_scroller').scroller();
 }

@@ -13,10 +13,9 @@ function queryLineupSuccess(tx, results) {
     $('#lineup_stages_bar').empty();
     $('#lineup_frame').empty();
 
-    incrementHistory("#festival");
+    //incrementHistory("#festival");
 
-    $('#header_title').bind('click', function(){
-        $('#header_title').unbind();
+    $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
         changeContainers("#festival", current_festival_name, "");
     });
@@ -61,11 +60,17 @@ function buildLineup(stages, days){
                             for(var l = 0; l <shows.length; l ++){
                                 var show = shows.item(l);
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                    '<div id="lineup_show_' + show.id + '">' + show.name + ' ' + show.time.slice(11,16) + '</div>');
-                                $('#lineup_show_' + show.id ).bind('click', function(){
-                                    changeContainers("#show");
-                                    createShowContainer(this.id.replace("lineup_show_", ""));
-                                });
+                                    '<div id="lineup_show_' + show.id + '" class="row">' +
+                                        '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
+                                        '<div class="column"><h3 class="band_name">' + show.name + '</h3></div>' +
+                                    '</div>');
+
+                                (function (show_name){
+                                    $('#lineup_show_' + show.id ).bind('click', function(){
+                                        createShowContainer(this.id.replace("lineup_show_", ""));
+                                        changeContainers("#show", show_name, current_festival_name);
+                                    });
+                                })(show.name);
                             }
                             if(s == len -1)
                                 finishLineupStage(day, stages);
@@ -137,10 +142,6 @@ function finishLineupStage(day, stages){
         //set visibility to the correct carousel in the lineup frame
         $('[data-role="lineup_carousel"]').css('display', 'none');
         $('#lineup_carousel_' + day.id).css('display', 'block');
-
-        /*$('#stage_' + stages[0].id + '_nav_item').removeClass('not_current prev');
-        $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next');
-        $('#stage_' + stages[2].id + '_nav_item').addClass('hidden');*/
     });
 
 }

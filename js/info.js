@@ -3,10 +3,9 @@
 // Queries the local Database for a show
 function createInfoContainer(festival_id){
 
-    $('#header_link').bind('click', function(){
-        $('#header_link').unbind();
+    $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(festival_id);
-        changeContainers("#festival",current_festival_name, "");
+        changeContainers("#before_festival", current_festival_name, "");
     });
 
     db.transaction(function (tx) {
@@ -16,15 +15,26 @@ function createInfoContainer(festival_id){
 
 // Success callback for the the query of one festival
 function queryInfoSuccess(tx, results) {
-    incrementHistory("#festival");
+    //incrementHistory("#festival");
 
     $('#info_carousel').remove();
     $('#info').append('' +
-        '<div id="info_carousel" data-role="carousel">' +
-            '<div id="tickets_page" data-role="page"><div id="tickets_wrapper" style="max-height:390px;max-width:100%;"><div id="tickets_scroller"></div></div></div>' +
-            '<div id="transports_page" data-role="page"><div id=transports_wrapper style="max-height:390px;max-width:100%;"><div id="transports_scroller"></div></div></div>' +
-            '<div id="weather_page" data-role="page">' +
-                '<div id="weather_wrapper" style="max-height:390px;max-width:100%;">' +
+        '<div id="info_carousel" class="carousel" data-role="carousel">' +
+
+            '<div id="tickets_page" class="page" data-role="page">' +
+                '<div id="tickets_wrapper" class="scroll_wrapper">' +
+                    '<div id="tickets_scroller"></div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div id="transports_page" class="page" data-role="page">' +
+                '<div id=transports_wrapper class="scroll_wrapper">' +
+                    '<div id="transports_scroller"></div>' +
+                '</div>' +
+            '</div>' +
+
+            '<div id="weather_page" class="page" data-role="page">' +
+                '<div id="weather_wrapper" class="scroll_wrapper">' +
                     '<div id="weather_scroller">' +
                         '<div id="weather_current" class="weather_entry">' +
                             '<div id="weather_text_current" class="weather_text">' +
@@ -34,13 +44,12 @@ function queryInfoSuccess(tx, results) {
                             '<div id="weather_img_current" class="weather_img"></div>' +
                         '</div>' +
                         '<div id="weather_day1" class="weather_entry">' +
-                                '<div id="weather_date1" class="weather_date"></div>' +
-                                '<div class="weather_temperature">' +
-                                    '<span id="weather_max_temperature1"></span>' +
-                                    '<span id="weather_min_temperature1"></span>' +
-                                '</div>' +
-                                '<div id="weather_description1" class="weather_description"></div>' +
+                            '<div id="weather_date1" class="weather_date"></div>' +
+                            '<div class="weather_temperature">' +
+                                '<span id="weather_max_temperature1"></span>' +
+                                '<span id="weather_min_temperature1"></span>' +
                             '</div>' +
+                            '<div id="weather_description1" class="weather_description"></div>' +
                             '<div id="weather_img1" class="weather_img"></div>' +
                         '</div>' +
                         '<div id="weather_day2" class="weather_entry">' +
@@ -81,6 +90,7 @@ function queryInfoSuccess(tx, results) {
                         '</div>' +
                     '</div>' +
                 '</div>' +
+
             '</div>' +
         '</div>');
 
@@ -115,26 +125,7 @@ function queryInfoSuccess(tx, results) {
                         if(temperature_key=="weatherDesc"){
                             var weather_description_selector = $('#weather_description_current');
                             $.each(temperature_value[0], function(desc_key, desc_value){
-
-                                if(desc_value == "Sunny" || desc_value == "Clear")
-                                    weather_description_selector.text("Céu limpo");
-                                else if(desc_value == "Partly Cloudy")
-                                    weather_description_selector.text("Nuvens com abertas");
-                                else if(desc_value == "Patchy rain nearby")
-                                    weather_description_selector.text("Céu limpo com nuvens e aguaceiros");
-                                else if(desc_value == "Patchy light rain")
-                                    weather_description_selector.text("Períodos de chuva");
-                                else if(desc_value == "Light rain shower")
-                                    weather_description_selector.text("Chuva fraca");
-                                else if(desc_value == "Moderate or heavy rain shower")
-                                    weather_description_selector.text("Chuva forte ou moderada");
-                                else if(desc_value == "Mist")
-                                    weather_description_selector.text("Nevoeiro");
-                                else
-                                    weather_description_selector.text(desc_value);
-
-
-
+                                weather_description_selector.text(translateWeatherDescription(desc_value));
                             });
                         }
                         if(temperature_key=="weatherIconUrl"){
@@ -156,33 +147,15 @@ function queryInfoSuccess(tx, results) {
                                 $('#weather_date'+day_index).text(weather_day + " de " + weather_month);
                             }
                             if(temperature_key=="tempMaxC"){
-                                $('#weather_max_temperature'+day_index).text(temperature_value);
+                                $('#weather_max_temperature'+day_index).text(temperature_value + "ºC");
                             }
                             if(temperature_key=="tempMinC"){
-                                $('#weather_min_temperature'+day_index).text(temperature_value);
+                                $('#weather_min_temperature'+day_index).text(temperature_value + "ºC");
                             }
                             if(temperature_key=="weatherDesc"){
                                 var weather_description_selector = $('#weather_description'+day_index);
                                 $.each(temperature_value[0], function(desc_key, desc_value){
-
-                                    if(desc_value == "Sunny" || desc_value == "Clear")
-                                        weather_description_selector.text("Céu limpo");
-                                    else if(desc_value == "Partly Cloudy")
-                                        weather_description_selector.text("Nuvens com abertas");
-                                    else if(desc_value == "Patchy rain nearby")
-                                        weather_description_selector.text("Céu limpo com nuvens e aguaceiros");
-                                    else if(desc_value == "Patchy light rain")
-                                        weather_description_selector.text("Períodos de chuva");
-                                    else if(desc_value == "Heavy rain")
-                                        weather_description_selector.text("Chuva forte");
-                                    else if(desc_value == "Light rain shower")
-                                        weather_description_selector.text("Chuva fraca");
-                                    else if(desc_value == "Moderate or heavy rain shower")
-                                        weather_description_selector.text("Chuva forte ou moderada");
-                                    else if(desc_value == "Mist")
-                                        weather_description_selector.text("Nevoeiro");
-                                    else
-                                        weather_description_selector.text(desc_value);
+                                    weather_description_selector.text(translateWeatherDescription(desc_value));
                                 });
                             }
                             if(temperature_key=="weatherIconUrl"){
@@ -217,8 +190,33 @@ function queryInfoSuccess(tx, results) {
                 }
             }
         });
-    })
+    });
 
     $('#weather_scroller').scroller();
 
+}
+
+function translateWeatherDescription(desc_value){
+    if(desc_value == "Sunny" || desc_value == "Clear")
+        return "Céu limpo";
+    else if(desc_value == "Moderate rain")
+        return "Chuva moderada";
+    else if(desc_value == "Partly Cloudy")
+        return "Nuvens com abertas";
+    else if(desc_value == "Patchy rain nearby")
+        return "Períodos de chuva";
+    else if(desc_value == "Patchy light rain")
+        return "Períodos de chuva fraca";
+    else if(desc_value == "Heavy rain")
+        return "Chuva forte";
+    else if(desc_value == "Light rain shower" || desc_value == "Light rain")
+        return "Chuva fraca";
+    else if(desc_value == "Moderate or heavy rain shower")
+        return "Chuva forte ou moderada";
+    else if(desc_value == "Torrential rain shower")
+        return "Chuva torrencial";
+    else if(desc_value == "Mist")
+        return "Nevoeiro";
+    else
+        return desc_value;
 }
