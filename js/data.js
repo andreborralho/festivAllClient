@@ -266,20 +266,21 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Deleting from " + k);
+                    alert('table: ' + table.toString().toUpperCase() + ', element:' + l.element );
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 }, errorCB, successCB);
                 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
-                db.transaction(function(tx){
-                    console.log("Updating updated_at");
-                    tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
-                        var festival = results.rows.item(0);
-                        db.transaction(function(tx){
-                            tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
-                                '" WHERE id=' + festival.id);
-                        }, errorCB, successCB);
-                    }, errorQueryCB );
-                }, errorCB);
             });
+            db.transaction(function(tx){
+                console.log("Updating updated_at");
+                tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
+                    var festival = results.rows.item(0);
+                    db.transaction(function(tx){
+                        tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
+                            '" WHERE id=' + festival.id);
+                    }, errorCB, successCB);
+                }, errorQueryCB );
+            }, errorCB);
         }
     });
     //Create festivals container after insertions
