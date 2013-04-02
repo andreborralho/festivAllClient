@@ -12,16 +12,28 @@ function queryShowVideosSuccess(tx, results){
         var video_url = video.url;
         var video_id = video.id;
         //var video_description = 
+        alert('video name :' + video_name);
 
-// TUDO FODIDO
         $('#band_videos_page').append('<div id="video_' + video_id + '"></div>'); //TODO: POR A CLASSE DO DIV DE CADA VIDEO
-
-        $('#video_' + video_id).append('<iframe width="260" height="100" ' +
-            'src="http://www.youtube.com/embed/"' + video_url + '" frameborder="0" allowfullscreen></iframe>');
+        $('#video_' + video_id).append('<a href="#" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' + video_name + '</a>');
 
         //$('.video_name').text(video_name);
         //$('video_description').text(video_description);
     }
+    //inits the show_carousel
+    $('#show_carousel').carousel({
+        preventDefaults:false,
+        pagingFunction:function(index){
+            if(index == 0){
+                $('#show_nav_item').removeClass('not_current');
+                $('#videos_nav_item').addClass('not_current next');
+            }
+            else if(index == 1){
+                $('#videos_nav_item').removeClass('not_current next');
+                $('#show_nav_item').addClass('not_current prev');
+            }
+        }
+    });
     //initShow();
 
 }

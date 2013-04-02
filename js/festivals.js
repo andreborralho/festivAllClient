@@ -1,8 +1,5 @@
 // FESTIVALS_CONTAINER
 
-function playVideo(){
-    window.plugins.videoPlayer.play('http://www.youtube.com/watch?v=aIHUyIW0gfo');
-}
 
 // Queries the local Database for all festivals
 function createFestivalsContainer(){

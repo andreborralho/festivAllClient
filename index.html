@@ -49,10 +49,12 @@
 
 
         <div id="festivals_carousel" class="carousel" data-role="carousel">
-                <div id="video_test">
-                    <a href="#" onclick=playVideo()>Play Me!</a>
-                </div>
+            <!-- First-Page -->
+            <div id="festivals_page" class="page" data-role="page" >
                 <div id="festivals_scroll_wrapper" class="scroll_wrapper">
+                    <ul id="festivals_buttons" class="festival_list"></ul>
+                </div>
+            </div>
             <!-- Second-Page -->
             <div id="search_page" class="page" data-role="page">
 
@@ -64,13 +66,6 @@
                     <ul id="search_list" class="list" data-role="list"></ul>
                 </div>
             </div>
-            <!-- First-Page -->
-            <div id="festivals_page" class="page" data-role="page" >
-                <div id="festivals_scroll_wrapper" class="scroll_wrapper">
-                    <ul id="festivals_buttons" class="festival_list"></ul>
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -177,38 +172,6 @@
             </ul>
         </nav>
 
-        <!-- Carousel -->
-        <div id="show_carousel" class="carousel" data-role="carousel">
-
-            <div id="show_page" class="page" data-role="page">
-                <div id="show_scroll_wrapper" class="scroll_wrapper">
-                    <div id="show_scroller">
-                        <div id="show_photo"></div>
-
-                        <div class="padded">
-                            <ul>
-                                <li id="show_stage"></li>
-                                <li>
-                                    <span id="show_date"></span> |
-                                    <span id="show_time"></span>
-                                </li>
-                            </ul>
-                            <br>
-                            <p class="content_text" id="show_description"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="band_videos_page" data-role="page">
-            </div>
-            <!--div id="band_photos_page" data-role="page">
-            </div-->
-
-            <!--div id="show_comments_page" data-role="page">
-            </div-->
-
-        </div>
     </div>
 
 
@@ -218,7 +181,7 @@
     <script type="text/javascript" src="lib/jq.carousel.js"></script>
     <script type="text/javascript" src="lib/jq.scroller.js"></script>
     <script type="text/javascript" src="lib/cordova-2.3.0.js"></script>
-
+    <script type="text/javascript" src="lib/video.js"></script>
 
     <!-- Data -->
     <script type="text/javascript" src="js/data.js"></script>
