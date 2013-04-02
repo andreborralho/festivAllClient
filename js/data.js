@@ -11,17 +11,37 @@ setHeight();
 function initDisplays(){
 
     $('[data-role="container"]').css('display', 'none');
-    $('#info').css('display', 'block');
+    $('#festivals').css('display', 'block');
     var container_height = $('#header').height()-2 + "px";
     $('#header').css('height', container_height);
 }
 
 function changeContainers(page, title, subtitle){
+    var header_title_selector = $('#header_title');
+
     $('[data-role="container"]').css('display', 'none');
-    $('#header_title').text(title);
-    $('#header_subtitle').text(subtitle);
     $(page).css('display', 'block');
     incrementHistory(page);
+
+    if(page == "#festivals"){
+        header_title_selector.removeClass('heading1').addClass('heading0');
+        header_title_selector.html('<img id="logo" src="img/logo.png"> FestivAll');
+        $('#header_subtitle').empty();
+    }
+    else if(page == "#before_festival"){
+        $('#header_subtitle').empty();
+        header_title_selector.removeClass('heading0').addClass('heading1');
+
+        if(title == undefined)
+            header_title_selector.text(current_festival_name);
+        else
+            header_title_selector.text(title);
+    }
+    else{
+        header_title_selector.removeClass('heading0').addClass('heading1');
+        header_title_selector.text(title);
+        $('#header_subtitle').text(subtitle);
+    }
     /*$('[data-role="container"]').css('opacity','0');
     $(page).css('opacity','1');*/
 }
@@ -271,21 +291,20 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     console.log("Deleting from " + k);
-                    alert('table: ' + table.toString().toUpperCase() + ', element:' + l.element );
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 }, errorCB, successCB);
                 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
+                db.transaction(function(tx){
+                    console.log("Updating updated_at");
+                    tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
+                        var festival = results.rows.item(0);
+                        db.transaction(function(tx){
+                            tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
+                                '" WHERE id=' + festival.id);
+                        }, errorCB, successCB);
+                    }, errorQueryCB );
+                }, errorCB);
             });
-            db.transaction(function(tx){
-                console.log("Updating updated_at");
-                tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
-                    var festival = results.rows.item(0);
-                    db.transaction(function(tx){
-                        tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
-                            '" WHERE id=' + festival.id);
-                    }, errorCB, successCB);
-                }, errorQueryCB );
-            }, errorCB);
         }
     });
     //Create festivals container after insertions
@@ -306,7 +325,6 @@ function errorCB(err) {
 function errorQueryCB(tx, err){
     alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
     console.log("Error processing SQL query: " + err.code + " : " + err.message);
-
 }
 
 

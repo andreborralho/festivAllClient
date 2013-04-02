@@ -140,6 +140,9 @@ a {
   font-size: 0.875em;
   line-height: 1.1em;
 }
+.heading0 {
+    font-size: 1.9em;
+}
 .heading1 {
   font-size: 1.1em;
   font-weight: normal;
@@ -215,7 +218,12 @@ a {
   height: 14%;
   border-bottom: 1px solid #b43a34;
   background-color: #232323;
+
 }
+#header_link{
+    padding: 9px 5px;
+}
+
 /*===============Main Nav=================*/
 
 .swipe_bar {
@@ -294,7 +302,7 @@ a {
 /* WEATHER
 -------------------------------------------------------------------------- */
 
-.weather_weekday {
+.week_day {
   display: block;
   text-transform: uppercase;
 }
