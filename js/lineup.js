@@ -13,8 +13,6 @@ function queryLineupSuccess(tx, results) {
     $('#lineup_stages_bar').empty();
     $('#lineup_frame').empty();
 
-    //incrementHistory("#festival");
-
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
         changeContainers("#festival", current_festival_name, "");

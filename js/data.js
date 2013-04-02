@@ -17,11 +17,31 @@ function initDisplays(){
 }
 
 function changeContainers(page, title, subtitle){
+    var header_title_selector = $('#header_title');
+
     $('[data-role="container"]').css('display', 'none');
-    $('#header_title').text(title);
-    $('#header_subtitle').text(subtitle);
     $(page).css('display', 'block');
     incrementHistory(page);
+
+    if(page == "#festivals"){
+        header_title_selector.removeClass('heading1').addClass('heading0');
+        header_title_selector.html('<img id="logo" src="img/logo.png"> FestivAll');
+        $('#header_subtitle').empty();
+    }
+    else if(page == "#before_festival"){
+        $('#header_subtitle').empty();
+        header_title_selector.removeClass('heading0').addClass('heading1');
+
+        if(title == undefined)
+            header_title_selector.text(current_festival_name);
+        else
+            header_title_selector.text(title);
+    }
+    else{
+        header_title_selector.removeClass('heading0').addClass('heading1');
+        header_title_selector.text(title);
+        $('#header_subtitle').text(subtitle);
+    }
     /*$('[data-role="container"]').css('opacity','0');
     $(page).css('opacity','1');*/
 }
@@ -305,7 +325,6 @@ function errorCB(err) {
 function errorQueryCB(tx, err){
     alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
     console.log("Error processing SQL query: " + err.code + " : " + err.message);
-
 }
 
 

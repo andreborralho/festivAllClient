@@ -39,7 +39,7 @@ function queryShowSuccess(tx, results) {
     $('#show_time').text(show.time.slice(11,16));
 
     if(show.description == "null"){
-        $('#show_description').html("Descrição da banda ainda não dísponivel.");}
+        $('#show_description').html("Descrição da banda ainda não disponível.");}
     else{
         var description_html_tags = show.description.replace(/\r\n/g, "<br>");
         $('#show_description').html(description_html_tags);

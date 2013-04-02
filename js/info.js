@@ -15,8 +15,6 @@ function createInfoContainer(festival_id){
 
 // Success callback for the the query of one festival
 function queryInfoSuccess(tx, results) {
-    //incrementHistory("#festival");
-
     $('#info_carousel').remove();
     $('#info').append('' +
         '<div id="info_carousel" class="carousel" data-role="carousel">' +
@@ -90,7 +88,6 @@ function queryInfoSuccess(tx, results) {
                         '</div>' +
                     '</div>' +
                 '</div>' +
-
             '</div>' +
         '</div>');
 
