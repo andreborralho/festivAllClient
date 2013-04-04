@@ -18,6 +18,31 @@ function createShowContainer(show_id){
 // Success callback for the the query of one festival
 function queryShowSuccess(tx, results) {
 
+    $('#show_carousel').remove();
+    $('#show').append('' +
+        '<div id="show_carousel" class="carousel" data-role="carousel">' +
+            '<div id="show_page" class="page" data-role="page">' +
+                '<div id="show_scroll_wrapper" class="scroll_wrapper">' +
+                    '<div id="show_scroller">' +
+                        '<div id="show_photo"></div>' +
+                        '<div class="padded">' +
+                            '<ul>' +
+                                '<li id="show_stage"></li>' +
+                                '<li>' +
+                                    '<span id="show_date"></span> |' +
+                                    '<span id="show_time"></span>' +
+                                '</li>' +
+                            '</ul>' +
+                            '<br>' +
+                            '<p class="content_text" id="show_description"></p>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div id="band_videos_page" data-role="page">' +
+            '</div>' +
+        '</div>');
+
     var show = results.rows.item(0);
     current_festival_id = show.festival_id;
 
@@ -45,19 +70,6 @@ function queryShowSuccess(tx, results) {
         $('#show_description').html(description_html_tags);
     }
 
-    //inits the show_carousel
-    $('#show_carousel').carousel({
-        preventDefaults:false,
-        pagingFunction:function(index){
-            if(index == 0){
-                $('#show_nav_item').removeClass('not_current');
-                $('#videos_nav_item').addClass('not_current next');
-            }
-            else if(index == 1){
-                $('#videos_nav_item').removeClass('not_current next');
-                $('#show_nav_item').addClass('not_current prev');
-            }
-        }
-    });
+
     $('#show_scroller').scroller();
 }

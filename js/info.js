@@ -1,5 +1,29 @@
 // INFO_CONTAINER
 
+function init_info_carousel(){
+    // Inits carousel for info_container
+    $('#info_carousel').carousel({
+        preventDefaults:false,
+        pagingFunction:function(index){
+            if(index == 0){
+                $('#tickets_nav_item').removeClass('not_current prev');
+                $('#transports_nav_item').addClass('not_current next');
+                $('#weather_nav_item').addClass('hidden');
+            }
+            else if(index == 1){
+                $('#transports_nav_item').removeClass('not_current next prev');
+                $('#tickets_nav_item').addClass('not_current prev').removeClass('hidden');
+                $('#weather_nav_item').addClass('not_current next').removeClass('hidden');
+            }
+            else if(index == 2){
+                $('#weather_nav_item').removeClass('not_current next');
+                $('#transports_nav_item').addClass('not_current prev');
+                $('#tickets_nav_item').addClass('hidden');
+            }
+        }
+    });
+}
+
 // Queries the local Database for a show
 function createInfoContainer(festival_id){
 
@@ -11,6 +35,7 @@ function createInfoContainer(festival_id){
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM FESTIVALS WHERE ID='+festival_id, [], queryInfoSuccess, errorCB);
     }, errorCB);
+
 }
 
 // Success callback for the the query of one festival
@@ -108,90 +133,79 @@ function queryInfoSuccess(tx, results) {
     $('#transports_scroller').scroller();
 
 
-    $.getJSON('http://free.worldweatheronline.com/feed/weather.ashx?q='+ latitude +',' + longitude +
-        '&format=json&num_of_days=5&key=553a8863c6144236131203', function(data) {
-        $.each(data, function(k,v){
-            $.each(v, function(weather_key, weather_value){
-                if(weather_key=="current_condition"){
-                    $.each(weather_value[0], function(temperature_key, temperature_value){
-                        if(temperature_key=="temp_C"){
-                            $('#weather_temperature_current').empty();
-                            $('#weather_temperature_current').text(temperature_value + " ºC");
-                        }
+    $.ajax({
+        url: 'http://free.worldweatheronline.com/feed/weather.ashx?q='+ latitude +',' + longitude +
+        '&format=json&num_of_days=5&key=553a8863c6144236131203',
+        success:function (data) {
+            $.each(data, function(k,v){
+                $.each(v, function(weather_key, weather_value){
+                    if(weather_key=="current_condition"){
+                        $.each(weather_value[0], function(temperature_key, temperature_value){
+                            if(temperature_key=="temp_C"){
+                                $('#weather_temperature_current').empty();
+                                $('#weather_temperature_current').text(temperature_value + " ºC");
+                            }
 
-                        if(temperature_key=="weatherDesc"){
-                            var weather_description_selector = $('#weather_description_current');
-                            $.each(temperature_value[0], function(desc_key, desc_value){
-                                weather_description_selector.text(translateWeatherDescription(desc_value));
-                            });
-                        }
-                        if(temperature_key=="weatherIconUrl"){
-                            $.each(temperature_value[0], function(icon_key, icon_value){
-                                $('#weather_img_current').html('<img src="' + icon_value +'">');
-                            });
-                        }
-                    });
-                }
-                var day_index, weather_day, numeric_month, weather_month;
-                if(weather_key=="weather"){
-                    $.each(weather_value, function(day_key, day_value){
-                        $.each(day_value, function(temperature_key, temperature_value){
-                            day_index = day_key +1;
-                            if(temperature_key=="date"){
-                                weather_day = temperature_value.slice(8,10);
-                                numeric_month = temperature_value.slice(5,7);
-                                weather_month = changeNumberToMonth(numeric_month);
-                                $('#weather_date'+day_index).text(weather_day + " de " + weather_month);
-                            }
-                            if(temperature_key=="tempMaxC"){
-                                $('#weather_max_temperature'+day_index).text(temperature_value + "ºC");
-                            }
-                            if(temperature_key=="tempMinC"){
-                                $('#weather_min_temperature'+day_index).text(temperature_value + "ºC");
-                            }
                             if(temperature_key=="weatherDesc"){
-                                var weather_description_selector = $('#weather_description'+day_index);
+                                var weather_description_selector = $('#weather_description_current');
                                 $.each(temperature_value[0], function(desc_key, desc_value){
                                     weather_description_selector.text(translateWeatherDescription(desc_value));
                                 });
                             }
                             if(temperature_key=="weatherIconUrl"){
                                 $.each(temperature_value[0], function(icon_key, icon_value){
-                                    $('#weather_img'+day_index).html('<img src="' + icon_value +'">');
+                                    $('#weather_img_current').html('<img src="' + icon_value +'">');
                                 });
                             }
                         });
-                    });
-                }
+                    }
+                    var day_index, weather_day, numeric_month, weather_month;
+                    if(weather_key=="weather"){
+                        $.each(weather_value, function(day_key, day_value){
+                            $.each(day_value, function(temperature_key, temperature_value){
+                                day_index = day_key +1;
+                                if(temperature_key=="date"){
+                                    weather_day = temperature_value.slice(8,10);
+                                    numeric_month = temperature_value.slice(5,7);
+                                    weather_month = changeNumberToMonth(numeric_month);
+                                    $('#weather_date'+day_index).text(weather_day + " de " + weather_month);
+                                }
+                                if(temperature_key=="tempMaxC"){
+                                    $('#weather_max_temperature'+day_index).text(temperature_value + "ºC");
+                                }
+                                if(temperature_key=="tempMinC"){
+                                    $('#weather_min_temperature'+day_index).text(temperature_value + "ºC");
+                                }
+                                if(temperature_key=="weatherDesc"){
+                                    var weather_description_selector = $('#weather_description'+day_index);
+                                    $.each(temperature_value[0], function(desc_key, desc_value){
+                                        weather_description_selector.text(translateWeatherDescription(desc_value));
+                                    });
+                                }
+                                if(temperature_key=="weatherIconUrl"){
+                                    $.each(temperature_value[0], function(icon_key, icon_value){
+                                        $('#weather_img'+day_index).html('<img src="' + icon_value +'">');
+                                    });
+                                }
+                            });
+                        });
+                    }
+                });
             });
-        });
+        alert('carousel inside get json !now you can carousel!');
+        init_info_carousel();
 
-        // Inits carousel for info_container
-        $('#info_carousel').carousel({
-            preventDefaults:false,
-            pagingFunction:function(index){
-                if(index == 0){
-                    $('#tickets_nav_item').removeClass('not_current prev');
-                    $('#transports_nav_item').addClass('not_current next');
-                    $('#weather_nav_item').addClass('hidden');
-                }
-                else if(index == 1){
-                    $('#transports_nav_item').removeClass('not_current next prev');
-                    $('#tickets_nav_item').addClass('not_current prev').removeClass('hidden');
-                    $('#weather_nav_item').addClass('not_current next').removeClass('hidden');
-                }
-                else if(index == 2){
-                    $('#weather_nav_item').removeClass('not_current next');
-                    $('#transports_nav_item').addClass('not_current prev');
-                    $('#tickets_nav_item').addClass('hidden');
-                }
-            }
-        });
+        },
+        error: function(model, response){
+            alert('getjson error :( carouselling');
+            init_info_carousel();
+        }
     });
 
     $('#weather_scroller').scroller();
 
 }
+
 
 function translateWeatherDescription(desc_value){
     if(desc_value == "Sunny" || desc_value == "Clear")
