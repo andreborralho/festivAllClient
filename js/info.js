@@ -131,19 +131,21 @@ function queryInfoSuccess(tx, results) {
     var transports_html_tags = festival.transports.replace(/\r\n/g, "<br>");
     $('#transports_scroller').html(transports_html_tags);
     $('#transports_scroller').scroller();
-
-
+    
     $.ajax({
         url: 'http://free.worldweatheronline.com/feed/weather.ashx?q='+ latitude +',' + longitude +
         '&format=json&num_of_days=5&key=553a8863c6144236131203',
+        dataType:'application/json',
+        contentType:'application/json',
         success:function (data) {
+            data = JSON.parse(data);
             $.each(data, function(k,v){
                 $.each(v, function(weather_key, weather_value){
-                    if(weather_key=="current_condition"){
-                        $.each(weather_value[0], function(temperature_key, temperature_value){
-                            if(temperature_key=="temp_C"){
-                                $('#weather_temperature_current').empty();
-                                $('#weather_temperature_current').text(temperature_value + " ºC");
+                                if(weather_key=="current_condition"){
+                                    $.each(weather_value[0], function(temperature_key, temperature_value){
+                                        if(temperature_key=="temp_C"){
+                                            $('#weather_temperature_current').empty();
+                                            $('#weather_temperature_current').text(temperature_value + " ºC");
                             }
 
                             if(temperature_key=="weatherDesc"){
