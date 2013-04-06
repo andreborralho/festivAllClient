@@ -24,6 +24,7 @@ function queryFestivalSuccess(tx, results) {
     var diff = Math.abs(first_day_date - curr_date);
 
     //diff = -1; //descomentar esta linha para experimentar o festival durante
+
     current_festival_id = festival.id;
     current_festival_name = festival.name;
 
@@ -145,8 +146,8 @@ function createDuringFestival(festival){
                 var stages = results.rows;
                 var stages_len = stages.length;
                 var stage, stage_id;
+                $('#during_festival_page').empty();
                 if(stages_len > 0){
-                    $('#during_festival_page').empty();
                     for(var i = 0; i<stages_len; i++){
                         stage = stages.item(i);
                         (function(stage){ //manha gigante, pouco legivel
@@ -156,20 +157,20 @@ function createDuringFestival(festival){
                                     function(tx,results){
                                         var shows = results.rows;
                                         var shows_len = shows.length;
+                                        $('#during_festival_page').append('<div id="during_festival_' + stage.id + '_carousel"></div>');
                                         if(shows_len >0 ){
-                                            $('#during_festival_page').append('<div id="during_festival_' + stage.id + '_carousel"></div>');
                                             for(var j = 0; j <shows_len; j++){
                                                 var show = shows.item(j);
                                                 $('#during_festival_' + stage.id + '_carousel').append('<div id="during_festival_show_'+ show.id + '"> Nome:' + show.name + ', Hora:' + show.time + '</div>');
                                             }
-                                            $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
-                                         }else {alert('No bands for this stage!');}
+                                         }else {$('#during_festival_' + stage.id + '_carousel').append('<div>Nao há bandas para este palco!</div>');}
+                                        $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
                                     },errorQueryCB);
                                 }, errorCB);
                         })(stage);
                     }
                 }
-                else {alert('Error: No stages for this festival id.');}
+                else {$('#during_festival_page').append('Não ha palcos para este festival!');}
             }, errorQueryCB);
     }, errorCB);
 

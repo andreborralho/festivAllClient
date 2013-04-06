@@ -1,11 +1,17 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
-
 var history_array = [];
 
-// Set the visibility for the current app page
+function getCurrentDate(){
+    var d = new Date();
+    var df = d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
+    'T' + d.getHours() + ':' + d.getMinutes() + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
+    return df;
+}
 
+
+// Set the visibility for the current app page
 setHeight();
 
 function initDisplays(){
@@ -293,22 +299,25 @@ function insertData(data){
                     console.log("Deleting from " + k);
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 }, errorCB, successCB);
-                //Updates de timestamp of 'a' festival with the date of the most recent synchronization
-                db.transaction(function(tx){
-                    console.log("Updating updated_at");
-                    tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
-                        var festival = results.rows.item(0);
-                        db.transaction(function(tx){
-                            tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
-                                '" WHERE id=' + festival.id);
-                        }, errorCB, successCB);
-                    }, errorQueryCB );
-                }, errorCB);
             });
+            updateLastSync();
         }
     });
     //Create festivals container after insertions
     createFestivalsContainer();
+}
+
+//Updates de timestamp of 'a' festival with the date of the most recent synchronization
+function updateLastSync(){
+    db.transaction(function(tx){
+        console.log("Updating updated_at");
+        tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
+            var festival = results.rows.item(0);
+            db.transaction(function(tx){
+                tx.executeSql('UPDATE FESTIVALS SET updated_at="' + getCurrentDate() + '" WHERE id=' + festival.id);
+            }, errorCB, successCB);
+        }, errorQueryCB );
+    }, errorCB);
 }
 
 // Transaction success callback

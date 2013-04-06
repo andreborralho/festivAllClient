@@ -1,9 +1,7 @@
 * {
   -webkit-box-sizing: border-box;
 }
-img {
-  max-width: 100%;
-}
+
 html,
 body,
 div,
@@ -322,10 +320,7 @@ a {
   height: 45px;
   background: url(../img/sprite.png) 0 -144px;
 }
-#map_page img {
-  max-width: 250% !important;
-  width: 250%;
-}
+
 .weather_entry {
   border-bottom: 1px solid #373737;
 }
