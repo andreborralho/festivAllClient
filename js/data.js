@@ -1,6 +1,7 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
+
 window.menuIsUp = false;
 var history_array = [];
 
@@ -12,23 +13,23 @@ function menuButton(){
         alert(menuIsUp);
         //takes down menu z-index
     }else{
-    menuIsUp = true;
+        menuIsUp = true;
         //to-do
         alert(menuIsUp);
     }
 }
 
-
 // Get the current Date, used in syncronization
 function getCurrentDate(){
     var d = new Date();
     var df = d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
-    'T' + d.getHours() + ':' + d.getMinutes() + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
+        'T' + d.getHours() + ':' + d.getMinutes() + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
     return df;
 }
 
 
 // Set the visibility for the current app page
+
 setHeight();
 
 function initDisplays(){
@@ -75,7 +76,7 @@ function changeContainers(page, title, subtitle){
         $('#header_subtitle').text(subtitle);
     }
     /*$('[data-role="container"]').css('opacity','0');
-    $(page).css('opacity','1');*/
+     $(page).css('opacity','1');*/
 }
 
 function setHeight(){
@@ -85,12 +86,12 @@ function setHeight(){
 
 // Cordova is ready
 function onDeviceReady() {
+    document.addEventListener("backbutton", backButton, false);
+    window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
+
     //menu button
     document.addEventListener("menubutton", menuButton, false);
     $('#menu_button').bind("click", menuButton);
-
-    document.addEventListener("backbutton", backButton, false);
-    window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
 
     //Check if the application is running for the first time
     $.ajax({
@@ -329,25 +330,22 @@ function insertData(data){
                     console.log("Deleting from " + k);
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 }, errorCB, successCB);
+                //Updates de timestamp of 'a' festival with the date of the most recent synchronization
+                db.transaction(function(tx){
+                    console.log("Updating updated_at");
+                    tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
+                        var festival = results.rows.item(0);
+                        db.transaction(function(tx){
+                            tx.executeSql('UPDATE FESTIVALS SET updated_at="' + festival.updated_at +
+                                '" WHERE id=' + festival.id);
+                        }, errorCB, successCB);
+                    }, errorQueryCB );
+                }, errorCB);
             });
-            updateLastSync();
         }
     });
     //Create festivals container after insertions
     createFestivalsContainer();
-}
-
-//Updates de timestamp of 'a' festival with the date of the most recent synchronization
-function updateLastSync(){
-    db.transaction(function(tx){
-        console.log("Updating updated_at");
-        tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
-            var festival = results.rows.item(0);
-            db.transaction(function(tx){
-                tx.executeSql('UPDATE FESTIVALS SET updated_at="' + getCurrentDate() + '" WHERE id=' + festival.id);
-            }, errorCB, successCB);
-        }, errorQueryCB );
-    }, errorCB);
 }
 
 // Transaction success callback
