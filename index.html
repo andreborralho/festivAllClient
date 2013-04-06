@@ -10,7 +10,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/style.css?v2">
     <style>
-    a { /* Prevent less to complie rgba(0,0,0,0) to transparent*/
+    * { /* Prevent less to complie rgba(0,0,0,0) to transparent*/
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-focus-ring-color: rgba(0, 0, 0, 0); 
     }
@@ -22,7 +22,7 @@
     <!-- MAIN HEADER SKELETON -->
     <header id="header" class="header row" data-role="header">
         <div id="header_link" class="column">
-            <h1 id="header_title" class="logo_text"><img id="logo" src="img/logo.png"> FestivAll</h1>
+            <h1 id="header_title" class="heading0"><img id="logo" src="img/logo.png"> FestivAll</h1>
             <h2 id="header_subtitle" class="heading2"></h2>
         </div>
         <div id="menu_button" class="column fixed centered bdr_l">
@@ -54,7 +54,7 @@
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a id="festival_nav_item" href="#">Festival</a>
+                    <a id="festival_nav_item" class="current" href="#">Festival</a>
                 </li>
                 <li>
                     <a id="shows_nav_item" class="not_current next" href="#">Bandas</a>
@@ -111,7 +111,7 @@
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a id="tickets_nav_item" href="#">Bilhetes</a>
+                    <a id="tickets_nav_item" class="current" href="#">Bilhetes</a>
                 </li>
                 <li>
                     <a id="transports_nav_item" class="not_current next" href="#">Como Chegar</a>
@@ -140,7 +140,7 @@
         <nav class="swipe_bar row" data-role="swipe_bar">
             <ul>
                 <li>
-                    <a id="show_nav_item" href="#">Banda</a>
+                    <a id="show_nav_item" class="current" href="#">Banda</a>
                 </li>
                 <li>
                     <a id="videos_nav_item" class="not_current next" href="#">Vídeos</a>

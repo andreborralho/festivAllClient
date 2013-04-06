@@ -36,18 +36,6 @@ a {
     line-height: 1.1em;
 }
 
-.heading1 {
-    font-size: 1.3125em; //21px TODO: mudar para 1.1em
-    font-weight: normal;
-}
-/*.content_list {
-    margin: 15px 0;
-}*/
-.heading2 { // TODO: subtitle dos titulos de cada pagina(?)
-    font-size: 0.8em;
-    font-weight: normal;
-}
-
 // Forms
 .input_wrap {
     position: relative;
@@ -107,8 +95,37 @@ a {
     height: 14%;
     border-bottom: 1px solid @maincolor;
     background-color: @bgcolor;
+    .heading0 {
+        margin-left: 65px;
+        font-size: 1.9em;
+    }
+    .heading1,
+    .heading2 {
+        padding-left: 20px;
+        font-weight: normal;
+    }
+    .heading1 {
+        font-size: 1.125em; //18px
+        font-weight: normal;
+        &:after {
+            content: " ";
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            display: block;
+            width: 11px;
+            height: 17px;
+            margin-top: -11px;
+            background: @sprite -36px 0;
+        }
+    }
+    .heading2 {
+        margin-top: 3px;
+        font-size: 0.8125em;
+        color: @maincolor;
+    }
 }
-#header_link{
+#header_link {
     padding: 9px 5px;
 }
 #logo {
@@ -116,10 +133,6 @@ a {
     top: 50%;
     left: 5px;
     margin-top: -20px;
-}
-.logo_text {
-    margin-left: 65px;
-    font-size: 1.9em;
 }
 .icon_menu {
     display: inline-block;
