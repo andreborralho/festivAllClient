@@ -37,6 +37,15 @@ function changeContainers(page, title, subtitle){
         else
             header_title_selector.text(title);
     }
+    else if(page == "#lineup"){
+        $('#header_subtitle').text("Cartaz");
+        header_title_selector.removeClass('heading0').addClass('heading1');
+
+        if(title == undefined)
+            header_title_selector.text(current_festival_name);
+        else
+            header_title_selector.text(title);
+    }
     else{
         header_title_selector.removeClass('heading0').addClass('heading1');
         header_title_selector.text(title);

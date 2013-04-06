@@ -5,6 +5,7 @@ function createSearchPage(){
 
         var search_token = $('#search_input').val().replace(" ","");
         document.getElementById('search_input').focus();
+
         db.transaction(function(tx){
             tx.executeSql('SELECT SHOWS.ID AS show_id, SHOWS.NAME AS show_name, SHOWS.TIME AS show_time,' +
                 ' FESTIVALS.ID AS festival_id, FESTIVALS.NAME AS festival_name, STAGES.NAME AS stage_name, DAYS.DATE AS day_date' +

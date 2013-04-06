@@ -3,6 +3,7 @@
 
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
+    createSearchPage();
 
     db.transaction(function queryFestivals(tx) {
 		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorQueryCB);
@@ -11,7 +12,26 @@ function createFestivalsContainer(){
 
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
-    //var logo = '<img src="img/logo.png">FestivAll'
+
+    $('#festivals_carousel').remove();
+    $('#festivals').append('' +
+        '<div id="festivals_carousel" class="carousel" data-role="carousel">' +
+            '<div id="festivals_page" class="page" data-role="page" >' +
+                '<div id="festivals_scroll_wrapper" class="scroll_wrapper">' +
+                    '<ul id="festivals_buttons" class="festival_list"></ul>' +
+                '</div>' +
+            '</div>' +
+            '<div id="search_page" class="page" data-role="page">' +
+                '<form class="input_wrap">' +
+                    '<input id="search_input" class="input_field" type="text" placeholder="Nome de uma banda...">' +
+                    '<div id="search_button" class="input_button"><h1>0</h1></div>' +
+                '</form>' +
+                '<div id="search_scroll_wrapper" style="max-height:390px;max-width:100%;">' +
+                    '<ul id="search_list" class="list" data-role="list"></ul>' +
+                '</div>' +
+            '</div>' +
+        '</div>');
+
 	$('#festivals_carousel').css('display', 'block');
     incrementHistory("#festivals");
 
@@ -27,7 +47,7 @@ function queryFestivalsSuccess(tx, results) {
             createFestivalContainer(this.id.replace("festival_", ""));
         });
     }
-    createSearchPage();
+
     $('#festivals_buttons').scroller();
 
     // Inits carousel for festivals_container

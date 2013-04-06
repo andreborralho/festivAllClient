@@ -28,7 +28,7 @@ function queryFestivalShowsSuccess(tx, results) {
         $('#show_list_letter_'+show_name_letter).append(
             '<li id="show_' + show_id + '" class="row">' +
                 '<div class="column fixed bdr_r">' +
-                    '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span><br>' +
+                    '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
                     '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
                 '</div>' +
                 '<div class="column">' +

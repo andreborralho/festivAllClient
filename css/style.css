@@ -1,5 +1,6 @@
 * {
   -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 img {
   max-width: 100%;
@@ -93,7 +94,48 @@ table {
 .no_border {
   border: none !important;
 }
+/* Grid Flexbox
+------------------------------------------------------------------------
+.row {
+    //display: -webkit-flex; //new syntax (not supported by android 2.*)
+    display: box;
+    display: -moz-box;
+    display: -webkit-box;
+    &.v-center { // Center content vertically
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        box-align: center;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .stretch {
+        height: 100%; // mantain div top-to-bottom
+    }
+}
 
+.column {
+    padding: 12px;
+    &.flex1 {
+        //-webkit-flex: 1; //new syntax (not supported by android 2.*)
+        -webkit-box-flex: 1;
+           -moz-box-flex: 1;
+                box-flex: 1;
+    }
+    &.flex2 {
+        -webkit-box-flex: 2;
+           -moz-box-flex: 2;
+                box-flex: 2;
+    }
+    &.flex3 {
+        -webkit-box-flex: 3;
+           -moz-box-flex: 3;
+                box-flex: 3;
+    }
+}
+.col-fixed {
+    width: 60px;
+}
+*/
 
 /* Grid Table
 ------------------------------------------------------------------------ */
@@ -109,9 +151,9 @@ table {
   vertical-align: middle;
 }
 .column.fixed {
-  width: 65px;
+  width: 70px;
   text-align: center;
-
+  padding: 10px;
 }
 .one-quarter {
   width: 25%;
@@ -119,7 +161,6 @@ table {
 .one-third {
   width: 33.33%;
 }
-
 /* GLOBAL
 -------------------------------------------------------------------------- */
 
@@ -130,47 +171,37 @@ body {
   color: white;
   line-height: 1.2em;
 }
+.container {
+  height: 86%;
+}
+.carousel {
+  height: 93%;
+}
+.page {
+  height: 100%;
+}
+.scroll_wrapper {
+  max-height: 100%;
+}
 a {
   color: white;
   text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-focus-ring-color: transparent;
 }
 .p_small {
   font-size: 0.875em;
   line-height: 1.1em;
 }
-.heading0 {
-    font-size: 1.9em;
-}
 .heading1 {
-  font-size: 1.1em;
+  font-size: 1.3125em;
   font-weight: normal;
 }
+/*.content_list {
+    margin: 15px 0;
+}*/
 
 .heading2 {
-    font-size: 0.8em;
-    font-weight: normal;
-}
-
-/*---Scroll Structure--*/
-.container{
-    height: 86%;
-}
-.carousel{
-    height: 93%;
-}
-.page{
-    height: 100%;
-}
-.scroll_wrapper{
-    max-height: 100%;
-}
-/*---------------------*/
-
-
-.content_list {
-  margin: 15px 0;
+  font-size: 0.8em;
+  font-weight: normal;
 }
 .input_wrap {
   position: relative;
@@ -184,7 +215,7 @@ a {
   font-size: 16px;
   color: white;
 }
-#search_button {
+.input_button {
   position: absolute;
   top: 0;
   right: 0;
@@ -193,8 +224,17 @@ a {
   height: 50px;
   width: 60px;
 }
+.input_field {
+  width: 100%;
+  height: 50px;
+  padding: 4px 67px 4px 10px;
+  border: 3px solid #b43a34;
+  background-color: #232323;
+  font-size: 16px;
+  color: white;
+}
 .list .row {
-  min-height: 65px;
+  min-height: 70px;
   border-bottom: 1px solid #373737;
 }
 .list .band_name {
@@ -202,15 +242,10 @@ a {
   font-weight: normal;
 }
 .list_header {
-  padding: 5px;
+  padding: 10px;
   background-color: #b43a34;
   color: white;
 }
-.transition{
-    -webkit-transition: all 0.4s ease-in-out;
-}
-
-
 /* HEADER
 -------------------------------------------------------------------------- */
 
@@ -218,21 +253,22 @@ a {
   height: 14%;
   border-bottom: 1px solid #b43a34;
   background-color: #232323;
-
 }
-#header_link{
-    padding: 9px 5px;
+#header_link {
+  padding: 9px 5px;
 }
-
-/*===============Main Nav=================*/
+.heading0 {
+  font-size: 1.9em;
+}
+/* SWIPE BAR
+-------------------------------------------------------------------------- */
 
 .swipe_bar {
   position: relative;
+  height: 7%;
   padding: 6px 0;
   background-color: #373737;
-  /*-webkit-box-shadow: 0 6px 25px 6px rgba(0, 0, 0, 0.6);*/
   text-align: center;
-  height: 7%;
 }
 .swipe_bar .not_current {
   position: absolute;
@@ -266,9 +302,6 @@ a {
 .nav_bottom {
   position: absolute;
   bottom: 0;
- /* -webkit-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 -6px 25px 6px rgba(0, 0, 0, 0.8);*/
 }
 .nav_bottom .column {
   width: 25%;
@@ -286,6 +319,9 @@ a {
   width: 100%;
   height: 100%;
 }
+/* SEARCH
+-------------------------------------------------------------------------- */
+
 /* BEFORE FESTIVAL
 -------------------------------------------------------------------------- */
 
@@ -306,6 +342,30 @@ a {
   display: block;
   text-transform: uppercase;
 }
+.weather_entry {
+  width: 100%;
+  border-bottom: 1px solid #373737;
+}
+.weather_text {
+  width: 70%;
+}
+.weather_img {
+  width: 29%;
+}
+.weather_date,
+.weather_description,
+.weather_temperature {
+  width: 100%;
+}
+/* SHOWS
+-------------------------------------------------------------------------- */
+
+.show_date {
+  display: block;
+}
+/* SHOW VIDEOS
+-------------------------------------------------------------------------- */
+
 #band_videos_page .column {
   height: 80px;
 }
@@ -322,21 +382,10 @@ a {
   height: 45px;
   background: url(../img/sprite.png) 0 -144px;
 }
+/* MAP
+---------------------------------------------------------------------- */
+
 #map_page img {
   max-width: 250% !important;
   width: 250%;
-}
-.weather_entry {
-  border-bottom: 1px solid #373737;
-}
-.weather_text {
-  width: 70%;
-}
-.weather_img {
-  width: 29%;
-}
-.weather_date,
-.weather_description,
-.weather_temperature {
-  width: 100%;
 }
