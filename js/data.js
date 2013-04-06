@@ -1,18 +1,20 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
-document.addEventListener("menubutton", menuButton, false);
 window.menuIsUp = false;
 var history_array = [];
 
 //Menu button callback
 function menuButton(){
+    alert('hi');
     if(menuIsUp){
         menuIsUp = false;
+        alert(menuIsUp);
         //takes down menu z-index
     }else{
     menuIsUp = true;
         //to-do
+        alert(menuIsUp);
     }
 }
 
@@ -74,6 +76,10 @@ function setHeight(){
 
 // Cordova is ready
 function onDeviceReady() {
+    //menu button
+    document.addEventListener("menubutton", menuButton, false);
+    $('#menu_button').bind("click", menuButton);
+
     document.addEventListener("backbutton", backButton, false);
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
 
