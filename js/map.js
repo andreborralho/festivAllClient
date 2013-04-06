@@ -9,5 +9,11 @@ function createMapContainer(festival_map) {
         changeContainers("#before_festival", current_festival_name, "");
     });
 
-    $('#map_page').html('<img src="' + festival_map +'">');
+    $('#map_page').empty();
+    $('#map_page').append('<div id="map_scroll_wrapper" class="scroll_wrapper"><div>');
+    $('#map_scroll_wrapper').append('<div id="map_scroller"><img src="' + festival_map +'"></div>');
+    $('#map_scroller').scroller({
+        verticalScroll:true,
+        horizontalScroll:true
+    });
 }

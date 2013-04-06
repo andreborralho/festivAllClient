@@ -45,16 +45,15 @@ function buildLineup(stages, days){
 
         for(var s = 0; s<stages.length; s++){
             (function(day,stage,len,s){ //manha gigante, pouco legivel
-
                 db.transaction(function(tx){
                     tx.executeSql('SELECT * FROM SHOWS WHERE festival_id=' + day.festival_id + ' AND ' +
                     ' stage_id=' + stage.id + ' AND day_id=' + day.id, [], function(tx,results){
-
                         var shows = results.rows;
-                        if(shows.length > 0){
-                            //append day:stage frame
-                            $('#lineup_carousel_' + day.id).append('<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>');
 
+                        //append day:stage frame
+                        $('#lineup_carousel_' + day.id).append('<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>');
+
+                        if(shows.length > 0){
                             for(var l = 0; l <shows.length; l ++){
                                 var show = shows.item(l);
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
@@ -70,14 +69,17 @@ function buildLineup(stages, days){
                                     });
                                 })(show.name);
                             }
-                            if(s == len -1)
-                                finishLineupStage(day, stages);
+                        }else {$('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!')}
+                        if(s == (len - 1)){
+                            finishLineupStage(day, stages);
                         }
                     },errorQueryCB);
                  }, errorCB);
             })(day,stages[s],stages.length, s);
         }
     }
+
+    //scroll lineup days
 }
 
 function appendStagesToNavBar(stages){

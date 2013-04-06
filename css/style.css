@@ -382,10 +382,3 @@ a {
   height: 45px;
   background: url(../img/sprite.png) 0 -144px;
 }
-/* MAP
----------------------------------------------------------------------- */
-
-#map_page img {
-  max-width: 250% !important;
-  width: 250%;
-}

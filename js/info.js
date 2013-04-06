@@ -192,12 +192,10 @@ function queryInfoSuccess(tx, results) {
                     }
                 });
             });
-        alert('carousel inside get json !now you can carousel!');
         init_info_carousel();
 
         },
         error: function(model, response){
-            alert('getjson error :( carouselling');
             init_info_carousel();
         }
     });
