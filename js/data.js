@@ -1,8 +1,23 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 window.addEventListener("load", initDisplays, false);
+document.addEventListener("menubutton", menuButton, false);
+window.menuIsUp = false;
 var history_array = [];
 
+//Menu button callback
+function menuButton(){
+    if(menuIsUp){
+        menuIsUp = false;
+        //takes down menu z-index
+    }else{
+    menuIsUp = true;
+        //to-do
+    }
+}
+
+
+// Get the current Date, used in syncronization
 function getCurrentDate(){
     var d = new Date();
     var df = d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
