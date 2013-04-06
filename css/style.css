@@ -183,6 +183,8 @@ body {
 .scroll_wrapper {
   max-height: 100%;
 }
+/*----------------------*/
+
 a {
   color: white;
   text-decoration: none;
@@ -242,6 +244,7 @@ a {
   font-weight: normal;
 }
 .list_header {
+  text-transform: uppercase;
   padding: 10px;
   background-color: #b43a34;
   color: white;
@@ -310,14 +313,12 @@ a {
 -------------------------------------------------------------------------- */
 
 .festival_list .item {
-  float: left;
-  width: 30%;
-  height: 25%;
-  margin: 1.8%;
+  display: inline-block;
+  width: 28%;
+  margin: 4% 2.6% 0 2.6%;
 }
 .festival_list img {
   width: 100%;
-  height: 100%;
 }
 /* SEARCH
 -------------------------------------------------------------------------- */

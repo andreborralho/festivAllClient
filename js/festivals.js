@@ -26,7 +26,7 @@ function queryFestivalsSuccess(tx, results) {
                     '<input id="search_input" class="input_field" type="text" placeholder="Nome de uma banda...">' +
                     '<div id="search_button" class="input_button"><h1>0</h1></div>' +
                 '</form>' +
-                '<div id="search_scroll_wrapper" style="max-height:390px;max-width:100%;">' +
+                '<div id="search_scroll_wrapper" class="scroll_wrapper">' +
                     '<ul id="search_list" class="list" data-role="list"></ul>' +
                 '</div>' +
             '</div>' +
