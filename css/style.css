@@ -167,7 +167,7 @@ table {
 body {
   overflow: hidden;
   background: url(../img/bg.png) #232323;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Open Sans', arial, sans-serif;
   color: white;
   line-height: 1.2em;
 }
@@ -245,6 +245,7 @@ a {
   padding: 5px 10px;
   background-color: #b43a34;
   color: white;
+  text-transform: uppercase;
 }
 /* HEADER
 -------------------------------------------------------------------------- */
@@ -257,8 +258,21 @@ a {
 #header_link {
   padding: 9px 5px;
 }
-.heading0 {
+#logo {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  margin-top: -20px;
+}
+.logo_text {
+  margin-left: 65px;
   font-size: 1.9em;
+}
+.icon_menu {
+  display: inline-block;
+  width: 28px;
+  height: 22px;
+  background: url(../img/sprite.png) 0 0;
 }
 /* SWIPE BAR
 -------------------------------------------------------------------------- */
@@ -269,6 +283,23 @@ a {
   padding: 6px 0;
   background-color: #373737;
   text-align: center;
+}
+.swipe_bar .current {
+  z-index: 1;
+  position: relative;
+  padding: 0 5px;
+  background-color: #373737;
+}
+.swipe_bar .current:after {
+  content: " ";
+  position: absolute;
+  top: 23px;
+  left: 50%;
+  display: block;
+  width: 49px;
+  height: 7px;
+  margin-left: -25px;
+  background: url(../img/sprite.png) 0 -36px;
 }
 .swipe_bar .not_current {
   position: absolute;
@@ -281,6 +312,9 @@ a {
 .swipe_bar .not_current.next {
   right: 1px;
 }
+/* NAVS
+-------------------------------------------------------------------------- */
+
 .nav_top,
 .nav_bottom {
   width: 100%;

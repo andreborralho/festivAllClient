@@ -6,7 +6,7 @@
 body {
     overflow: hidden;
     background: url(../img/bg.png) @bgcolor;
-    font-family: Helvetica, sans-serif;
+    font-family: 'Open Sans', arial, sans-serif;
     color: #FFF;
     line-height: 1.2em;
 }
@@ -96,6 +96,7 @@ a {
     padding: 5px 10px;
     background-color: @maincolor;
     color: #FFF;
+    text-transform: uppercase;
 }
 
 
@@ -110,8 +111,21 @@ a {
 #header_link{
     padding: 9px 5px;
 }
-.heading0 { // TODO: heading logo
+#logo {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    margin-top: -20px;
+}
+.logo_text {
+    margin-left: 65px;
     font-size: 1.9em;
+}
+.icon_menu {
+    display: inline-block;
+    width: 28px;
+    height: 22px;
+    background: @sprite 0 0;
 }
 
 
@@ -125,14 +139,39 @@ a {
     background-color: @grey;
     //.box-shadow(0 6px 25px 6px rgba(0,0,0,0.6));
     text-align: center;
+    .current {
+        z-index: 1;
+        position: relative;
+        padding: 0 5px;
+        background-color: @grey;
+        &:after {
+            content: " ";
+            position: absolute;
+            top: 23px;
+            left: 50%;
+            display: block;
+            width: 49px;
+            height: 7px;
+            margin-left: -25px;
+            background: @sprite 0 -36px;
+        }
+    }
     .not_current {
         position: absolute;
         top: 6px;
         color: #AAA !important;
     }
-    .not_current.prev {left: 1px;}
-    .not_current.next {right: 1px;}
+    .not_current.prev {
+        left: 1px;
+    }
+    .not_current.next {
+        right: 1px;
+    }
 }
+
+
+/* NAVS
+-------------------------------------------------------------------------- */
 .nav_top,
 .nav_bottom {
     width: 100%;
