@@ -136,7 +136,10 @@ function queryInfoSuccess(tx, results) {
     $.ajax({
         url: 'http://free.worldweatheronline.com/feed/weather.ashx?q='+ latitude +',' + longitude +
         '&format=json&num_of_days=5&key=553a8863c6144236131203',
+        dataType:'application/json',
+        contentType:'application/json',
         success:function (data) {
+            data = JSON.parse(data);
             $.each(data, function(k,v){
                 $.each(v, function(weather_key, weather_value){
                     if(weather_key=="current_condition"){
