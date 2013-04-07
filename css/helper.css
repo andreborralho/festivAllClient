@@ -1,3 +1,7 @@
+.borderbox {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 .clearfix:before,
 .clearfix:after {
   content: " ";
@@ -28,6 +32,9 @@
 }
 .bdr_r {
   border-right: 1px solid #373737;
+}
+.bdr_b {
+  border-bottom: 1px solid #373737;
 }
 .bdr_l {
   border-left: 1px solid #373737;
@@ -88,7 +95,9 @@
 }
 .column {
   display: table-cell;
-  padding: 10px 5px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
   vertical-align: middle;
 }
 .column.fixed {

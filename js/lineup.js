@@ -57,10 +57,10 @@ function buildLineup(stages, days){
                             for(var l = 0; l <shows.length; l ++){
                                 var show = shows.item(l);
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                    '<div id="lineup_show_' + show.id + '" class="row">' +
+                                    '<li id="lineup_show_' + show.id + '" class="row">' +
                                         '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
                                         '<div class="column"><h3 class="band_name">' + show.name + '</h3></div>' +
-                                    '</div>');
+                                    '</li>');
 
                                 (function (show_name){
                                     $('#lineup_show_' + show.id ).bind('click', function(){
