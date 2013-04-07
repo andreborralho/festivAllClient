@@ -5,7 +5,9 @@
 -------------------------------------------------------------------------- */
 body {
     overflow: hidden;
-    background: url(../img/bg.png) center 180px no-repeat @bgcolor;
+    background: url(../img/bg-guitar.png) center 180px no-repeat;
+    //, url(../img/bg.png) 0 0 repeat
+    background-color: @bgcolor;
     font-family: 'Open Sans', arial, sans-serif;
     color: #FFF;
     line-height: 1.2em;
@@ -45,6 +47,7 @@ a {
 .input_field {
     width: 100%;
     height: 55px;
+    .borderbox;
     padding: 4px 67px 4px 10px;
     border: 3px solid @maincolor;
     background-color: @bgcolor;
@@ -67,7 +70,8 @@ a {
 // Lists
 .list {
     .row {
-        min-height: 70px;
+        display: block;
+        min-height: 55px;
         border-bottom: 1px solid @grey;
     }
     .band_name {
@@ -252,24 +256,24 @@ a {
 
 /* WEATHER
 -------------------------------------------------------------------------- */
-.week_day {
-    display: block;
-    text-transform: uppercase;
+#weather_current {
+    padding: 20px 0;
+    .bdr_b;
 }
-.weather_entry{
-    width: 100%;
-    border-bottom: 1px solid #373737;
+#weather_img_current {
+    display: inline-block;
+    margin-right: 12px;
 }
-.weather_text{
-    width: 70%;
+#weather_temperature_current {
+    position: relative;
+    bottom: 15px;
+    display: inline-block;
+    font-size: 2.25em;
+    margin-left: 12px;
 }
-.weather_img{
-    width: 29%;
-}
-.weather_date,
-.weather_description,
-.weather_temperature{
-    width: 100%;
+#weather_description_current {
+    font-size: 1.5625em;
+    text-align: center;
 }
 
 
@@ -301,4 +305,3 @@ a {
     height: 45px;
     background: @sprite 0 -144px;
 }
-

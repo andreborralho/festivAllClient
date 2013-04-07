@@ -1,5 +1,10 @@
 @import 'mixins.less';
 
+.borderbox {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 // Clearfix
 .clearfix:before,
 .clearfix:after {
@@ -44,9 +49,12 @@
     vertical-align: top !important;
 }
 
-// Border Right, Left
+// Border Right, Bottom, Left
 .bdr_r {
     border-right: 1px solid @grey;
+}
+.bdr_b {
+    border-bottom: 1px solid @grey;
 }
 .bdr_l {
     border-left: 1px solid @grey;
@@ -112,7 +120,8 @@
 }
 .column {
     display: table-cell;
-    padding: 10px 5px;
+    .borderbox;
+    .padded;
     vertical-align: middle;
     &.fixed {
         width: 70px;
