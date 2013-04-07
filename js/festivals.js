@@ -16,7 +16,7 @@ function queryFestivalsSuccess(tx, results) {
     $('#festivals_carousel').remove();
     $('#festivals').append('' +
         '<div id="festivals_carousel" class="carousel" data-role="carousel">' +
-            '<div id="festivals_page" class="page" data-role="page" >' +
+            '<div id="festivals_page" class="page" data-role="page">' +
                 '<div id="festivals_scroll_wrapper" class="scroll_wrapper">' +
                     '<ul id="festivals_buttons" class="festival_list"></ul>' +
                 '</div>' +
@@ -24,7 +24,9 @@ function queryFestivalsSuccess(tx, results) {
             '<div id="search_page" class="page" data-role="page">' +
                 '<form class="input_wrap">' +
                     '<input id="search_input" class="input_field" type="text" placeholder="Nome de uma banda...">' +
-                    '<div id="search_button" class="input_button"><h1>0</h1></div>' +
+                    '<button type="submit" id="search_button" class="input_button">' +
+                        '<span class="icon_search"></span>' +
+                    '</button>' +
                 '</form>' +
                 '<div id="search_scroll_wrapper" class="scroll_wrapper">' +
                     '<ul id="search_list" class="list" data-role="list"></ul>' +

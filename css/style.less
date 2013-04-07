@@ -5,7 +5,7 @@
 -------------------------------------------------------------------------- */
 body {
     overflow: hidden;
-    background: url(../img/bg.png) @bgcolor;
+    background: url(../img/bg.png) center 180px no-repeat @bgcolor;
     font-family: 'Open Sans', arial, sans-serif;
     color: #FFF;
     line-height: 1.2em;
@@ -43,8 +43,8 @@ a {
     position: relative;
 }
 .input_field {
-    width: 80%;
-    height: 50px;
+    width: 100%;
+    height: 55px;
     padding: 4px 67px 4px 10px;
     border: 3px solid @maincolor;
     background-color: @bgcolor;
@@ -55,19 +55,12 @@ a {
     position: absolute;
     top: 0;
     right: 0;
+    width: 55px;
+    height: 55px;
+    padding-top: 5px;
     border: none;
-    background: @maincolor;
-    height: 50px;
-    width: 60px;
-}
-.input_field {
-    width: 100%;
-    height: 50px;
-    padding: 4px 67px 4px 10px;
-    border: 3px solid @maincolor;
-    background-color: @bgcolor;
-    font-size: 16px;
-    color: #FFF;
+    background-color: @maincolor;
+    text-align: center;
 }
 
 
@@ -99,7 +92,7 @@ a {
     border-bottom: 1px solid @maincolor;
     background-color: @bgcolor;
     .heading0 {
-        margin-left: 65px;
+        margin-left: 82px;
         font-size: 1.9em;
     }
     .heading1,
@@ -118,7 +111,7 @@ a {
             display: block;
             width: 11px;
             height: 17px;
-            margin-top: -11px;
+            margin-top: -10px;
             background: @sprite -36px 0;
         }
     }
@@ -135,7 +128,7 @@ a {
     position: absolute;
     top: 50%;
     left: 5px;
-    margin-top: -20px;
+    margin-top: -25px;
 }
 .icon_menu {
     display: inline-block;
@@ -169,7 +162,7 @@ a {
             width: 49px;
             height: 7px;
             margin-left: -25px;
-            background: @sprite 0 -36px;
+            background: @sprite -72px 0;
         }
     }
     .not_current {
@@ -233,6 +226,13 @@ a {
 
 /* SEARCH
 -------------------------------------------------------------------------- */
+.icon_search {
+    display: inline-block;
+    width: 31px;
+    height: 30px;
+    background: @sprite 0 -36px;
+}
+
 
 
 /* BEFORE FESTIVAL
