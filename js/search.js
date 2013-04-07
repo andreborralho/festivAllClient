@@ -38,7 +38,6 @@ function querySearchSuccess(tx, results) {
             show_time = show.show_time.slice(11,16);
             festival_name = show.festival_name;
 
-
             if(festival_name != festival_name_previous){
                 search_list_selector.append('<li id="search_festival_' + show.festival_id +'"></li>');
 
