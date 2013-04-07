@@ -22,11 +22,11 @@ function queryFestivalsSuccess(tx, results) {
                 '</div>' +
             '</div>' +
             '<div id="search_page" class="page" data-role="page">' +
-                '<form class="input_wrap">' +
+                '<form id="search_input_wrap" class="input_wrap">' +
                     '<input id="search_input" class="input_field" type="text" placeholder="Nome de uma banda...">' +
-                    '<button type="submit" id="search_button" class="input_button">' +
+                    '<div id="search_button" class="input_button">' +
                         '<span class="icon_search"></span>' +
-                    '</button>' +
+                    '</div>' +
                 '</form>' +
                 '<div id="search_scroll_wrapper" class="scroll_wrapper">' +
                     '<ul id="search_list" class="list" data-role="list"></ul>' +
@@ -51,18 +51,24 @@ function queryFestivalsSuccess(tx, results) {
     }
 
     $('#festivals_buttons').scroller();
+    var softkeyboard = window.cordova.plugins.SoftKeyBoard;
 
     // Inits carousel for festivals_container
-    $('#festivals_carousel').carousel({
+    festivals_carousel = $('#festivals_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
                 $('#festivals_nav_item').addClass('current').removeClass('not_current');
                 $('#search_nav_item').addClass('not_current next').removeClass('current');
+                softkeyboard.hide();
             }
             else if(index == 1){
                 $('#search_nav_item').addClass('current').removeClass('not_current next');
                 $('#festivals_nav_item').addClass('not_current prev').removeClass('current');
+
+                //document.getElementById('search_input').focus();
+                softkeyboard.show();
+                $('#search_input').trigger('click');
             }
         }
     });

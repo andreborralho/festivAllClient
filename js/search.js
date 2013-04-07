@@ -1,10 +1,9 @@
 
 function createSearchPage(){
 
-    $('#search_button').unbind().bind('click', function(){
 
+    $('#search_button').unbind().bind('click', function(){
         var search_token = $('#search_input').val().replace(" ","");
-        document.getElementById('search_input').focus();
 
         db.transaction(function(tx){
             tx.executeSql('SELECT SHOWS.ID AS show_id, SHOWS.NAME AS show_name, SHOWS.TIME AS show_time,' +
@@ -71,4 +70,5 @@ function querySearchSuccess(tx, results) {
         }
 
     search_list_selector.scroller();
+    festivals_carousel.refreshItems();
 }
