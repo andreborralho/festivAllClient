@@ -6,19 +6,19 @@ function init_info_carousel(){
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
-                $('#tickets_nav_item').removeClass('not_current prev');
-                $('#transports_nav_item').addClass('not_current next');
-                $('#weather_nav_item').addClass('hidden');
+                $('#tickets_nav_item').addClass('current').removeClass('not_current prev');
+                $('#transports_nav_item').addClass('not_current next').removeClass('current');
+                $('#weather_nav_item').addClass('hidden').removeClass('current');
             }
             else if(index == 1){
-                $('#transports_nav_item').removeClass('not_current next prev');
-                $('#tickets_nav_item').addClass('not_current prev').removeClass('hidden');
-                $('#weather_nav_item').addClass('not_current next').removeClass('hidden');
+                $('#tickets_nav_item').addClass('not_current prev').removeClass('current hidden');
+                $('#transports_nav_item').addClass('current').removeClass('not_current next prev');
+                $('#weather_nav_item').addClass('not_current next').removeClass('current hidden');
             }
             else if(index == 2){
-                $('#weather_nav_item').removeClass('not_current next');
-                $('#transports_nav_item').addClass('not_current prev');
-                $('#tickets_nav_item').addClass('hidden');
+                $('#tickets_nav_item').addClass('hidden').removeClass('current');
+                $('#transports_nav_item').addClass('not_current prev').removeClass('current');
+                $('#weather_nav_item').addClass('current').removeClass('not_current next');
             }
         }
     });

@@ -104,29 +104,28 @@ function finishLineupStage(day, stages){
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
-                $('#stage_' + stages[index].id + '_nav_item').removeClass('not_current next prev');
-                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next');
-                $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden');
-                $('#stage_' + stages[index+3].id + '_nav_item').addClass('hidden');
+                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
+                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current');
+                $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden').removeClass('current');
+                $('#stage_' + stages[index+3].id + '_nav_item').addClass('hidden').removeClass('current');
             }
             else if(index == 1){
-                $('#stage_' + stages[index].id + '_nav_item').removeClass('not_current next prev');
-                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('hidden');
-                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('hidden');
-                $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden');
+                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('current hidden');
+                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
+                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current hidden');
+                $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden').removeClass('current');
 
             }
             else if(index == 2){
-                $('#stage_' + stages[index].id + '_nav_item').removeClass('not_current next prev');
-                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('hidden');
-                $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden');
-                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('hidden');
-
+                $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden').removeClass('current');
+                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('current hidden');
+                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
+                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current hidden');
             }
             else if(index == 3){
-                $('#stage_' + stages[index].id + '_nav_item').removeClass('not_current next prev');
-                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('hidden');
-                $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden');
+                $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden').removeClass('current');
+                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('current hidden');
+                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
             }
         }
     });

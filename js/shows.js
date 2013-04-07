@@ -59,12 +59,12 @@ function queryFestivalShowsSuccess(tx, results) {
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
-                $('#festival_nav_item').removeClass('not_current');
-                $('#shows_nav_item').addClass('not_current next');
+                $('#festival_nav_item').addClass('current').removeClass('not_current');
+                $('#shows_nav_item').addClass('not_current next').removeClass('current');
             }
             else if(index == 1){
-                $('#shows_nav_item').removeClass('not_current next');
-                $('#festival_nav_item').addClass('not_current prev');
+                $('#shows_nav_item').addClass('current').removeClass('not_current next');
+                $('#festival_nav_item').addClass('not_current prev').removeClass('current');
             }
         }
     });

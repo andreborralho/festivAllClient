@@ -18,20 +18,19 @@ function queryShowVideosSuccess(tx, results){
         //$('.video_name').text(video_name);
         //$('video_description').text(video_description);
     }
+
     //inits the show_carousel
     $('#show_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
-                $('#show_nav_item').removeClass('not_current');
-                $('#videos_nav_item').addClass('not_current next');
+                $('#show_nav_item').addClass('current').removeClass('not_current');
+                $('#videos_nav_item').addClass('not_current next').removeClass('current');
             }
             else if(index == 1){
-                $('#videos_nav_item').removeClass('not_current next');
-                $('#show_nav_item').addClass('not_current prev');
+                $('#videos_nav_item').addClass('current').removeClass('not_current next');
+                $('#show_nav_item').addClass('not_current prev').removeClass('current');
             }
         }
     });
-    //initShow();
-
 }

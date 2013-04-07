@@ -53,12 +53,43 @@ function appendFestivalHTML(){
     $('#before_festival').append('' +
         '<div id="before_festival_carousel" class="carousel" data-role="carousel">' +
             '<div id="before_festival_page" data-role="page">' +
-                '<div id="festival_countdown"></div>' +
-                '<div id="festival_days"></div>' +
-                '<div id="festival_city"></div>' +
-                '<div id="lineup_button" class="festival_page_button">Cartaz</div>' +
-                '<div id="map_button" class="festival_page_button">Mapa</div>' +
-                '<div id="info_button" class="festival_page_button" >Informação</div>' +
+                '<div class="padded">' +
+                    '<p id="festival_countdown">' +
+                        '<span>Faltam</span>' +
+                        '<span id="festival_countdown_days"></span>' +
+                        '<span>dias</span>' +
+                    '</p>' +
+                    '<ul>' +
+                        '<li>' +
+                            '<span>></span>' +
+                            '<span id="festival_days"></span>' +
+                        '</li>' +
+                        '<li>' +
+                            '<span>></span>' +
+                            '<span id="festival_city"></span>' +
+                        '</li>' +
+                        '<li>' +
+                            '<span>></span>' +
+                            '<span id="festival_price">Entre 18€ e 22€</span>' +
+                        '</li>' +
+                    '</ul>' +
+                '</div>' +
+                '<nav class="nav_bottom">' +
+                    '<ul class="row">' +
+                        '<li class="column">' +
+                            '<a href="#" id="lineup_button" class="item">Cartaz</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" class="item" id="info_button">Informação</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" class="item" id="map_button">Mapa</a>' +
+                        '</li>' +
+                        /*'<li class="column">' +
+                            '<a href="#" class="no_border" id="info_gallery">Galeria</a>' +
+                        '</li>' +*/
+                    '</ul>' +
+                '</nav>' +
             '</div>' +
 
             '<div id="shows_page" class="page" data-role="page">' +
@@ -82,7 +113,7 @@ function createBeforeFestival(festival, festivals, diff){
 
     var dhms = dhm(diff).toString();
 
-    $('#festival_countdown').text("Faltam " + dhms.split(':')[0] + " dias!");
+    $('#festival_countdown_days').text(dhms.split(':')[0]);
 
     $('#festival_city').text("Local: " + festival.city);
 

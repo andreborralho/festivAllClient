@@ -364,10 +364,13 @@ a {
   font-size: 20px;
   text-align: center;
 }
-#festival_countdown .days {
+#festival_countdown #festival_countdown_days {
   display: block;
   font-size: 140px;
   line-height: 125px;
+}
+#before_festival_page {
+  position: relative;
 }
 /* WEATHER
 -------------------------------------------------------------------------- */

@@ -55,12 +55,12 @@ function queryFestivalsSuccess(tx, results) {
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
-                $('#festivals_nav_item').removeClass('not_current');
-                $('#search_nav_item').addClass('not_current next');
+                $('#festivals_nav_item').addClass('current').removeClass('not_current');
+                $('#search_nav_item').addClass('not_current next').removeClass('current');
             }
             else if(index == 1){
-                $('#search_nav_item').removeClass('not_current next');
-                $('#festivals_nav_item').addClass('not_current prev');
+                $('#search_nav_item').addClass('current').removeClass('not_current next');
+                $('#festivals_nav_item').addClass('not_current prev').removeClass('current');
             }
         }
     });
