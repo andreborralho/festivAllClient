@@ -142,7 +142,7 @@ function getLastSync(callback) {
                 function(tx, results) {
 
                     var lastSync = results.rows.item(0).lastSync.replace("T"," ");
-                    alert("last synchronization date : " + lastSync);
+                    //alert("last synchronization date : " + lastSync);
                     callback(lastSync);
                 }, errorQueryCB);
         }, errorCB

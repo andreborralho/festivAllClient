@@ -44,7 +44,7 @@ function buildLineup(stages, days){
         }
 
         for(var s = 0; s<stages.length; s++){
-            (function(day,stage,len,s){ //manha gigante, pouco legivel
+            (function(day,stage,len,s,day_i,day_len){ //manha gigante, pouco legivel
                 db.transaction(function(tx){
                     tx.executeSql('SELECT * FROM SHOWS WHERE festival_id=' + day.festival_id + ' AND ' +
                     ' stage_id=' + stage.id + ' AND day_id=' + day.id, [], function(tx,results){
@@ -73,13 +73,22 @@ function buildLineup(stages, days){
                         if(s == (len - 1)){
                             finishLineupStage(day, stages);
                         }
+                        if(day_i == (day_len -1) & s == (len - 1) ){
+
+                            //scroll lineup days
+                            $('#lineup_day_buttons').scroller({
+                                verticalScroll:false,
+                                horizontalScroll:true
+                            });
+
+                        }
+
                     },errorQueryCB);
                  }, errorCB);
-            })(day,stages[s],stages.length, s);
+            })(day,stages[s],stages.length, s, i, days_length);
         }
     }
 
-    //scroll lineup days
 }
 
 function appendStagesToNavBar(stages){
@@ -130,12 +139,14 @@ function finishLineupStage(day, stages){
         }
     });
 
+
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
-
-    $('#lineup_day_buttons').append('<li id="' + day.id + '_day_button" class="column one-quarter">' +
-        '<a href="#" class="item">' + show_day + ' ' + month + '</a></li>');
+    //class="column one-quarter"
+    //<a    class="item"
+    $('#lineup_day_buttons').append('<div id="' + day.id + '_day_button" class="column one-quarter">'+
+        '<a href="#" class="item">' + show_day + ' ' + month + '</a></div>');
 
     $('#' + day.id + '_day_button').bind('click', function(){
         //set visibility to the correct carousel in the lineup frame
