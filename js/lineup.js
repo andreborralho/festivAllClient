@@ -38,7 +38,7 @@ function buildLineup(stages, days){
     for(var i = 0; i<days_length; i++){
         var day = days.item(i);
 
-        $('#lineup_frame').append('<div id="lineup_carousel_' + day.id + '" data-role="lineup_carousel"></div>');
+        $('#lineup_frame').append('<div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div>');
         if(i!=0){//First day lineup shows on page open
              $('#lineup_carousel_' + day.id).css('display', 'none');
         }
@@ -51,7 +51,7 @@ function buildLineup(stages, days){
                         var shows = results.rows;
 
                         //append day:stage frame
-                        $('#lineup_carousel_' + day.id).append('<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>');
+                        $('#lineup_carousel_' + day.id).append('<div class="lineup_scroll_wrapper"><div id="' + day.id + '_' + stage.id + '_lineup_frame"></div></div>');
 
                         if(shows.length > 0){
                             for(var l = 0; l <shows.length; l ++){
@@ -69,9 +69,12 @@ function buildLineup(stages, days){
                                     });
                                 })(show.name);
                             }
+                            $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
+
                         }else {$('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!')}
                         if(s == (len - 1)){
                             finishLineupStage(day, stages);
+
                         }
                         if(day_i == (day_len -1) & s == (len - 1) ){
 
@@ -143,8 +146,6 @@ function finishLineupStage(day, stages){
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
-    //class="column one-quarter"
-    //<a    class="item"
     $('#lineup_day_buttons').append('<div id="' + day.id + '_day_button" class="column one-quarter">'+
         '<a href="#" class="item">' + show_day + ' ' + month + '</a></div>');
 
