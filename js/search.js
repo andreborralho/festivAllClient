@@ -1,23 +1,36 @@
 
-function createSearchPage(){
+function createSearchContainer(){
 
-
-    $('#search_button').unbind().bind('click', function(){
+    $('#search_button').unbind().bind('click', function(){festivals_carousel.refreshItems();
         var search_token = $('#search_input').val().replace(" ","");
-
-        db.transaction(function(tx){
-            tx.executeSql('SELECT SHOWS.ID AS show_id, SHOWS.NAME AS show_name, SHOWS.TIME AS show_time,' +
-                ' FESTIVALS.ID AS festival_id, FESTIVALS.NAME AS festival_name, STAGES.NAME AS stage_name, DAYS.DATE AS day_date' +
-                ' FROM SHOWS INNER JOIN FESTIVALS ON SHOWS.FESTIVAL_ID = FESTIVALS.ID' +
-                ' INNER JOIN STAGES ON SHOWS.STAGE_ID = STAGES.ID INNER JOIN DAYS ON SHOWS.DAY_ID = DAYS.ID' +
-                ' WHERE UPPER(REPLACE(SHOWS.NAME, " ", "")) LIKE UPPER("%' + search_token + '%") OR' +
-                ' UPPER(REPLACE(FESTIVALS.NAME, " ", "")) LIKE UPPER("%' + search_token + '%")' +
-                ' ORDER BY FESTIVALS.NAME', [], querySearchSuccess, errorQueryCB);
-        }, errorCB);
+        alert(search_token);
+        createSearchResultsContainer(search_token);
     });
 }
 
+function createSearchResultsContainer(search_token){
+    db.transaction(function(tx){
+        tx.executeSql('SELECT SHOWS.ID AS show_id, SHOWS.NAME AS show_name, SHOWS.TIME AS show_time,' +
+            ' FESTIVALS.ID AS festival_id, FESTIVALS.NAME AS festival_name, STAGES.NAME AS stage_name, DAYS.DATE AS day_date' +
+            ' FROM SHOWS INNER JOIN FESTIVALS ON SHOWS.FESTIVAL_ID = FESTIVALS.ID' +
+            ' INNER JOIN STAGES ON SHOWS.STAGE_ID = STAGES.ID INNER JOIN DAYS ON SHOWS.DAY_ID = DAYS.ID' +
+            ' WHERE UPPER(REPLACE(SHOWS.NAME, " ", "")) LIKE UPPER("%' + search_token + '%") OR' +
+            ' UPPER(REPLACE(FESTIVALS.NAME, " ", "")) LIKE UPPER("%' + search_token + '%")' +
+            ' ORDER BY FESTIVALS.NAME', [], querySearchSuccess, errorQueryCB);
+    }, errorCB);
+}
+
 function querySearchSuccess(tx, results) {
+    $('#search_results_page').empty();
+    $('#search_results_page').append('' +
+        '<div id="search_scroll_wrapper" class="scroll_wrapper">' +
+            '<ul id="search_list" class="list" data-role="list"></ul>' +
+        '</div>');
+
+    $('#header_link').unbind().bind('click', function(){
+        changeContainers("#festivals", "FestivAll", "");
+    });
+
     var search_list_selector =  $('#search_list');
     var shows = results.rows;
     var show, show_day, numeric_month, show_month, show_time;
@@ -60,7 +73,7 @@ function querySearchSuccess(tx, results) {
                 '</li>');
 
             (function (show_name, show_festival_name){
-                $('#search_show_' + show.show_id).bind('click', function(){
+                $('#search_show_' + show.show_id).unbind().bind('click', function(){
                     createShowContainer(this.id.replace("search_show_", ""));
                     changeContainers("#show", show_name, show_festival_name);
                 });
@@ -69,6 +82,7 @@ function querySearchSuccess(tx, results) {
             festival_name_previous = festival_name;
         }
 
+    changeContainers("#search_results", "FestivAll", "");
     search_list_selector.scroller();
-    festivals_carousel.refreshItems();
 }
+

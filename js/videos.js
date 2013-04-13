@@ -14,10 +14,11 @@ function queryShowVideosSuccess(tx, results){
 
         $('#band_videos_page').append('<div id="video_' + video_id + '"></div>'); //TODO: POR A CLASSE DO DIV DE CADA VIDEO
         $('#video_' + video_id).append('<a href="#" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' + video_name + '</a>');
-
-        //$('.video_name').text(video_name);
-        //$('video_description').text(video_description);
     }
+
+    //keep the navbar on first page
+    $('#show_nav_item').addClass('current').removeClass('not_current');
+    $('#videos_nav_item').addClass('not_current next').removeClass('current');
 
     //inits the show_carousel
     $('#show_carousel').carousel({
@@ -28,8 +29,8 @@ function queryShowVideosSuccess(tx, results){
                 $('#videos_nav_item').addClass('not_current next').removeClass('current');
             }
             else if(index == 1){
-                $('#videos_nav_item').addClass('current').removeClass('not_current next');
                 $('#show_nav_item').addClass('not_current prev').removeClass('current');
+                $('#videos_nav_item').addClass('current').removeClass('not_current next');
             }
         }
     });

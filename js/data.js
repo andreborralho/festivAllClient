@@ -4,6 +4,7 @@ window.addEventListener("load", initDisplays, false);
 
 window.menuIsUp = false;
 var history_array = [];
+var carousel_pages = {"festivals":0, "before_festival":0};
 
 //Menu button callback
 function menuButton(){
@@ -49,8 +50,10 @@ function changeContainers(page, title, subtitle){
 
     if(page == "#festivals"){
         header_title_selector.removeClass('heading1').addClass('heading0');
-        header_title_selector.html('<img id="logo" src="img/logo.png"> FestivAll');
+        header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
         $('#header_subtitle').empty();
+
+        refreshNavBar('festivals', ["#festivals", "#search"]);
     }
     else if(page == "#before_festival"){
         $('#header_subtitle').empty();
@@ -60,6 +63,8 @@ function changeContainers(page, title, subtitle){
             header_title_selector.text(current_festival_name);
         else
             header_title_selector.text(title);
+
+        refreshNavBar('before_festival', ["#festival", "#shows"]);
     }
     else if(page == "#lineup"){
         $('#header_subtitle').text("Cartaz");
@@ -75,8 +80,20 @@ function changeContainers(page, title, subtitle){
         header_title_selector.text(title);
         $('#header_subtitle').text(subtitle);
     }
+
     /*$('[data-role="container"]').css('opacity','0');
      $(page).css('opacity','1');*/
+}
+
+function refreshNavBar(key, pages){
+    if(carousel_pages[key] == 0){
+        $(pages[0] + '_nav_item').addClass('current').removeClass('not_current');
+        $(pages[1] + '_nav_item').addClass('not_current next').removeClass('current');
+    }
+    else if(carousel_pages[key] == 1){
+        $(pages[0] + '_nav_item').addClass('not_current prev').removeClass('current');
+        $(pages[1] + '_nav_item').addClass('current').removeClass('not_current next');
+    }
 }
 
 function setHeight(){

@@ -29,7 +29,6 @@ function queryFestivalSuccess(tx, results) {
     current_festival_name = festival.name;
 
     $('#header_link').unbind().bind('click', function(){
-        $('#header_link').unbind();
         changeContainers("#festivals", "FestivAll", "");
     });
 
@@ -101,7 +100,6 @@ function appendFestivalHTML(){
 }
 
 function createBeforeFestival(festival, festivals, diff){
-
     appendFestivalHTML();
 
     db.transaction(function (tx){
