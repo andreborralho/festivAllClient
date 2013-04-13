@@ -186,6 +186,9 @@ body {
 .scroll_wrapper {
   max-height: 100%;
 }
+.lineup_carousel {
+  height: 77%;
+}
 /*----------------------*/
 
 a {

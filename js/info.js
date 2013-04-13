@@ -218,7 +218,7 @@ function queryInfoSuccess(tx, results) {
                             }
                         });
                     }
-                    var day_index, weather_day, numeric_month, weather_month, week_day;
+                    var day_index, weather_day, numeric_month, weather_month, week_day, icon_changed;
                     if(weather_key=="weather"){
                         $.each(weather_value, function(day_key, day_value){
                             $.each(day_value, function(temperature_key, temperature_value){
@@ -244,7 +244,8 @@ function queryInfoSuccess(tx, results) {
                                 }
                                 if(temperature_key=="weatherIconUrl"){
                                     $.each(temperature_value[0], function(icon_key, icon_value){
-                                        $('#weather_img'+day_index).attr('src', icon_value);
+                                        icon_changed = changeWeatherIcon(icon_value);
+                                        $('#weather_img'+day_index).attr('src', icon_changed);
                                     });
                                 }
                             });
@@ -268,19 +269,26 @@ function numberToWeekDay(weekday_number){
 
     switch(weekday_number){
         case 0:
-            return week_day = "Dom";
+            week_day = "Dom";
+            break;
         case 1:
-            return week_day = "Seg";
+            week_day = "Seg";
+            break;
         case 2:
-            return week_day = "Ter";
+            week_day = "Ter";
+            break;
         case 3:
-            return week_day = "Qua";
+            week_day = "Qua";
+            break;
         case 4:
-            return week_day = "Qui";
+            week_day = "Qui";
+            break;
         case 5:
-            return week_day = "Sex";
+            week_day = "Sex";
+            break;
         case 6:
-            return week_day = "Sab";
+            week_day = "Sáb";
+            break;
     }
     return week_day;
 }
@@ -310,4 +318,23 @@ function translateWeatherDescription(desc_value){
         return "Chuviscos";
     else
         return desc_value;
+}
+
+function changeWeatherIcon(weather_icon_url){
+    var weather_icon;
+    weather_icon_url = weather_icon_url.split('/');
+    var weather_icon_url_splited = weather_icon_url[weather_icon_url.length -1];
+    alert(weather_icon_url_splited);
+    switch(weather_icon_url_splited){
+        case "wsymbol_0009_light_rain_showers.png":
+            weather_icon = "img/weather/light_rain.png";
+            break;
+        case "wsymbol_0001_sunny.png":
+            weather_icon = "img/weather/sunny.png";
+            break;
+        case "wsymbol_0008_clear_sky_night":
+            weather_icon = "img/weather/sunny_night.png";
+            break;
+    }
+    return weather_icon;
 }
