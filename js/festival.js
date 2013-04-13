@@ -52,27 +52,27 @@ function appendFestivalHTML(){
     $('#before_festival').append('' +
         '<div id="before_festival_carousel" class="carousel" data-role="carousel">' +
             '<div id="before_festival_page" data-role="page">' +
-                '<div class="padded">' +
-                    '<p id="festival_countdown">' +
-                        '<span>Faltam</span>' +
-                        '<span id="festival_countdown_days"></span>' +
-                        '<span class="last-line">dias</span>' +
-                    '</p>' +
-                    '<ul>' +
-                        '<li>' +
-                            '<span>></span>' +
-                            '<span id="festival_days"></span>' +
-                        '</li>' +
-                        '<li>' +
-                            '<span>></span>' +
-                            '<span id="festival_city"></span>' +
-                        '</li>' +
-                        '<li>' +
-                            '<span>></span>' +
-                            '<span id="festival_price">Entre 18€ e 22€</span>' +
-                        '</li>' +
-                    '</ul>' +
-                '</div>' +
+
+                '<ul class="before_festival_details padded">' +
+                    '<li>' +
+                        '<span class="icon_arrow"></span>' +
+                        '<span id="festival_days"></span>' +
+                    '</li>' +
+                    '<li>' +
+                        '<span class="icon_arrow"></span>' +
+                        '<span id="festival_city"></span>' +
+                    '</li>' +
+                    '<li>' +
+                        '<span class="icon_arrow"></span>' +
+                        '<span id="festival_price">Entre 18€ e 22€</span>' +
+                    '</li>' +
+                '</ul>' +
+                
+                '<p id="festival_countdown">' +
+                    '<span>Faltam</span>' +
+                    '<span id="festival_countdown_days"></span>' +
+                    '<span class="last-line">dias</span>' +
+                '</p>' +
 
                 '<img class="countdown_bg" src="img/countdown_bg.png">' +
 
@@ -82,10 +82,10 @@ function appendFestivalHTML(){
                             '<a href="#" id="lineup_button" class="item">Cartaz</a>' +
                         '</li>' +
                         '<li class="column">' +
-                            '<a href="#" class="item" id="info_button">Informação</a>' +
+                            '<a href="#" id="info_button" class="item">Informação</a>' +
                         '</li>' +
                         '<li class="column">' +
-                            '<a href="#" class="item" id="map_button">Mapa</a>' +
+                            '<a href="#" id="map_button" class="item no_border">Mapa</a>' +
                         '</li>' +
                         /*'<li class="column">' +
                             '<a href="#" class="no_border" id="info_gallery">Galeria</a>' +
