@@ -72,11 +72,10 @@ function queryInfoSuccess(tx, results) {
                         '</div>' +
 
                         '<ul class="list">' +
-
                             // TODAY
                             '<div id="weather_day1" class="row">' +
                                 '<div class="column centered">' +
-                                    '<strong id="weather_weekday1" class"weather_weekday">Sáb</strong><br>' +
+                                    '<strong id="weather_weekday1" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date1" class"weather_date"></span>' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -94,7 +93,7 @@ function queryInfoSuccess(tx, results) {
                             // TOMORROW
                             '<div id="weather_day2" class="row">' +
                                 '<div class="column centered">' +
-                                    '<strong id="weather_weekday2" class"weather_weekday">Sáb</strong><br>' +
+                                    '<strong id="weather_weekday2" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date2" class"weather_date"></span>' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -112,7 +111,7 @@ function queryInfoSuccess(tx, results) {
                             // 2 DAYS FROM NOW
                             '<div id="weather_day3" class="row">' +
                                 '<div class="column centered">' +
-                                    '<strong id="weather_weekday3" class"weather_weekday">Sáb</strong><br>' +
+                                    '<strong id="weather_weekday3" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date3" class"weather_date"></span>' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -130,7 +129,7 @@ function queryInfoSuccess(tx, results) {
                             // DAY 4
                             '<div id="weather_day4" class="row">' +
                                 '<div class="column centered">' +
-                                    '<strong id="weather_weekday4" class"weather_weekday">Sáb</strong><br>' +
+                                    '<strong id="weather_weekday4" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date4" class"weather_date"></span>' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -148,7 +147,7 @@ function queryInfoSuccess(tx, results) {
                             // DAY 5
                             '<div id="weather_day5" class="row">' +
                                 '<div class="column centered">' +
-                                    '<strong id="weather_weekday5" class"weather_weekday">Sáb</strong><br>' +
+                                    '<strong id="weather_weekday5" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date5" class"weather_date"></span>' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -162,9 +161,7 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_min_temperature5"></span>' +
                                 '</div>' +
                             '</div>' +
-
                         '</ul>' +
-
                     '</div>' +
                 '</div>' +
             '</div>' +
@@ -216,7 +213,7 @@ function queryInfoSuccess(tx, results) {
                             }
                         });
                     }
-                    var day_index, weather_day, numeric_month, weather_month;
+                    var day_index, weather_day, numeric_month, weather_month, week_day;
                     if(weather_key=="weather"){
                         $.each(weather_value, function(day_key, day_value){
                             $.each(day_value, function(temperature_key, temperature_value){
@@ -224,8 +221,10 @@ function queryInfoSuccess(tx, results) {
                                 if(temperature_key=="date"){
                                     weather_day = temperature_value.slice(8,10);
                                     numeric_month = temperature_value.slice(5,7);
-                                    weather_month = changeNumberToMonth(numeric_month);
-                                    $('#weather_date'+day_index).text(weather_day + weather_month);
+                                    weather_month = changeNumberToMonthAbrev(numeric_month);
+                                    week_day = new Date(2013, numeric_month-1, weather_day);
+                                    $('#weather_weekday'+day_index).text(numberToWeekDay(week_day.getDay()));
+                                    $('#weather_date'+day_index).text(weather_day + " " + weather_month);
                                 }
                                 if(temperature_key=="tempMaxC"){
                                     $('#weather_max_temperature'+day_index).text(temperature_value + "°");
@@ -234,9 +233,8 @@ function queryInfoSuccess(tx, results) {
                                     $('#weather_min_temperature'+day_index).text(temperature_value + "°");
                                 }
                                 if(temperature_key=="weatherDesc"){
-                                    var weather_description_selector = $('#weather_description'+day_index);
                                     $.each(temperature_value[0], function(desc_key, desc_value){
-                                        weather_description_selector.text(translateWeatherDescription(desc_value));
+                                        $('#weather_description'+day_index).text(translateWeatherDescription(desc_value));
                                     });
                                 }
                                 if(temperature_key=="weatherIconUrl"){
@@ -250,7 +248,6 @@ function queryInfoSuccess(tx, results) {
                 });
             });
         init_info_carousel();
-
         },
         error: function(model, response){
             init_info_carousel();
@@ -261,6 +258,27 @@ function queryInfoSuccess(tx, results) {
 
 }
 
+function numberToWeekDay(weekday_number){
+    var week_day;
+
+    switch(weekday_number){
+        case 0:
+            return week_day = "Dom";
+        case 1:
+            return week_day = "Seg";
+        case 2:
+            return week_day = "Ter";
+        case 3:
+            return week_day = "Qua";
+        case 4:
+            return week_day = "Qui";
+        case 5:
+            return week_day = "Sex";
+        case 6:
+            return week_day = "Sab";
+    }
+    return week_day;
+}
 
 function translateWeatherDescription(desc_value){
     if(desc_value == "Sunny" || desc_value == "Clear")
@@ -283,6 +301,8 @@ function translateWeatherDescription(desc_value){
         return "Chuva torrencial";
     else if(desc_value == "Mist")
         return "Nevoeiro";
+    else if(desc_value == "Light drizzle")
+        return "Chuviscos";
     else
         return desc_value;
 }

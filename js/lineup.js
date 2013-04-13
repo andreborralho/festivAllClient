@@ -38,20 +38,20 @@ function buildLineup(stages, days){
     for(var i = 0; i<days_length; i++){
         var day = days.item(i);
 
-        $('#lineup_frame').append('<div id="lineup_carousel_' + day.id + '" data-role="lineup_carousel"></div>');
+        $('#lineup_frame').append('<div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div>');
         if(i!=0){//First day lineup shows on page open
              $('#lineup_carousel_' + day.id).css('display', 'none');
         }
 
         for(var s = 0; s<stages.length; s++){
-            (function(day,stage,len,s){ //manha gigante, pouco legivel
+            (function(day,stage,len,s,day_i,day_len){ //manha gigante, pouco legivel
                 db.transaction(function(tx){
                     tx.executeSql('SELECT * FROM SHOWS WHERE festival_id=' + day.festival_id + ' AND ' +
                     ' stage_id=' + stage.id + ' AND day_id=' + day.id, [], function(tx,results){
                         var shows = results.rows;
 
                         //append day:stage frame
-                        $('#lineup_carousel_' + day.id).append('<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>');
+                        $('#lineup_carousel_' + day.id).append('<div class="lineup_scroll_wrapper"><div id="' + day.id + '_' + stage.id + '_lineup_frame"></div></div>');
 
                         if(shows.length > 0){
                             for(var l = 0; l <shows.length; l ++){
@@ -69,17 +69,29 @@ function buildLineup(stages, days){
                                     });
                                 })(show.name);
                             }
+                            $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
+
                         }else {$('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!')}
                         if(s == (len - 1)){
                             finishLineupStage(day, stages);
+
                         }
+                        if(day_i == (day_len -1) & s == (len - 1) ){
+
+                            //scroll lineup days
+                            $('#lineup_day_buttons').scroller({
+                                verticalScroll:false,
+                                horizontalScroll:true
+                            });
+
+                        }
+
                     },errorQueryCB);
                  }, errorCB);
-            })(day,stages[s],stages.length, s);
+            })(day,stages[s],stages.length, s, i, days_length);
         }
     }
 
-    //scroll lineup days
 }
 
 function appendStagesToNavBar(stages){
@@ -130,12 +142,12 @@ function finishLineupStage(day, stages){
         }
     });
 
+
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
-
-    $('#lineup_day_buttons').append('<li id="' + day.id + '_day_button" class="column one-quarter">' +
-        '<a href="#" class="item">' + show_day + ' ' + month + '</a></li>');
+    $('#lineup_day_buttons').append('<div id="' + day.id + '_day_button" class="column one-quarter">'+
+        '<a href="#" class="item">' + show_day + ' ' + month + '</a></div>');
 
     $('#' + day.id + '_day_button').bind('click', function(){
         //set visibility to the correct carousel in the lineup frame
