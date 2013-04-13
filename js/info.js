@@ -1,6 +1,7 @@
 // INFO_CONTAINER
 
 function init_info_carousel(){
+
     // Inits carousel for info_container
     $('#info_carousel').carousel({
         preventDefaults:false,
@@ -36,6 +37,10 @@ function createInfoContainer(festival_id){
         tx.executeSql('SELECT * FROM FESTIVALS WHERE ID='+festival_id, [], queryInfoSuccess, errorCB);
     }, errorCB);
 
+    //keep the navbar on first page
+    $('#tickets_nav_item').addClass('current').removeClass('hidden not_current prev');
+    $('#transports_nav_item').addClass('not_current next').removeClass('hidden current prev');
+    $('#weather_nav_item').addClass('hidden').removeClass('current');
 }
 
 // Success callback for the the query of one festival

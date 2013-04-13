@@ -3,16 +3,12 @@
 
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
-    createSearchPage();
-
     db.transaction(function queryFestivals(tx) {
 		tx.executeSql('SELECT * FROM FESTIVALS', [], queryFestivalsSuccess, errorQueryCB);
     }, errorCB);
 }
 
-// Callback for the festivals query
-function queryFestivalsSuccess(tx, results) {
-
+function appendFestivalsHTML(){
     $('#festivals_carousel').remove();
     $('#festivals').append('' +
         '<div id="festivals_carousel" class="carousel" data-role="carousel">' +
@@ -28,11 +24,13 @@ function queryFestivalsSuccess(tx, results) {
                         '<span class="icon_search"></span>' +
                     '</div>' +
                 '</form>' +
-                '<div id="search_scroll_wrapper" class="scroll_wrapper">' +
-                    '<ul id="search_list" class="list" data-role="list"></ul>' +
-                '</div>' +
             '</div>' +
         '</div>');
+}
+
+// Callback for the festivals query
+function queryFestivalsSuccess(tx, results) {
+    appendFestivalsHTML();
 
 	$('#festivals_carousel').css('display', 'block');
     incrementHistory("#festivals");
@@ -45,21 +43,27 @@ function queryFestivalsSuccess(tx, results) {
         $('#festivals_buttons').append('<li id="festival_' + festival_id +'" class="item"></li>');
         $('#festival_'+festival_id).append('<a href="#"><img src="' + festival.logo + '"></a>');
 
-        $('#festival_'+festival_id).bind('click', function(){
+        $('#festival_'+festival_id).unbind().bind('click', function(){
             createFestivalContainer(this.id.replace("festival_", ""));
         });
     }
 
     $('#festivals_buttons').scroller();
-    var softkeyboard = window.cordova.plugins.SoftKeyBoard;
 
-    // Inits carousel for festivals_container
+    createSearchContainer();
+    initFestivalsCarousel();
+}
+
+function initFestivalsCarousel(){
     festivals_carousel = $('#festivals_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
+            var softkeyboard = window.cordova.plugins.SoftKeyBoard;
+
             if(index == 0){
                 $('#festivals_nav_item').addClass('current').removeClass('not_current');
                 $('#search_nav_item').addClass('not_current next').removeClass('current');
+
                 softkeyboard.hide();
             }
             else if(index == 1){
@@ -67,9 +71,11 @@ function queryFestivalsSuccess(tx, results) {
                 $('#festivals_nav_item').addClass('not_current prev').removeClass('current');
 
                 //document.getElementById('search_input').focus();
+
                 softkeyboard.show();
-                $('#search_input').trigger('click');
+                //$('#search_input').trigger('click');
             }
+            carousel_pages.festivals = index;
         }
     });
 }
