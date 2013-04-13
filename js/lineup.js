@@ -153,8 +153,14 @@ function finishLineupStage(day, stages){
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
-    $('#lineup_day_buttons').append('<div id="' + day.id + '_day_button" class="column one-quarter">'+
-        '<a href="#" class="item">' + show_day + ' ' + month + '</a></div>');
+    $('#lineup_day_buttons').append(
+        '<li id="' + day.id + '_day_button" class="column one-third">' +
+            '<a href="#" class="item">' +
+                '<span class="first-line">' + show_day + '</span>' +
+                '<span class="last-line">' + month + '</span>' +
+            '</a>' +
+        '</li>'
+    );
 
     $('#' + day.id + '_day_button').bind('click', function(){
         //set visibility to the correct carousel in the lineup frame

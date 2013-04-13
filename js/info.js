@@ -77,9 +77,9 @@ function queryInfoSuccess(tx, results) {
                         '</div>' +
 
                         '<ul class="list">' +
-                            // TODAY
+                            // CURRENT WEATHER
                             '<div id="weather_day1" class="row">' +
-                                '<div class="column centered">' +
+                                '<div class="column centered fixed">' +
                                     '<strong id="weather_weekday1" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date1" class"weather_date"></span>' +
                                 '</div>' +
@@ -97,11 +97,11 @@ function queryInfoSuccess(tx, results) {
 
                             // TOMORROW
                             '<div id="weather_day2" class="row">' +
-                                '<div class="column centered">' +
+                                '<div class="column centered fixed">' +
                                     '<strong id="weather_weekday2" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date2" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img2">' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -115,11 +115,11 @@ function queryInfoSuccess(tx, results) {
 
                             // 2 DAYS FROM NOW
                             '<div id="weather_day3" class="row">' +
-                                '<div class="column centered">' +
+                                '<div class="column centered fixed">' +
                                     '<strong id="weather_weekday3" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date3" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img3">' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -133,11 +133,11 @@ function queryInfoSuccess(tx, results) {
 
                             // DAY 4
                             '<div id="weather_day4" class="row">' +
-                                '<div class="column centered">' +
+                                '<div class="column centered fixed">' +
                                     '<strong id="weather_weekday4" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date4" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img4">' +
                                 '</div>' +
                                 '<div class="column">' +
@@ -151,11 +151,11 @@ function queryInfoSuccess(tx, results) {
 
                             // DAY 5
                             '<div id="weather_day5" class="row">' +
-                                '<div class="column centered">' +
+                                '<div class="column centered fixed">' +
                                     '<strong id="weather_weekday5" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date5" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img5">' +
                                 '</div>' +
                                 '<div class="column">' +

@@ -74,11 +74,14 @@ a {
 .list {
     .row {
         display: block;
-        min-height: 55px;
         border-bottom: 1px solid @grey;
     }
     .column {
         min-height: 55px;
+        padding: 20px 10px;
+    }
+    .fixed {
+        width: 80px;
     }
     .band_name {
         text-transform: uppercase;
@@ -90,6 +93,16 @@ a {
     padding: 5px 10px;
     background-color: @maincolor;
     color: #FFF;
+}
+
+
+//Icons
+.icon_arrow {
+    display: inline-block;
+    width: 8px;
+    height: 12px;
+    margin-right: 5px;
+    background: @sprite -36px -36px transparent;
 }
 
 
@@ -192,27 +205,37 @@ a {
 -------------------------------------------------------------------------- */
 .nav_top,
 .nav_bottom {
-    width: 100%;
+    white-space: nowrap;
     .column {
-        padding: 0;
+        background-color: #2e2e2e;
     }
     .item {
-        display: block;
-        padding: 18px 0;
-        border-right: 1px solid @grey;
-        background-color: @maincolor;
+        display: inline-block;
+        border-right: 1px solid #555;
         font-size: 18px;
         font-weight: bold;
         text-align: center;
+    }
+    .column {
+        //padding: 0;
     }
 }
 
 .nav_bottom {
     position: absolute;
     bottom: 0;
-    //.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));
+    width: 100%;
+    border-top: 1px solid @maincolor;
+    /*.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));
     .column {
         .one-quarter;
+    }*/
+    .column {
+        padding: 0;
+    }
+    .item {
+        display: block;
+        line-height: 55px;
     }
 }
 
@@ -246,9 +269,18 @@ a {
 
 /* BEFORE FESTIVAL
 -------------------------------------------------------------------------- */
+#before_festival {
+    background: @bgcolor; // esconder imagem de fundo geral
+}
+.before_festival_details {
+    font-size: 18px;
+    line-height: 24px;
+}
 #festival_countdown {
+    position: absolute;
     display: inline-block;
-    margin: 95px 0 20px 46%;
+    top: 185px;
+    left: 44%;
     font-size: 18px;
     .last-line {
         display: block;
@@ -258,7 +290,7 @@ a {
 #festival_countdown_days {
     display: block;
     font-size: 90px;
-    line-height: 90px;
+    line-height: 80px;
 }
 #before_festival_page{
     position: relative;
@@ -268,6 +300,8 @@ a {
     position: absolute;
     top: 0;
     width: 100%;
+}
+#info_button {
 }
 
 /* WEATHER
