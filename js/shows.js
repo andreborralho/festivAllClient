@@ -1,4 +1,4 @@
-// FESTIVAL_CONTAINER
+// SHOWS_CONTAINER
 
 // Success callback for the query all the shows of one festival
 function queryFestivalShowsSuccess(tx, results) {

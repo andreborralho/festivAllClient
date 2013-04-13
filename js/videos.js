@@ -1,4 +1,4 @@
-// SHOW_CONTAINER
+// VIDEOS_CONTAINER
 
 //Success callback for the query of all the videos of a given show
 function queryShowVideosSuccess(tx, results){
@@ -20,7 +20,10 @@ function queryShowVideosSuccess(tx, results){
     $('#show_nav_item').addClass('current').removeClass('not_current');
     $('#videos_nav_item').addClass('not_current next').removeClass('current');
 
-    //inits the show_carousel
+    initShowCarousel();
+}
+
+function initShowCarousel(){
     $('#show_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){

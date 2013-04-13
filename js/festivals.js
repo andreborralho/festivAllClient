@@ -1,5 +1,5 @@
 // FESTIVALS_CONTAINER
-
+var festivals_carousel;
 
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
@@ -8,29 +8,9 @@ function createFestivalsContainer(){
     }, errorCB);
 }
 
-function appendFestivalsHTML(){
-    $('#festivals_carousel').remove();
-    $('#festivals').append('' +
-        '<div id="festivals_carousel" class="carousel" data-role="carousel">' +
-            '<div id="festivals_page" class="page" data-role="page">' +
-                '<div id="festivals_scroll_wrapper" class="scroll_wrapper">' +
-                    '<ul id="festivals_buttons" class="festival_list"></ul>' +
-                '</div>' +
-            '</div>' +
-            '<div id="search_page" class="page" data-role="page">' +
-                '<form id="search_input_wrap" class="input_wrap">' +
-                    '<input id="search_input" class="input_field" type="text" placeholder="Nome de uma banda...">' +
-                    '<div id="search_button" class="input_button">' +
-                        '<span class="icon_search"></span>' +
-                    '</div>' +
-                '</form>' +
-            '</div>' +
-        '</div>');
-}
 
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
-    appendFestivalsHTML();
 
 	$('#festivals_carousel').css('display', 'block');
     incrementHistory("#festivals");

@@ -46,8 +46,10 @@ function buildLineup(stages, days){
         for(var s = 0; s<stages.length; s++){
             (function(day,stage,len,s,day_i,day_len){ //manha gigante, pouco legivel
                 db.transaction(function(tx){
-                    tx.executeSql('SELECT * FROM SHOWS WHERE festival_id=' + day.festival_id + ' AND ' +
-                    ' stage_id=' + stage.id + ' AND day_id=' + day.id, [], function(tx,results){
+                    tx.executeSql('SELECT * FROM SHOWS ' +
+                        'WHERE festival_id=' + day.festival_id + ' AND stage_id=' + stage.id + ' AND day_id=' + day.id + ' ORDER BY TIME', [],
+                        function(tx,results){
+
                         var shows = results.rows;
 
                         //append day:stage frame
@@ -70,12 +72,13 @@ function buildLineup(stages, days){
                                 })(show.name);
                             }
                             $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
+                        }
+                        else
+                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!');
 
-                        }else {$('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!')}
-                        if(s == (len - 1)){
+                        if(s == (len - 1))
                             finishLineupStage(day, stages);
 
-                        }
                         if(day_i == (day_len -1) & s == (len - 1) ){
 
                             //scroll lineup days
@@ -83,7 +86,6 @@ function buildLineup(stages, days){
                                 verticalScroll:false,
                                 horizontalScroll:true
                             });
-
                         }
 
                     },errorQueryCB);
