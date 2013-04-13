@@ -56,7 +56,7 @@ function appendFestivalHTML(){
                     '<p id="festival_countdown">' +
                         '<span>Faltam</span>' +
                         '<span id="festival_countdown_days"></span>' +
-                        '<span>dias</span>' +
+                        '<span class="last-line">dias</span>' +
                     '</p>' +
                     '<ul>' +
                         '<li>' +
@@ -73,6 +73,9 @@ function appendFestivalHTML(){
                         '</li>' +
                     '</ul>' +
                 '</div>' +
+
+                '<img class="countdown_bg" src="img/countdown_bg.png">' +
+
                 '<nav class="nav_bottom">' +
                     '<ul class="row">' +
                         '<li class="column">' +

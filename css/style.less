@@ -74,6 +74,9 @@ a {
         min-height: 55px;
         border-bottom: 1px solid @grey;
     }
+    .column {
+        min-height: 55px;
+    }
     .band_name {
         text-transform: uppercase;
         font-weight: normal;
@@ -241,17 +244,27 @@ a {
 /* BEFORE FESTIVAL
 -------------------------------------------------------------------------- */
 #festival_countdown {
-    margin: 15px 0 20px;
-    font-size: 20px;
-    text-align: center;
-    #festival_countdown_days {
+    display: inline-block;
+    margin: 95px 0 20px 46%;
+    font-size: 18px;
+    .last-line {
         display: block;
-        font-size: 140px;
-        line-height: 125px;
+        text-align: right;
     }
+}
+#festival_countdown_days {
+    display: block;
+    font-size: 90px;
+    line-height: 90px;
 }
 #before_festival_page{
     position: relative;
+}
+.countdown_bg {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 /* WEATHER
