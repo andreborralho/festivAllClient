@@ -12,7 +12,8 @@ function queryShowVideosSuccess(tx, results){
         var video_url = video.url;
         var video_id = video.id;
 
-        $('#band_videos_page').append('<div id="video_' + video_id + '"></div>'); //TODO: POR A CLASSE DO DIV DE CADA VIDEO
+        $('#band_videos_page').append('' +
+            '<div id="video_' + video_id + '"></div>'); //TODO: POR A CLASSE DO DIV DE CADA VIDEO
         $('#video_' + video_id).append('<a href="#" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' + video_name + '</a>');
     }
 

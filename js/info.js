@@ -213,7 +213,8 @@ function queryInfoSuccess(tx, results) {
                             }
                             if(temperature_key=="weatherIconUrl"){
                                 $.each(temperature_value[0], function(icon_key, icon_value){
-                                    $('#weather_img_current').attr('src', icon_value);
+                                    icon_changed = changeWeatherIcon(icon_value);
+                                    $('#weather_img_current').attr('src', icon_changed);
                                 });
                             }
                         });
@@ -324,7 +325,7 @@ function changeWeatherIcon(weather_icon_url){
     var weather_icon;
     weather_icon_url = weather_icon_url.split('/');
     var weather_icon_url_splited = weather_icon_url[weather_icon_url.length -1];
-    alert(weather_icon_url_splited);
+
     switch(weather_icon_url_splited){
         case "wsymbol_0009_light_rain_showers.png":
             weather_icon = "img/weather/light_rain.png";
@@ -332,7 +333,7 @@ function changeWeatherIcon(weather_icon_url){
         case "wsymbol_0001_sunny.png":
             weather_icon = "img/weather/sunny.png";
             break;
-        case "wsymbol_0008_clear_sky_night":
+        case "wsymbol_0008_clear_sky_night.png":
             weather_icon = "img/weather/sunny_night.png";
             break;
     }
