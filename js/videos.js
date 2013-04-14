@@ -13,13 +13,11 @@ function queryShowVideosSuccess(tx, results){
         var video_id = video.id;
 
         $('#band_videos_scroller').append(''+
-            '<div id="video_' + video_id + '" class="row">' +
-                '<a href="#" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' +
-                    '<h3>' + video_name + '</h3>' +
-                    '<div class="video_wrap">' +
-                        '<span class="icon_videoplay"></span>' +
-                        '<img src="http://img.youtube.com/vi/' + video_url + '/mqdefault.jpg">' +
-                    '</div>' +
+            '<div id="video_' + video_id + '">' +
+                '<h3 class="video_name">' + video_name + '</h3>' +
+                '<a href="#" class="video_wrap" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' +
+                    '<span class="icon_videoplay"></span>' +
+                    '<img src="http://img.youtube.com/vi/' + video_url + '/mqdefault.jpg">' +
                 '</a>' +
             '</div>'
         );

@@ -70,33 +70,6 @@ table {
   text-shadow: none;
   color: transparent;
 }
-.hidden {
-  display: none;
-}
-.padded {
-  padding: 10px;
-}
-.centered {
-  text-align: center;
-}
-.valign_top {
-  vertical-align: top !important;
-}
-.bdr_r {
-  border-right: 1px solid #373737;
-}
-.bdr_b {
-  border-bottom: 1px solid #373737;
-}
-.bdr_l {
-  border-left: 1px solid #373737;
-}
-.no_border {
-  border: none !important;
-}
-.no_padding {
-  padding: 0;
-}
 /* Grid Flexbox
 ------------------------------------------------------------------------
 .row {
@@ -166,6 +139,33 @@ table {
 .one-third {
   width: 33.33%;
 }
+.hidden {
+  display: none;
+}
+.padded {
+  padding: 10px;
+}
+.centered {
+  text-align: center;
+}
+.valign_top {
+  vertical-align: top !important;
+}
+.bdr_r {
+  border-right: 1px solid #373737;
+}
+.bdr_b {
+  border-bottom: 1px solid #373737;
+}
+.bdr_l {
+  border-left: 1px solid #373737;
+}
+.no_border {
+  border: none !important;
+}
+.no_padding {
+  padding: 0;
+}
 /* GLOBAL
 -------------------------------------------------------------------------- */
 
@@ -214,13 +214,13 @@ a {
   color: white;
 }
 .input_button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 55px;
-  height: 55px;
-  padding-top: 5px;
+  width: 70px;
+  height: 70px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 20px;
   border: none;
+  margin: 20px auto;
   background-color: #b43a34;
   text-align: center;
 }
@@ -438,7 +438,7 @@ a {
 -------------------------------------------------------------------------- */
 
 #weather_current {
-  padding: 20px 0;
+  padding: 10px 0 20px;
   border-bottom: 1px solid #373737;
 }
 #weather_img_current {
@@ -446,14 +446,17 @@ a {
 }
 #weather_temperature_current {
   position: relative;
-  bottom: 15px;
+  bottom: 30px;
   display: inline-block;
   font-size: 2.25em;
   margin-left: 12px;
 }
 #weather_description_current {
-  font-size: 1.5625em;
+  font-size: 1.375em;
   text-align: center;
+}
+.weather_icon {
+  width: 64px;
 }
 /* SHOWS
 -------------------------------------------------------------------------- */
@@ -464,14 +467,20 @@ a {
 /* SHOW VIDEOS
 -------------------------------------------------------------------------- */
 
-#band_video_wrapper {
-    width:100%;
-    height:100%;
+#band_videos_page .column {
+  height: 80px;
 }
-
+#band_videos_page .column.fixed {
+  width: 100px;
+  position: relative;
+}
+.video_name {
+  margin: 15px 5px 6px;
+}
 .video_wrap {
   position: relative;
-  margin: 10px 0 15px;
+  display: block;
+  margin-bottom: 5px;
 }
 .icon_videoplay {
   z-index: 9;
@@ -482,13 +491,4 @@ a {
   width: 30px;
   height: 30px;
   background: url(../img/sprite.png) 0 -72px;
-}
-
-/* SPLASH SCREEN
--------------------------------------------------------------------------- */
-
-
-#loaderSplash {
-    width:100%;
-    height:100%;
 }
