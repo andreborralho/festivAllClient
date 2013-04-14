@@ -40,6 +40,7 @@ function queryShowSuccess(tx, results) {
                 '</div>' +
             '</div>' +
             '<div id="band_videos_page" class="page" data-role="page">' +
+            '<div id="band_video_wrapper"><div id="band_videos_scroller"></div></div>' +
             '</div>' +
         '</div>');
 

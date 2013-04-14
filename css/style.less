@@ -55,13 +55,12 @@ a {
     color: #FFF;
 }
 .input_button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 55px;
-    height: 55px;
-    padding-top: 5px;
+    width: 70px;
+    height: 70px;
+    .borderbox;
+    padding-top: 20px;
     border: none;
+    margin: 20px auto;
     background-color: @maincolor;
     text-align: center;
 }
@@ -304,7 +303,7 @@ a {
 /* WEATHER
 -------------------------------------------------------------------------- */
 #weather_current {
-    padding: 20px 0;
+    padding: 10px 0 20px;
     .bdr_b;
 }
 #weather_img_current {
@@ -312,14 +311,18 @@ a {
 }
 #weather_temperature_current {
     position: relative;
-    bottom: 15px;
+    bottom: 30px;
     display: inline-block;
     font-size: 2.25em;
     margin-left: 12px;
 }
 #weather_description_current {
-    font-size: 1.5625em;
+    font-size: 1.375em;
     text-align: center;
+}
+
+.weather_icon {
+    width: 64px;
 }
 
 
@@ -341,9 +344,13 @@ a {
         }
     }
 }
+.video_name {
+    margin: 15px 5px 6px;
+}
 .video_wrap {
     position: relative;
-    margin: 10px 0 15px;
+    display: block;
+    margin-bottom: 5px;
 }
 .icon_videoplay {
     z-index: 9;
