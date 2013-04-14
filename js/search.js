@@ -1,9 +1,9 @@
+var search_token;
 
 function createSearchContainer(){
 
     $('#search_button').unbind().bind('click', function(){festivals_carousel.refreshItems();
-        var search_token = $('#search_input').val().replace(" ","");
-        alert(search_token);
+        search_token = $('#search_input').val().replace(" ","");
         createSearchResultsContainer(search_token);
     });
 }
@@ -28,7 +28,7 @@ function querySearchSuccess(tx, results) {
         '</div>');
 
     $('#header_link').unbind().bind('click', function(){
-        changeContainers("#festivals", "FestivAll", "");
+        changeContainers("#festivals", "", "");
     });
 
     var search_list_selector =  $('#search_list');
@@ -82,7 +82,7 @@ function querySearchSuccess(tx, results) {
             festival_name_previous = festival_name;
         }
 
-    changeContainers("#search_results", "FestivAll", "");
+    changeContainers("#search_results", search_token, "Resultados da Pesquisa");
     search_list_selector.scroller();
 }
 

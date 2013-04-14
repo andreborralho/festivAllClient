@@ -166,6 +166,11 @@ function finishLineupStage(day, stages){
         //set visibility to the correct carousel in the lineup frame
         $('[data-role="lineup_carousel"]').css('display', 'none');
         $('#lineup_carousel_' + day.id).css('display', 'block');
+
+        $('#stage_' + stages[0].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
+        $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');
+        $('#stage_' + stages[2].id + '_nav_item').addClass('hidden').removeClass('current');
+        $('#stage_' + stages[3].id + '_nav_item').addClass('hidden').removeClass('current');
     });
 
 }
