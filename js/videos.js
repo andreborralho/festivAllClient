@@ -15,9 +15,10 @@ function queryShowVideosSuccess(tx, results){
         $('#band_videos_page').append(''+
             '<div id="video_' + video_id + '" class="row">' +
                 '<a href="#" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' +
-                    '<img src="http://img.youtube.com/vi/4hpEnLtqUDg/default.jpg">' +
-                    '<div class="column">' +
-                        '<h3>' + video_name + '</h3>' +
+                    '<h3>' + video_name + '</h3>' +
+                    '<div class="video_wrap">' +
+                        '<span class="icon_videoplay"></span>' +
+                        '<img src="http://img.youtube.com/vi/' + video_url + '/mqdefault.jpg">' +
                     '</div>' +
                 '</a>' +
             '</div>'
