@@ -39,7 +39,7 @@ function queryShowSuccess(tx, results) {
                     '</div>' +
                 '</div>' +
             '</div>' +
-            '<div id="band_videos_page" data-role="page">' +
+            '<div id="band_videos_page" class="page" data-role="page">' +
             '</div>' +
         '</div>');
 
@@ -63,13 +63,12 @@ function queryShowSuccess(tx, results) {
     $('#show_date').text(show_day + " de " + show_month);
     $('#show_time').text(show.time.slice(11,16));
 
-    if(show.description == "null"){
-        $('#show_description').html("Descrição da banda ainda não disponível.");}
+    if(show.description == "null")
+        $('#show_description').html("Descrição da banda ainda não disponível.");
     else{
         var description_html_tags = show.description.replace(/\r\n/g, "<br>");
         $('#show_description').html(description_html_tags);
     }
-
 
     $('#show_scroller').scroller();
 }

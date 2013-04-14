@@ -193,7 +193,7 @@ function createDuringFestival(festival){
                                         if(shows_len >0 ){
                                             for(var j = 0; j <shows_len; j++){
                                                 var show = shows.item(j);
-                                                $('#during_festival_' + stage.id + '_carousel').append('<div id="during_festival_show_'+ show.id + '"> Nome:' + show.name + ', Hora:' + show.time + '</div>');
+                                                $('#during_festival_' + stage.id + '_carousel').append('<div id="during_festival_show_'+ show.id + '">' + show.name + ' ' + show.time.slice(11,16) + '</div>');
                                             }
                                          }else {$('#during_festival_' + stage.id + '_carousel').append('<div>Nao há bandas para este palco!</div>');}
                                         $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});

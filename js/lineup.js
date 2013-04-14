@@ -25,9 +25,9 @@ function queryLineupSuccess(tx, results) {
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM STAGES WHERE FESTIVAL_ID='+days.item(0).festival_id , [],
             function(tx,results){
-                for(var j = 0; j<results.rows.length; j++){
+                for(var j = 0; j<results.rows.length; j++)
                     stages[j] = {"name":results.rows.item(j).name,"id":results.rows.item(j).id};
-                }
+
                 buildLineup(stages, days);
             }, errorQueryCB);
     }, errorCB);
@@ -39,19 +39,26 @@ function buildLineup(stages, days){
         var day = days.item(i);
 
         $('#lineup_frame').append('<div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div>');
-        if(i!=0){//First day lineup shows on page open
+        if(i!=0) //First day lineup shows on page open
              $('#lineup_carousel_' + day.id).css('display', 'none');
-        }
 
         for(var s = 0; s<stages.length; s++){
             (function(day,stage,len,s,day_i,day_len){ //manha gigante, pouco legivel
+                var day_opening_time = day.opening_time.slice(11,13);
+
                 db.transaction(function(tx){
-                    tx.executeSql('SELECT * FROM SHOWS WHERE festival_id=' + day.festival_id + ' AND ' +
-                    ' stage_id=' + stage.id + ' AND day_id=' + day.id, [], function(tx,results){
+                    tx.executeSql('SELECT * FROM SHOWS' +
+                        ' WHERE festival_id=' + day.festival_id + ' AND stage_id=' + stage.id + ' AND day_id=' + day.id +
+                        ' ORDER BY TIME', [],
+                        function(tx,results){
+
                         var shows = results.rows;
 
                         //append day:stage frame
-                        $('#lineup_carousel_' + day.id).append('<div class="lineup_scroll_wrapper"><div id="' + day.id + '_' + stage.id + '_lineup_frame"></div></div>');
+                        $('#lineup_carousel_' + day.id).append('' +
+                            '<div class="scroll_wrapper">' +
+                                '<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>' +
+                            '</div>');
 
                         if(shows.length > 0){
                             for(var l = 0; l <shows.length; l ++){
@@ -70,20 +77,20 @@ function buildLineup(stages, days){
                                 })(show.name);
                             }
                             $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
+                        }
+                        else
+                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!');
 
-                        }else {$('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!')}
-                        if(s == (len - 1)){
+                        if(s == (len - 1))
                             finishLineupStage(day, stages);
 
-                        }
-                        if(day_i == (day_len -1) & s == (len - 1) ){
+                        if(day_i == (day_len -1) && s == (len - 1) ){
 
                             //scroll lineup days
                             $('#lineup_day_buttons').scroller({
                                 verticalScroll:false,
                                 horizontalScroll:true
                             });
-
                         }
 
                     },errorQueryCB);
