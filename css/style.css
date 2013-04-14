@@ -471,12 +471,17 @@ a {
   width: 100px;
   position: relative;
 }
+.video_wrap {
+  position: relative;
+  margin: 10px 0 15px;
+}
 .icon_videoplay {
+  z-index: 9;
   position: absolute;
-  top: 30px;
-  left: 27px;
-  display: inline-block;
-  width: 45px;
-  height: 45px;
-  background: url(../img/sprite.png) 0 -144px;
+  top: 5px;
+  right: 5px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../img/sprite.png) 0 -72px;
 }
