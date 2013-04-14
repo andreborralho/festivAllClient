@@ -64,7 +64,7 @@ function appendFestivalHTML(){
                     '</li>' +
                     '<li>' +
                         '<span class="icon_arrow"></span>' +
-                        '<span id="festival_price">Entre 18€ e 22€</span>' +
+                        '<span id="festival_price"></span>' +
                     '</li>' +
                 '</ul>' +
                 
@@ -115,8 +115,8 @@ function createBeforeFestival(festival, festivals, diff){
     var dhms = dhm(diff).toString();
 
     $('#festival_countdown_days').text(dhms.split(':')[0]);
-
     $('#festival_city').text("Local: " + festival.city);
+    $('#festival_price').text("Preço: " + festival.tickets_price);
 
     $('#lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);

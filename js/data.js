@@ -23,15 +23,14 @@ function initFestivalsDisplay(){
     $('#festivals').css('display', 'block');
 
     var container_height = $('#header').height()-2 + "px";
-    $('#header').css('height', 'container_height');
+    $('#header').css('height', container_height);
 
 }
 
 function setHeightAndWidth(){
     var screen_height = window.innerHeight;
     var screen_width = window.innerWidth;
-    $('body').css('height', screen_height + 'px');
-    $('body').css('width', screen_width + 'px');
+    $('body').css('height', screen_height + 'px').css('width', screen_width + 'px');
 }
 
 //Navigation
@@ -136,7 +135,7 @@ function onDeviceReady() {
         },
         error: function(model, response) {
             createFestivalsContainer();
-            initFestivalsDisplay
+            initFestivalsDisplay();
             window.FestivallToaster.showMessage("Não há conexão com a internet!");
         }
     });
@@ -225,7 +224,7 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS VIDEOS');
 
     tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255),  city VARCHAR(255), ' +
-        'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
+        'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets_price VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
         'day_id INTEGER, photo VARCHAR(255), description TEXT(1024), time TIME, updated_at DATETIME)');
     tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
@@ -251,9 +250,9 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     //console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets, transports, updated_at) VALUES (' + l.id +
+                    tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
-                        l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
+                        l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
                 }, errorCB, successCB);
             });
         }

@@ -18,13 +18,10 @@ function createFeedbackContainer(){
             alert("Please insert a comment");
 
         else{
-            alert('sending : ' + name + ', ' + text + ', ' + email);
             $.post("http://festivall.eu/feedbacks", {name: name, text: text, email: email}, function(){
-                alert('done');
+
                 $('#inputFeedbackText').val('');
-            });
+            }, 'text/html');
         }
-
     });
-
 }

@@ -240,7 +240,8 @@ function queryInfoSuccess(tx, results) {
                                 }
                                 if(temperature_key=="weatherDesc"){
                                     $.each(temperature_value[0], function(desc_key, desc_value){
-                                        $('#weather_description'+day_index).text(translateWeatherDescription(desc_value));
+                                        description_changed = translateWeatherDescription(desc_value);
+                                        $('#weather_description'+day_index).text(description_changed);
                                     });
                                 }
                                 if(temperature_key=="weatherIconUrl"){
@@ -315,51 +316,131 @@ function translateWeatherDescription(desc_value){
         case "Light showers of ice pellets":
             desc_value = "Chuva fraca com granizo";
             break;
+        case "Light sleet showers":
+            desc_value = "Chuva fraca com granizo";
+            break;
         case "Light snow showers":
             desc_value = "Nevões fracos";
             break;
         case "Moderate or heavy sleet showers":
             desc_value = "Chuva com granizo";
             break;
-        case "Moderate or heavy snow showers":
+        case "Torrential rain shower":
+            desc_value = "Chuva torrencial";
+            break;
+        case "Moderate or heavy rain shower":
+            desc_value = "Chuva forte ou moderada";
+            break;
+        case "Light rain shower":
+            desc_value = "Chuva fraca";
+            break;
+        case "Ice pellets":
+            desc_value = "Granizo";
+            break;
+        case "Heavy snow":
+            desc_value = "Nevões forte";
+            break;
+        case "Patchy heavy snow":
+            desc_value = "Nevões fortes";
+            break;
+        case "Moderate snow":
+            desc_value = "Neve moderada";
+            break;
+        case "Patchy moderate snow":
+            desc_value = "Neve moderada";
+            break;
+        case "Light snow":
+            desc_value = "Queda fraca de neve";
+            break;
+        case "Patchy light snow":
+            desc_value = "Queda fraca de neve";
+            break;
+        case "Moderate or heavy sleet":
+            desc_value = "Chuva de granizo moderada";
+            break;
+        case "Light sleet":
+            desc_value = "Chuva fraca";
+            break;
+        case "Moderate or Heavy freezing rain":
             desc_value = "Nevões moderados ou fortes";
             break;
-        case "Moderate or heavy snow showers":
+        case "Light freezing rain":
             desc_value = "Nevões moderados ou fortes";
             break;
-        case "Moderate or heavy snow showers":
+        case "Heavy rain":
             desc_value = "Nevões moderados ou fortes";
             break;
-        case "Moderate or heavy snow showers":
+        case "Heavy rain at times":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Moderate rain":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Moderate rain at times":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Light rain":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Patchy light rain":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Heavy freezing drizzle":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Freezing drizzle":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Light drizzle":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Patchy light drizzle":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Freezing fog":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Fog":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Blizzard":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Blowing snow":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Thundery outbreaks in nearby":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Patchy freezing drizzle nearby":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Patchy sleet nearby":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Patchy snow nearby":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Patchy rain nearby":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Mist":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Overcast":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Cloudy":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Partly Cloudy":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Clear/Sunny":
             desc_value = "Nevões moderados ou fortes";
             break;
     }
     return desc_value;
-            /*  }
-   if(desc_value == "Sunny" || desc_value == "Clear")
-        return "Céu limpo";
-    else if(desc_value == "Moderate rain")
-        return "Chuva moderada";
-    else if(desc_value == "Partly Cloudy")
-        return "Nuvens com abertas";
-    else if(desc_value == "Patchy rain nearby")
-        return "Períodos de chuva";
-    else if(desc_value == "Patchy light rain")
-        return "Períodos de chuva fraca";
-    else if(desc_value == "Heavy rain")
-        return "Chuva forte";
-    else if(desc_value == "Light rain shower" || desc_value == "Light rain")
-        return "Chuva fraca";
-    else if(desc_value == "Moderate or heavy rain shower")
-        return "Chuva forte ou moderada";
-    else if(desc_value == "Torrential rain shower")
-        return "Chuva torrencial";
-    else if(desc_value == "Mist")
-        return "Nevoeiro";
-    else if(desc_value == "Light drizzle")
-        return "Chuviscos";*/
-
-
 }
 
 function changeWeatherIcon(weather_icon_url){
