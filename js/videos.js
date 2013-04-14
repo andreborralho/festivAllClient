@@ -12,7 +12,7 @@ function queryShowVideosSuccess(tx, results){
         var video_url = video.url;
         var video_id = video.id;
 
-        $('#band_videos_page').append(''+
+        $('#band_videos_scroller').append(''+
             '<div id="video_' + video_id + '" class="row">' +
                 '<a href="#" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' +
                     '<h3>' + video_name + '</h3>' +
@@ -24,6 +24,8 @@ function queryShowVideosSuccess(tx, results){
             '</div>'
         );
     }
+    //init scroller
+    $('#band_videos_scroller').scroller();
 
     //keep the navbar on first page
     $('#show_nav_item').addClass('current').removeClass('not_current');
