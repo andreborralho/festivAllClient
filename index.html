@@ -19,6 +19,12 @@
 
 <body id="frame">
 
+    <!-- SPLASH SCREEN -->
+    <div id="loaderSplash">
+        <img id="loaderLogo" src="img/logo.png">
+        <p>Versão beta</p>
+    </div>
+
     <!-- MAIN HEADER SKELETON -->
     <header id="header" class="header row" data-role="header">
         <div id="header_link" class="column">
@@ -147,10 +153,21 @@
     </div>
 
 
-    <!-- ================================ MAP ====================================== -->
+    <!-- ================================ SEARCH-RESULTS ====================================== -->
     <div id="search_results" class="container" data-role="container">
         <!-- page -->
         <div id="search_results_page" class="page" data-role="page"></div>
+    </div>
+
+    <!-- ================================ FEEDBACK ====================================== -->
+
+    <div id="feedback" data-role="container">
+        <form action="/" id="feedbackForm">
+            <input id="inputFeedbackAuthor" type="text" placeholder="Nome" >
+            <input id="inputFeedbackAuthorEmail" type="text" placeholder="Email, optional" >
+            <input id="inputFeedbackText" type="text" placeholder="A tua ajuda é importante">
+            <input type="submit" id="submitFeedback" value="enviar" >
+        </form>
     </div>
 
     <!-- ======================================================================================= -->
@@ -191,6 +208,10 @@
     <script type="text/javascript" src="js/info.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
     <script type='text/javascript' src='js/search.js'></script>
+    <script type='text/javascript' src='js/feedback.js'></script>
+    <script type='text/javascript' src='js/menu.js'></script>
+
+
 
     <!-- Show - Band -->
     <script type="text/javascript" src="js/show.js"></script>

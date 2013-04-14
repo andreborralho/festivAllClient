@@ -1,45 +1,40 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
-window.addEventListener("load", initDisplays, false);
+window.onload = initDisplays;
 
 window.menuIsUp = false;
 var history_array = [];
 var carousel_pages = {"festivals":0, "before_festival":0};
 
-//Menu button callback
-function menuButton(){
-    alert('hi');
-    if(menuIsUp){
-        menuIsUp = false;
-        alert(menuIsUp);
-        //takes down menu z-index
-    }else{
-        menuIsUp = true;
-        //to-do
-        alert(menuIsUp);
-    }
-}
-
-// Get the current Date, used in syncronization
-function getCurrentDate(){
-    var d = new Date();
-    var df = d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
-        'T' + ('0' + String(d.getHours())).substr(-2) + ':' + ('0' + String(d.getMinutes())).substr(-2) + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
-    return df;
-}
-
-
-// Set the visibility for the current app page
-
-setHeight();
+//Loading
 
 function initDisplays(){
+    //set screen width and height according to device
+    setHeightAndWidth();
 
+    //load splashScreen
     $('[data-role="container"]').css('display', 'none');
-    $('#festivals').css('display', 'block');
-    var container_height = $('#header').height()-2 + "px";
-    $('#header').css('height', container_height);
+    $('#loaderSplash').css('display', 'block');
+
 }
+
+function initFestivalsDisplay(){
+    $('#loaderSplash').css('display', 'none');
+    $('#festivals').css('display', 'block');
+
+    var container_height = $('#header').height()-2 + "px";
+    $('#header').css('height', 'container_height');
+
+}
+
+function setHeightAndWidth(){
+    var screen_height = window.innerHeight;
+    var screen_width = window.innerWidth;
+    $('body').css('height', screen_height + 'px');
+    $('body').css('width', screen_width + 'px');
+}
+
+//Navigation
 
 function changeContainers(page, title, subtitle){
     var header_title_selector = $('#header_title');
@@ -96,10 +91,23 @@ function refreshNavBar(key, pages){
     }
 }
 
-function setHeight(){
-    var screen_height = window.innerHeight;
-    $('body').css('height', screen_height + "px");
+
+function backButton(){
+    history_array.pop();
+    var history_popped = history_array.pop();
+
+    if(history_popped == undefined)
+        navigator.app.exitApp();
+    else{
+        changeContainers(history_popped);
+    }
 }
+
+function incrementHistory(page){
+    history_array.push(page);
+}
+
+//Data - client side DB
 
 // Cordova is ready
 function onDeviceReady() {
@@ -128,7 +136,8 @@ function onDeviceReady() {
         },
         error: function(model, response) {
             createFestivalsContainer();
-            window.FestivallToaster.showMessage("Conexão à internet falhada!");
+            initFestivalsDisplay
+            window.FestivallToaster.showMessage("Não há conexão com a internet!");
         }
     });
 }
@@ -352,7 +361,9 @@ function insertData(data){
         }
     });
     //Create festivals container after insertions
+
     createFestivalsContainer();
+    initFestivalsDisplay();
 }
 
 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
@@ -385,17 +396,12 @@ function errorQueryCB(tx, err){
 }
 
 
-function backButton(){
-    history_array.pop();
-    var history_popped = history_array.pop();
 
-    if(history_popped == undefined)
-        navigator.app.exitApp();
-    else{
-        changeContainers(history_popped);
-    }
+// Get the current Date, used in syncronization
+function getCurrentDate(){
+    var d = new Date();
+    var df = d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
+        'T' + ('0' + String(d.getHours())).substr(-2) + ':' + ('0' + String(d.getMinutes())).substr(-2) + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
+    return df;
 }
 
-function incrementHistory(page){
-    history_array.push(page);
-}

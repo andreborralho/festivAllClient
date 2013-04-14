@@ -485,3 +485,12 @@ a {
   height: 30px;
   background: url(../img/sprite.png) 0 -72px;
 }
+
+/* SPLASH SCREEN
+-------------------------------------------------------------------------- */
+
+
+#loaderSplash {
+    width:100%;
+    height:100%;
+}
