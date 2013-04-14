@@ -295,7 +295,48 @@ function numberToWeekDay(weekday_number){
 }
 
 function translateWeatherDescription(desc_value){
-    if(desc_value == "Sunny" || desc_value == "Clear")
+
+    switch (desc_value){
+        case "Moderate or heavy snow in area with thunder":
+            desc_value = "Nevões fortes e trovoada";
+            break;
+        case "Patchy light snow in area with thunder":
+            desc_value = "Nevões fracos e trovoada";
+            break;
+        case "Moderate or heavy rain in area with thunder":
+            desc_value = "Chuva forte e trovoada";
+            break;
+        case "Patchy light rain in area with thunder":
+            desc_value = "Chuva fraca e trovoada";
+            break;
+        case "Moderate or heavy showers of ice pellets":
+            desc_value = "Chuva forte com granizo";
+            break;
+        case "Light showers of ice pellets":
+            desc_value = "Chuva fraca com granizo";
+            break;
+        case "Light snow showers":
+            desc_value = "Nevões fracos";
+            break;
+        case "Moderate or heavy sleet showers":
+            desc_value = "Chuva com granizo";
+            break;
+        case "Moderate or heavy snow showers":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Moderate or heavy snow showers":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Moderate or heavy snow showers":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+        case "Moderate or heavy snow showers":
+            desc_value = "Nevões moderados ou fortes";
+            break;
+    }
+    return desc_value;
+            /*  }
+   if(desc_value == "Sunny" || desc_value == "Clear")
         return "Céu limpo";
     else if(desc_value == "Moderate rain")
         return "Chuva moderada";
@@ -316,9 +357,9 @@ function translateWeatherDescription(desc_value){
     else if(desc_value == "Mist")
         return "Nevoeiro";
     else if(desc_value == "Light drizzle")
-        return "Chuviscos";
-    else
-        return desc_value;
+        return "Chuviscos";*/
+
+
 }
 
 function changeWeatherIcon(weather_icon_url){
@@ -331,19 +372,19 @@ function changeWeatherIcon(weather_icon_url){
             weather_icon = "img/weather/sunny.png";
             break;
         case "wsymbol_0002_sunny_intervals.png":
-            weather_icon = "img/weather/sunny.png";
+            weather_icon = "img/weather/cloudy1.png";
             break;
         case "wsymbol_0003_white_cloud.png":
-            weather_icon = "img/weather/sunny.png";
+            weather_icon = "img/weather/cloudy5.png";
             break;
         case "wsymbol_0004_black_low_cloud.png":
-            weather_icon = "img/weather/sunny.png";
+            weather_icon = "img/weather/overcast.png";
             break;
         case "wsymbol_0006_mist.png":
-            weather_icon = "img/weather/sunny.png";
+            weather_icon = "img/weather/mist.png";
             break;
         case "wsymbol_0007_fog.png":
-            weather_icon = "img/weather/sunny.png";
+            weather_icon = "img/weather/fog.png";
             break;
         case "wsymbol_0008_clear_sky_night.png":
             weather_icon = "img/weather/sunny_night.png";
@@ -352,73 +393,73 @@ function changeWeatherIcon(weather_icon_url){
             weather_icon = "img/weather/light_rain.png";
             break;
         case "wsymbol_0010_heavy_rain_showers.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/shower3.png";
             break;
         case "wsymbol_0011_light_snow_showers.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow2.png";
             break;
         case "wsymbol_0012_heavy_snow_showers.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow4.png";
             break;
         case "wsymbol_0013_sleet_showers.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/sleet.png";
             break;
         case "wsymbol_0016_thundery_showers.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/tstorm1.png";
             break;
         case "wsymbol_0017_cloudy_with_light_rain.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/light_rain.png";
             break;
         case "wsymbol_0018_cloudy_with_heavy_rain.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/shower3.png";
             break;
         case "wsymbol_0019_cloudy_with_light_snow.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow1.png";
             break;
         case "wsymbol_0020_cloudy_with_heavy_snow.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow4.png";
             break;
         case "wsymbol_0021_cloudy_with_sleet.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/sleet.png";
             break;
         case "wsymbol_0024_thunderstorms.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/tstorm3.png";
             break;
         case "wsymbol_0025_light_rain_showers_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/shower1_night.png";
             break;
         case "wsymbol_0026_heavy_rain_showers_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/shower2_night.png";
             break;
         case "wsymbol_0027_light_snow_showers_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow1_night.png";
             break;
         case "wsymbol_0028_heavy_snow_showers_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow3_night.png";
             break;
         case "wsymbol_0029_sleet_showers_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/sleet.png";
             break;
         case "wsymbol_0032_thundery_showers_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/tstorm1_night.png";
             break;
         case "wsymbol_0033_cloudy_with_light_rain_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/shower1_night.png";
             break;
         case "wsymbol_0034_cloudy_with_heavy_rain_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/shower2_night.png";
             break;
         case "wsymbol_0035_cloudy_with_light_snow_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow1_night.png";
             break;
         case "wsymbol_0036_cloudy_with_heavy_snow_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/snow3_night.png";
             break;
         case "wsymbol_0037_cloudy_with_sleet_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/sleet.png";
             break;
         case "wsymbol_0040_thunderstorms_night.png":
-            weather_icon = "img/weather/sunny_night.png";
+            weather_icon = "img/weather/tstorm2_night.png";
             break;
     }
     return weather_icon;
