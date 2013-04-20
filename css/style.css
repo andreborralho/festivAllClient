@@ -566,3 +566,11 @@ a {
   height: 30px;
   background: url(../img/sprite.png) 0 -72px;
 }
+
+/* LOADER SPLASH
+-------------------------------------------------------------------------- */
+
+#loaderSplash{
+    height:100%;
+    width:100%;
+}

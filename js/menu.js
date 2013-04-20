@@ -1,14 +1,31 @@
 //Menu button callback
-function menuButton(){
-    if(menuIsUp){
-        menuIsUp = false;
-        //takes down menu z-index
-
-        //feedback test
-        createFeedbackContainer();
-        changeContainers('#feedback');
-    }else{
+function menuButton(e){
+    if(!menuIsUp){
         menuIsUp = true;
-        //to-do
+        createMenuContainer();
+        changeContainers('#menu');
+    }else{
+        menuIsUp = false;
+        backButton();
     }
+
+    e.preventDefault();
+}
+
+function feedbackButton(){
+    menuIsUp=false;
+    createFeedbackContainer();
+    changeContainers('#feedback', 'Menu', 'Feedback');
+}
+
+function aboutusButton(){
+    menuIsUp=false;
+    createAboutusContainer();
+    changeContainers('#aboutus', 'Menu', 'About Us');
+}
+
+function createMenuContainer(){
+    $('#header_link').unbind().bind('click', function(){
+        changeContainers('#festivals');
+    });
 }

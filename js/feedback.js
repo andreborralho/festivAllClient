@@ -1,5 +1,10 @@
 function createFeedbackContainer(){
 
+
+    $('#header_link').unbind().bind('click', function(){
+        menuButton();
+    });
+
     $("#feedbackForm").submit(function(event) {
 
 

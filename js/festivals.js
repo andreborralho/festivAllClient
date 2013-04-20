@@ -12,7 +12,6 @@ function createFestivalsContainer(){
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
 
-	$('#festivals_carousel').css('display', 'block');
     incrementHistory("#festivals");
 
     var len = results.rows.length;

@@ -174,16 +174,7 @@
         <div id="search_results_page" class="page" data-role="page"></div>
     </div>
 
-    <!-- ================================ FEEDBACK ====================================== -->
 
-    <div id="feedback" data-role="container">
-        <form id="feedbackForm">
-            <input id="inputFeedbackAuthor" type="text" placeholder="Nome" >
-            <input id="inputFeedbackAuthorEmail" type="text" placeholder="Email, optional" >
-            <input id="inputFeedbackText" type="text" placeholder="A tua ajuda é importante">
-            <input type="submit" id="submitFeedback" value="Enviar" >
-        </form>
-    </div>
 
     <!-- ======================================================================================= -->
     <!-- ============================== SHOW (single band) ===================================== -->
@@ -201,6 +192,33 @@
             </ul>
         </nav>
     </div>
+
+    <!-- ===================================== MENU ========================================== -->
+
+    <div id="menu" class="container" data-role="container">
+        <ul class='list'>
+            <li id="about_us_li" onclick="aboutusButton()"><h1>about us</h1> </li>
+            <li id="feedback_li" onclick="feedbackButton()"><h1>feedback</h1></li>
+        </ul>
+    </div>
+
+    <!-- ================================ ABOUTUS ====================================== -->
+    <div id="aboutus" class="container" data-role="container">
+
+    </div>
+
+    <!-- ================================ FEEDBACK ====================================== -->
+
+    <div id="feedback" data-role="container">
+        <form id="feedbackForm">
+            <input id="inputFeedbackAuthor" type="text" placeholder="Nome" >
+            <input id="inputFeedbackAuthorEmail" type="text" placeholder="Email, optional" >
+            <input id="inputFeedbackText" type="text" placeholder="A tua ajuda é importante">
+            <input type="submit" id="submitFeedback" value="Enviar" >
+        </form>
+    </div>
+
+
 
     <!-- JAVASCRIPT -->
     <script type="text/javascript" src="lib/jq.mobi.js"></script>
@@ -224,6 +242,7 @@
     <script type="text/javascript" src="js/map.js"></script>
     <script type='text/javascript' src='js/search.js'></script>
     <script type='text/javascript' src='js/feedback.js'></script>
+    <script type='text/javascript' src='js/aboutus.js'></script>
     <script type='text/javascript' src='js/menu.js'></script>
 
 
