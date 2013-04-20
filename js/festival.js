@@ -23,7 +23,7 @@ function queryFestivalSuccess(tx, results) {
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
-    diff = -1; //descomentar esta linha para experimentar o festival durante
+    //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -189,13 +189,24 @@ function createDuringFestival(festival){
                                     function(tx,results){
                                         var shows = results.rows;
                                         var shows_len = shows.length;
-                                        $('#during_festival_page').append('<div id="during_festival_' + stage.id + '_carousel"></div>');
+                                        $('#during_festival_page').append('<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>');
                                         if(shows_len >0 ){
                                             for(var j = 0; j <shows_len; j++){
                                                 var show = shows.item(j);
-                                                $('#during_festival_' + stage.id + '_carousel').append('<div id="during_festival_show_'+ show.id + '">' + show.name + ' ' + show.time.slice(11,16) + '</div>');
+                                                $('#during_festival_' + stage.id + '_carousel').append(
+                                                    '<li id="during_festival_show_'+ show.id + '" class="row">' +
+                                                        '<span class="column icon_swipe_left"></span>' +
+                                                        '<div class="column during_festival_column">' +
+                                                            '<h3 class="band_name">' + show.name + '</h3>' +
+                                                            '<span class="icon_current_show"></span>' +
+                                                            '<span class="current_show">' + show.time.slice(11,16) + '</span> | ' +
+                                                            '<span>Nome Palco</span>' +
+                                                        '</div>' +
+                                                        '<span class="column icon_swipe_right"></span>' +
+                                                    '</li>'
+                                                );
                                             }
-                                         }else {$('#during_festival_' + stage.id + '_carousel').append('<div>Nao há bandas para este palco!</div>');}
+                                         }else {$('#during_festival_' + stage.id + '_carousel').append('<li>Não há bandas para este palco!</li>');}
                                         $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
                                     },errorQueryCB);
                                 }, errorCB);

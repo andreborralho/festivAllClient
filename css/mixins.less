@@ -10,3 +10,10 @@
      -moz-box-shadow: @shadow;
           box-shadow: @shadow;
 }
+
+@diameter: 0;
+.border-radius(@radius: @diameter * 2) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius:    @radius;
+	border-radius:         @radius;
+}
