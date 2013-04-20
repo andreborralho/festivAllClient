@@ -38,16 +38,31 @@
 
 
     <!-- MAIN MENU -->
-    <nav class="mainmenu list hidden">
-        <a href="#" class="link">Home</a>
-        <a href="#" class="link">Créditos</a>
-        <a href="#" class="link">Feedback</a>
+    <nav class="mainmenu hidden">
+        <ul class="list">
+            <li><a href="#" class="link">Home</a></li>
+            <li><a href="#" class="link">Pesquisa</a></li>
+        </ul>
+        <ul class="list">
+            <li><a href="#" class="link">Definições</a></li>
+            <li><a href="#" class="link">Créditos</a></li>
+            <li><a href="#" class="link">Feedback</a></li>
+            <li><a href="#" class="link">Brevemente...</a></li>
+        </ul>
     </nav>
 
 
     <div id="festivals" class="container" data-role="container">
 
         <nav class="swipe_bar row" data-role="swipe_bar">
+            <ul>
+                <li>
+                    <a id="festivals_nav_item" class="current" href="#">Festivais</a>
+                </li>
+                <li>
+                    <a id="search_nav_item" class="not_current next" href="#">Pesquisa</a>
+                </li>
+            </ul>
             <ul>
                 <li>
                     <a id="festivals_nav_item" class="current" href="#">Festivais</a>

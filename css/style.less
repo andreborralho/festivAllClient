@@ -159,14 +159,24 @@ a {
 /* MAIN MENU
 -------------------------------------------------------------------------- */
 .mainmenu {
+    z-index: 99;
     position: absolute;
     top: 0;
     right: 0;
-    width: 70%;
+    bottom: 0;
+    width: 80%;
     height: 100%;
+    border-top: 5px solid @maincolor;
+    margin-top: 13%;
     background-color: #EEE;
+    .list {
+        border-bottom: 3px solid @maincolor;
+    }
     .link {
-
+        display: block;
+        padding: 15px 20px;
+        border-bottom: 1px solid @lightgrey;
+        color: @bgcolor;
     }
 }
 

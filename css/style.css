@@ -307,12 +307,25 @@ a {
 -------------------------------------------------------------------------- */
 
 .mainmenu {
+  z-index: 99;
   position: absolute;
   top: 0;
   right: 0;
-  width: 70%;
+  bottom: 0;
+  width: 80%;
   height: 100%;
+  border-top: 5px solid #b43a34;
+  margin-top: 13%;
   background-color: #eeeeee;
+}
+.mainmenu .list {
+  border-bottom: 3px solid #b43a34;
+}
+.mainmenu .link {
+  display: block;
+  padding: 15px 20px;
+  border-bottom: 1px solid #666666;
+  color: #232323;
 }
 /* SWIPE BAR
 -------------------------------------------------------------------------- */
