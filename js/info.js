@@ -79,17 +79,17 @@ function queryInfoSuccess(tx, results) {
                         '<ul class="list">' +
                             // TODAY
                             '<div id="weather_day1" class="row">' +
-                                '<div class="column centered fixed">' +
+                                '<div class="column centered" style="width: 23%;">' +
                                     '<strong id="weather_weekday1" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date1" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding">' +
+                                '<div class="column no_padding" style="width: 23%;">' +
                                     '<img src="" id="weather_img1" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column fixed">' +
+                                '<div class="column" style="width: 31%;">' +
                                     '<p id="weather_description1"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column" style="width: 23%;">' +
                                     '<span id="weather_max_temperature1"></span>/' +
                                     '<span id="weather_min_temperature1"></span>' +
                                 '</div>' +
@@ -97,17 +97,17 @@ function queryInfoSuccess(tx, results) {
 
                             // TOMORROW
                             '<div id="weather_day2" class="row">' +
-                                '<div class="column centered fixed">' +
+                                '<div class="column centered" style="width: 23%;">' +
                                     '<strong id="weather_weekday2" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date2" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding">' +
+                                '<div class="column no_padding" style="width: 23%;">' +
                                     '<img src="" id="weather_img2" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column fixed">' +
+                                '<div class="column" style="width: 31%;">' +
                                     '<p id="weather_description2"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column" style="width: 23%;">' +
                                     '<span id="weather_max_temperature2"></span>/' +
                                     '<span id="weather_min_temperature2"></span>' +
                                 '</div>' +
@@ -115,17 +115,17 @@ function queryInfoSuccess(tx, results) {
 
                             // 2 DAYS FROM NOW
                             '<div id="weather_day3" class="row">' +
-                                '<div class="column centered fixed">' +
+                                '<div class="column centered" style="width: 23%;">' +
                                     '<strong id="weather_weekday3" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date3" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding">' +
+                                '<div class="column no_padding" style="width: 23%;">' +
                                     '<img src="" id="weather_img3" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column fixed">' +
+                                '<div class="column" style="width: 31%;">' +
                                     '<p id="weather_description3"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column" style="width: 23%;">' +
                                     '<span id="weather_max_temperature3"></span>/' +
                                     '<span id="weather_min_temperature3"></span>' +
                                 '</div>' +
@@ -133,17 +133,17 @@ function queryInfoSuccess(tx, results) {
 
                             // DAY 4
                             '<div id="weather_day4" class="row">' +
-                                '<div class="column centered fixed">' +
+                                '<div class="column centered" style="width: 23%;">' +
                                     '<strong id="weather_weekday4" class"weather_weekday"></strong><br>' +
                                     '<span id="weather_date4" class"weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding">' +
+                                '<div class="column no_padding" style="width: 23%;">' +
                                     '<img src="" id="weather_img4" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column fixed">' +
+                                '<div class="column" style="width: 31%;">' +
                                     '<p id="weather_description4"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column" style="width: 23%;">' +
                                     '<span id="weather_max_temperature4"></span>/' +
                                     '<span id="weather_min_temperature4"></span>' +
                                 '</div>' +
@@ -158,10 +158,10 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column no_padding">' +
                                     '<img src="" id="weather_img5" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column fixed">' +
+                                '<div class="column">' +
                                     '<p id="weather_description5"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column fixed">' +
                                     '<span id="weather_max_temperature5"></span>/' +
                                     '<span id="weather_min_temperature5"></span>' +
                                 '</div>' +
