@@ -49,7 +49,8 @@ function buildLineup(stages, days){
                 db.transaction(function(tx){
                     tx.executeSql('SELECT * FROM SHOWS' +
                         ' WHERE festival_id=' + day.festival_id + ' AND stage_id=' + stage.id + ' AND day_id=' + day.id +
-                        ' ORDER BY TIME', [],
+                        //' AND time(substr(TIME,"HH:MM:SS"),12,8)>=time("00:00:00", "HH:MM:SS") ORDER BY TIME', [],
+						' ORDER BY TIME', [],
                         function(tx,results){
 
                         var shows = results.rows;
@@ -79,7 +80,7 @@ function buildLineup(stages, days){
                             $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
                         }
                         else
-                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não espectáculos para este palco neste dia!');
+                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não existem espectáculos para este palco neste dia!');
 
                         if(s == (len - 1))
                             finishLineupStage(day, stages);

@@ -4,9 +4,9 @@ window.onload = initDisplays;
 window.menuIsUp = false;
 var history_array = [];
 var carousel_pages = {"festivals":0, "before_festival":0};
+var header_link_pressed = "";
 
 //Loading
-
 function initDisplays(){
     //set screen width and height according to device
     setHeightAndWidth();
@@ -14,7 +14,6 @@ function initDisplays(){
     //load splashScreen
     $('[data-role="container"]').css('display', 'none');
     $('#loaderSplash').css('display', 'block');
-
 }
 
 function initFestivalsDisplay(){
@@ -23,7 +22,6 @@ function initFestivalsDisplay(){
 
     var container_height = $('#header').height()-2 + "px";
     $('#header').css('height', container_height);
-
 }
 
 function setHeightAndWidth(){
@@ -39,7 +37,9 @@ function changeContainers(page, title, subtitle){
 
     $('[data-role="container"]').css('display', 'none');
     $(page).css('display', 'block');
-    incrementHistory(page);
+
+    //if(header_link_pressed != "")
+        incrementHistory(page);
 
     if(page == "#festivals"){
         header_title_selector.removeClass('heading1').addClass('heading0');
@@ -116,11 +116,12 @@ function incrementHistory(page){
 // Cordova is ready
 function onDeviceReady() {
     document.addEventListener("backbutton", backButton, false);
+
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
 
     //menu button
     document.addEventListener("menubutton", menuButton, false);
-    $('#menu_button').bind("click", menuButton);
+    $('#menu_button').unbind().bind("click", menuButton);
 
     //Check if the application is running for the first time
     $.ajax({
