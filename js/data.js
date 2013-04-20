@@ -1,7 +1,6 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 window.onload = initDisplays;
-
 window.menuIsUp = false;
 var history_array = [];
 var carousel_pages = {"festivals":0, "before_festival":0};
@@ -68,6 +67,12 @@ function changeContainers(page, title, subtitle){
             header_title_selector.text(current_festival_name);
         else
             header_title_selector.text(title);
+    }
+    else if(page =="#menu"){
+        $('#header_title').empty();
+        $('#header_title').removeClass('heading0').addClass('heading1');
+        $('#header_title').text('FestivAll');
+        $('#header_subtitle').text('Menu');
     }
     else{
         header_title_selector.removeClass('heading0').addClass('heading1');
