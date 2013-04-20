@@ -79,7 +79,6 @@
 .column.fixed {
   width: 70px;
   text-align: center;
-  padding: 10px;
 }
 .one-quarter {
   width: 25%;
@@ -112,5 +111,5 @@
   border: none !important;
 }
 .no_padding {
-  padding: 0;
+  padding: 0 !important;
 }

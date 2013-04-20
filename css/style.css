@@ -131,7 +131,6 @@ table {
 .column.fixed {
   width: 70px;
   text-align: center;
-  padding: 10px;
 }
 .one-quarter {
   width: 25%;
@@ -164,7 +163,7 @@ table {
   border: none !important;
 }
 .no_padding {
-  padding: 0;
+  padding: 0 !important;
 }
 /* GLOBAL
 -------------------------------------------------------------------------- */
@@ -303,6 +302,30 @@ a {
   width: 28px;
   height: 22px;
   background: url(../img/sprite.png) 0 0;
+}
+/* MAIN MENU
+-------------------------------------------------------------------------- */
+
+.mainmenu {
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: 100%;
+  border-top: 5px solid #b43a34;
+  margin-top: 13%;
+  background-color: #eeeeee;
+}
+.mainmenu .list {
+  border-bottom: 3px solid #b43a34;
+}
+.mainmenu .link {
+  display: block;
+  padding: 15px 20px;
+  border-bottom: 1px solid #666666;
+  color: #232323;
 }
 /* SWIPE BAR
 -------------------------------------------------------------------------- */
