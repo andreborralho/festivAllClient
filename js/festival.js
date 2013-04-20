@@ -23,7 +23,7 @@ function queryFestivalSuccess(tx, results) {
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
-    //diff = -1; //descomentar esta linha para experimentar o festival durante
+    diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
