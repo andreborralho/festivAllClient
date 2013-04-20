@@ -362,82 +362,85 @@ function translateWeatherDescription(desc_value){
             desc_value = "Chuva fraca";
             break;
         case "Moderate or Heavy freezing rain":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuva forte ou moderada";
             break;
         case "Light freezing rain":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuva fraca";
             break;
         case "Heavy rain":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuva forte";
             break;
         case "Heavy rain at times":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Períodos de chuva forte";
             break;
         case "Moderate rain":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuva moderada";
             break;
         case "Moderate rain at times":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Períodos de chuva moderada";
             break;
         case "Light rain":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuva fraca";
             break;
         case "Patchy light rain":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuva fraca";
             break;
         case "Heavy freezing drizzle":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuviscos fortes";
             break;
         case "Freezing drizzle":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuviscos";
             break;
         case "Light drizzle":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuviscos fracos";
             break;
         case "Patchy light drizzle":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuviscos fracos";
             break;
         case "Freezing fog":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Nevoeiro";
             break;
         case "Fog":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Nevoeiro";
             break;
         case "Blizzard":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Tempestade de neve";
             break;
         case "Blowing snow":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Neve";
             break;
         case "Thundery outbreaks in nearby":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Tempestade";
             break;
         case "Patchy freezing drizzle nearby":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuviscos";
             break;
         case "Patchy sleet nearby":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Granizo";
             break;
         case "Patchy snow nearby":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Neve";
             break;
         case "Patchy rain nearby":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Chuva";
             break;
         case "Mist":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Neblina";
             break;
         case "Overcast":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Céu nublado";
             break;
         case "Cloudy":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Céu nublado";
             break;
         case "Partly Cloudy":
-            desc_value = "Nevões moderados ou fortes";
+            desc_value = "Céu parcialmente nublado";
             break;
-        case "Clear/Sunny":
-            desc_value = "Nevões moderados ou fortes";
+        case "Clear":
+            desc_value = "Céu limpo";
+            break;
+        case "Sunny":
+            desc_value = "Céu limpo";
             break;
     }
     return desc_value;

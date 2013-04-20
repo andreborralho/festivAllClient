@@ -2,7 +2,8 @@ var search_token;
 
 function createSearchContainer(){
 
-    $('#search_button').unbind().bind('click', function(){festivals_carousel.refreshItems();
+    $('#search_button').unbind().bind('click', function(){
+        festivals_carousel.refreshItems();
         search_token = $('#search_input').val().replace(" ","");
         createSearchResultsContainer(search_token);
     });

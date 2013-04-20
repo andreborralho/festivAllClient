@@ -12,7 +12,7 @@ function createFestivalsContainer(){
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
 
-	$('#festivals_carousel').css('display', 'block');
+	//$('#festivals_carousel').css('display', 'block');
     incrementHistory("#festivals");
 
     var len = results.rows.length;
@@ -50,10 +50,12 @@ function initFestivalsCarousel(){
                 $('#search_nav_item').addClass('current').removeClass('not_current next');
                 $('#festivals_nav_item').addClass('not_current prev').removeClass('current');
 
-                //document.getElementById('search_input').focus();
+
 
                 softkeyboard.show();
-                //$('#search_input').trigger('click');
+                $('#search_input').get().focus();
+                $('#search_input_wrap').get().focus();
+                $('#search_input').trigger('click'); $('#search_input_wrap').trigger('click');
             }
             carousel_pages.festivals = index;
         }
