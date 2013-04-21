@@ -15,7 +15,7 @@ function queryLineupSuccess(tx, results) {
 
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
-        changeContainers("#festival", current_festival_name, "");
+        fixHeaderLink("#before_festival");
     });
 
     var days = results.rows;
