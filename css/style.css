@@ -239,6 +239,9 @@ table {
 .no_border {
   border: none !important;
 }
+.no_bdr_r {
+  border-right: none !important;
+}
 .no_padding {
   padding: 0 !important;
 }
@@ -457,12 +460,13 @@ a {
   padding: 0 13px;
   border-right: 1px solid #555555;
   font-size: 18px;
-  font-weight: bold;
   text-align: center;
   line-height: 50px;
 }
 .nav_top .current {
-  background: #b43a34;
+  padding: 0 12px;
+  border-bottom: 5px solid #b43a34;
+  font-weight: bold;
 }
 .nav_bottom {
   z-index: 2;
@@ -481,6 +485,7 @@ a {
 .nav_bottom .item {
   display: block;
   border-right: 1px solid #555555;
+  border-bottom: 5px solid #b43a34;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
