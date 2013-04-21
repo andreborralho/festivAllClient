@@ -80,7 +80,7 @@ function buildLineup(stages, days){
                             $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
                         }
                         else
-                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('Ainda não existem espectáculos para este palco neste dia!');
+                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('<div class="padded">Ainda não existem espectáculos para este palco neste dia!</div>');
 
                         if(s == (len - 1))
                             finishLineupStage(day, stages);
@@ -155,18 +155,18 @@ function finishLineupStage(day, stages){
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
     $('#lineup_day_buttons').append(
-        '<li id="' + day.id + '_day_button" class="column one-third">' +
-            '<a href="#" class="item">' +
-                '<span class="first-line">' + show_day + '</span>' +
-                '<span class="last-line">' + month + '</span>' +
-            '</a>' +
+        '<li id="' + day.id + '_day_button" class="column">' +
+            '<a href="#" class="item">' +  show_day + ' ' + month + '</a>' +
         '</li>'
     );
 
+    $('#lineup_day_buttons .item').eq(0).addClass('current');
     $('#' + day.id + '_day_button').bind('click', function(){
         //set visibility to the correct carousel in the lineup frame
         $('[data-role="lineup_carousel"]').css('display', 'none');
         $('#lineup_carousel_' + day.id).css('display', 'block');
+        $('#lineup_day_buttons .item').removeClass('current');
+        $(this).find('.item').addClass('current');
 
         $('#stage_' + stages[0].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
         $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');

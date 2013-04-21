@@ -79,17 +79,17 @@ function appendFestivalHTML(){
                 '<nav class="nav_bottom">' +
                     '<ul class="row">' +
                         '<li class="column">' +
-                            '<a href="#" id="lineup_button" class="item">Cartaz</a>' +
+                            '<a href="#" id="before_shows_button" class="item">Bandas</a>' +
                         '</li>' +
                         '<li class="column">' +
-                            '<a href="#" id="info_button" class="item">Informação</a>' +
+                            '<a href="#" id="before_lineup_button" class="item">Cartaz</a>' +
                         '</li>' +
                         '<li class="column">' +
-                            '<a href="#" id="map_button" class="item no_border">Mapa</a>' +
+                            '<a href="#" id="before_info_button" class="item">Info</a>' +
                         '</li>' +
-                        /*'<li class="column">' +
-                            '<a href="#" class="no_border" id="info_gallery">Galeria</a>' +
-                        '</li>' +*/
+                        '<li class="column">' +
+                            '<a href="#" id="before_map_button" class="item no_border">Mapa</a>' +
+                        '</li>' +
                     '</ul>' +
                 '</nav>' +
             '</div>' +
@@ -118,17 +118,17 @@ function createBeforeFestival(festival, festivals, diff){
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
 
-    $('#lineup_button').unbind().bind('click', function(){
+    $('#before_lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
         changeContainers("#lineup", current_festival_name, "Cartaz");
     });
 
-    $('#info_button').unbind().bind('click', function(){
+    $('#before_info_button').unbind().bind('click', function(){
         createInfoContainer(festival.id);
         changeContainers("#info", current_festival_name, "Informação");
     });
 
-    $('#map_button').unbind().bind('click', function(){
+    $('#before_map_button').unbind().bind('click', function(){
         createMapContainer(festival.map);
         changeContainers("#map", current_festival_name, "Mapa");
     });
@@ -189,7 +189,12 @@ function createDuringFestival(festival){
                                     function(tx,results){
                                         var shows = results.rows;
                                         var shows_len = shows.length;
-                                        $('#during_festival_page').append('<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>');
+                                        $('#during_festival_page').append(
+                                            '<div class="row during_festival_header">' +
+                                                '<span>' + stage.name + '</span>' +
+                                            '</div>' +
+                                            '<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>'
+                                        );
                                         if(shows_len >0 ){
                                             for(var j = 0; j <shows_len; j++){
                                                 var show = shows.item(j);
@@ -199,8 +204,7 @@ function createDuringFestival(festival){
                                                         '<div class="column during_festival_column">' +
                                                             '<h3 class="band_name">' + show.name + '</h3>' +
                                                             '<span class="icon_current_show"></span>' +
-                                                            '<span class="current_show">' + show.time.slice(11,16) + '</span> | ' +
-                                                            '<span>Nome Palco</span>' +
+                                                            '<span class="current_show">' + show.time.slice(11,16) + '</span>' +
                                                         '</div>' +
                                                         '<span class="column icon_swipe_right"></span>' +
                                                     '</li>'
@@ -214,6 +218,25 @@ function createDuringFestival(festival){
                     }
                 }
                 else {$('#during_festival_page').append('Não ha palcos para este festival!');}
+
+                $('#during_festival_page').append(
+                    '<nav class="nav_bottom">' +
+                        '<ul class="row">' +
+                            '<li class="column">' +
+                                '<a href="#" id="during_shows_button" class="item">Bandas</a>' +
+                            '</li>' +
+                            '<li class="column">' +
+                                '<a href="#" id="during_lineup_button" class="item">Cartaz</a>' +
+                            '</li>' +
+                            '<li class="column">' +
+                                '<a href="#" id="during_info_button" class="item">Info</a>' +
+                            '</li>' +
+                            '<li class="column">' +
+                                '<a href="#" id="during_map_button" class="item no_border">Mapa</a>' +
+                            '</li>' +
+                        '</ul>' +
+                    '</nav>'
+                );
             }, errorQueryCB);
     }, errorCB);
 

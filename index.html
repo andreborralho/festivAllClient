@@ -37,21 +37,22 @@
     </header>
 
 
-    <!-- MAIN MENU -->
-    <nav class="mainmenu hidden">
+    <!-- ============================== MAIN MENU ===================================== -->
+    <nav id="menu" class="container hidden" data-role="container">
         <ul class="list">
             <li><a href="#" class="link">Home</a></li>
-            <li><a href="#" class="link">Pesquisa</a></li>
+            <!--<li><a href="#" class="link">Pesquisa</a></li>-->
         </ul>
         <ul class="list">
-            <li><a href="#" class="link">Definições</a></li>
-            <li><a href="#" class="link">Créditos</a></li>
-            <li><a href="#" class="link">Feedback</a></li>
-            <li><a href="#" class="link">Brevemente...</a></li>
+            <!--<li><a href="#" class="link">Definições</a></li>-->
+            <li><a href="#" id="about_us_li" class="link" onclick="aboutusButton()">Quem somos</a></li>
+            <li><a href="#" id="feedback_li" class="link" onclick="feedbackButton()">Feedback</a></li>
+            <li><a href="#" class="link">Sair</a></li>
         </ul>
     </nav>
 
 
+    <!-- ============================== HOMEPAGE ===================================== -->
     <div id="festivals" class="container" data-role="container">
 
         <nav class="swipe_bar row" data-role="swipe_bar">
@@ -125,7 +126,7 @@
 
         <!-- Nav top -->
         <!--<nav class="nav_top" data-role="button_nav">-->
-        <div id="lineup_day_scroll_wrapper" style="height:16%;">
+        <div id="lineup_day_scroll_wrapper">
             <ul id="lineup_day_buttons" class="nav_top">
             </ul>
         </div>
@@ -193,15 +194,6 @@
         </nav>
     </div>
 
-    <!-- ===================================== MENU ========================================== -->
-
-    <div id="menu" class="container" data-role="container">
-        <ul class='list'>
-            <li id="about_us_li" onclick="aboutusButton()"><h1>about us</h1> </li>
-            <li id="feedback_li" onclick="feedbackButton()"><h1>feedback</h1></li>
-        </ul>
-    </div>
-
     <!-- ================================ ABOUTUS ====================================== -->
     <div id="aboutus" class="container" data-role="container">
 
@@ -211,10 +203,10 @@
 
     <div id="feedback" data-role="container">
         <form id="feedbackForm">
-            <input id="inputFeedbackAuthor" type="text" placeholder="Nome" >
+            <input id="inputFeedbackAuthor" type="text" placeholder="Nome">
             <input id="inputFeedbackAuthorEmail" type="text" placeholder="Email, optional" >
             <input id="inputFeedbackText" type="text" placeholder="A tua ajuda é importante">
-            <input type="submit" id="submitFeedback" value="Enviar" >
+            <input type="submit" id="submitFeedback" value="Enviar">
         </form>
     </div>
 
@@ -244,7 +236,6 @@
     <script type='text/javascript' src='js/feedback.js'></script>
     <script type='text/javascript' src='js/aboutus.js'></script>
     <script type='text/javascript' src='js/menu.js'></script>
-
 
 
     <!-- Show - Band -->
