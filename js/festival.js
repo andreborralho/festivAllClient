@@ -30,6 +30,8 @@ function queryFestivalSuccess(tx, results) {
 
     $('#header_link').unbind().bind('click', function(){
         changeContainers("#festivals", "FestivAll", "");
+        fixHeaderLink("#festivals");
+        history_array.pop();
     });
 
     if(diff < 0){ //during festival
@@ -133,7 +135,7 @@ function createBeforeFestival(festival, festivals, diff){
         changeContainers("#map", current_festival_name, "Mapa");
     });
 
-    $('#festival_days').empty();
+//    $('#festival_days').empty();
     var festival_day, festival_day_first_number, festival_day_second_number,
         festival_month, numeric_month, next_numeric_month, festival_next_month;
 
@@ -169,7 +171,6 @@ function createBeforeFestival(festival, festivals, diff){
         else
             $('#festival_days').append(" e " + festival_day + " de " + festival_month);
     }
-
 }
 
 function createDuringFestival(festival){
@@ -180,6 +181,7 @@ function createDuringFestival(festival){
                 var stages_len = stages.length;
                 var stage, stage_id;
                 $('#during_festival_page').empty();
+
                 if(stages_len > 0){
                     for(var i = 0; i<stages_len; i++){
                         stage = stages.item(i);
@@ -207,14 +209,19 @@ function createDuringFestival(festival){
                                                     '</li>'
                                                 );
                                             }
-                                         }else {$('#during_festival_' + stage.id + '_carousel').append('<li>Não há bandas para este palco!</li>');}
+                                         }
+                                        else
+                                            $('#during_festival_' + stage.id + '_carousel').append('<li>Não há bandas para este palco!</li>');
+
                                         $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
                                     },errorQueryCB);
                                 }, errorCB);
                         })(stage);
                     }
                 }
-                else {$('#during_festival_page').append('Não ha palcos para este festival!');}
+                else
+                    $('#during_festival_page').append('Não ha palcos para este festival!');
+
             }, errorQueryCB);
     }, errorCB);
 

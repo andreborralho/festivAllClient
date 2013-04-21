@@ -40,6 +40,7 @@ function querySearchSuccess(tx, results) {
 
     $('#header_link').unbind().bind('click', function(){
         changeContainers("#festivals", "", "");
+        softkeyboard.show();
     });
 
     var search_list_selector =  $('#search_list');
