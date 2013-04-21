@@ -23,7 +23,7 @@ function queryFestivalSuccess(tx, results) {
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
-    diff = -1; //descomentar esta linha para experimentar o festival durante
+    //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -36,9 +36,9 @@ function queryFestivalSuccess(tx, results) {
         createDuringFestival(festival);
         changeContainers("#during_festival", current_festival_name, "");
     }
-    else if ( diff > 0){ //before festival
+    else if (diff > 0){ //before festival
         createBeforeFestival(festival, festivals, diff);
-        changeContainers("#before_festival", current_festival_name, "");
+
     }
     /*
     else if (){ //after festival
@@ -169,6 +169,7 @@ function createBeforeFestival(festival, festivals, diff){
         else
             $('#festival_days').append(" e " + festival_day + " de " + festival_month);
     }
+
 }
 
 function createDuringFestival(festival){

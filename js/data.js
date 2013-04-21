@@ -31,7 +31,6 @@ function setHeightAndWidth(){
 }
 
 //Navigation
-
 function changeContainers(page, title, subtitle){
     var header_title_selector = $('#header_title');
 
@@ -39,7 +38,7 @@ function changeContainers(page, title, subtitle){
     $(page).css('display', 'block');
 
     //if(header_link_pressed != "")
-        incrementHistory(page);
+    incrementHistory(page);
 
     if(page == "#festivals"){
         header_title_selector.removeClass('heading1').addClass('heading0');
@@ -69,14 +68,11 @@ function changeContainers(page, title, subtitle){
             header_title_selector.text(title);
     }
     else if(page =="#menu"){
-        $('#header_title').empty();
-        $('#header_title').removeClass('heading0').addClass('heading1');
-        $('#header_title').text('FestivAll');
+        header_title_selector.empty().removeClass('heading0').addClass('heading1').text('FestivAll');
         $('#header_subtitle').text('Menu');
     }
     else{
-        header_title_selector.removeClass('heading0').addClass('heading1');
-        header_title_selector.text(title);
+        header_title_selector.removeClass('heading0').addClass('heading1').text(title);
         $('#header_subtitle').text(subtitle);
     }
 
@@ -99,7 +95,7 @@ function refreshNavBar(key, pages){
 function backButton(){
     history_array.pop();
     var history_popped = history_array.pop();
-
+//    alert(history_popped);
     if(history_popped == undefined)
         navigator.app.exitApp();
     else{

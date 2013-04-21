@@ -53,6 +53,12 @@ function queryFestivalShowsSuccess(tx, results) {
 	}
 
     $('#shows_page_list').scroller();
+    initFestivalCarousel();
+    changeContainers("#before_festival", current_festival_name, "");
+
+}
+
+function initFestivalCarousel(){
 
     //inits the before_festival_carousel
     $('#festival_nav_item').addClass('current').removeClass('not_current');
@@ -72,7 +78,6 @@ function queryFestivalShowsSuccess(tx, results) {
         }
     });
 }
-
 
 function changeNumberToMonthAbrev(numeric_month){
     var month;
