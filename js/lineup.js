@@ -1,5 +1,6 @@
 // LINEUP_CONTAINER
 
+var lineup_day_buttons_scroller;
 // Queries the local Database for a show
 function createLineupContainer(festival_id){
     db.transaction(function (tx) {
@@ -88,10 +89,11 @@ function buildLineup(stages, days){
                         if(day_i == (day_len -1) && s == (len - 1) ){
 
                             //scroll lineup days
-                            $('#lineup_day_buttons').scroller({
+                            lineup_day_buttons_scroller = $('#lineup_day_buttons').scroller({
                                 verticalScroll:false,
                                 horizontalScroll:true
                             });
+                            lineup_day_buttons_scroller.scrollTo({x:0,y:0});
                         }
 
                     },errorQueryCB);

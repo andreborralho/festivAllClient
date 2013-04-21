@@ -53,6 +53,7 @@ function initFestivalsCarousel(){
                 //document.getElementById('search_input').focus();
 
                 softkeyboard.show();
+                $('#search_input').get().focus();
                 //$('#search_input').trigger('click');
             }
             carousel_pages.festivals = index;
