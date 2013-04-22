@@ -1,5 +1,16 @@
 var search_token;
 
+document.onkeypress = processKey;
+function processKey(e){
+    if (e.keyCode == 13){
+        festivals_carousel.refreshItems();
+        search_token = $('#search_input').val().replace(" ","");
+        createSearchResultsContainer(search_token);
+        return false;
+    }
+    return true;
+}
+
 function createSearchContainer(){
 
     $('#search_button').unbind().bind('click', function(){
@@ -22,14 +33,14 @@ function createSearchResultsContainer(search_token){
 }
 
 function querySearchSuccess(tx, results) {
-    $('#search_results_page').empty();
-    $('#search_results_page').append('' +
+    $('#search_results_page').empty().append('' +
         '<div id="search_scroll_wrapper" class="scroll_wrapper">' +
             '<ul id="search_list" class="list" data-role="list"></ul>' +
         '</div>');
 
     $('#header_link').unbind().bind('click', function(){
         changeContainers("#festivals", "", "");
+        softkeyboard.show();
     });
 
     var search_list_selector =  $('#search_list');

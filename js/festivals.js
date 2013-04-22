@@ -1,4 +1,5 @@
 // FESTIVALS_CONTAINER
+var softkeyboard;
 var festivals_carousel;
 
 // Queries the local Database for all festivals
@@ -37,7 +38,7 @@ function initFestivalsCarousel(){
     festivals_carousel = $('#festivals_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
-            var softkeyboard = window.cordova.plugins.SoftKeyBoard;
+            softkeyboard = window.cordova.plugins.SoftKeyBoard;
 
             if(index == 0){
                 $('#festivals_nav_item').addClass('current').removeClass('not_current');
@@ -52,6 +53,7 @@ function initFestivalsCarousel(){
                 //document.getElementById('search_input').focus();
 
                 softkeyboard.show();
+                $('#search_input').get().focus();
                 //$('#search_input').trigger('click');
             }
             carousel_pages.festivals = index;

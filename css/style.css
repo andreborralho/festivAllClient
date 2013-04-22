@@ -50,6 +50,83 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+.blink {
+  -webkit-animation: blink .75s linear infinite;
+  -moz-animation: blink .75s linear infinite;
+  -ms-animation: blink .75s linear infinite;
+  -o-animation: blink .75s linear infinite;
+  animation: blink .75s linear infinite;
+}
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-ms-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-o-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .borderbox {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -161,6 +238,9 @@ table {
 }
 .no_border {
   border: none !important;
+}
+.no_bdr_r {
+  border-right: none !important;
 }
 .no_padding {
   padding: 0 !important;
@@ -306,7 +386,7 @@ a {
 /* MAIN MENU
 -------------------------------------------------------------------------- */
 
-.mainmenu {
+#menu {
   z-index: 99;
   position: absolute;
   top: 0;
@@ -318,10 +398,10 @@ a {
   margin-top: 13%;
   background-color: #eeeeee;
 }
-.mainmenu .list {
+#menu .list {
   border-bottom: 3px solid #b43a34;
 }
-.mainmenu .link {
+#menu .link {
   display: block;
   padding: 15px 20px;
   border-bottom: 1px solid #666666;
@@ -368,38 +448,47 @@ a {
 /* NAVS
 -------------------------------------------------------------------------- */
 
-.nav_top,
-.nav_bottom {
+.nav_top {
   white-space: nowrap;
 }
-.nav_top .column,
-.nav_bottom .column {
+.nav_top .column {
   background-color: #2e2e2e;
+  padding: 0;
 }
-.nav_top .item,
-.nav_bottom .item {
+.nav_top .item {
   display: inline-block;
+  padding: 0 13px;
   border-right: 1px solid #555555;
   font-size: 18px;
-  font-weight: bold;
   text-align: center;
+  line-height: 50px;
+}
+.nav_top .current {
+  padding: 0 12px;
+  border-bottom: 5px solid #b43a34;
+  font-weight: bold;
 }
 .nav_bottom {
+  z-index: 2;
   position: absolute;
   bottom: 0;
   width: 100%;
   border-top: 1px solid #b43a34;
-  /*.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));
-    .column {
-        .one-quarter;
-    }*/
+  /*.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));*/
 
 }
 .nav_bottom .column {
+  width: 25%;
   padding: 0;
+  background-color: #2e2e2e;
 }
 .nav_bottom .item {
   display: block;
+  border-right: 1px solid #555555;
+  border-bottom: 5px solid #b43a34;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
   line-height: 55px;
 }
 /* HOME
@@ -432,6 +521,9 @@ a {
   font-size: 18px;
   line-height: 24px;
 }
+.before_festival_details span {
+  text-shadow: 0 0 5px #232323;
+}
 #festival_countdown {
   position: absolute;
   display: inline-block;
@@ -457,6 +549,62 @@ a {
   top: 0;
   width: 100%;
 }
+/* DURING FESTIVAL
+-------------------------------------------------------------------------- */
+
+.icon_swipe_left,
+.icon_swipe_right {
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 11px;
+  height: 17px;
+  margin-top: -8px;
+  background: url(../img/sprite.png) no-repeat;
+}
+.icon_swipe_left {
+  left: 10px;
+  background-position: -72px -36px;
+}
+.icon_swipe_right {
+  right: 10px;
+  background-position: -122px -36px;
+}
+.during_festival_header {
+  padding: 6px 0 6px 22px;
+  background-color: #373737;
+  opacity: 0.4;
+}
+.during_festival_column {
+  padding-right: 35px !important;
+  padding-left: 35px !important;
+}
+.icon_current_show {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  margin-right: 5px;
+  background: #b43a34;
+}
+.icon_current_show:after {
+  position: absolute;
+  display: inline-block;
+  top: 2px;
+  left: 2px;
+  width: 3px;
+  height: 3px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  background: black;
+}
+.current_show {
+  color: #b43a34;
+}
 /* WEATHER
 -------------------------------------------------------------------------- */
 
@@ -480,6 +628,12 @@ a {
 }
 .weather_icon {
   width: 64px;
+}
+/* CARTAZ
+-------------------------------------------------------------------------- */
+
+.lineup_day_scroll_wrapper {
+  height: 16%;
 }
 /* SHOWS
 -------------------------------------------------------------------------- */
@@ -514,12 +668,4 @@ a {
   width: 30px;
   height: 30px;
   background: url(../img/sprite.png) 0 -72px;
-}
-
-/* LOADER SPLASH
--------------------------------------------------------------------------- */
-
-#loaderSplash{
-    height:100%;
-    width:100%;
 }

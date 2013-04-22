@@ -4,7 +4,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 window.menuIsUp = false;
 var history_array = [];
 var carousel_pages = {"festivals":0, "before_festival":0};
-var header_link_pressed = "";
 
 //Loading
 function initDisplays(){
@@ -30,15 +29,13 @@ function setHeightAndWidth(){
 }
 
 //Navigation
-
 function changeContainers(page, title, subtitle){
     var header_title_selector = $('#header_title');
 
     $('[data-role="container"]').css('display', 'none');
     $(page).css('display', 'block');
 
-    //if(header_link_pressed != "")
-        incrementHistory(page);
+    incrementHistory(page);
 
     if(page == "#festivals"){
         header_title_selector.removeClass('heading1').addClass('heading0');
@@ -68,14 +65,20 @@ function changeContainers(page, title, subtitle){
             header_title_selector.text(title);
     }
     else if(page =="#menu"){
-        $('#header_title').empty();
-        $('#header_title').removeClass('heading0').addClass('heading1');
-        $('#header_title').text('FestivAll');
+        header_title_selector.empty().removeClass('heading0').addClass('heading1').text('FestivAll');
         $('#header_subtitle').text('Menu');
     }
+    else if(page =="#search_results"){
+        header_title_selector.removeClass('heading0').addClass('heading1').empty().text(search_token);
+        $('#header_subtitle').text("Resultados da Pesquisa");
+
+        $('#header_link').unbind().bind('click', function(){
+            changeContainers("#festivals", "", "");
+            softkeyboard.show();
+        });
+    }
     else{
-        header_title_selector.removeClass('heading0').addClass('heading1');
-        header_title_selector.text(title);
+        header_title_selector.removeClass('heading0').addClass('heading1').text(title);
         $('#header_subtitle').text(subtitle);
     }
 
@@ -101,15 +104,20 @@ function backButton(){
 
     if(history_popped == undefined)
         navigator.app.exitApp();
-    else{
+    else
         changeContainers(history_popped);
-    }
 }
 
 function incrementHistory(page){
     history_array.push(page);
 }
 
+function fixHeaderLink(page){
+    var history_popped = history_array.pop();
+    while(history_popped != page){
+        history_popped = history_array.pop();
+    }
+}
 //Data - client side DB
 
 // Cordova is ready

@@ -158,7 +158,7 @@ a {
 
 /* MAIN MENU
 -------------------------------------------------------------------------- */
-.mainmenu {
+#menu {
     z-index: 99;
     position: absolute;
     top: 0;
@@ -224,38 +224,46 @@ a {
 
 /* NAVS
 -------------------------------------------------------------------------- */
-.nav_top,
-.nav_bottom {
+.nav_top {
     white-space: nowrap;
     .column {
         background-color: #2e2e2e;
+        padding: 0;
     }
     .item {
         display: inline-block;
+        padding: 0 13px;
         border-right: 1px solid #555;
         font-size: 18px;
-        font-weight: bold;
         text-align: center;
+        line-height: 50px;
     }
-    .column {
-        //padding: 0;
+    .current {
+        padding: 0 12px;
+        border-bottom: 5px solid @maincolor;
+        font-weight: bold;
     }
 }
 
 .nav_bottom {
+    z-index: 2;
     position: absolute;
     bottom: 0;
     width: 100%;
     border-top: 1px solid @maincolor;
-    /*.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));
+    /*.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));*/
     .column {
         .one-quarter;
-    }*/
-    .column {
         padding: 0;
+        background-color: #2e2e2e;
     }
     .item {
         display: block;
+        border-right: 1px solid #555;
+        border-bottom: 5px solid @maincolor;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
         line-height: 55px;
     }
 }
@@ -296,6 +304,9 @@ a {
 .before_festival_details {
     font-size: 18px;
     line-height: 24px;
+    span {
+        text-shadow: 0 0 5px @bgcolor;
+    }
 }
 #festival_countdown {
     position: absolute;
@@ -322,8 +333,66 @@ a {
     top: 0;
     width: 100%;
 }
-#info_button {
+
+
+/* DURING FESTIVAL
+-------------------------------------------------------------------------- */
+.icon_swipe_left,
+.icon_swipe_right {
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 11px;
+    height: 17px;
+    margin-top: -8px;
+    background: @sprite no-repeat;
 }
+.icon_swipe_left {
+    left: 10px;
+    background-position: -72px -36px;
+}
+.icon_swipe_right {
+    right: 10px;
+    background-position: -122px -36px;
+}
+
+.during_festival_header {
+    padding: 6px 0 6px 22px;
+    background-color: @grey;
+    opacity: 0.4;
+}
+.during_festival_column {
+    padding-right: 35px !important;
+    padding-left: 35px !important;
+}
+
+.icon_current_show {
+    position: relative;
+    display: inline-block;
+    @diameter: 10px;
+    width: @diameter;
+    height: @diameter;
+    .border-radius();
+    margin-right: 5px;
+    background: @maincolor;
+    &:after {
+        position: absolute;
+        display: inline-block;
+        top: 2px;
+        left: 2px;
+        @diameter: 3px;
+        width: @diameter;
+        height: @diameter;
+        .border-radius();
+        background: black;
+    }
+}
+.current_show {
+    color: @maincolor;
+}
+
+
+
 
 /* WEATHER
 -------------------------------------------------------------------------- */
@@ -349,6 +418,14 @@ a {
 .weather_icon {
     width: 64px;
 }
+
+
+/* CARTAZ
+-------------------------------------------------------------------------- */
+.lineup_day_scroll_wrapper {
+    height: 16%;
+}
+
 
 
 /* SHOWS

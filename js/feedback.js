@@ -6,8 +6,6 @@ function createFeedbackContainer(){
     });
 
     $("#feedbackForm").submit(function(event) {
-
-
         /* stop form from submitting normally */
         event.preventDefault();
 
