@@ -1,18 +1,17 @@
 // Wait for Cordova to load
-document.addEventListener("deviceready", onDeviceReady, false);
 window.onload = initDisplays;
+document.addEventListener("deviceready", onDeviceReady, false);
 window.menuIsUp = false;
 var history_array = [];
 var carousel_pages = {"festivals":0, "before_festival":0};
 
 //Loading
 function initDisplays(){
+    $('[data-role="container"]').css('display', 'none');
+    $('#loaderSplash').css('display', 'block');
     //set screen width and height according to device
     setHeightAndWidth();
 
-    //load splashScreen
-    $('[data-role="container"]').css('display', 'none');
-    $('#loaderSplash').css('display', 'block');
 }
 
 function initFestivalsDisplay(){

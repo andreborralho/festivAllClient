@@ -89,7 +89,7 @@ function appendFestivalHTML(){
                             '<a href="#" id="before_info_button" class="item">Info</a>' +
                         '</li>' +
                         '<li class="column">' +
-                            '<a href="#" id="before_map_button" class="item no_border">Mapa</a>' +
+                            '<a href="#" id="before_map_button" class="item no_bdr_r">Mapa</a>' +
                         '</li>' +
                     '</ul>' +
                 '</nav>' +
@@ -237,7 +237,7 @@ function createDuringFestival(festival){
                                 '<a href="#" id="during_info_button" class="item">Info</a>' +
                             '</li>' +
                             '<li class="column">' +
-                                '<a href="#" id="during_map_button" class="item no_border">Mapa</a>' +
+                                '<a href="#" id="during_map_button" class="item no_bdr_r">Mapa</a>' +
                             '</li>' +
                         '</ul>' +
                     '</nav>'

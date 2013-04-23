@@ -8,8 +8,6 @@ function menuButton(e){
         menuIsUp = false;
         backButton();
     }
-
-    e.preventDefault();
 }
 
 function feedbackButton(){
