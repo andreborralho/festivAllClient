@@ -40,7 +40,6 @@ function queryFestivalSuccess(tx, results) {
     }
     else if (diff > 0){ //before festival
         createBeforeFestival(festival, festivals, diff);
-
     }
     /*
     else if (){ //after festival
@@ -135,7 +134,6 @@ function createBeforeFestival(festival, festivals, diff){
         changeContainers("#map", current_festival_name, "Mapa");
     });
 
-//    $('#festival_days').empty();
     var festival_day, festival_day_first_number, festival_day_second_number,
         festival_month, numeric_month, next_numeric_month, festival_next_month;
 
@@ -198,7 +196,7 @@ function createDuringFestival(festival){
                                             '</div>' +
                                             '<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>'
                                         );
-                                        if(shows_len >0 ){
+                                        if(shows_len >0){
                                             for(var j = 0; j <shows_len; j++){
                                                 var show = shows.item(j);
                                                 $('#during_festival_' + stage.id + '_carousel').append(
@@ -223,10 +221,8 @@ function createDuringFestival(festival){
                         })(stage);
                     }
                 }
-
-                else {
+                else
                     $('#during_festival_page').append('Não ha palcos para este festival!');
-                }
 
                 $('#during_festival_page').append(
                     '<nav class="nav_bottom">' +

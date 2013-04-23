@@ -81,7 +81,8 @@ function buildLineup(stages, days){
                             $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
                         }
                         else
-                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('<div class="padded">Ainda não existem espectáculos para este palco neste dia!</div>');
+                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
+                                '<div class="padded">Ainda não existem espectáculos para este palco neste dia!</div>');
 
                         if(s == (len - 1))
                             finishLineupStage(day, stages);
