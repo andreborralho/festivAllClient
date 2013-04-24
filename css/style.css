@@ -41,6 +41,8 @@ video {
 }
 body {
   line-height: 1;
+  width:100%;
+  height:100%;
 }
 ol,
 ul {
@@ -197,6 +199,7 @@ table {
   position: relative;
   display: table;
   width: 100%;
+  height: 100%;
 }
 .column {
   display: table-cell;
@@ -474,22 +477,33 @@ a {
   bottom: 0;
   width: 100%;
   border-top: 1px solid #b43a34;
+  height: 11%;
   /*.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));*/
 
 }
 .nav_bottom .column {
+  height:100%;
   width: 25%;
   padding: 0;
   background-color: #2e2e2e;
 }
 .nav_bottom .item {
+  padding:10px;
   display: block;
   border-right: 1px solid #555555;
   border-bottom: 5px solid #b43a34;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-  line-height: 55px;
+  height: 100%;
+}
+
+
+/* SPLASH
+-------------------------------------------------------------------------- */
+#loaderSplash{
+    width:100%;
+    heigth:100%;
 }
 /* HOME
 -------------------------------------------------------------------------- */
@@ -551,6 +565,10 @@ a {
 }
 /* DURING FESTIVAL
 -------------------------------------------------------------------------- */
+
+#during_festival_scroll_wrapper{
+    height:88%;
+}
 
 .icon_swipe_left,
 .icon_swipe_right {

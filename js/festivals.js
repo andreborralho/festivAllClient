@@ -51,9 +51,9 @@ function initFestivalsCarousel(){
                 $('#festivals_nav_item').addClass('not_current prev').removeClass('current');
 
                 //document.getElementById('search_input').focus();
-
-                softkeyboard.show();
-                $('#search_input').get().focus();
+                festivals_carousel.refreshItems();
+                //softkeyboard.show();
+                //$('#search_input').get().focus();
                 //$('#search_input').trigger('click');
             }
             carousel_pages.festivals = index;
