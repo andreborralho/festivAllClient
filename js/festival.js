@@ -23,7 +23,7 @@ function queryFestivalSuccess(tx, results) {
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
-    //diff = -1; //descomentar esta linha para experimentar o festival durante
+    diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -177,7 +177,7 @@ function createDuringFestival(festival){
                 var stages = results.rows;
                 var stages_len = stages.length;
                 var stage, stage_id;
-                $('#during_festival_page').empty();
+                $('#during_festival_scroller').empty();
 
                 if(stages_len > 0){
                     for(var i = 0; i<stages_len; i++){
@@ -189,7 +189,7 @@ function createDuringFestival(festival){
                                     function(tx,results){
                                         var shows = results.rows;
                                         var shows_len = shows.length;
-                                        $('#during_festival_page').append(
+                                        $('#during_festival_scroller').append(
                                             '<div class="row during_festival_header">' +
                                                 '<span>' + stage.name + '</span>' +
                                             '</div>' +
@@ -221,7 +221,7 @@ function createDuringFestival(festival){
                     }
                 }
                 else
-                    $('#during_festival_page').append('Não ha palcos para este festival!');
+                    $('#during_festival_scroller').append('Não ha palcos para este festival!');
 
                 $('#during_festival_page').append(
                     '<nav class="nav_bottom">' +
@@ -241,9 +241,29 @@ function createDuringFestival(festival){
                         '</ul>' +
                     '</nav>'
                 );
+                $('#during_shows_button').unbind().bind('click', function(){
+                    createShowsContainer(festival.id);
+                    changeContainers("#shows", current_festival_name, "Artistas");
+                });
+
+                $('#during_lineup_button').unbind().bind('click', function(){
+                    createLineupContainer(festival.id);
+                    changeContainers("#lineup", current_festival_name, "Cartaz");
+                });
+
+                $('#during_info_button').unbind().bind('click', function(){
+                    createInfoContainer(festival.id);
+                    changeContainers("#info", current_festival_name, "Informação");
+                });
+
+                $('#during_map_button').unbind().bind('click', function(){
+                    createMapContainer(festival.map);
+                    changeContainers("#map", current_festival_name, "Mapa");
+                });
+
             }, errorQueryCB);
     }, errorCB);
-
+    during_festival_scroller = $('#during_festival_scroller').scroller();
 }
 
 function dhm(t){
