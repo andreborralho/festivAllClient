@@ -1,5 +1,14 @@
 // SHOWS_CONTAINER
 
+function createShowsContainer(festival_id){
+
+    db.transaction(function (tx){
+        tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
+            'FROM SHOWS INNER JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID INNER JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
+            'WHERE SHOWS.FESTIVAL_ID='+festival_id +' ORDER BY SHOWS.NAME', [], queryFestivalShowsSuccess, errorQueryCB);
+    }, errorCB);
+}
+
 // Success callback for the query all the shows of one festival
 function queryFestivalShowsSuccess(tx, results) {
 
@@ -53,11 +62,11 @@ function queryFestivalShowsSuccess(tx, results) {
 	}
 
     $('#shows_page_list').scroller();
-    initFestivalCarousel();
-    changeContainers("#before_festival", current_festival_name, "");
+//    initFestivalCarousel();
+    //changeContainers("#before_festival", current_festival_name, "");
 
 }
-
+/*
 function initFestivalCarousel(){
 
     //inits the before_festival_carousel
@@ -77,7 +86,7 @@ function initFestivalCarousel(){
             carousel_pages.before_festival = index;
         }
     });
-}
+}*/
 
 function changeNumberToMonthAbrev(numeric_month){
     var month;

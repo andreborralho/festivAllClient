@@ -40,6 +40,7 @@ function queryFestivalSuccess(tx, results) {
     }
     else if (diff > 0){ //before festival
         createBeforeFestival(festival, festivals, diff);
+        changeContainers("#before_festival", current_festival_name, "");
     }
     /*
     else if (){ //after festival
@@ -51,7 +52,6 @@ function queryFestivalSuccess(tx, results) {
 function appendFestivalHTML(){
     $('#before_festival_carousel').remove();
     $('#before_festival').append('' +
-        '<div id="before_festival_carousel" class="carousel" data-role="carousel">' +
             '<div id="before_festival_page" data-role="page">' +
 
                 '<ul class="before_festival_details padded">' +
@@ -94,17 +94,10 @@ function appendFestivalHTML(){
                     '</ul>' +
                 '</nav>' +
             '</div>' +
-
-            '<div id="shows_page" class="page" data-role="page">' +
-                '<div id="shows_scroll_wrapper" class="scroll_wrapper">' +
-                    '<ul id="shows_page_list"></ul>' +
-                '</div>' +
-            '</div>' +
         '</div>');
 }
 
 function createBeforeFestival(festival, festivals, diff){
-    appendFestivalHTML();
 
     db.transaction(function (tx){
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
@@ -115,9 +108,15 @@ function createBeforeFestival(festival, festivals, diff){
 
     var dhms = dhm(diff).toString();
 
+    $('#festival_days').empty();
     $('#festival_countdown_days').text(dhms.split(':')[0]);
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
+
+    $('#before_shows_button').unbind().bind('click', function(){
+        createShowsContainer(festival.id);
+        changeContainers("#shows", current_festival_name, "Artistas");
+    });
 
     $('#before_lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
