@@ -23,7 +23,7 @@ function queryFestivalSuccess(tx, results) {
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
-    diff = -1; //descomentar esta linha para experimentar o festival durante
+    //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -224,22 +224,20 @@ function createDuringFestival(festival){
                     $('#during_festival_scroller').append('Não ha palcos para este festival!');
 
                 $('#during_festival_page').append(
-                    '<nav class="nav_bottom">' +
-                        '<ul class="row">' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_shows_button" class="item">Bandas</a>' +
-                            '</li>' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_lineup_button" class="item">Cartaz</a>' +
-                            '</li>' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_info_button" class="item">Info</a>' +
-                            '</li>' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_map_button" class="item no_bdr_r">Mapa</a>' +
-                            '</li>' +
-                        '</ul>' +
-                    '</nav>'
+                    '<ul class="nav_bottom row">' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_shows_button" class="item">Bandas</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_lineup_button" class="item">Cartaz</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_info_button" class="item">Info</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_map_button" class="item no_bdr_r">Mapa</a>' +
+                        '</li>' +
+                    '</ul>'
                 );
                 $('#during_shows_button').unbind().bind('click', function(){
                     createShowsContainer(festival.id);
