@@ -40,14 +40,14 @@
     <!-- ============================== MAIN MENU ===================================== -->
     <nav id="menu" class="container hidden" data-role="container">
         <ul class="list">
-            <li><a href="#" class="link">Home</a></li>
+            <li><a href="#" id="menu_home_link" class="link">Home</a></li>
             <!--<li><a href="#" class="link">Pesquisa</a></li>-->
         </ul>
         <ul class="list">
             <!--<li><a href="#" class="link">Definições</a></li>-->
-            <li><a href="#" id="about_us_li" class="link" onclick="aboutusButton()">Quem somos</a></li>
-            <li><a href="#" id="feedback_li" class="link" onclick="feedbackButton()">Feedback</a></li>
-            <li><a href="#" class="link">Sair</a></li>
+            <li><a href="#" id="menu_about_us_link" class="link">Quem somos</a></li>
+            <li><a href="#" id="menu_feedback_link" class="link">Feedback</a></li>
+            <li><a href="#" id="menu_exit_link" class="link">Sair</a></li>
         </ul>
     </nav>
 
@@ -167,7 +167,6 @@
     <div id="lineup" class="container" data-role="container">
 
         <!-- Nav top -->
-        <!--<nav class="nav_top" data-role="button_nav">-->
         <div id="lineup_day_scroll_wrapper">
             <ul id="lineup_day_buttons" class="nav_top">
             </ul>
@@ -237,8 +236,12 @@
     </div>
 
     <!-- ================================ ABOUTUS ====================================== -->
-    <div id="aboutus" class="container" data-role="container">
-
+    <div id="about_us" class="container" data-role="container">
+        <div id="about_us_page" class="page" data-role="page">
+            <div id="about_us_scroll_wrapper" class="scroll_wrapper">
+                <ul id="about_us_page_list"></ul>
+            </div>
+        </div>
     </div>
 
     <!-- ================================ FEEDBACK ====================================== -->

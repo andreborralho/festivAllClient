@@ -43,7 +43,7 @@ function createInfoContainer(festival_id){
     $('#weather_nav_item').addClass('hidden').removeClass('current');
 }
 
-// Success callback for the the query of one festival
+// Success callback for the the query info of one festival
 function queryInfoSuccess(tx, results) {
     $('#info_carousel').remove();
     $('#info').append('' +

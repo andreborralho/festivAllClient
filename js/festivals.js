@@ -52,7 +52,7 @@ function initFestivalsCarousel(){
 
                 //document.getElementById('search_input').focus();
                 festivals_carousel.refreshItems();
-                //softkeyboard.show();
+                softkeyboard.show();
                 //$('#search_input').get().focus();
                 //$('#search_input').trigger('click');
             }

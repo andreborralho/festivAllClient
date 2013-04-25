@@ -23,7 +23,7 @@ function queryFestivalSuccess(tx, results) {
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
-    diff = -1; //descomentar esta linha para experimentar o festival durante
+    //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -47,54 +47,6 @@ function queryFestivalSuccess(tx, results) {
         changeContainers("#after_festival");
         createAfterFestival();
     }*/
-}
-
-function appendFestivalHTML(){
-    $('#before_festival_carousel').remove();
-    $('#before_festival').append('' +
-            '<div id="before_festival_page" data-role="page">' +
-
-                '<ul class="before_festival_details padded">' +
-                    '<li>' +
-                        '<span class="icon_arrow"></span>' +
-                        '<span id="festival_days"></span>' +
-                    '</li>' +
-                    '<li>' +
-                        '<span class="icon_arrow"></span>' +
-                        '<span id="festival_city"></span>' +
-                    '</li>' +
-                    '<li>' +
-                        '<span class="icon_arrow"></span>' +
-                        '<span id="festival_price"></span>' +
-                    '</li>' +
-                '</ul>' +
-                
-                '<p id="festival_countdown">' +
-                    '<span>Faltam</span>' +
-                    '<span id="festival_countdown_days"></span>' +
-                    '<span class="last-line">dias</span>' +
-                '</p>' +
-
-                '<img class="countdown_bg" src="img/countdown_bg.png">' +
-
-                '<nav class="nav_bottom">' +
-                    '<ul class="row">' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_shows_button" class="item">Bandas</a>' +
-                        '</li>' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_lineup_button" class="item">Cartaz</a>' +
-                        '</li>' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_info_button" class="item">Info</a>' +
-                        '</li>' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_map_button" class="item no_bdr_r">Mapa</a>' +
-                        '</li>' +
-                    '</ul>' +
-                '</nav>' +
-            '</div>' +
-        '</div>');
 }
 
 function createBeforeFestival(festival, festivals, diff){

@@ -111,11 +111,14 @@ function appendStagesToNavBar(stages){
 
     for(var p = 0; p<stages.length; p++){
         if(p==0)
-            lineup_stages_nav_bar.append('<li><a id="stage_' + stages[p].id + '_nav_item" class="current" href="#">' + stages[p].name + '</a></li>');
+            lineup_stages_nav_bar.append('' +
+                '<li><a id="stage_' + stages[p].id + '_nav_item" class="current" href="#">' + stages[p].name + '</a></li>');
         else if(p==1)
-            lineup_stages_nav_bar.append('<li><a id="stage_' + stages[p].id + '_nav_item" class="not_current next" href="#">' + stages[p].name + '</a></li>');
+            lineup_stages_nav_bar.append('' +
+                '<li><a id="stage_' + stages[p].id + '_nav_item" class="not_current next" href="#">' + stages[p].name + '</a></li>');
         else
-            lineup_stages_nav_bar.append('<li><a id="stage_' + stages[p].id + '_nav_item" class="hidden" href="#">' + stages[p].name + '</a></li>');
+            lineup_stages_nav_bar.append('' +
+                '<li><a id="stage_' + stages[p].id + '_nav_item" class="hidden" href="#">' + stages[p].name + '</a></li>');
     }
 }
 
