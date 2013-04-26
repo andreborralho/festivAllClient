@@ -65,8 +65,9 @@ function changeContainers(page, title, subtitle){
             header_title_selector.text(title);
     }
     else if(page =="#menu"){
-        header_title_selector.empty().removeClass('heading0').addClass('heading1').text('FestivAll');
-        $('#header_subtitle').text('Menu');
+        header_title_selector.removeClass('heading1').addClass('heading0');
+        header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
+        $('#header_subtitle').empty();
     }
     else if(page =="#search_results"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text(search_token);
@@ -174,6 +175,7 @@ function getLastSync(callback) {
                 //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
 
             tx.executeSql(sql, [],
@@ -235,6 +237,7 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS GALLERIES');
     tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
     tx.executeSql('DROP TABLE IF EXISTS VIDEOS');
+    tx.executeSql('DROP TABLE IF EXISTS ABOUT_US');
 
     tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255),  city VARCHAR(255), ' +
         'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets_price VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
@@ -249,6 +252,7 @@ function populateDB(tx) {
     //tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
     tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, url VARCHAR(255), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
 
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
@@ -358,6 +362,16 @@ function insertData(data){
                     //console.log("Inserting in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO VIDEOS (id, name, show_id, url, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.show_id + ', "' + l.url + '", "' + l.updated_at + '")');
+                }, errorCB, successCB);
+            });
+        }
+
+        else if(k=='about_us'){
+            $.each(v, function(i, l){
+                db.transaction(function(tx){
+                    //console.log("Inserting in " + k);
+                    tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, title, text, updated_at) VALUES (' + l.id +
+                        ', "' + l.title + '", "' + l.text + '", "' + l.updated_at + '")');
                 }, errorCB, successCB);
             });
         }

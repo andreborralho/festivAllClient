@@ -40,14 +40,14 @@
     <!-- ============================== MAIN MENU ===================================== -->
     <nav id="menu" class="container hidden" data-role="container">
         <ul class="list">
-            <li><a href="#" class="link">Home</a></li>
+            <li><a href="#" id="menu_home_link" class="link">Home</a></li>
             <!--<li><a href="#" class="link">Pesquisa</a></li>-->
         </ul>
         <ul class="list">
             <!--<li><a href="#" class="link">Definições</a></li>-->
-            <li><a href="#" id="about_us_li" class="link" onclick="aboutusButton()">Quem somos</a></li>
-            <li><a href="#" id="feedback_li" class="link" onclick="feedbackButton()">Feedback</a></li>
-            <li><a href="#" class="link">Sair</a></li>
+            <li><a href="#" id="menu_about_us_link" class="link">Quem somos</a></li>
+            <li><a href="#" id="menu_feedback_link" class="link">Feedback</a></li>
+            <li><a href="#" id="menu_exit_link" class="link">Sair</a></li>
         </ul>
     </nav>
 
@@ -86,18 +86,48 @@
 
     <!-- ============================== FESTIVAL - before - single ===================================== -->
     <div id="before_festival" class="container" data-role="container">
+        <div id="before_festival_page" class="page" data-role="page">
 
-        <!-- Swipe_bar -->
-        <nav class="swipe_bar row" data-role="swipe_bar">
-            <ul>
+            <ul class="before_festival_details padded">
                 <li>
-                    <a id="festival_nav_item" class="current" href="#">Festival</a>
+                    <span class="icon_arrow"></span>
+                    <span id="festival_days"></span>
                 </li>
                 <li>
-                    <a id="shows_nav_item" class="not_current next" href="#">Bandas</a>
+                    <span class="icon_arrow"></span>
+                    <span id="festival_city"></span>
+                </li>
+                <li>
+                    <span class="icon_arrow"></span>
+                    <span id="festival_price"></span>
                 </li>
             </ul>
-        </nav>
+
+            <p id="festival_countdown">
+                <span>Faltam</span>
+                <span id="festival_countdown_days"></span>
+                <span class="last-line">dias</span>
+            </p>
+
+            <img class="countdown_bg" src="img/countdown_bg.png">
+
+            <nav class="nav_bottom">
+                <ul class="row">
+                    <li class="column">
+                        <a href="#" id="before_shows_button" class="item">Bandas</a>
+                    </li>
+                    <li class="column">
+                        <a href="#" id="before_lineup_button" class="item">Cartaz</a>
+                    </li>
+                    <li class="column">
+                        <a href="#" id="before_info_button" class="item">Info</a>
+                    </li>
+                    <li class="column">
+                        <a href="#" id="before_map_button" class="item no_bdr_r">Mapa</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <!-- ============================== FESTIVAL - during - single ===================================== -->
@@ -125,10 +155,18 @@
     </div>
 
     <!-- ============================== LINEUP (cartaz) ===================================== -->
+    <div id="shows" class="container" data-role="container">
+        <div id="shows_page" class="page" data-role="page">
+            <div id="shows_scroll_wrapper" class="scroll_wrapper">
+                <ul id="shows_page_list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================== LINEUP (cartaz) ===================================== -->
     <div id="lineup" class="container" data-role="container">
 
         <!-- Nav top -->
-        <!--<nav class="nav_top" data-role="button_nav">-->
         <div id="lineup_day_scroll_wrapper">
             <ul id="lineup_day_buttons" class="nav_top">
             </ul>
@@ -198,8 +236,12 @@
     </div>
 
     <!-- ================================ ABOUTUS ====================================== -->
-    <div id="aboutus" class="container" data-role="container">
-
+    <div id="about_us" class="container" data-role="container">
+        <div id="about_us_page" class="page" data-role="page">
+            <div id="about_us_scroll_wrapper" class="scroll_wrapper">
+                <ul id="about_us_page_list"></ul>
+            </div>
+        </div>
     </div>
 
     <!-- ================================ FEEDBACK ====================================== -->

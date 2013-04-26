@@ -23,7 +23,7 @@ function queryFestivalSuccess(tx, results) {
     var first_day_date = new Date(festival_date);
     var diff = Math.abs(first_day_date - curr_date);
 
-    diff = -1; //descomentar esta linha para experimentar o festival durante
+    //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -40,6 +40,7 @@ function queryFestivalSuccess(tx, results) {
     }
     else if (diff > 0){ //before festival
         createBeforeFestival(festival, festivals, diff);
+        changeContainers("#before_festival", current_festival_name, "");
     }
     /*
     else if (){ //after festival
@@ -48,63 +49,7 @@ function queryFestivalSuccess(tx, results) {
     }*/
 }
 
-function appendFestivalHTML(){
-    $('#before_festival_carousel').remove();
-    $('#before_festival').append('' +
-        '<div id="before_festival_carousel" class="carousel" data-role="carousel">' +
-            '<div id="before_festival_page" data-role="page">' +
-
-                '<ul class="before_festival_details padded">' +
-                    '<li>' +
-                        '<span class="icon_arrow"></span>' +
-                        '<span id="festival_days"></span>' +
-                    '</li>' +
-                    '<li>' +
-                        '<span class="icon_arrow"></span>' +
-                        '<span id="festival_city"></span>' +
-                    '</li>' +
-                    '<li>' +
-                        '<span class="icon_arrow"></span>' +
-                        '<span id="festival_price"></span>' +
-                    '</li>' +
-                '</ul>' +
-                
-                '<p id="festival_countdown">' +
-                    '<span>Faltam</span>' +
-                    '<span id="festival_countdown_days"></span>' +
-                    '<span class="last-line">dias</span>' +
-                '</p>' +
-
-                '<img class="countdown_bg" src="img/countdown_bg.png">' +
-
-                '<nav class="nav_bottom">' +
-                    '<ul class="row">' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_shows_button" class="item">Bandas</a>' +
-                        '</li>' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_lineup_button" class="item">Cartaz</a>' +
-                        '</li>' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_info_button" class="item">Info</a>' +
-                        '</li>' +
-                        '<li class="column">' +
-                            '<a href="#" id="before_map_button" class="item no_bdr_r">Mapa</a>' +
-                        '</li>' +
-                    '</ul>' +
-                '</nav>' +
-            '</div>' +
-
-            '<div id="shows_page" class="page" data-role="page">' +
-                '<div id="shows_scroll_wrapper" class="scroll_wrapper">' +
-                    '<ul id="shows_page_list"></ul>' +
-                '</div>' +
-            '</div>' +
-        '</div>');
-}
-
 function createBeforeFestival(festival, festivals, diff){
-    appendFestivalHTML();
 
     db.transaction(function (tx){
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
@@ -115,11 +60,12 @@ function createBeforeFestival(festival, festivals, diff){
 
     var dhms = dhm(diff).toString();
 
+    $('#festival_days').empty();
     $('#festival_countdown_days').text(dhms.split(':')[0]);
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
 
-    $('#during_shows_button').unbind().bind('click', function(){
+    $('#before_shows_button').unbind().bind('click', function(){
         createShowsContainer(festival.id);
         changeContainers("#shows", current_festival_name, "Artistas");
     });
@@ -230,22 +176,20 @@ function createDuringFestival(festival){
                     $('#during_festival_scroller').append('Não ha palcos para este festival!');
 
                 $('#during_festival_page').append(
-                    '<nav class="nav_bottom">' +
-                        '<ul class="row">' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_shows_button" class="item">Bandas</a>' +
-                            '</li>' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_lineup_button" class="item">Cartaz</a>' +
-                            '</li>' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_info_button" class="item">Info</a>' +
-                            '</li>' +
-                            '<li class="column">' +
-                                '<a href="#" id="during_map_button" class="item no_bdr_r">Mapa</a>' +
-                            '</li>' +
-                        '</ul>' +
-                    '</nav>'
+                    '<ul class="nav_bottom row">' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_shows_button" class="item">Bandas</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_lineup_button" class="item">Cartaz</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_info_button" class="item">Info</a>' +
+                        '</li>' +
+                        '<li class="column">' +
+                            '<a href="#" id="during_map_button" class="item no_bdr_r">Mapa</a>' +
+                        '</li>' +
+                    '</ul>'
                 );
                 $('#during_shows_button').unbind().bind('click', function(){
                     createShowsContainer(festival.id);
