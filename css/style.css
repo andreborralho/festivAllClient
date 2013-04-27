@@ -459,21 +459,21 @@ a {
   white-space: nowrap;
 }
 .nav_top .column {
-  background-color: #2e2e2e;
-  padding: 0;
-}
-.nav_top .item {
   display: inline-block;
-  padding: 0 13px;
+  width: 64%;
+  height: 50px;
+  padding: 0;
   border-right: 1px solid #555555;
-  font-size: 18px;
+  background-color: #2e2e2e;
   text-align: center;
   line-height: 50px;
 }
 .nav_top .current {
-  padding: 0 12px;
   border-bottom: 5px solid #b43a34;
   font-weight: bold;
+}
+.nav_top .item {
+  font-size: 18px;
 }
 .nav_bottom {
   z-index: 2;

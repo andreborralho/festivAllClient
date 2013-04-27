@@ -166,13 +166,13 @@ function finishLineupStage(day, stages){
         '</li>'
     );
 
-    $('#lineup_day_buttons .item').eq(0).addClass('current');
+    $('#lineup_day_buttons .column').eq(0).addClass('current');
     $('#' + day.id + '_day_button').bind('click', function(){
         //set visibility to the correct carousel in the lineup frame
         $('[data-role="lineup_carousel"]').css('display', 'none');
         $('#lineup_carousel_' + day.id).css('display', 'block');
-        $('#lineup_day_buttons .item').removeClass('current');
-        $(this).find('.item').addClass('current');
+        $('#lineup_day_buttons .column').removeClass('current');
+        $(this).addClass('current');
 
         $('#stage_' + stages[0].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
         $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');
