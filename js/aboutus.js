@@ -23,7 +23,10 @@ function queryAboutUsSuccess(tx, results) {
         var about_u_title = about_u.title;
         var about_u_text = about_u.text;
 
-        $('#about_us_page_list').append('<li class="about_us_title">' + about_u_title + '</li><li>' + about_u_text + '</li>');
+        $('#about_us_page_list').append(
+            '<h2 class="general_heading">' + about_u_title + '</h2>' +
+            '<p>' + about_u_text + '</p>'
+        );
     }
 
     $('#about_us_page_list').scroller();

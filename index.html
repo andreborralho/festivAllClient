@@ -237,21 +237,28 @@
 
     <!-- ================================ ABOUTUS ====================================== -->
     <div id="about_us" class="container" data-role="container">
-        <div id="about_us_page" class="page" data-role="page">
+        <div id="about_us_page" class="page padded" data-role="page">
             <div id="about_us_scroll_wrapper" class="scroll_wrapper">
-                <ul id="about_us_page_list"></ul>
+                <div id="about_us_page_list">
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- ================================ FEEDBACK ====================================== -->
 
+    <!-- ================================ FEEDBACK ====================================== -->
     <div id="feedback" data-role="container">
+        <div class="padded">
+            <h2 class="general_heading">Dá-nos a tua opinião!</h2>
+            <p>É bastante importante para melhorarmos a app e não te deixarmos perder no teu festival favorito.</p>
+        </div>
         <form id="feedbackForm">
-            <input id="inputFeedbackAuthor" type="text" placeholder="Nome">
-            <input id="inputFeedbackAuthorEmail" type="text" placeholder="Email, optional" >
-            <input id="inputFeedbackText" type="text" placeholder="A tua ajuda é importante">
-            <input type="submit" id="submitFeedback" value="Enviar">
+            <input id="inputFeedbackAuthor" class="input_field" type="text" placeholder="Nome">
+            <input id="inputFeedbackAuthorEmail" class="input_field" type="text" placeholder="Email (opcional)" >
+            <textarea id="inputFeedbackText" class="textarea" placeholder="Manda o teu bitaite!"></textarea>
+            <div type="submit" id="submitFeedback" class="input_button">
+                <span class="icon_send"></span>
+            </div>
         </form>
     </div>
 
