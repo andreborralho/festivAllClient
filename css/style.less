@@ -177,15 +177,12 @@ a {
 -------------------------------------------------------------------------- */
 #menu {
     z-index: 99;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 80%;
-    height: 100%;
-    border-top: 5px solid @maincolor;
+    left: 0;
     margin-top: 13%;
-    background-color: #EEE;
     .list {
         border-bottom: 3px solid @maincolor;
     }
@@ -195,6 +192,16 @@ a {
         border-bottom: 1px solid @lightgrey;
         color: @bgcolor;
     }
+}
+#menu_container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 80%;
+    height: 100%;
+    border-top: 5px solid @maincolor;
+    background-color: #EEE;
 }
 
 /* FEEDBACK

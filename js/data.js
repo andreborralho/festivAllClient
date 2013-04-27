@@ -64,11 +64,11 @@ function changeContainers(page, title, subtitle){
         else
             header_title_selector.text(title);
     }
-    else if(page =="#menu"){
+    /*else if(page =="#menu"){
         header_title_selector.removeClass('heading1').addClass('heading0');
         header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
         $('#header_subtitle').empty();
-    }
+    }*/
     else if(page =="#feedback"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menú");
         $('#header_subtitle').text("Feedback");
@@ -132,22 +132,19 @@ function fixHeaderLink(page){
 }
 
 // process the confirmation dialog result
-function onConfirm(button) {
+    function onConfirm(button) {
     if(button==2)
-        navigator.app.exitApp();
+    navigator.app.exitApp();
 }
-
 // Show a custom confirmation dialog
-//
-function showConfirm() {
+function confirmExit() {
     navigator.notification.confirm(
-        'Queres mesmo bazar?',  // message
-        onConfirm,              // callback to invoke with index of button pressed
-        'Sair',                 // title
-        'Voltar,Sair'          // buttonLabels
+    'Queres mesmo bazar?', // message
+    onConfirm, // callback to invoke with index of button pressed
+    'Sair', // title
+    'Voltar,Sair' // buttonLabels
     );
 }
-
 
 
 //Data - client side DB
