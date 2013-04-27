@@ -38,17 +38,19 @@
 
 
     <!-- ============================== MAIN MENU ===================================== -->
-    <nav id="menu" class="container hidden" data-role="container">
-        <ul class="list">
-            <li><a href="#" id="menu_home_link" class="link">Home</a></li>
-            <!--<li><a href="#" class="link">Pesquisa</a></li>-->
-        </ul>
-        <ul class="list">
-            <!--<li><a href="#" class="link">Definições</a></li>-->
-            <li><a href="#" id="menu_about_us_link" class="link">Quem somos</a></li>
-            <li><a href="#" id="menu_feedback_link" class="link">Feedback</a></li>
-            <li><a href="#" id="menu_exit_link" class="link">Sair</a></li>
-        </ul>
+    <nav id="menu" class="hidden">
+        <div id="menu_container">
+            <ul class="list">
+                <li><a href="#" id="menu_home_link" class="link">Home</a></li>
+                <!--<li><a href="#" class="link">Pesquisa</a></li>-->
+            </ul>
+            <ul class="list">
+                <!--<li><a href="#" class="link">Definições</a></li>-->
+                <li><a href="#" id="menu_about_us_link" class="link">Quem somos</a></li>
+                <li><a href="#" id="menu_feedback_link" class="link">Feedback</a></li>
+                <li><a href="#" id="menu_exit_link" class="link">Sair</a></li>
+            </ul>
+        </div>
     </nav>
 
 
@@ -237,21 +239,28 @@
 
     <!-- ================================ ABOUTUS ====================================== -->
     <div id="about_us" class="container" data-role="container">
-        <div id="about_us_page" class="page" data-role="page">
+        <div id="about_us_page" class="page padded" data-role="page">
             <div id="about_us_scroll_wrapper" class="scroll_wrapper">
-                <ul id="about_us_page_list"></ul>
+                <div id="about_us_page_list">
+                </div>
             </div>
         </div>
     </div>
 
     <!-- ================================ FEEDBACK ====================================== -->
-
     <div id="feedback" class="container" data-role="container">
+        <div class="padded">
+            <h2 class="general_heading">Dá-nos a tua opinião!</h2>
+            <p>É bastante importante para melhorarmos a app e não te deixarmos perder no teu festival favorito.</p>
+        </div>
+
         <form id="feedbackForm">
-            <input id="inputFeedbackAuthor" type="text" placeholder="Nome">
-            <input id="inputFeedbackAuthorEmail" type="text" placeholder="Email, optional" >
-            <input id="inputFeedbackText" type="text" placeholder="A tua ajuda é importante">
-            <input type="submit" id="submitFeedback" value="Enviar">
+            <input id="inputFeedbackAuthor" class="input_field" type="text" placeholder="Nome">
+            <input id="inputFeedbackAuthorEmail" class="input_field" type="text" placeholder="Email (opcional)" >
+            <textarea id="inputFeedbackText" class="textarea" placeholder="Manda o teu bitaite!"></textarea>
+            <div type="submit" id="submitFeedback" class="input_button">
+                <span class="icon_send"></span>
+            </div>
         </form>
     </div>
 

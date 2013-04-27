@@ -278,19 +278,30 @@ a {
   font-size: 0.875em;
   line-height: 1.1em;
 }
+.general_heading {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
 .input_wrap {
   position: relative;
 }
-.input_field {
+.input_field,
+.textarea {
   width: 100%;
-  height: 55px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 4px 67px 4px 10px;
+  padding: 5px 10px;
   border: 3px solid #b43a34;
+  margin-bottom: 4px;
   background-color: #232323;
   font-size: 16px;
   color: white;
+}
+.input_field {
+  height: 55px;
+}
+.textarea {
+  height: 95px;
 }
 .input_button {
   width: 70px;
@@ -395,15 +406,12 @@ a {
 
 #menu {
   z-index: 99;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 80%;
-  height: 100%;
-  border-top: 5px solid #b43a34;
+  left: 0;
   margin-top: 13%;
-  background-color: #eeeeee;
 }
 #menu .list {
   border-bottom: 3px solid #b43a34;
@@ -413,6 +421,25 @@ a {
   padding: 15px 20px;
   border-bottom: 1px solid #666666;
   color: #232323;
+}
+#menu_container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 80%;
+  height: 100%;
+  border-top: 5px solid #b43a34;
+  background-color: #eeeeee;
+}
+/* FEEDBACK
+-------------------------------------------------------------------------- */
+
+.icon_send {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(../img/sprite.png) -36px -72px;
 }
 /* SWIPE BAR
 -------------------------------------------------------------------------- */
@@ -474,6 +501,12 @@ a {
   padding: 0 12px;
   border-bottom: 5px solid #b43a34;
   font-weight: bold;
+}
+.nav_top .three {
+  padding: 0 25px;
+}
+.nav_top .four {
+  padding: 0 13px;
 }
 .nav_bottom {
   z-index: 2;
