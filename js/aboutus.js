@@ -16,6 +16,8 @@ function queryAboutUsSuccess(tx, results) {
     var about_us = results.rows;
     var len = about_us.length;
 
+    $('#about_us_page_list').empty();
+
     for(var i = 0; i <len; i++){
         var about_u = about_us.item(i);
         var about_u_title = about_u.title;
