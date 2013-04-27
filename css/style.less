@@ -260,20 +260,19 @@ a {
     /*.box-shadow(0 -6px 25px 6px rgba(0,0,0,0.8));*/
     .column {        
         .one-quarter;
-        height:100%;
+        height: 100%;
         padding: 0;
         background-color: #2e2e2e;
     }
     .item {
-        padding:10px;
-        height: 100%;
         display: block;
+        height: 100%;
+        padding-top: 15px;
         border-right: 1px solid #555;
         border-bottom: 5px solid @maincolor;
         font-size: 18px;
         font-weight: bold;
         text-align: center;
-        
     }
 }
 
@@ -284,14 +283,12 @@ a {
 .festival_list {
     margin-top: 2%;
     .item {
-        display: inline-block;
-        width: 33%;        
-        margin: 0;
-        padding: 0;
+        float: left;
+        width: 33.33%;
     }
     img {
+        float: left;
         width: 100%;   
-
     }
 }
 
@@ -338,6 +335,13 @@ a {
 }
 #before_festival_page{
     position: relative;
+    .nav_bottom {
+        height: 50px;
+        .item {
+            padding: 0;
+            line-height: 50px;
+        }
+    }
 }
 .countdown_bg {
     z-index: -1;
@@ -350,7 +354,7 @@ a {
 /* DURING FESTIVAL
 -------------------------------------------------------------------------- */
 #during_festival_scroll_wrapper{
-    height:88%;
+    height: 88%;
 }
 
 .icon_swipe_left,

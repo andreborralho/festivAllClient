@@ -492,9 +492,9 @@ a {
   background-color: #2e2e2e;
 }
 .nav_bottom .item {
-  padding: 10px;
-  height: 100%;
   display: block;
+  height: 100%;
+  padding-top: 15px;
   border-right: 1px solid #555555;
   border-bottom: 5px solid #b43a34;
   font-size: 18px;
@@ -508,12 +508,11 @@ a {
   margin-top: 2%;
 }
 .festival_list .item {
-  display: inline-block;
-  width: 33%;
-  margin: 0;
-  padding: 0;
+  float: left;
+  width: 33.33%;
 }
 .festival_list img {
+  float: left;
   width: 100%;
 }
 /* SEARCH
@@ -553,6 +552,13 @@ a {
 }
 #before_festival_page {
   position: relative;
+}
+#before_festival_page .nav_bottom {
+  height: 50px;
+}
+#before_festival_page .nav_bottom .item {
+  padding: 0;
+  line-height: 50px;
 }
 .countdown_bg {
   z-index: -1;
