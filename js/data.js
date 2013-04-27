@@ -7,8 +7,8 @@ var carousel_pages = {"festivals":0, "before_festival":0};
 
 //Loading
 function initDisplays(){
-    $('[data-role="container"]').css('display', 'none');
-    $('#loaderSplash').css('display', 'block');
+    $('.container').hide();
+    $('#loaderSplash').show();
     //set screen width and height according to device
     setHeightAndWidth();
 
@@ -32,8 +32,11 @@ function setHeightAndWidth(){
 function changeContainers(page, title, subtitle){
     var header_title_selector = $('#header_title');
 
-    $('[data-role="container"]').css('display', 'none');
-    $(page).css('display', 'block');
+    $('.container').show();
+    $(page).hide();
+
+    //$('.container').css('opacity','0');
+     //$(page).css('opacity','1');
 
     incrementHistory(page);
 
@@ -55,6 +58,15 @@ function changeContainers(page, title, subtitle){
 
         refreshNavBar('before_festival', ["#festival", "#shows"]);
     }
+    else if(page == "#shows"){
+        $('#header_subtitle').text("Bandas");
+        header_title_selector.removeClass('heading0').addClass('heading1');
+
+        if(title == undefined)
+            header_title_selector.text(current_festival_name);
+        else
+            header_title_selector.text(title);
+    }
     else if(page == "#lineup"){
         $('#header_subtitle').text("Cartaz");
         header_title_selector.removeClass('heading0').addClass('heading1');
@@ -70,13 +82,13 @@ function changeContainers(page, title, subtitle){
         $('#header_subtitle').empty();
     }
     else if(page =="#feedback"){
-        header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menú");
+        header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");
         $('#header_subtitle').text("Feedback");
 
 
     }
     else if(page =="#about_us"){
-        header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menú");
+        header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");
         $('#header_subtitle').text("Quem somos");
     }
 
@@ -93,9 +105,6 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading0').addClass('heading1').text(title);
         $('#header_subtitle').text(subtitle);
     }
-
-    /*$('[data-role="container"]').css('opacity','0');
-     $(page).css('opacity','1');*/
 }
 
 function refreshNavBar(key, pages){
@@ -115,7 +124,7 @@ function backButton(){
     var history_popped = history_array.pop();
 
     if(history_popped == undefined)
-        showConfirm();
+        confirmExit();
     else
         changeContainers(history_popped);
 }
@@ -138,8 +147,7 @@ function onConfirm(button) {
 }
 
 // Show a custom confirmation dialog
-//
-function showConfirm() {
+function confirmExit() {
     navigator.notification.confirm(
         'Queres mesmo bazar?',  // message
         onConfirm,              // callback to invoke with index of button pressed

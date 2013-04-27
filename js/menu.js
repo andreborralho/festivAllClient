@@ -41,4 +41,7 @@ function createMenuContainer(){
     $('#menu_feedback_link').unbind().bind('click', function(){
         feedbackButton();
     });
+    $('#menu_exit_link').unbind().bind('click', function(){
+        confirmExit();
+    });
 }

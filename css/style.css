@@ -552,6 +552,7 @@ a {
 }
 #before_festival_page {
   position: relative;
+  overflow: hidden;
 }
 #before_festival_page .nav_bottom {
   height: 50px;
@@ -625,6 +626,24 @@ a {
 .current_show {
   color: #b43a34;
 }
+/* SHOWS
+-------------------------------------------------------------------------- */
+
+.show_date {
+  display: block;
+}
+/* LINEUP
+-------------------------------------------------------------------------- */
+
+.lineup_frame {
+  height: 77%;
+}
+.lineup_carousel {
+  height: 100%;
+}
+.lineup_scroll_wrapper {
+  height: 100%;
+}
 /* WEATHER
 -------------------------------------------------------------------------- */
 
@@ -648,24 +667,6 @@ a {
 }
 .weather_icon {
   width: 64px;
-}
-/* LINEUP
--------------------------------------------------------------------------- */
-
-.lineup_frame {
-  height: 77%;
-}
-.lineup_carousel {
-  height: 100%;
-}
-.lineup_scroll_wrapper {
-  height: 100%;
-}
-/* SHOWS
--------------------------------------------------------------------------- */
-
-.show_date {
-  display: block;
 }
 /* SHOW VIDEOS
 -------------------------------------------------------------------------- */

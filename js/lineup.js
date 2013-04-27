@@ -1,6 +1,7 @@
 // LINEUP_CONTAINER
 
 var lineup_day_buttons_scroller;
+
 // Queries the local Database for a show
 function createLineupContainer(festival_id){
     db.transaction(function (tx) {
@@ -45,13 +46,16 @@ function buildLineup(stages, days){
 
         for(var s = 0; s<stages.length; s++){
             (function(day,stage,len,s,day_i,day_len){ //manha gigante, pouco legivel
-                var day_opening_time = day.opening_time.slice(11,13);
+                var day_opening_time = day.opening_time;
+                var day_closing_time = day.closing_time;
 
                 db.transaction(function(tx){
                     tx.executeSql('SELECT * FROM SHOWS' +
                         ' WHERE festival_id=' + day.festival_id + ' AND stage_id=' + stage.id + ' AND day_id=' + day.id +
-                        //' AND time(substr(TIME,"HH:MM:SS"),12,8)>=time("00:00:00", "HH:MM:SS") ORDER BY TIME', [],
-						' ORDER BY TIME', [],
+                        ' AND TIME(REPLACE(TIME,"T"," "))>=TIME(REPLACE("' + day_opening_time + '","T"," "))' +
+                        ' UNION SELECT * FROM SHOWS' +
+                        ' WHERE festival_id=' + day.festival_id + ' AND stage_id=' + stage.id + ' AND day_id=' + day.id +
+                        ' AND TIME(REPLACE(TIME,"T"," "))<=TIME(REPLACE("' + day_closing_time + '","T"," "))', [],
                         function(tx,results){
 
                         var shows = results.rows;
@@ -102,14 +106,13 @@ function buildLineup(stages, days){
             })(day,stages[s],stages.length, s, i, days_length);
         }
     }
-
 }
 
 function appendStagesToNavBar(stages){
     var lineup_stages_nav_bar = $('#lineup_stages_bar');
     lineup_stages_nav_bar.empty();
 
-    for(var p = 0; p<stages.length; p++){
+    for(var p = 0; p < stages.length; p++){
         if(p==0)
             lineup_stages_nav_bar.append('' +
                 '<li><a id="stage_' + stages[p].id + '_nav_item" class="current" href="#">' + stages[p].name + '</a></li>');
@@ -130,28 +133,27 @@ function finishLineupStage(day, stages){
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
-                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
-                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current');
-                $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden').removeClass('current');
-                $('#stage_' + stages[index+3].id + '_nav_item').addClass('hidden').removeClass('current');
+                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
+                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');
+                $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden').removeClass('current next prev');
             }
-            else if(index == 1){
-                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('current hidden');
-                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
-                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current hidden');
-                $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden').removeClass('current');
+            else if(index == stages.length - 1){
+                if(index > 1)
+                    $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden').removeClass('current');
 
-            }
-            else if(index == 2){
-                $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden').removeClass('current');
                 $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('current hidden');
                 $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
-                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current hidden');
             }
-            else if(index == 3){
-                $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden').removeClass('current');
-                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('current hidden');
-                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('not_current next prev');
+            else{
+                if(index > 1)
+                    $('#stage_' + stages[index-2].id + '_nav_item').addClass('hidden').removeClass('current');
+
+                $('#stage_' + stages[index-1].id + '_nav_item').addClass('not_current prev').removeClass('current hidden next');
+                $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
+                $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current hidden prev');
+
+                //if(index < stages.length - 1)
+                    $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden').removeClass('current');
             }
         }
     });
