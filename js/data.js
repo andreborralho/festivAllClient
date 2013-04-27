@@ -69,6 +69,17 @@ function changeContainers(page, title, subtitle){
         header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
         $('#header_subtitle').empty();
     }
+    else if(page =="#feedback"){
+        header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menú");
+        $('#header_subtitle').text("Feedback");
+
+
+    }
+    else if(page =="#about_us"){
+        header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menú");
+        $('#header_subtitle').text("Quem somos");
+    }
+
     else if(page =="#search_results"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text(search_token);
         $('#header_subtitle').text("Resultados da Pesquisa");
@@ -104,7 +115,7 @@ function backButton(){
     var history_popped = history_array.pop();
 
     if(history_popped == undefined)
-        navigator.app.exitApp();
+        showConfirm();
     else
         changeContainers(history_popped);
 }
@@ -119,6 +130,26 @@ function fixHeaderLink(page){
         history_popped = history_array.pop();
     }
 }
+
+// process the confirmation dialog result
+function onConfirm(button) {
+    if(button==2)
+        navigator.app.exitApp();
+}
+
+// Show a custom confirmation dialog
+//
+function showConfirm() {
+    navigator.notification.confirm(
+        'Queres mesmo bazar?',  // message
+        onConfirm,              // callback to invoke with index of button pressed
+        'Sair',                 // title
+        'Voltar,Sair'          // buttonLabels
+    );
+}
+
+
+
 //Data - client side DB
 
 // Cordova is ready
