@@ -89,7 +89,7 @@ function buildLineup(stages, days){
                                 '<div class="padded">Ainda não existem espectáculos para este palco neste dia!</div>');
 
                         if(s == (len - 1))
-                            finishLineupStage(day, stages);
+                            finishLineupStage(day, stages, day_len);
 
                         if(day_i == (day_len -1) && s == (len - 1) ){
 
@@ -125,7 +125,7 @@ function appendStagesToNavBar(stages){
     }
 }
 
-function finishLineupStage(day, stages){
+function finishLineupStage(day, stages, day_len){
 
     appendStagesToNavBar(stages);
 
@@ -158,28 +158,44 @@ function finishLineupStage(day, stages){
         }
     });
 
-
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
+
+
     $('#lineup_day_buttons').append(
         '<li id="' + day.id + '_day_button" class="column">' +
             '<a href="#" class="item">' +  show_day + ' ' + month + '</a>' +
-        '</li>'
+            '</li>'
     );
 
-    $('#lineup_day_buttons .item').eq(0).addClass('current');
+    //Resize the lineup buttons according to their number
+    if(day_len == 1){
+        var width =  String(window.innerWidth);
+        $('#' + day.id + '_day_button').css("width", width + 'px');
+    }else if (day_len == 2){
+        var width =  String(window.innerWidth/2);
+        $('#' + day.id + '_day_button').css("width", width + 'px');
+    }else if (day_len == 3){
+        var width =  String(window.innerWidth/3);
+        $('#' + day.id + '_day_button').css("width", width + 'px');
+    }else if (day_len >= 4){
+        var width =  String(window.innerWidth/4);
+        $('#' + day.id + '_day_button').css("width", width + 'px');
+    }
+
+    $('#lineup_day_buttons .column').eq(0).addClass('current');
+
     $('#' + day.id + '_day_button').bind('click', function(){
         //set visibility to the correct carousel in the lineup frame
         $('[data-role="lineup_carousel"]').css('display', 'none');
         $('#lineup_carousel_' + day.id).css('display', 'block');
-        $('#lineup_day_buttons .item').removeClass('current');
-        $(this).find('.item').addClass('current');
+        $('#lineup_day_buttons .column').removeClass('current');
+        $(this).addClass('current');
 
         $('#stage_' + stages[0].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
         $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');
         $('#stage_' + stages[2].id + '_nav_item').addClass('hidden').removeClass('current');
         $('#stage_' + stages[3].id + '_nav_item').addClass('hidden').removeClass('current');
     });
-
 }

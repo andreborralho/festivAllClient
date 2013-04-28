@@ -509,20 +509,20 @@ a {
   white-space: nowrap;
 }
 .nav_top .column {
-  background-color: #2e2e2e;
+  background-color:#2e2e2e;
+  display: inline-block;
   padding: 0;
+  border-right: 1px solid #555555;
 }
 .nav_top .item {
-  display: inline-block;
   padding: 0 13px;
-  border-right: 1px solid #555555;
   font-size: 18px;
   text-align: center;
   line-height: 50px;
 }
 .nav_top .current {
-  padding: 0 12px;
-  border-bottom: 5px solid #b43a34;
+  /*padding: 0 12px;*/
+  border-bottom: 3px solid #b43a34;
   font-weight: bold;
 }
 .nav_top .three {
