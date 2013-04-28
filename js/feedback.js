@@ -2,7 +2,7 @@ function createFeedbackContainer(){
 
 
     $('#header_link').unbind().bind('click', function(){
-        menuButton();
+        backButton();
     });
 
     $("#feedbackForm").submit(function(event) {

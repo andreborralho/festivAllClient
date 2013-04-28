@@ -3,11 +3,9 @@ function menuButton(e){
     if(!menuIsUp){
         menuIsUp = true;
         createMenuContainer();
-        //changeContainers('#menu', '', '');
     }
     else{
         menuIsUp = false;
-        //backButton();
         $('#menu').hide();
     }
 }
@@ -27,12 +25,12 @@ function aboutUsButton(){
 }
 
 function createMenuContainer(){
- /*   $('#header_link').unbind().bind('click', function(){
-        changeContainers('#festivals', '', '');
-        fixHeaderLink('#festivals');
+    $('#header_link').unbind().bind('click', function(){
+        backButton();
     });
-*/
-    $('#menu').css('display', 'block');
+
+    $('#menu').show();
+    //incrementHistory('#menu');
 
     $('#menu_home_link').unbind().bind('click', function(){
         $('#menu').hide();
@@ -51,6 +49,7 @@ function createMenuContainer(){
 
     $('#menu').not('#menu_container').bind('click', function(){
         $(this).hide();
+        menuIsUp = false;
     });
 
 }

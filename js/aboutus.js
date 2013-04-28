@@ -1,7 +1,6 @@
 function createAboutUsContainer(){
     $('#header_link').unbind().bind('click', function(){
-        menuButton();
-        fixHeaderLink("#menu");
+        backButton();
     });
 
     db.transaction(function (tx) {
