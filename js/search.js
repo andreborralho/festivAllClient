@@ -1,17 +1,25 @@
 var search_token;
+var current_page;
 
 document.onkeypress = processKey;
 function processKey(e){
     if (e.keyCode == 13){
-        festivals_carousel.refreshItems();
-        search_token = $('#search_input').val().replace(" ","");
-        createSearchResultsContainer(search_token);
-        return false;
+        if(current_page == 'search'){
+            festivals_carousel.refreshItems();
+            search_token = $('#search_input').val().replace(" ","");
+            createSearchResultsContainer(search_token);
+            return false;
+        }
+        if(current_page == 'feedback'){
+            submitFeedback();
+            return false;
+        }
     }
     return true;
 }
 
 function createSearchContainer(){
+    current_page = "search";
 
     $('#search_button').unbind().bind('click', function(){
         festivals_carousel.refreshItems();

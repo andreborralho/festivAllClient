@@ -30,7 +30,6 @@ function createMenuContainer(){
     });
 
     $('#menu').show();
-    //incrementHistory('#menu');
 
     $('#menu_home_link').unbind().bind('click', function(){
         $('#menu').hide();

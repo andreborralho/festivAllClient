@@ -541,11 +541,10 @@ a {
   margin-top: 2%;
 }
 .festival_list .item {
-  float: left;
+  display: inline-block;
   width: 33.33%;
 }
 .festival_list img {
-  float: left;
   width: 100%;
 }
 /* SEARCH
