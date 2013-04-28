@@ -5,8 +5,6 @@ var carousel_pages = {"festivals":0};
 
 //Loading
 function initDisplays(){
-    //$('.container').hide();
-
     //set screen width and height according to device
     setHeightAndWidth();
     $('#loaderSplash').addClass("visible_splash");
