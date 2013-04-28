@@ -5,18 +5,12 @@ var carousel_pages = {"festivals":0, "before_festival":0};
 
 //Loading
 function initDisplays(){
-    $('.container').hide();
-    $('#loaderSplash').show();
+    //$('.container').hide();
     //set screen width and height according to device
     setHeightAndWidth();
-}
+    $('#loaderSplash').addClass("visible_splash");
+    alert('splash');
 
-function initFestivalsDisplay(){
-    $('#loaderSplash').hide();
-    $('#festivals').show();
-
-    var container_height = $('#header').height()-2 + "px";
-    $('#header').css('height', container_height);
 }
 
 function setHeightAndWidth(){
@@ -25,15 +19,21 @@ function setHeightAndWidth(){
     $('body').css('height', screen_height + 'px').css('width', screen_width + 'px');
 }
 
+function initFestivalsDisplay(){
+    $('#loaderSplash').removeClass("visible_splash");
+    $('#festivals').addClass('visible');
+
+    var container_height = $('#header').height()-2 + "px";
+    $('#header').css('height', container_height);
+}
+
+
 //Navigation
 function changeContainers(page, title, subtitle){
     var header_title_selector = $('#header_title');
 
-    $('.container').hide();
-    $(page).show();
-
-    //$('.container').css('opacity','0');
-    //$(page).css('opacity','1');
+    $('.container').removeClass("visible");
+    $(page).addClass("visible");
 
     incrementHistory(page);
 
@@ -121,7 +121,8 @@ function backButton(){
     var history_popped = history_array.pop();
 
     if(history_popped == undefined)
-        confirmExit();
+        //confirmExit();
+    ;
     else
         changeContainers(history_popped);
 }
