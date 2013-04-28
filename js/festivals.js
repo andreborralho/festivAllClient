@@ -20,8 +20,7 @@ function queryFestivalsSuccess(tx, results) {
         var festival = results.rows.item(i);
 		var festival_id = festival.id;
 
-        $('#festivals_buttons').append('<li id="festival_' + festival_id +'" class="item"></li>');
-        $('#festival_'+festival_id).append('<a href="#"><img src="' + festival.logo + '"></a>');
+        $('#festivals_buttons').append('<li id="festival_' + festival_id +'" class="item"><a href="#"><img src="' + festival.logo + '"></a></li>');
 
         $('#festival_'+festival_id).unbind().bind('click', function(){
             createFestivalContainer(this.id.replace("festival_", ""));
