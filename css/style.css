@@ -256,9 +256,21 @@ body {
   color: white;
   line-height: 1.2em;
 }
+
 .container {
-  height: 86%;
+    display:block;
+    width:100%;
+    -webkit-transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
 }
+.visible {
+    opacity: 1;
+    height: 86%;
+}
+
+
 .carousel {
   height: 93%;
 }
@@ -346,9 +358,20 @@ a {
 -------------------------------------------------------------------------- */
 
 #loaderSplash {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    display:block;
+    -webkit-transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
 }
+
+.visible_splash {
+    opacity:1;
+    height:100%;
+}
+
+
 /* HEADER
 -------------------------------------------------------------------------- */
 
