@@ -258,6 +258,15 @@ body {
 }
 .container {
   height: 86%;
+  display: block;
+  width: 100%;
+  -webkit-transition: opacity 1s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.visible {
+  opacity: 1;
 }
 .carousel {
   height: 93%;
@@ -298,10 +307,10 @@ a {
   color: white;
 }
 .input_field {
-  height: 55px;
+  height: 50px;
 }
 .textarea {
-  height: 95px;
+  height: 90px;
 }
 .input_button {
   width: 70px;
@@ -310,7 +319,7 @@ a {
   box-sizing: border-box;
   padding-top: 20px;
   border: none;
-  margin: 20px auto;
+  margin: 10px auto 0;
   background-color: #b43a34;
   text-align: center;
 }
@@ -348,6 +357,14 @@ a {
 #loaderSplash {
   width: 100%;
   height: 100%;
+  display: block;
+  -webkit-transition: opacity 1s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.visible_splash {
+  opacity: 1;
 }
 /* HEADER
 -------------------------------------------------------------------------- */
@@ -539,10 +556,12 @@ a {
 
 .festival_list {
   margin-top: 2%;
+  line-height: 0;
 }
 .festival_list .item {
   display: inline-block;
   width: 33.33%;
+  line-height: 0;
 }
 .festival_list img {
   width: 100%;
@@ -711,12 +730,14 @@ a {
   position: relative;
 }
 .video_name {
-  margin: 15px 5px 6px;
+  margin: 5px 5px 6px;
 }
 .video_wrap {
   position: relative;
   display: block;
-  margin-bottom: 5px;
+}
+.video_img {
+  margin-bottom: 20px;
 }
 .icon_videoplay {
   z-index: 9;

@@ -17,7 +17,7 @@ function queryShowVideosSuccess(tx, results){
                 '<h3 class="video_name">' + video_name + '</h3>' +
                 '<a href="#" class="video_wrap" onclick="window.plugins.videoPlayer.play(\'http://www.youtube.com/watch?v=' + video_url + '\');">' +
                     '<span class="icon_videoplay"></span>' +
-                    '<img src="http://img.youtube.com/vi/' + video_url + '/mqdefault.jpg">' +
+                    '<img class="video_img" src="http://img.youtube.com/vi/' + video_url + '/mqdefault.jpg">' +
                 '</a>' +
             '</div>'
         );
