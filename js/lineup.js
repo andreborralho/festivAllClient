@@ -17,7 +17,7 @@ function queryLineupSuccess(tx, results) {
 
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
-        fixHeaderLink("#before_festival");
+        fixHeaderLink('#'+festival_status+'_festival');
     });
 
     var days = results.rows;
@@ -164,7 +164,7 @@ function finishLineupStage(day, stages){
     var month = changeNumberToMonthAbrev(numeric_month);
     $('#lineup_day_buttons').append(
         '<li id="' + day.id + '_day_button" class="column">' +
-            '<a href="#" class="item">' +  show_day + ' ' + month + '</a>' +
+            '<a  class="item">' +  show_day + ' ' + month + '</a>' +
         '</li>'
     );
 

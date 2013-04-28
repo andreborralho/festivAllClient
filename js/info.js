@@ -30,7 +30,7 @@ function createInfoContainer(festival_id){
 
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(festival_id);
-        fixHeaderLink("#before_festival");
+        fixHeaderLink('#'+festival_status+'_festival');
     });
 
     db.transaction(function (tx) {

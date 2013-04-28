@@ -260,13 +260,14 @@ body {
   height: 86%;
   display: block;
   width: 100%;
-  -webkit-transition: opacity 1s ease-out;
+  -webkit-transition: opacity 0.6s ease-out;
   opacity: 0;
   height: 0;
   overflow: hidden;
 }
 .visible {
   opacity: 1;
+  height: 86%;
 }
 .carousel {
   height: 93%;
@@ -356,15 +357,15 @@ a {
 
 #loaderSplash {
   width: 100%;
-  height: 100%;
+  height: 0;
   display: block;
   -webkit-transition: opacity 1s ease-out;
   opacity: 0;
-  height: 0;
   overflow: hidden;
 }
 .visible_splash {
   opacity: 1;
+  height: 100%;
 }
 /* HEADER
 -------------------------------------------------------------------------- */
@@ -622,7 +623,18 @@ a {
 -------------------------------------------------------------------------- */
 
 #during_festival_scroll_wrapper {
-  height: 88%;
+  height: 86%;
+}
+#during_festival_page {
+  position: relative;
+  overflow: hidden;
+}
+#during_festival_page .nav_bottom {
+  height: 50px;
+}
+#during_festival_page .nav_bottom .item {
+  padding: 0;
+  line-height: 50px;
 }
 .icon_swipe_left,
 .icon_swipe_right {

@@ -1,16 +1,15 @@
 window.onload = initDisplays;
 window.menuIsUp = false;
 var history_array = [];
-var carousel_pages = {"festivals":0, "before_festival":0};
+var carousel_pages = {"festivals":0};
 
 //Loading
 function initDisplays(){
     //$('.container').hide();
+
     //set screen width and height according to device
     setHeightAndWidth();
     $('#loaderSplash').addClass("visible_splash");
-    alert('splash');
-
 }
 
 function setHeightAndWidth(){
@@ -52,8 +51,15 @@ function changeContainers(page, title, subtitle){
             header_title_selector.text(current_festival_name);
         else
             header_title_selector.text(title);
+    }
+    else if(page == "#during_festival"){
+        $('#header_subtitle').empty();
+        header_title_selector.removeClass('heading0').addClass('heading1');
 
-        refreshNavBar('before_festival', ["#festival", "#shows"]);
+        if(title == undefined)
+            header_title_selector.text(current_festival_name);
+        else
+            header_title_selector.text(title);
     }
     else if(page == "#shows"){
         $('#header_subtitle').text("Bandas");
@@ -73,16 +79,9 @@ function changeContainers(page, title, subtitle){
         else
             header_title_selector.text(title);
     }
-    /*else if(page =="#menu"){
-     header_title_selector.removeClass('heading1').addClass('heading0');
-     header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
-     $('#header_subtitle').empty();
-     }*/
     else if(page =="#feedback"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");
         $('#header_subtitle').text("Feedback");
-
-
     }
     else if(page =="#about_us"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");
@@ -117,14 +116,19 @@ function refreshNavBar(key, pages){
 
 
 function backButton(){
-    history_array.pop();
-    var history_popped = history_array.pop();
+    if(menuIsUp){
+        menuIsUp = false;
+        $('#menu').hide();
+    }
+    else{
+        history_array.pop();
+        var history_popped = history_array.pop();
 
-    if(history_popped == undefined)
-        //confirmExit();
-    ;
-    else
-        changeContainers(history_popped);
+        if(history_popped == undefined)
+            confirmExit();
+        else
+            changeContainers(history_popped);
+    }
 }
 
 function incrementHistory(page){
