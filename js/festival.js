@@ -53,11 +53,23 @@ function queryFestivalSuccess(tx, results) {
 function createBeforeFestival(festival, festivals, diff){
 
     var dhms = dhm(diff).toString();
+    var countdown_days = dhms.split(':')[0];
 
     $('#festival_days').empty();
-    $('#festival_countdown_days').text(dhms.split(':')[0]);
+    $('#festival_countdown_days').text(countdown_days);
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
+
+    if (countdown_days.length == 1) {
+        $('#festival_countdown_days').addClass('one');
+    }
+    else if (countdown_days.length == 2) {
+        $('#festival_countdown_days').addClass('two');
+    }
+    else if (countdown_days.length == 3) {
+        $('#festival_countdown_days').addClass('three');
+    }
+    else {}
 
 
 
