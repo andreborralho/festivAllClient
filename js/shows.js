@@ -5,17 +5,22 @@ function createShowsContainer(festival_id){
     db.transaction(function (tx){
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
             'FROM SHOWS INNER JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID INNER JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
-            'WHERE SHOWS.FESTIVAL_ID='+festival_id +' ORDER BY SHOWS.NAME', [], queryFestivalShowsSuccess, errorQueryCB);
+            'WHERE SHOWS.FESTIVAL_ID='+festival_id +' ORDER BY SHOWS.NAME', [], queryShowsSuccess, errorQueryCB);
     }, errorCB);
 }
 
 // Success callback for the query all the shows of one festival
-function queryFestivalShowsSuccess(tx, results) {
+function queryShowsSuccess(tx, results) {
 
     var shows = results.rows;
 	var len = shows.length;
     var show, show_id;
     var show_name_letter, show_name_previous_letter, numeric_month, month;
+
+    $('#header_link').unbind().bind('click', function(){
+        createFestivalContainer(current_festival_id);
+        fixHeaderLink('#'+festival_status+'_festival');
+    });
 
     $('#shows_page_list').empty();
 

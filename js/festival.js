@@ -52,13 +52,6 @@ function queryFestivalSuccess(tx, results) {
 
 function createBeforeFestival(festival, festivals, diff){
 
-    db.transaction(function (tx){
-        tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
-            'FROM SHOWS INNER JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID INNER JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
-            'WHERE SHOWS.FESTIVAL_ID='+festival.id +' ORDER BY SHOWS.NAME', [], queryFestivalShowsSuccess, errorQueryCB);
-    }, errorCB);
-
-
     var dhms = dhm(diff).toString();
 
     $('#festival_days').empty();
@@ -173,7 +166,7 @@ function bindClickToNavBottom(festival_status, festival){
         changeContainers("#shows", current_festival_name, "Bandas");
     });
 
-    $('#'+festival_status+'_lineup_button').unbind().bind('click', function(){alert("cartaz");
+    $('#'+festival_status+'_lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
         changeContainers("#lineup", current_festival_name, "Cartaz");
     });
