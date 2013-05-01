@@ -509,23 +509,17 @@ a {
 }
 .nav_top .item {
   display: inline-block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0 13px;
   border-right: 1px solid #555555;
   font-size: 18px;
   text-align: center;
   line-height: 50px;
-  box-sizing: border-box;
 }
 .nav_top .current {
-  padding: 0 12px;
   border-bottom: 5px solid #b43a34;
   font-weight: bold;
-}
-.nav_top .three {
-  padding: 0 25px;
-}
-.nav_top .four {
-  padding: 0 13px;
 }
 .nav_bottom {
   z-index: 2;

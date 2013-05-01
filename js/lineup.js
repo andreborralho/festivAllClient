@@ -169,8 +169,9 @@ function finishLineupStage(day, stages, day_len){
 
     $('#lineup_day_buttons').append(
         '<li id="' + day.id + '_day_button" class="column">' +
-            '<a  class="item">' +  show_day + ' ' + month + '</a>' +
-            '</li>'
+            '<a class="item">' +  show_day + ' ' + month + '</a>' +
+        '</li>'
+
     );
 
     //Resize the lineup buttons according to their number
@@ -188,6 +189,10 @@ function finishLineupStage(day, stages, day_len){
         width =  String(window.innerWidth/4);
         $('#' + day.id + '_day_button').css("width", width + 'px');
     }
+
+    if(day_len <= 4){
+        $('#lineup_day_buttons .item').css('width', '100%');
+    } else {}
 
     $('#lineup_day_buttons .column').eq(0).addClass('current');
 
