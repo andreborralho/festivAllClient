@@ -58,7 +58,7 @@ function queryShowsSuccess(tx, results) {
         );
 
         (function (show_name){
-            $('#show_'+show_id).bind('click', function(){
+            $('#show_'+show_id).unbind().bind('click', function(){
                 createShowContainer(this.id.replace("show_", ""));
                 changeContainers("#show", show_name, current_festival_name);
             });

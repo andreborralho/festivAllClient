@@ -46,7 +46,7 @@ function createMenuContainer(){
         confirmExit();
     });
 
-    $('#menu').not('#menu_container').bind('click', function(){
+    $('#menu').not('#menu_container').unbind().bind('click', function(){
         $(this).hide();
         menuIsUp = false;
     });

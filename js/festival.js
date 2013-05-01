@@ -43,10 +43,10 @@ function queryFestivalSuccess(tx, results) {
         festival_status = "before";
     }
     /*
-    else if (){ //after festival
-        changeContainers("#after_festival");
-        createAfterFestival();
-    }*/
+     else if (){ //after festival
+     changeContainers("#after_festival");
+     createAfterFestival();
+     }*/
     changeContainers('#' + festival_status + '_festival', current_festival_name, "");
 }
 
@@ -126,15 +126,15 @@ function createDuringFestival(festival){
                         (function(stage){ //manha gigante, pouco legivel
                             db.transaction(  function(tx){
                                 tx.executeSql('SELECT * FROM SHOWS WHERE SHOWS.stage_id=' + stage.id +' AND '+
-                                'SHOWS.festival_id=' + festival.id + ' AND SHOWS.day_id=' + festival.day_id + ' ORDER BY SHOWS.time',[],
+                                    'SHOWS.festival_id=' + festival.id + ' AND SHOWS.day_id=' + festival.day_id + ' ORDER BY SHOWS.time',[],
                                     function(tx,results){
                                         var shows = results.rows;
                                         var shows_len = shows.length;
                                         $('#during_festival_scroller').append(
                                             '<div class="row during_festival_header">' +
                                                 '<span>' + stage.name + '</span>' +
-                                            '</div>' +
-                                            '<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>'
+                                                '</div>' +
+                                                '<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>'
                                         );
                                         if(shows_len >0){
                                             for(var j = 0; j <shows_len; j++){
@@ -143,21 +143,21 @@ function createDuringFestival(festival){
                                                     '<li id="during_festival_show_'+ show.id + '" class="row">' +
                                                         '<span class="column icon_swipe_left"></span>' +
                                                         '<div class="column during_festival_column">' +
-                                                            '<h3 class="band_name">' + show.name + '</h3>' +
-                                                            '<span class="icon_current_show"></span>' +
-                                                            '<span class="current_show">' + show.time.slice(11,16) + '</span>' +
+                                                        '<h3 class="band_name">' + show.name + '</h3>' +
+                                                        '<span class="icon_current_show"></span>' +
+                                                        '<span class="current_show">' + show.time.slice(11,16) + '</span>' +
                                                         '</div>' +
                                                         '<span class="column icon_swipe_right"></span>' +
-                                                    '</li>'
+                                                        '</li>'
                                                 );
                                             }
-                                         }
+                                        }
                                         else
                                             $('#during_festival_' + stage.id + '_carousel').append('<li>Não há bandas para este palco!</li>');
 
                                         $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
                                     },errorQueryCB);
-                                }, errorCB);
+                            }, errorCB);
                         })(stage);
                     }
                 }
@@ -180,7 +180,7 @@ function bindClickToNavBottom(festival_status, festival){
 
     $('#'+festival_status+'_lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
-        changeContainers("#lineup", current_festival_name, "Cartaz");
+        //changeContainers("#lineup", current_festival_name, "Cartaz");
     });
 
     $('#'+festival_status+'_info_button').unbind().bind('click', function(){
