@@ -11,6 +11,7 @@ function createLineupContainer(festival_id){
 
 // Success callback for the the query of one festival
 function queryLineupSuccess(tx, results) {
+    current_page = "lineup";
     $('#lineup_day_buttons').empty();
     $('#lineup_stages_bar').empty();
     $('#lineup_frame').empty();
@@ -42,7 +43,7 @@ function buildLineup(stages, days){
 
         $('#lineup_frame').append('<div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div>');
         if(i!=0) //First day lineup shows on page open
-             $('#lineup_carousel_' + day.id).css('display', 'none');
+            $('#lineup_carousel_' + day.id).css('display', 'none');
 
         for(var s = 0; s<stages.length; s++){
             (function(day,stage,len,s,day_i,day_len){ //manha gigante, pouco legivel
@@ -58,51 +59,54 @@ function buildLineup(stages, days){
                         ' AND TIME(REPLACE(TIME,"T"," "))<=TIME(REPLACE("' + day_closing_time + '","T"," "))', [],
                         function(tx,results){
 
-                        var shows = results.rows;
+                            var shows = results.rows;
 
-                        //append day:stage frame
-                        $('#lineup_carousel_' + day.id).append('' +
-                            '<div class="scroll_wrapper">' +
+                            //append day:stage frame
+                            $('#lineup_carousel_' + day.id).append('' +
+                                '<div class="scroll_wrapper">' +
                                 '<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>' +
-                            '</div>');
+                                '</div>');
 
-                        if(shows.length > 0){
-                            for(var l = 0; l <shows.length; l ++){
-                                var show = shows.item(l);
-                                $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                    '<li id="lineup_show_' + show.id + '" class="row">' +
+                            if(shows.length > 0){
+                                for(var l = 0; l <shows.length; l ++){
+                                    var show = shows.item(l);
+                                    $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
+                                        '<li id="lineup_show_' + show.id + '" class="row">' +
                                         '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
                                         '<div class="column"><h3 class="band_name">' + show.name + '</h3></div>' +
-                                    '</li>');
+                                        '</li>');
 
-                                (function (show_name){
-                                    $('#lineup_show_' + show.id ).bind('click', function(){
-                                        createShowContainer(this.id.replace("lineup_show_", ""));
-                                        changeContainers("#show", show_name, current_festival_name);
-                                    });
-                                })(show.name);
+                                    (function (show_name){
+                                        $('#lineup_show_' + show.id ).unbind().bind('click', function(){
+                                            createShowContainer(this.id.replace("lineup_show_", ""));
+                                            changeContainers("#show", show_name, current_festival_name);
+                                        });
+                                    })(show.name);
+                                }
+                                $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
                             }
-                            $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
-                        }
-                        else
-                            $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                '<div class="padded">Ainda não existem espectáculos para este palco neste dia!</div>');
+                            else
+                                $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
+                                    '<div class="padded">Ainda não existem espectáculos para este palco neste dia!</div>');
 
-                        if(s == (len - 1))
-                            finishLineupStage(day, stages, day_len);
+                            if(s == (len - 1))
+                                finishLineupStage(day, stages, day_len);
 
-                        if(day_i == (day_len -1) && s == (len - 1) ){
+                            if(day_i == (day_len -1) && s == (len - 1)){
 
-                            //scroll lineup days
-                            lineup_day_buttons_scroller = $('#lineup_day_buttons').scroller({
-                                verticalScroll:false,
-                                horizontalScroll:true
-                            });
-                            lineup_day_buttons_scroller.scrollTo({x:0,y:0});
-                        }
+                                changeContainers("#lineup", current_festival_name, "Cartaz");
 
-                    },errorQueryCB);
-                 }, errorCB);
+                                if(day_len > 4){//só inicia o scroll lineup days se houver mais que 4 dias
+
+                                    lineup_day_buttons_scroller = $('#lineup_day_buttons').scroller({
+                                        verticalScroll:false,
+                                        horizontalScroll:true
+                                    });
+                                    lineup_day_buttons_scroller.scrollTo({x:0,y:0});
+                                }
+                            }
+                        },errorQueryCB);
+                }, errorCB);
             })(day,stages[s],stages.length, s, i, days_length);
         }
     }
@@ -152,8 +156,8 @@ function finishLineupStage(day, stages, day_len){
                 $('#stage_' + stages[index].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
                 $('#stage_' + stages[index+1].id + '_nav_item').addClass('not_current next').removeClass('current hidden prev');
 
-                //if(index < stages.length - 1)
-                    $('#stage_' + stages[index+2].id + '_nav_item').addClass('hidden').removeClass('current');
+                for(var i=2; i < stages.length - 1;i++)
+                    $('#stage_' + stages[index+i].id + '_nav_item').addClass('hidden').removeClass('current');
             }
         }
     });
@@ -166,27 +170,29 @@ function finishLineupStage(day, stages, day_len){
     $('#lineup_day_buttons').append(
         '<li id="' + day.id + '_day_button" class="column">' +
             '<a  class="item">' +  show_day + ' ' + month + '</a>' +
-        '</li>'
+            '</li>'
     );
 
     //Resize the lineup buttons according to their number
+    var width;
     if(day_len == 1){
-        var width =  String(window.innerWidth);
+        width =  String(window.innerWidth);
         $('#' + day.id + '_day_button').css("width", width + 'px');
     }else if (day_len == 2){
-        var width =  String(window.innerWidth/2);
+        width =  String(window.innerWidth/2);
         $('#' + day.id + '_day_button').css("width", width + 'px');
     }else if (day_len == 3){
-        var width =  String(window.innerWidth/3);
+        width =  String(window.innerWidth/3);
         $('#' + day.id + '_day_button').css("width", width + 'px');
     }else if (day_len >= 4){
-        var width =  String(window.innerWidth/4);
+        width =  String(window.innerWidth/4);
         $('#' + day.id + '_day_button').css("width", width + 'px');
     }
 
     $('#lineup_day_buttons .column').eq(0).addClass('current');
 
-    $('#' + day.id + '_day_button').bind('click', function(){
+    $('#' + day.id + '_day_button').unbind().bind('click', function(){
+
         //set visibility to the correct carousel in the lineup frame
         $('[data-role="lineup_carousel"]').css('display', 'none');
         $('#lineup_carousel_' + day.id).css('display', 'block');
