@@ -41,9 +41,10 @@ function buildLineup(stages, days){
     for(var i = 0; i<days_length; i++){
         var day = days.item(i);
 
-        $('#lineup_frame').append('<div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div>');
-        if(i!=0) //First day lineup shows on page open
-            $('#lineup_carousel_' + day.id).css('display', 'none');
+        $('#lineup_frame').append('<div id="lineup_day_frame_' + day.id + '" class="lineup_day_frame"><div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div></div>');
+        if(i==0){ //First day lineup shows on page open
+            $('#lineup_day_frame_' + day.id).addClass('active');
+        }
 
         for(var s = 0; s<stages.length; s++){
             (function(day,stage,len,s,day_i,day_len){ //manha gigante, pouco legivel
@@ -198,9 +199,9 @@ function finishLineupStage(day, stages, day_len){
 
     $('#' + day.id + '_day_button').unbind().bind('click', function(){
 
-        //set visibility to the correct carousel in the lineup frame
-        $('[data-role="lineup_carousel"]').css('display', 'none');
-        $('#lineup_carousel_' + day.id).css('display', 'block');
+        //set visibility to the correct lineup_day_frame
+        $('.lineup_day_frame').removeClass('active');
+        $('#lineup_day_frame_' + day.id).addClass('active');
         $('#lineup_day_buttons .column').removeClass('current');
         $(this).addClass('current');
 
