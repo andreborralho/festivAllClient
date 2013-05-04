@@ -121,23 +121,56 @@ function createDuringFestival(festival){
                                         $('#during_festival_scroller').append(
                                             '<div class="row during_festival_header">' +
                                                 '<span>' + stage.name + '</span>' +
-                                                '</div>' +
-                                                '<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>'
+                                            '</div>' +
+                                            '<ul id="during_festival_' + stage.id + '_carousel" class="list"></ul>'
                                         );
+
                                         if(shows_len >0){
                                             for(var j = 0; j <shows_len; j++){
+                                                //22:54 -> 22*60 + 54minutos
+                                                var current_minutes = new Date().getHours()*60 + new Date().getMinutes();
                                                 var show = shows.item(j);
+                                                var show_minutes_aux = show.time.slice(11,13);
+                                                var show_minutes_aux2 = show.time.slice(14,16);
+                                                var show_minutes = (show_minutes_aux*60) + parseInt(show_minutes_aux2);
+
+                                                if(j<shows_len-1){
+                                                    var next_show = shows.item(j+1);
+                                                    var next_show_minutes_aux = next_show.time.slice(11,13);
+                                                    var next_show_minutes_aux2 = next_show.time.slice(14,16);
+                                                    var next_show_minutes = next_show_minutes_aux*60 + parseInt(next_show_minutes_aux2);
+                                                }
+
+                                                //alert(current_minutes+" " +show_minutes+" "+next_show_minutes);
+
                                                 $('#during_festival_' + stage.id + '_carousel').append(
                                                     '<li id="during_festival_show_'+ show.id + '" class="row">' +
                                                         '<span class="column icon_swipe_left"></span>' +
                                                         '<div class="column during_festival_column">' +
-                                                        '<h3 class="band_name">' + show.name + '</h3>' +
-                                                        '<span class="icon_current_show"></span>' +
-                                                        '<span class="current_show">' + show.time.slice(11,16) + '</span>' +
+                                                            '<h3 class="band_name">' + show.name + '</h3>' +
+                                                            '<span class="icon_current_show"></span>' +
+                                                            '<span class="current_show">' + show.time.slice(11,16) + '</span>' +
                                                         '</div>' +
                                                         '<span class="column icon_swipe_right"></span>' +
-                                                        '</li>'
+                                                    '</li>'
                                                 );
+
+                                                if(j==0) //tirar a seta para a esquerda na 1ºbanda
+                                                    $('#during_festival_show_'+ show.id + ' .icon_swipe_left').remove();
+                                                if(j==shows_len - 1)
+                                                    $('#during_festival_show_'+ show.id + ' .icon_swipe_right').remove();
+
+                                                if(current_minutes > show_minutes && current_minutes <= next_show_minutes)
+                                                    $('#during_festival_show_'+ show.id + ' .during_festival_column .icon_current_show').remove();
+
+
+
+                                                (function (show_name){
+                                                    $('#during_festival_show_' + show.id ).unbind().bind('click', function(){
+                                                        createShowContainer(this.id.replace("during_festival_show_", ""));
+                                                        changeContainers("#show", show_name, current_festival_name);
+                                                    });
+                                                })(show.name);
                                             }
                                         }
                                         else

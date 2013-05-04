@@ -1,11 +1,12 @@
 var search_token;
 var current_page;
+//var softkeyboard = window.cordova.plugins.SoftKeyBoard;;
 
 document.onkeypress = processKey;
 function processKey(e){
     if (e.keyCode == 13){
         if(current_page == 'search'){
-            festivals_carousel.refreshItems();
+            //festivals_carousel.refreshItems();
             search_token = $('#search_input').val().replace(" ","");
             createSearchResultsContainer(search_token);
             return false;
@@ -21,11 +22,19 @@ function processKey(e){
 function createSearchContainer(){
     current_page = "search";
 
+    //$('#search_input').get().focus();
+    //softkeyboard.show();
+
     $('#search_button').unbind().bind('click', function(){
-        festivals_carousel.refreshItems();
         search_token = $('#search_input').val().replace(" ","");
         createSearchResultsContainer(search_token);
     });
+
+    $('#header_link').unbind().bind('click', function(){
+        backButton();
+
+    });
+
 }
 
 function createSearchResultsContainer(search_token){
@@ -47,8 +56,8 @@ function querySearchSuccess(tx, results) {
         '</div>');
 
     $('#header_link').unbind().bind('click', function(){
-        changeContainers("#festivals", "", "");
-        softkeyboard.show();
+        backButton();
+        //softkeyboard.show();
     });
 
     var search_list_selector =  $('#search_list');

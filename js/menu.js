@@ -10,6 +10,13 @@ function menuButton(e){
     }
 }
 
+function searchButton(){
+    menuIsUp=false;
+    createSearchContainer();
+    $('#menu').hide();
+    changeContainers('#search', 'Menu', 'Pesquisa');
+}
+
 function feedbackButton(){
     menuIsUp=false;
     createFeedbackContainer();
@@ -35,6 +42,9 @@ function createMenuContainer(){
         $('#menu').hide();
         changeContainers('#festivals', '', '');
         fixHeaderLink('#festivals');
+    });
+    $('#menu_search_link').unbind().bind('click', function(){
+        searchButton();
     });
     $('#menu_about_us_link').unbind().bind('click', function(){
         aboutUsButton();

@@ -1,7 +1,7 @@
 window.onload = initDisplays;
 window.menuIsUp = false;
 var history_array = [];
-var carousel_pages = {"festivals":0};
+//var carousel_pages = {"festivals":0};
 
 //Loading
 function initDisplays(){
@@ -38,8 +38,6 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading1').addClass('heading0');
         header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
         $('#header_subtitle').empty();
-
-        refreshNavBar('festivals', ["#festivals", "#search"]);
     }
     else if(page == "#before_festival"){
         $('#header_subtitle').empty();
@@ -85,33 +83,21 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");
         $('#header_subtitle').text("Quem somos");
     }
+    else if(page =="#search"){
+        header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");
+        $('#header_subtitle').text("Pesquisa");
+    }
 
     else if(page =="#search_results"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text(search_token);
         $('#header_subtitle').text("Resultados da Pesquisa");
 
-        $('#header_link').unbind().bind('click', function(){
-            changeContainers("#festivals", "", "");
-            softkeyboard.show();
-        });
     }
     else{
         header_title_selector.removeClass('heading0').addClass('heading1').text(title);
         $('#header_subtitle').text(subtitle);
     }
 }
-
-function refreshNavBar(key, pages){
-    if(carousel_pages[key] == 0){
-        $(pages[0] + '_nav_item').addClass('current').removeClass('not_current');
-        $(pages[1] + '_nav_item').addClass('not_current next').removeClass('current');
-    }
-    else if(carousel_pages[key] == 1){
-        $(pages[0] + '_nav_item').addClass('not_current prev').removeClass('current');
-        $(pages[1] + '_nav_item').addClass('current').removeClass('not_current next');
-    }
-}
-
 
 function backButton(){
     if(menuIsUp){
