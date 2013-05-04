@@ -368,8 +368,8 @@ a {
 #festival_countdown {
     position: absolute;
     display: inline-block;
-    top: 185px;
-    left: 44%;
+    top: 230px;
+    left: 33%;
     font-size: 18px;
     .last-line {
         display: block;
@@ -378,8 +378,20 @@ a {
 }
 #festival_countdown_days {
     display: block;
-    font-size: 90px;
-    line-height: 80px;
+    &.one {
+        margin-left: 20px;
+        font-size: 120px;
+        line-height: 80px;
+    }
+    &.two {
+        margin-left: 35px;
+        font-size: 100px;
+        line-height: 80px;
+    }
+    &.three {
+        font-size: 80px;
+        line-height: 80px;
+    }
 }
 #before_festival_page{
     position: relative;
