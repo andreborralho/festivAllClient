@@ -205,9 +205,12 @@ table {
 /* GLOBAL
 -------------------------------------------------------------------------- */
 
+html {
+  overflow: hidden;
+}
 body {
   overflow: hidden;
-  background: url(../img/bg-guitar.png) center 180px no-repeat;
+  background: url(../img/bg-guitar.png) center 30% no-repeat;
   background-color: #232323;
   font-family: 'Open Sans', arial, sans-serif;
   color: white;
@@ -298,7 +301,7 @@ a {
 }
 .list_header {
   text-transform: uppercase;
-  padding: 5px 10px;
+  padding: 4px 10px;
   background-color: #b43a34;
   color: white;
 }
@@ -393,6 +396,7 @@ a {
   right: 0;
   bottom: 0;
   left: 0;
+  overflow: hidden;
   margin-top: 13%;
 }
 #menu .list {
@@ -413,6 +417,9 @@ a {
   height: 100%;
   border-top: 5px solid #b43a34;
   background-color: #eeeeee;
+  -webkit-box-shadow: -6px 0 20px 5px #222222;
+  -moz-box-shadow: -6px 0 20px 5px #222222;
+  box-shadow: -6px 0 20px 5px #222222;
 }
 /* FEEDBACK
 -------------------------------------------------------------------------- */
@@ -470,7 +477,7 @@ a {
 
 .nav_top {
   position: relative;
-  z-index: 11;
+  z-index: 9;
   white-space: nowrap;
 }
 .nav_top .column {
