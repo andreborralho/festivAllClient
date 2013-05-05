@@ -33,7 +33,7 @@ function queryShowVideosSuccess(tx, results){
 }
 
 function initShowCarousel(){
-    $('#show_carousel').carousel({
+    var show_carousel = $('#show_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
@@ -46,4 +46,6 @@ function initShowCarousel(){
             }
         }
     });
+
+    bindClickToNavBar(['#show_nav_item','#videos_nav_item'], show_carousel);
 }
