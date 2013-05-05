@@ -1,6 +1,7 @@
 // LINEUP_CONTAINER
 
 var lineup_day_buttons_scroller;
+var lineup_nav_items = [];
 
 // Queries the local Database for a show
 function createLineupContainer(festival_id){
@@ -41,7 +42,11 @@ function buildLineup(stages, days){
     for(var i = 0; i<days_length; i++){
         var day = days.item(i);
 
-        $('#lineup_frame').append('<div id="lineup_day_frame_' + day.id + '" class="lineup_day_frame"><div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div></div>');
+        $('#lineup_frame').append('' +
+            '<div id="lineup_day_frame_' + day.id + '" class="lineup_day_frame">' +
+                '<div id="lineup_carousel_' + day.id + '" class="lineup_carousel" data-role="lineup_carousel"></div>' +
+            '</div>');
+
         if(i==0){ //First day lineup shows on page open
             $('#lineup_day_frame_' + day.id).addClass('active');
         }
@@ -52,12 +57,12 @@ function buildLineup(stages, days){
                 var day_closing_time = day.closing_time;
 
                 db.transaction(function(tx){
-                    tx.executeSql('SELECT * FROM SHOWS' +
+                    tx.executeSql('SELECT * FROM (SELECT * FROM SHOWS' +
                         ' WHERE festival_id=' + day.festival_id + ' AND stage_id=' + stage.id + ' AND day_id=' + day.id +
-                        ' AND TIME(REPLACE(TIME,"T"," "))>=TIME(REPLACE("' + day_opening_time + '","T"," "))' +
-                        ' UNION SELECT * FROM SHOWS' +
+                        ' AND TIME(REPLACE(REPLACE(TIME,"Z",""),"T"," "))>=TIME(REPLACE("' + day_opening_time + '","T"," ")) ORDER BY TIME)' +
+                        ' UNION ALL SELECT * FROM (SELECT * FROM SHOWS' +
                         ' WHERE festival_id=' + day.festival_id + ' AND stage_id=' + stage.id + ' AND day_id=' + day.id +
-                        ' AND TIME(REPLACE(TIME,"T"," "))<=TIME(REPLACE("' + day_closing_time + '","T"," "))', [],
+                        ' AND TIME(REPLACE(REPLACE(TIME,"Z",""),"T"," "))<=TIME(REPLACE("' + day_closing_time + '","T"," ")) ORDER BY TIME)', [],
                         function(tx,results){
 
                             var shows = results.rows;
@@ -65,7 +70,7 @@ function buildLineup(stages, days){
                             //append day:stage frame
                             $('#lineup_carousel_' + day.id).append('' +
                                 '<div class="scroll_wrapper">' +
-                                '<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>' +
+                                    '<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>' +
                                 '</div>');
 
                             if(shows.length > 0){
@@ -118,6 +123,8 @@ function appendStagesToNavBar(stages){
     lineup_stages_nav_bar.empty();
 
     for(var p = 0; p < stages.length; p++){
+        lineup_nav_items[p] = "#stage_" + stages[p].id + "_nav_item";
+
         if(p==0)
             lineup_stages_nav_bar.append('' +
                 '<li><a id="stage_' + stages[p].id + '_nav_item" class="current" href="#">' + stages[p].name + '</a></li>');
@@ -129,12 +136,12 @@ function appendStagesToNavBar(stages){
                 '<li><a id="stage_' + stages[p].id + '_nav_item" class="hidden" href="#">' + stages[p].name + '</a></li>');
     }
 }
-
+var lineup_carousel_day = [];var i=0;
 function finishLineupStage(day, stages, day_len){
 
     appendStagesToNavBar(stages);
 
-    var lineup_carousel_day = $('#lineup_carousel_' + day.id).carousel({
+    lineup_carousel_day[i] = $('#lineup_carousel_' + day.id).carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
@@ -163,6 +170,8 @@ function finishLineupStage(day, stages, day_len){
         }
     });
 
+    bindClickToNavBar(lineup_nav_items, lineup_carousel_day[i]);
+    i++;
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);

@@ -205,6 +205,9 @@ table {
 /* GLOBAL
 -------------------------------------------------------------------------- */
 
+html {
+  overflow: hidden;
+}
 body {
   overflow: hidden;
   background: url(../img/bg-guitar.png) center 180px no-repeat;
@@ -310,9 +313,9 @@ a {
   background: url(../img/sprite.png) -36px -36px transparent;
 }
 .shadow {
-  -webkit-box-shadow: 0 6px 20px 5px #222222;
-  -moz-box-shadow: 0 6px 20px 5px #222222;
-  box-shadow: 0 6px 20px 5px #222222;
+  -webkit-box-shadow: 0 6px 20px 2px #222222;
+  -moz-box-shadow: 0 6px 20px 2px #222222;
+  box-shadow: 0 6px 20px 2px #222222;
 }
 /* SPLASH
 -------------------------------------------------------------------------- */
@@ -334,6 +337,7 @@ a {
 
 #header {
   position: relative;
+  overflow: hidden;
   z-index: 8;
   height: 14%;
   border-bottom: 1px solid #b43a34;
@@ -432,9 +436,9 @@ a {
   height: 7%;
   padding: 6px 0;
   background-color: #373737;
-  -webkit-box-shadow: 0 6px 20px 5px #222222;
-  -moz-box-shadow: 0 6px 20px 5px #222222;
-  box-shadow: 0 6px 20px 5px #222222;
+  -webkit-box-shadow: 0 6px 20px 2px #222222;
+  -moz-box-shadow: 0 6px 20px 2px #222222;
+  box-shadow: 0 6px 20px 2px #222222;
   text-align: center;
 }
 .swipe_bar .current {

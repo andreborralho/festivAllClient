@@ -37,6 +37,7 @@ function onDeviceReady() {
         }
     });
 }
+
 // Callback for create db transaction
 function successCreateDBCB(){
     window.FestivallToaster.showMessage('Base de dados criada!');
