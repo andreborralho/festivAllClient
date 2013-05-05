@@ -1,9 +1,11 @@
 // INFO_CONTAINER
 
+var info_carousel;
+
 function init_info_carousel(){
 
     // Inits carousel for info_container
-    $('#info_carousel').carousel({
+    info_carousel = $('#info_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
@@ -41,6 +43,9 @@ function createInfoContainer(festival_id){
     $('#tickets_nav_item').addClass('current').removeClass('hidden not_current prev');
     $('#transports_nav_item').addClass('not_current next').removeClass('hidden current prev');
     $('#weather_nav_item').addClass('hidden').removeClass('current');
+
+
+    //bindClickToNavBar(['#tickets_nav_item','#transports_nav_item','#weather_nav_item'], info_carousel);
 }
 
 // Success callback for the the query info of one festival
@@ -79,81 +84,81 @@ function queryInfoSuccess(tx, results) {
                         '<ul class="list">' +
                             // TODAY
                             '<div id="weather_day1" class="row">' +
-                                '<div class="column centered" style="width: 23%;">' +
-                                    '<strong id="weather_weekday1" class"weather_weekday"></strong><br>' +
-                                    '<span id="weather_date1" class"weather_date"></span>' +
+                                '<div class="column centered">' +
+                                    '<strong id="weather_weekday1" class="weather_weekday"></strong><br>' +
+                                    '<span id="weather_date1" class="weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding" style="width: 23%;">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img1" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column" style="width: 31%;">' +
+                                '<div class="column">' +
                                     '<p id="weather_description1"></p>' +
                                 '</div>' +
-                                '<div class="column" style="width: 23%;">' +
-                                    '<span id="weather_max_temperature1"></span>/' +
-                                    '<span id="weather_min_temperature1"></span>' +
+                                '<div class="column">' +
+                                    '<span id="weather_max_temperature1" class="weather_temperature"></span>/' +
+                                    '<span id="weather_min_temperature1" class="weather_temperature"></span>' +
                                 '</div>' +
                             '</div>' +
 
                             // TOMORROW
                             '<div id="weather_day2" class="row">' +
-                                '<div class="column centered" style="width: 23%;">' +
-                                    '<strong id="weather_weekday2" class"weather_weekday"></strong><br>' +
-                                    '<span id="weather_date2" class"weather_date"></span>' +
+                                '<div class="column centered">' +
+                                    '<strong id="weather_weekday2" class="weather_weekday"></strong><br>' +
+                                    '<span id="weather_date2" class="weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding" style="width: 23%;">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img2" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column" style="width: 31%;">' +
+                                '<div class="column">' +
                                     '<p id="weather_description2"></p>' +
                                 '</div>' +
-                                '<div class="column" style="width: 23%;">' +
-                                    '<span id="weather_max_temperature2"></span>/' +
-                                    '<span id="weather_min_temperature2"></span>' +
+                                '<div class="column">' +
+                                    '<span id="weather_max_temperature2" class="weather_temperature"></span>/' +
+                                    '<span id="weather_min_temperature2" class="weather_temperature"></span>' +
                                 '</div>' +
                             '</div>' +
 
                             // 2 DAYS FROM NOW
                             '<div id="weather_day3" class="row">' +
-                                '<div class="column centered" style="width: 23%;">' +
-                                    '<strong id="weather_weekday3" class"weather_weekday"></strong><br>' +
-                                    '<span id="weather_date3" class"weather_date"></span>' +
+                                '<div class="column centered">' +
+                                    '<strong id="weather_weekday3" class="weather_weekday"></strong><br>' +
+                                    '<span id="weather_date3" class="weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding" style="width: 23%;">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img3" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column" style="width: 31%;">' +
+                                '<div class="column">' +
                                     '<p id="weather_description3"></p>' +
                                 '</div>' +
-                                '<div class="column" style="width: 23%;">' +
-                                    '<span id="weather_max_temperature3"></span>/' +
-                                    '<span id="weather_min_temperature3"></span>' +
+                                '<div class="column">' +
+                                    '<span id="weather_max_temperature3" class="weather_temperature"></span>/' +
+                                    '<span id="weather_min_temperature3" class="weather_temperature"></span>' +
                                 '</div>' +
                             '</div>' +
 
                             // DAY 4
                             '<div id="weather_day4" class="row">' +
-                                '<div class="column centered" style="width: 23%;">' +
-                                    '<strong id="weather_weekday4" class"weather_weekday"></strong><br>' +
-                                    '<span id="weather_date4" class"weather_date"></span>' +
+                                '<div class="column centered">' +
+                                    '<strong id="weather_weekday4" class="weather_weekday"></strong><br>' +
+                                    '<span id="weather_date4" class="weather_date"></span>' +
                                 '</div>' +
-                                '<div class="column no_padding" style="width: 23%;">' +
+                                '<div class="column no_padding">' +
                                     '<img src="" id="weather_img4" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column" style="width: 31%;">' +
+                                '<div class="column">' +
                                     '<p id="weather_description4"></p>' +
                                 '</div>' +
-                                '<div class="column" style="width: 23%;">' +
-                                    '<span id="weather_max_temperature4"></span>/' +
-                                    '<span id="weather_min_temperature4"></span>' +
+                                '<div class="column">' +
+                                    '<span id="weather_max_temperature4" class="weather_temperature"></span>/' +
+                                    '<span id="weather_min_temperature4" class="weather_temperature"></span>' +
                                 '</div>' +
                             '</div>' +
 
                             // DAY 5
                             '<div id="weather_day5" class="row">' +
                                 '<div class="column centered fixed">' +
-                                    '<strong id="weather_weekday5" class"weather_weekday"></strong><br>' +
-                                    '<span id="weather_date5" class"weather_date"></span>' +
+                                    '<strong id="weather_weekday5" class="weather_weekday"></strong><br>' +
+                                    '<span id="weather_date5" class="weather_date"></span>' +
                                 '</div>' +
                                 '<div class="column no_padding">' +
                                     '<img src="" id="weather_img5" class="weather_icon">' +
@@ -162,8 +167,8 @@ function queryInfoSuccess(tx, results) {
                                     '<p id="weather_description5"></p>' +
                                 '</div>' +
                                 '<div class="column fixed">' +
-                                    '<span id="weather_max_temperature5"></span>/' +
-                                    '<span id="weather_min_temperature5"></span>' +
+                                    '<span id="weather_max_temperature5" class="weather_temperature"></span>/' +
+                                    '<span id="weather_min_temperature5" class="weather_temperature"></span>' +
                                 '</div>' +
                             '</div>' +
                         '</ul>' +
@@ -265,6 +270,7 @@ function queryInfoSuccess(tx, results) {
     $('#weather_scroller').scroller();
 
 }
+
 
 function numberToWeekDay(weekday_number){
     var week_day;

@@ -140,3 +140,16 @@ function confirmExit() {
         'Voltar,Sair' // buttonLabels
     );
 }
+
+function bindClickToNavBar(nav_items, carousel){
+    var nav_item = "";
+    for(var i=0; i<nav_items.length; i++){
+        nav_item = nav_items[i];
+
+        (function (i, nav_item, carousel){
+            $(nav_item).unbind().bind('click',function(){
+                carousel.onMoveIndex(i, 200);
+            });
+        })(i, nav_item, carousel);
+    }
+}
