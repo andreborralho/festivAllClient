@@ -124,6 +124,12 @@ a {
     background: @sprite -36px -36px transparent;
 }
 
+
+// Shadows
+.shadow {
+    .box-shadow(0 6px 20px 5px #222);
+}
+
 /* SPLASH
 -------------------------------------------------------------------------- */
 #loaderSplash{
@@ -136,13 +142,15 @@ a {
 }
 
 .visible_splash {
-    opacity:1;
+    opacity: 1;
     height: 100%;
  }
 
 /* HEADER
 -------------------------------------------------------------------------- */
 #header {
+    position: relative;
+    z-index: 8;
     height: 14%;
     border-bottom: 1px solid @maincolor;
     background-color: @bgcolor;
@@ -238,9 +246,11 @@ a {
 -------------------------------------------------------------------------- */
 .swipe_bar {
     position: relative;
+    z-index: 10;
     height: 7%;
     padding: 6px 0;
     background-color: @grey;
+    .shadow;
     //.box-shadow(0 6px 25px 6px rgba(0,0,0,0.6));
     text-align: center;
     .current {
@@ -277,6 +287,8 @@ a {
 /* NAVS
 -------------------------------------------------------------------------- */
 .nav_top {
+    position: relative;
+    z-index: 11;
     white-space: nowrap;
     .column {
         background-color: #2e2e2e;
@@ -290,7 +302,7 @@ a {
         font-size: 18px;
         text-align: center;
         line-height: 50px;
-        }        
+    }
     .current {
         border-bottom: 5px solid @maincolor;
         font-weight: bold;
@@ -298,7 +310,7 @@ a {
 }
 
 .nav_bottom {
-    z-index: 2;
+    z-index: 9;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -368,7 +380,7 @@ a {
 #festival_countdown {
     position: absolute;
     display: inline-block;
-    top: 230px;
+    top: 50%;
     left: 33%;
     font-size: 18px;
     .last-line {
@@ -384,7 +396,7 @@ a {
         line-height: 80px;
     }
     &.two {
-        margin-left: 35px;
+        margin-left: 25px;
         font-size: 100px;
         line-height: 80px;
     }
