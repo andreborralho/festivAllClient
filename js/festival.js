@@ -139,6 +139,7 @@ function createDuringFestival(festival){
 
                                         if(shows_len >0){
                                             for(var j = 0; j <shows_len; j++){
+
                                                 //22:54 -> 22*60 + 54minutos
                                                 var current_minutes = new Date().getHours()*60 + new Date().getMinutes();
                                                 var show = shows.item(j);

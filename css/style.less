@@ -505,6 +505,19 @@ a {
     height:100%;
 }
 
+.lineup_day_frame{
+    display:block;
+    width:100%;
+    -webkit-transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.active{
+    opacity: 1;
+    height: 100%;
+}
 
 /* WEATHER
 -------------------------------------------------------------------------- */
@@ -529,6 +542,9 @@ a {
 
 .weather_icon {
     width: 64px;
+}
+.weather_temperature{
+    font-size: 1.25em;
 }
 
 

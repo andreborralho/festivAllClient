@@ -11,7 +11,7 @@ function createLineupContainer(festival_id){
 
 // Success callback for the the query of one festival
 function queryLineupSuccess(tx, results) {
-    current_page = "lineup";
+
     $('#lineup_day_buttons').empty();
     $('#lineup_stages_bar').empty();
     $('#lineup_frame').empty();
@@ -73,8 +73,8 @@ function buildLineup(stages, days){
                                     var show = shows.item(l);
                                     $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
                                         '<li id="lineup_show_' + show.id + '" class="row">' +
-                                        '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
-                                        '<div class="column"><h3 class="band_name">' + show.name + '</h3></div>' +
+                                            '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
+                                            '<div class="column"><h3 class="band_name">' + show.name + '</h3></div>' +
                                         '</li>');
 
                                     (function (show_name){
@@ -88,7 +88,7 @@ function buildLineup(stages, days){
                             }
                             else
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                    '<div class="padded">Ainda não existem espectáculos para este palco neste dia!</div>');
+                                    '<div class="padded">Não existem espectáculos para este palco neste dia!</div>');
 
                             if(s == (len - 1))
                                 finishLineupStage(day, stages, day_len);
@@ -97,7 +97,7 @@ function buildLineup(stages, days){
 
                                 changeContainers("#lineup", current_festival_name, "Cartaz");
 
-                                if(day_len > 4){//só inicia o scroll lineup days se houver mais que 4 dias
+                                if(day_len > 4){//só inicia o scroll lineup_days se houver mais que 4 dias
 
                                     lineup_day_buttons_scroller = $('#lineup_day_buttons').scroller({
                                         verticalScroll:false,
@@ -134,7 +134,7 @@ function finishLineupStage(day, stages, day_len){
 
     appendStagesToNavBar(stages);
 
-    $('#lineup_carousel_' + day.id).carousel({
+    var lineup_carousel_day = $('#lineup_carousel_' + day.id).carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
@@ -168,11 +168,10 @@ function finishLineupStage(day, stages, day_len){
     var month = changeNumberToMonthAbrev(numeric_month);
 
 
-    $('#lineup_day_buttons').append(
+    $('#lineup_day_buttons').append(''+
         '<li id="' + day.id + '_day_button" class="column">' +
             '<a class="item">' +  show_day + ' ' + month + '</a>' +
         '</li>'
-
     );
 
     //Resize the lineup buttons according to their number
@@ -191,9 +190,8 @@ function finishLineupStage(day, stages, day_len){
         $('#' + day.id + '_day_button').css("width", width + 'px');
     }
 
-    if(day_len <= 4){
+    if(day_len <= 4)
         $('#lineup_day_buttons .item').css('width', '100%');
-    } else {}
 
     $('#lineup_day_buttons .column').eq(0).addClass('current');
 
@@ -209,5 +207,7 @@ function finishLineupStage(day, stages, day_len){
         $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');
         $('#stage_' + stages[2].id + '_nav_item').addClass('hidden').removeClass('current');
         $('#stage_' + stages[3].id + '_nav_item').addClass('hidden').removeClass('current');
+
+        lineup_carousel_day.onMoveIndex(0, 0);
     });
 }

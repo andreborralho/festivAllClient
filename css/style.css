@@ -214,6 +214,7 @@ body {
   line-height: 1.2em;
 }
 .container {
+  height: 86%;
   display: block;
   width: 100%;
   -webkit-transition: opacity 0.6s ease-out;
@@ -660,19 +661,6 @@ a {
 }
 /* LINEUP
 -------------------------------------------------------------------------- */
-.lineup_day_frame{
-    display:block;
-    width:100%;
-    -webkit-transition: opacity 1s ease-out;
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-}
-
-.active{
-    opacity: 1;
-    height: 100%;
-}
 
 .lineup_frame {
   height: 77%;
@@ -681,6 +669,18 @@ a {
   height: 100%;
 }
 .lineup_scroll_wrapper {
+  height: 100%;
+}
+.lineup_day_frame {
+  display: block;
+  width: 100%;
+  -webkit-transition: opacity 1s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.active {
+  opacity: 1;
   height: 100%;
 }
 /* WEATHER
@@ -706,6 +706,9 @@ a {
 }
 .weather_icon {
   width: 64px;
+}
+.weather_temperature {
+  font-size: 1.25em;
 }
 /* SHOW VIDEOS
 -------------------------------------------------------------------------- */
