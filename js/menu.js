@@ -56,7 +56,7 @@ function createMenuContainer(){
         confirmExit();
     });
 
-    $('#body').not('#menu').unbind().bind('click', function(){
+    $('#frame').not('#menu').unbind().bind('click', function(){
         $('#menu').removeClass('active_menu');
         menuIsUp = false;
     });
