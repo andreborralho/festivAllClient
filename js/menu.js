@@ -35,7 +35,7 @@ function createMenuContainer(){
     $('#header_link').unbind().bind('click', function(){
         backButton();
     });
-
+    
     $('#menu').addClass('active_menu');
 
     $('#menu_home_link').unbind().bind('click', function(){
@@ -58,9 +58,10 @@ function createMenuContainer(){
         confirmExit();
     });
 
+
     $('.container').not('#menu').unbind().bind('click', function(){
         $('#menu').removeClass('active_menu');
         menuIsUp = false;
     });
-
+    */
 }
