@@ -20,10 +20,11 @@ function queryFestivalSuccess(tx, results) {
     var festival_date = festival.day_date.toString().replace(/-/g,'/');
 
     var curr_date = new Date();
-    var first_day_date = new Date(festival_date);
+    var first_day_date = new Date(festival_date);   //falta ver quando um festival tem interregnos no meio sem dias de festival checkIfDuringFestival()
     var diff = Math.abs(first_day_date - curr_date);
 
-    //diff = -1; //descomentar esta linha para experimentar o festival durante
+
+    diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -125,7 +126,7 @@ function createDuringFestival(festival){
                         stage = stages.item(i);
                         (function(stage){ //manha gigante, pouco legivel
                             db.transaction(  function(tx){
-                                tx.executeSql('SELECT * FROM SHOWS WHERE SHOWS.stage_id=' + stage.id +' AND '+
+                                tx.executeSql('SELECT * FROM SHOWS INNER JOIN DAYS ON SHOWS.day_id = DAYS.id WHERE SHOWS.stage_id=' + stage.id +' AND '+
                                     'SHOWS.festival_id=' + festival.id + ' AND SHOWS.day_id=' + festival.day_id + ' ORDER BY SHOWS.time',[],
                                     function(tx,results){
                                         var shows = results.rows;
@@ -140,19 +141,8 @@ function createDuringFestival(festival){
                                         if(shows_len >0){
                                             for(var j = 0; j <shows_len; j++){
 
-                                                //22:54 -> 22*60 + 54minutos
-                                                var current_minutes = new Date().getHours()*60 + new Date().getMinutes();
                                                 var show = shows.item(j);
-                                                var show_minutes_aux = show.time.slice(11,13);
-                                                var show_minutes_aux2 = show.time.slice(14,16);
-                                                var show_minutes = (show_minutes_aux*60) + parseInt(show_minutes_aux2);
 
-                                                if(j<shows_len-1){
-                                                    var next_show = shows.item(j+1);
-                                                    var next_show_minutes_aux = next_show.time.slice(11,13);
-                                                    var next_show_minutes_aux2 = next_show.time.slice(14,16);
-                                                    var next_show_minutes = next_show_minutes_aux*60 + parseInt(next_show_minutes_aux2);
-                                                }
 
                                                 //alert(current_minutes+" " +show_minutes+" "+next_show_minutes);
 
@@ -161,7 +151,7 @@ function createDuringFestival(festival){
                                                         '<span class="column icon_swipe_left"></span>' +
                                                         '<div class="column during_festival_column">' +
                                                             '<h3 class="band_name">' + show.name + '</h3>' +
-                                                            '<span class="icon_current_show"></span>' +
+                                                            '<span id="show_curr_icon' + show.id + '_' + stage.id +'"></span>' +
                                                             '<span class="current_show">' + show.time.slice(11,16) + '</span>' +
                                                         '</div>' +
                                                         '<span class="column icon_swipe_right"></span>' +
@@ -173,10 +163,11 @@ function createDuringFestival(festival){
                                                 if(j==shows_len - 1)
                                                     $('#during_festival_show_'+ show.id + ' .icon_swipe_right').remove();
 
-                                                if(current_minutes > show_minutes && current_minutes <= next_show_minutes)
-                                                    $('#during_festival_show_'+ show.id + ' .during_festival_column .icon_current_show').remove();
 
-
+                                                if(checkIfCurrentShow(shows, j)){
+                                                    //alert(show.name + 'is currently on stage ' + stage.name);
+                                                    $('#show_curr_icon' + show.id + '_' + stage.id).addClass('icon_current_show');
+                                                }
 
                                                 (function (show_name){
                                                     $('#during_festival_show_' + show.id ).unbind().bind('click', function(){
@@ -205,6 +196,7 @@ function createDuringFestival(festival){
     }, errorCB);
     $('#during_festival_scroller').scroller();
 }
+
 
 function bindClickToNavBottom(festival_status, festival){
     $('#'+festival_status+'_shows_button').unbind().bind('click', function(){
@@ -279,3 +271,87 @@ function changeNumberToMonth(numeric_month){
     }
     return month;
 }
+
+
+
+//______________Functions for determining the current show______________________________________________________________
+
+
+
+//returns the miliseconds equivalent of some Time(HH:MM:SS)
+function getMiliSeconds(time){
+
+    var hours = time.slice(11,13);
+    var mins = time.slice(14,16);
+    var minutes = parseInt(hours)*60 + parseInt(mins);
+
+    return  minutes*60*1000;
+}
+
+//Returns the start time in miliseconds of the next show
+function getNextShowTime(shows, j, closing_time, day_time, opening_time,  next_day_time){
+    if(j<shows.len-1){
+        var next_show = shows.item(j+1);
+        var next_show_time = day_time + getMiliSeconds(next_show.time);
+        next_show_time = amPmTranslation(next_show_time, opening_time, closing_time, next_day_time, day_time );
+        return  next_show_time;
+    }
+    else {
+        return closing_time;
+    }
+
+}
+
+//Adds 24 hours to the show if its after mid-night
+function amPmTranslation(show_time, opening_time, closing_time, next_day_time, day_time ){
+    closing_time = closing_time - 24*60*60*1000;
+    if (next_day_time >= show_time &&  show_time >= opening_time){
+        //do nothing test
+    }
+    else if (day_time <= show_time && show_time <= closing_time){ //depois da meia-noite, acrescenta 24 hora ao show_time
+        show_time = show_time + 24*60*60*1000;
+    }
+    else {alert('buraco com as horas');}
+
+    return show_time;
+}
+
+function toDate(date){
+    var year = date.slice(0,4);
+    var month = date.slice(5,7);
+    var day = date.slice(8,10);
+    return [year, month, day];
+}
+
+//checks if a show is currently playing on a stage
+function checkIfCurrentShow(shows, j){
+    var show = shows.item(j);
+    //ar current_time = new Date().getTime();
+    var current_time =  new Date(2013, 07, 18, 15, 59, 00).getTime();
+
+    var aux_date = toDate(show.date);
+
+    var day_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime();
+    var next_day_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000; //dia + 24h
+
+    var opening_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(show.opening_time);
+    var closing_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(show.closing_time);
+
+
+
+
+    var show_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(show.time);
+
+    show_time = amPmTranslation(show_time, opening_time, closing_time, next_day_time, day_time);
+
+    var next_show_time = getNextShowTime(shows, j, closing_time, day_time, opening_time, next_day_time);
+
+
+
+    if (next_show_time >= current_time && current_time >= show_time)
+        return true;
+    else return false;
+}
+
+
+//____________________________________________________________________________________________________________________
