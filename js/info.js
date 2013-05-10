@@ -149,7 +149,7 @@ function queryInfoSuccess(tx, results) {
 
                             // DAY 5
                             '<div id="weather_day5" class="row">' +
-                                '<div class="column centered fixed">' +
+                                '<div class="column centered">' +
                                     '<strong id="weather_weekday5" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date5" class="weather_date"></span>' +
                                 '</div>' +
@@ -159,7 +159,7 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column">' +
                                     '<p id="weather_description5"></p>' +
                                 '</div>' +
-                                '<div class="column fixed">' +
+                                '<div class="column">' +
                                     '<span id="weather_max_temperature5" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature5" class="weather_temperature"></span>' +
                                 '</div>' +

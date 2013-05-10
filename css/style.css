@@ -38,17 +38,10 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-
 }
-* {
-    overflow:hidden;
-}
-
 body {
   line-height: 1;
-  position:relative;
 }
-
 ol,
 ul {
   list-style: none;
@@ -56,6 +49,9 @@ ul {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+* {
+  overflow: hidden;
 }
 .blink {
   -webkit-animation: blink .75s linear infinite;
@@ -212,11 +208,8 @@ table {
 /* GLOBAL
 -------------------------------------------------------------------------- */
 
-html {
-  overflow: hidden;
-}
 body {
-  overflow: hidden;
+  position: relative;
   background: url(../img/bg-guitar.png) center 180px no-repeat;
   background-color: #232323;
   font-family: 'Open Sans', arial, sans-serif;
@@ -230,11 +223,11 @@ body {
   -webkit-transition: opacity 0.6s ease-out;
   opacity: 0;
   height: 0;
-  overflow: hidden;
 }
 .visible {
   opacity: 1;
   height: 86%;
+  overflow: visible;
 }
 .carousel {
   height: 93%;
@@ -344,7 +337,6 @@ a {
 
 #header {
   position: relative;
-  overflow: hidden;
   z-index: 8;
   height: 14%;
   border-bottom: 1px solid #b43a34;
@@ -353,6 +345,7 @@ a {
 #header .heading0 {
   margin-left: 82px;
   font-size: 1.9em;
+  overflow: visible;
 }
 #header .heading1,
 #header .heading2 {
@@ -397,7 +390,6 @@ a {
 /* MAIN MENU
 -------------------------------------------------------------------------- */
 
-
 #menu .list {
   border-bottom: 3px solid #b43a34;
 }
@@ -419,9 +411,8 @@ a {
   background-color: #eeeeee;
   -webkit-transition: right 1s ease-out;
 }
-
-.active_menu{
-   right:0;
+.active_menu {
+  right: 0;
 }
 /* FEEDBACK
 -------------------------------------------------------------------------- */
@@ -717,6 +708,7 @@ a {
 }
 #weather_temperature_current {
   position: relative;
+  overflow: visible;
   bottom: 30px;
   display: inline-block;
   font-size: 2.25em;

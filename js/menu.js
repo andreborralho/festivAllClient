@@ -40,8 +40,10 @@ function createMenuContainer(){
 
     $('#menu_home_link').unbind().bind('click', function(){
         $('#menu').removeClass('active_menu');
+        menuIsUp=false;
         changeContainers('#festivals', '', '');
         fixHeaderLink('#festivals');
+        history_array.pop();
     });
     $('#menu_search_link').unbind().bind('click', function(){
         searchButton();
@@ -56,7 +58,7 @@ function createMenuContainer(){
         confirmExit();
     });
 
-    $('#body').not('#menu').unbind().bind('click', function(){
+    $('.container').not('#menu').unbind().bind('click', function(){
         $('#menu').removeClass('active_menu');
         menuIsUp = false;
     });

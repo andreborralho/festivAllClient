@@ -1,6 +1,5 @@
 var search_token;
 var current_page;
-//var softkeyboard = window.cordova.plugins.SoftKeyBoard;;
 
 document.onkeypress = processKey;
 function processKey(e){
@@ -21,9 +20,6 @@ function processKey(e){
 
 function createSearchContainer(){
     current_page = "search";
-
-    //$('#search_input').get().focus();
-    //softkeyboard.show();
 
     $('#search_button').unbind().bind('click', function(){
         search_token = $('#search_input').val().replace(" ","");
@@ -57,7 +53,6 @@ function querySearchSuccess(tx, results) {
 
     $('#header_link').unbind().bind('click', function(){
         backButton();
-        //softkeyboard.show();
     });
 
     var search_list_selector =  $('#search_list');

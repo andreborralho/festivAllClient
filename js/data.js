@@ -151,6 +151,9 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     //console.log("Inserting in " + k);
+                    var urlservidor = l.map;
+                    window.btoa(urlservidor);
+
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
                         l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
