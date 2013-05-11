@@ -50,9 +50,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-* {
-  overflow: hidden;
-}
+/** {
+    overflow:hidden;
+}*/
+
 .blink {
   -webkit-animation: blink .75s linear infinite;
   -moz-animation: blink .75s linear infinite;
@@ -211,7 +212,7 @@ table {
 body {
   position: relative;
   overflow: hidden;
-  background: url(../img/bg-guitar.png) center 30% no-repeat #232323;
+  background: url(../img/bg-guitar.png) center 40% no-repeat #232323;
   font-family: 'Open Sans', arial, sans-serif;
   color: white;
   line-height: 1.2em;
@@ -390,37 +391,6 @@ a {
 /* MAIN MENU
 -------------------------------------------------------------------------- */
 
-/*#menu {
-    z-index: 99;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    margin-top: 13%;
-    .list {
-        border-bottom: 3px solid @maincolor;
-    }
-    .link {
-        display: block;
-        padding: 15px 20px;
-        border-bottom: 1px solid @lightgrey;
-        color: @bgcolor;
-    }
-}
-#menu_container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 80%;
-    height: 100%;
-    border-top: 5px solid @maincolor;
-    background-color: #EEE;
-    .box-shadow(-6px 0 20px 5px #222);
-*/
-
 .menu {
   z-index: 99;
   position: absolute;
@@ -431,7 +401,7 @@ a {
   height: 87%;
   border-top: 5px solid #b43a34;
   background-color: #eeeeee;
-  -webkit-transition: right 1s ease-out;
+  -webkit-transition: right 0.5s ease-out;
 }
 .menu .list {
   border-bottom: 3px solid #b43a34;
@@ -444,6 +414,9 @@ a {
 }
 .active_menu {
   right: 0;
+  -webkit-box-shadow: -6px 0 20px 5px #222222;
+  -moz-box-shadow: -6px 0 20px 5px #222222;
+  box-shadow: -6px 0 20px 5px #222222;
 }
 /* FEEDBACK
 -------------------------------------------------------------------------- */
@@ -461,40 +434,48 @@ a {
   position: relative;
   z-index: 10;
   height: 7%;
-  padding: 6px 0;
   background-color: #373737;
   -webkit-box-shadow: 0 6px 20px 2px #222222;
   -moz-box-shadow: 0 6px 20px 2px #222222;
   box-shadow: 0 6px 20px 2px #222222;
+  white-space: nowrap;
+}
+.swipe_bar_list {
+  position: absolute;
+  display: inline-block;
+  padding: 0 10px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.swipe_bar_list.first,
+.swipe_bar_list.last {
+  margin-left: 0 !important;
+}
+.swipe_bar_list.first {
+  right: auto;
+  left: 0;
+}
+.swipe_bar_list.middle {
+  left: 50%;
+}
+.swipe_bar_list.last {
+  right: 0;
+  left: auto;
+}
+.swipe_bar_list li {
+  display: inline-block;
+  min-width: 100px;
   text-align: center;
 }
-.swipe_bar .current {
-  z-index: 1;
-  position: relative;
-  padding: 0 5px;
-  background-color: #373737;
+.swipe_bar_list a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #cccccc;
+  line-height: 30px;
 }
-.swipe_bar .current:after {
-  content: " ";
-  position: absolute;
-  top: 23px;
-  left: 50%;
-  display: block;
-  width: 49px;
-  height: 7px;
-  margin-left: -25px;
-  background: url(../img/sprite.png) -72px 0;
-}
-.swipe_bar .not_current {
-  position: absolute;
-  top: 6px;
-  color: #aaaaaa !important;
-}
-.swipe_bar .not_current.prev {
-  left: 1px;
-}
-.swipe_bar .not_current.next {
-  right: 1px;
+.swipe_bar_list .current {
+  border-bottom: 2px solid white;
+  color: white;
 }
 /* NAVS
 -------------------------------------------------------------------------- */

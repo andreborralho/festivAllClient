@@ -171,3 +171,37 @@ function bindClickToNavBar(nav_items, carousel){
         })(i, nav_item, nav_items, carousel);
     }
 }
+
+
+
+
+/*
+// SWIPE BAR
+function createSwipeBar(){
+    
+    $('li').unbind().bind('click', function() {
+        $('li a').removeClass('current');
+        $(this).find('a').addClass('current');
+    });
+
+
+
+
+
+    //nav Width
+    var ul = $('.swipe_bar_list');
+    var nav_width = ul.width();
+
+    ul.find('li:eq(0)').unbind().bind('click', function() {
+        ul.removeClass('middle last').addClass('first');
+    });
+
+    ul.find('li:eq(1)').unbind().bind('click', function() {
+        ul.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width / 2);
+    });
+
+    ul.find('li:eq(2)').unbind().bind('click', function() {
+        ul.removeClass('first middle').addClass('last');
+    });
+
+}*/
