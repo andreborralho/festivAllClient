@@ -1,11 +1,9 @@
 // INFO_CONTAINER
 
-var info_carousel;
-
 function init_info_carousel(){
 
     // Inits carousel for info_container
-    info_carousel = $('#info_carousel').carousel({
+    var info_carousel = $('#info_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             if(index == 0){
@@ -25,6 +23,8 @@ function init_info_carousel(){
             }
         }
     });
+
+    bindClickToNavBar(['#tickets_nav_item','#transports_nav_item','#weather_nav_item'], info_carousel);
 }
 
 // Queries the local Database for a show
@@ -39,13 +39,6 @@ function createInfoContainer(festival_id){
         tx.executeSql('SELECT * FROM FESTIVALS WHERE ID='+festival_id, [], queryInfoSuccess, errorCB);
     }, errorCB);
 
-    //keep the navbar on first page
-    $('#tickets_nav_item').addClass('current').removeClass('hidden not_current prev');
-    $('#transports_nav_item').addClass('not_current next').removeClass('hidden current prev');
-    $('#weather_nav_item').addClass('hidden').removeClass('current');
-
-
-    //bindClickToNavBar(['#tickets_nav_item','#transports_nav_item','#weather_nav_item'], info_carousel);
 }
 
 // Success callback for the the query info of one festival

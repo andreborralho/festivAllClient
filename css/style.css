@@ -38,10 +38,17 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
+
 }
+* {
+    overflow:hidden;
+}
+
 body {
   line-height: 1;
+  position:relative;
 }
+
 ol,
 ul {
   list-style: none;
@@ -389,6 +396,7 @@ a {
 /* MAIN MENU
 -------------------------------------------------------------------------- */
 
+<<<<<<< HEAD
 #menu {
   z-index: 99;
   position: fixed;
@@ -399,6 +407,9 @@ a {
   overflow: hidden;
   margin-top: 13%;
 }
+=======
+
+>>>>>>> fc9c1ef1211c463896a2a1870dd7870aac97ddce
 #menu .list {
   border-bottom: 3px solid #b43a34;
 }
@@ -408,18 +419,27 @@ a {
   border-bottom: 1px solid #666666;
   color: #232323;
 }
-#menu_container {
+.menu {
+  z-index: 99;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 13%;
+  right: -80%;
   bottom: 0;
   width: 80%;
-  height: 100%;
+  height: 87%;
   border-top: 5px solid #b43a34;
   background-color: #eeeeee;
+<<<<<<< HEAD
   -webkit-box-shadow: -6px 0 20px 5px #222222;
   -moz-box-shadow: -6px 0 20px 5px #222222;
   box-shadow: -6px 0 20px 5px #222222;
+=======
+  -webkit-transition: right 1s ease-out;
+}
+
+.active_menu{
+   right:0;
+>>>>>>> fc9c1ef1211c463896a2a1870dd7870aac97ddce
 }
 /* FEEDBACK
 -------------------------------------------------------------------------- */

@@ -146,10 +146,27 @@ function bindClickToNavBar(nav_items, carousel){
     for(var i=0; i<nav_items.length; i++){
         nav_item = nav_items[i];
 
-        (function (i, nav_item, carousel){
-            $(nav_item).unbind().bind('click',function(){
+        (function (i, nav_item, nav_items, carousel){
+            $(nav_item).unbind().bind('click', function(){
+
+                if(i == 0){
+                    $(nav_items[i]).addClass('current').removeClass('not_current prev');
+                    $(nav_items[i+1]).addClass('not_current next').removeClass('current');
+                    $(nav_items[i+2]).addClass('hidden').removeClass('current');
+                }
+                else if(i == 1){
+                    $(nav_items[i-1]).addClass('not_current prev').removeClass('current hidden');
+                    $(nav_items[i]).addClass('current').removeClass('not_current next prev');
+                    $(nav_items[i+1]).addClass('not_current next').removeClass('current hidden');
+                }
+                else if(i == 2){
+                    $(nav_items[i-2]).addClass('hidden').removeClass('current');
+                    $(nav_items[i-1]).addClass('not_current prev').removeClass('current');
+                    $(nav_items[i]).addClass('current').removeClass('not_current next');
+                }
+
                 carousel.onMoveIndex(i, 200);
             });
-        })(i, nav_item, carousel);
+        })(i, nav_item, nav_items, carousel);
     }
 }

@@ -6,28 +6,28 @@ function menuButton(e){
     }
     else{
         menuIsUp = false;
-        $('#menu').hide();
+        $('#menu').removeClass('active_menu');
     }
 }
 
 function searchButton(){
     menuIsUp=false;
     createSearchContainer();
-    $('#menu').hide();
+    $('#menu').removeClass('active_menu');
     changeContainers('#search', 'Menu', 'Pesquisa');
 }
 
 function feedbackButton(){
     menuIsUp=false;
     createFeedbackContainer();
-    $('#menu').hide();
+    $('#menu').removeClass('active_menu');
     changeContainers('#feedback', 'Menu', 'Feedback');
 }
 
 function aboutUsButton(){
     menuIsUp=false;
     createAboutUsContainer();
-    $('#menu').hide();
+    $('#menu').removeClass('active_menu');
     changeContainers('#about_us', 'Menu', 'Quem somos');
 }
 
@@ -36,10 +36,10 @@ function createMenuContainer(){
         backButton();
     });
 
-    $('#menu').show();
+    $('#menu').addClass('active_menu');
 
     $('#menu_home_link').unbind().bind('click', function(){
-        $('#menu').hide();
+        $('#menu').removeClass('active_menu');
         changeContainers('#festivals', '', '');
         fixHeaderLink('#festivals');
     });
@@ -56,8 +56,8 @@ function createMenuContainer(){
         confirmExit();
     });
 
-    $('#menu').not('#menu_container').unbind().bind('click', function(){
-        $(this).hide();
+    $('#body').not('#menu').unbind().bind('click', function(){
+        $('#menu').removeClass('active_menu');
         menuIsUp = false;
     });
 
