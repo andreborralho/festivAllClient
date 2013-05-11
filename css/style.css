@@ -418,40 +418,6 @@ a {
   -moz-box-shadow: -6px 0 20px 5px #222222;
   box-shadow: -6px 0 20px 5px #222222;
 }
-/*
-
-#menu_container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 80%;
-    height: 100%;
-    border-top: 5px solid @maincolor;
-    background-color: #EEE;
-    .box-shadow(-6px 0 20px 5px #222);
-}
-#menu {
-    z-index: 99;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    margin-top: 13%;
-    .list {
-      border-bottom: 3px solid #b43a34;
-    }
-    .link {
-      display: block;
-      padding: 15px 20px;
-      border-bottom: 1px solid #666666;
-      color: #232323;
-    }
-}
-*/
-
 /* FEEDBACK
 -------------------------------------------------------------------------- */
 

@@ -348,7 +348,7 @@ function checkIfCurrentShow(shows, j){
 
 
 
-    if (next_show_time >= current_time && current_time >= show_time)
+    if(next_show_time >= current_time && current_time >= show_time)
         return true;
     else return false;
 }

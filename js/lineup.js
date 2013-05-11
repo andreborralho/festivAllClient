@@ -212,22 +212,22 @@ function finishLineupStage(day, stages, day_len){
 
     $('#lineup_day_buttons .column').eq(0).addClass('current');
 
-        //ERRO: so entra aqui no primavera
-        $('#' + day.id + '_day_button').unbind().bind('click', function(){
+    //ERRO: so entra aqui no primavera
+    $('#' + day.id + '_day_button').unbind().bind('click', function(){
+        alert(day.id);
+        //set visibility to the correct lineup_day_frame
+        $('.lineup_day_frame').removeClass('active');
+        $('#lineup_day_frame_' + day.id).addClass('active');
+        $('#lineup_day_buttons .column').removeClass('current');
+        $(this).addClass('current');
 
-            //set visibility to the correct lineup_day_frame
-            $('.lineup_day_frame').removeClass('active');
-            $('#lineup_day_frame_' + day.id).addClass('active');
-            $('#lineup_day_buttons .column').removeClass('current');
-            $(this).addClass('current');
-
-            $('#stage_' + stages[0].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
-            $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');
-            $('#stage_' + stages[2].id + '_nav_item').addClass('hidden').removeClass('current');
-            $('#stage_' + stages[3].id + '_nav_item').addClass('hidden').removeClass('current');
+        $('#stage_' + stages[0].id + '_nav_item').addClass('current').removeClass('hidden not_current next prev');
+        $('#stage_' + stages[1].id + '_nav_item').addClass('not_current next').removeClass('hidden current prev');
+        $('#stage_' + stages[2].id + '_nav_item').addClass('hidden').removeClass('current');
+        $('#stage_' + stages[3].id + '_nav_item').addClass('hidden').removeClass('current');
 
 
-            $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 0);
-        });
+        $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 0);
+    });
 
 }
