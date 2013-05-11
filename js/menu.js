@@ -63,5 +63,5 @@ function createMenuContainer(){
         $('#menu').removeClass('active_menu');
         menuIsUp = false;
     });
-    */
+
 }

@@ -24,7 +24,7 @@ function queryFestivalSuccess(tx, results) {
     var diff = Math.abs(first_day_date - curr_date);
 
 
-    diff = -1; //descomentar esta linha para experimentar o festival durante
+    //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -348,7 +348,7 @@ function checkIfCurrentShow(shows, j){
 
 
 
-    if (next_show_time >= current_time && current_time >= show_time)
+    if(next_show_time >= current_time && current_time >= show_time)
         return true;
     else return false;
 }

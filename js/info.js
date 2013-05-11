@@ -433,7 +433,7 @@ function translateWeatherDescription(desc_value){
             desc_value = "Céu nublado";
             break;
         case "Partly Cloudy":
-            desc_value = "Céu parcialmente nublado";
+            desc_value = "Céu pouco nublado";
             break;
         case "Clear":
             desc_value = "Céu limpo";

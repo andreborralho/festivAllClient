@@ -344,6 +344,7 @@ a {
 #header .heading0 {
   margin-left: 82px;
   font-size: 1.9em;
+  font-weight: normal;
   overflow: visible;
 }
 #header .heading1,
@@ -420,7 +421,7 @@ a {
     .box-shadow(-6px 0 20px 5px #222);
 */
 
-#menu {
+.menu {
   z-index: 99;
   position: absolute;
   top: 13%;
@@ -432,10 +433,10 @@ a {
   background-color: #eeeeee;
   -webkit-transition: right 1s ease-out;
 }
-#menu .list {
+.menu .list {
   border-bottom: 3px solid #b43a34;
 }
-#menu .link {
+.menu .link {
   display: block;
   padding: 15px 20px;
   border-bottom: 1px solid #666666;
