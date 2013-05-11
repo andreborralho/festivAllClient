@@ -1,7 +1,6 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 
-
 //Data - client side DB
 
 // Cordova is ready
@@ -37,6 +36,7 @@ function onDeviceReady() {
         }
     });
 }
+
 // Callback for create db transaction
 function successCreateDBCB(){
     window.FestivallToaster.showMessage('Base de dados criada!');
@@ -150,6 +150,9 @@ function insertData(data){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
                     //console.log("Inserting in " + k);
+                    var urlservidor = l.map;
+                    window.btoa(urlservidor);
+
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
                         l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
@@ -312,4 +315,3 @@ function getCurrentDate(){
         'T' + ('0' + String(d.getHours())).substr(-2) + ':' + ('0' + String(d.getMinutes())).substr(-2) + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
     return df;
 }
-

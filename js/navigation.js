@@ -38,6 +38,7 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading1').addClass('heading0');
         header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
         $('#header_subtitle').empty();
+        $('#header_link').unbind();
     }
     else if(page == "#before_festival"){
         $('#header_subtitle').empty();
@@ -102,7 +103,7 @@ function changeContainers(page, title, subtitle){
 function backButton(){
     if(menuIsUp){
         menuIsUp = false;
-        $('#menu').hide();
+        $('#menu').removeClass('active_menu');
     }
     else{
         history_array.pop();
@@ -134,7 +135,7 @@ function onConfirm(button) {
 // Show a custom confirmation dialog
 function confirmExit() {
     navigator.notification.confirm(
-        'Queres mesmo bazar?', // message
+        'Queres mesmo sair?', // message
         onConfirm, // callback to invoke with index of button pressed
         'Sair', // title
         'Voltar,Sair' // buttonLabels

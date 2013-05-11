@@ -6,11 +6,10 @@
 html {
     overflow: hidden;
 }
-
 body {
+    position: relative;
     overflow: hidden;
-    background: url(../img/bg-guitar.png) center 30% no-repeat;
-    background-color: @bgcolor;
+    background: url(../img/bg-guitar.png) center 30% no-repeat @bgcolor;
     font-family: 'Open Sans', arial, sans-serif;
     color: #FFF;
     line-height: 1.2em;
@@ -24,11 +23,12 @@ body {
     -webkit-transition: opacity 0.6s ease-out;
     opacity: 0;
     height: 0;
-    overflow: hidden;
+    
 }
 .visible {
     opacity: 1;
     height: 86%;
+    overflow: visible;
 }
 
 .carousel {
@@ -130,7 +130,7 @@ a {
 
 // Shadows
 .shadow {
-    .box-shadow(0 6px 20px 5px #222);
+    .box-shadow(0 6px 20px 2px #222);
 }
 
 /* SPLASH
@@ -153,6 +153,7 @@ a {
 -------------------------------------------------------------------------- */
 #header {
     position: relative;
+    
     z-index: 8;
     height: 14%;
     border-bottom: 1px solid @maincolor;
@@ -160,6 +161,7 @@ a {
     .heading0 {
         margin-left: 82px;
         font-size: 1.9em;
+        overflow: visible;
     }
     .heading1,
     .heading2 {
@@ -206,7 +208,7 @@ a {
 
 /* MAIN MENU
 -------------------------------------------------------------------------- */
-#menu {
+/*#menu {
     z-index: 99;
     position: fixed;
     top: 0;
@@ -235,7 +237,34 @@ a {
     border-top: 5px solid @maincolor;
     background-color: #EEE;
     .box-shadow(-6px 0 20px 5px #222);
+*/
+#menu {
+    z-index: 99;
+    position: absolute;
+    top: 13%;
+    right: -80%;
+    bottom: 0;
+    width: 80%;
+    height: 87%;
+    border-top: 5px solid #b43a34;
+    background-color: #eeeeee;
+    -webkit-transition: right 1s ease-out;  
+    .list {
+      border-bottom: 3px solid #b43a34;
+    }
+    .link {
+      display: block;
+      padding: 15px 20px;
+      border-bottom: 1px solid #666666;
+      color: #232323;
+    }
 }
+
+.active_menu{
+   right:0;
+
+}
+
 
 /* FEEDBACK
 -------------------------------------------------------------------------- */
@@ -533,7 +562,7 @@ a {
 
 .active{
     opacity: 1;
-    height: 100%;
+    height: 100%;    
 }
 
 /* WEATHER
@@ -547,6 +576,7 @@ a {
 }
 #weather_temperature_current {
     position: relative;
+    overflow: visible;
     bottom: 30px;
     display: inline-block;
     font-size: 2.25em;
