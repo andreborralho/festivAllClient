@@ -6,7 +6,7 @@
 body {
     position: relative;
     overflow: hidden;
-    background: url(../img/bg-guitar.png) center 40% no-repeat @bgcolor;
+    background: url(../img/bg-guitar.png) center 50% no-repeat @bgcolor;
     font-family: 'Open Sans', arial, sans-serif;
     color: #FFF;
     line-height: 1.2em;
@@ -286,6 +286,7 @@ a {
 
 .swipe_bar_list {
     position: absolute;
+    bottom: 0;
     display: inline-block;
     padding: 0 10px;
     -webkit-transition: all 0.3s;
@@ -311,14 +312,27 @@ a {
         text-align: center;
     }
     a {
+        padding-bottom: 4px;
         margin: 0 10px;
         text-decoration: none;
         color: #CCC;
         line-height: 30px;
     }
     .current {
+        position: relative;
         border-bottom: 2px solid #FFF;
         color: white;
+        &:after {
+            content: " ";
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-left: -6px;
+            background: @sprite -72px 0 no-repeat;
+        }
     }
 }
 
