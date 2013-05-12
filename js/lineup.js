@@ -39,6 +39,7 @@ function queryLineupSuccess(tx, results) {
 
 function buildLineup(stages, days){
 
+    if(stages.length >0){
     var days_length = days.length;
     for(var i = 0; i<days_length; i++){
         var day = days.item(i);
@@ -119,6 +120,7 @@ function buildLineup(stages, days){
             })(day,stages[s],stages.length, s, i, days_length);
         }
     }
+    }else{$('#lineup_frame').append('Não há palcos para este festival');}
 }
 
 function appendStagesToNavBar(stages){
