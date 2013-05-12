@@ -443,10 +443,13 @@ a {
 .swipe_bar_list {
   position: absolute;
   bottom: 0;
-  display: inline-block;
   padding: 0 10px;
+  text-align: center;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+}
+.swipe_bar_list.static {
+  position: relative;
 }
 .swipe_bar_list.first,
 .swipe_bar_list.last {
@@ -749,6 +752,12 @@ a {
 }
 .weather_temperature {
   font-size: 1.25em;
+  line-height: 55px;
+}
+#weather_list .column {
+  display: inline-block;
+  width: 25%;
+  padding: 6px;
 }
 /* SHOW VIDEOS
 -------------------------------------------------------------------------- */

@@ -78,9 +78,9 @@ function queryInfoSuccess(tx, results) {
                             '<p id="weather_description_current" class="row"></p>' +
                         '</div>' +
 
-                        '<ul class="list">' +
+                        '<ul id="weather_list" class="list" style="width:100%">' +
                             // TODAY
-                            '<div id="weather_day1" class="row">' +
+                            '<li id="weather_day1" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday1" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date1" class="weather_date"></span>' +
@@ -95,10 +95,10 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature1" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature1" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // TOMORROW
-                            '<div id="weather_day2" class="row">' +
+                            '<li id="weather_day2" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday2" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date2" class="weather_date"></span>' +
@@ -113,10 +113,10 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature2" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature2" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // 2 DAYS FROM NOW
-                            '<div id="weather_day3" class="row">' +
+                            '<li id="weather_day3" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday3" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date3" class="weather_date"></span>' +
@@ -131,10 +131,10 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature3" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature3" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // DAY 4
-                            '<div id="weather_day4" class="row">' +
+                            '<li id="weather_day4" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday4" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date4" class="weather_date"></span>' +
@@ -149,10 +149,10 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature4" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature4" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // DAY 5
-                            '<div id="weather_day5" class="row">' +
+                            '<li id="weather_day5" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday5" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date5" class="weather_date"></span>' +
@@ -167,7 +167,7 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature5" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature5" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
                         '</ul>' +
                     '</div>' +
                 '</div>' +
