@@ -17,6 +17,8 @@ function queryShowsSuccess(tx, results) {
     var show, show_id;
     var show_name_letter, show_name_previous_letter, numeric_month, month;
 
+    if (len >0 ){
+
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
         fixHeaderLink('#'+festival_status+'_festival');
@@ -68,6 +70,8 @@ function queryShowsSuccess(tx, results) {
 	}
 
     $('#shows_page_list').scroller();
+
+    }else{$('#shows_page_list').append('Ainda não há bandas para este festival!');}
 }
 
 function changeNumberToMonthAbrev(numeric_month){

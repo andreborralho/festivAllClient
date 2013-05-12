@@ -120,7 +120,8 @@ function buildLineup(stages, days){
             })(day,stages[s],stages.length, s, i, days_length);
         }
     }
-    }else{$('#lineup_frame').append('Não há palcos para este festival');}
+    }else{$('#lineup_frame').append('Não há palcos para este festival');
+        changeContainers("#lineup", current_festival_name, "Cartaz");}
 }
 
 function appendStagesToNavBar(stages){
