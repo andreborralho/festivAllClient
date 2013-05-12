@@ -317,6 +317,9 @@ a {
     .column {
         background-color: #2e2e2e;
         padding: 0;
+        &:last-child .item {
+            border: none !important;
+        }
     }
     .item {
         display: inline-block;
@@ -364,15 +367,20 @@ a {
 /* HOME
 -------------------------------------------------------------------------- */
 .festival_list {
+    padding: 0 6px;
     margin-top: 2%;
     line-height: 0; // retirar espaço em baixo
     .item {
         display: inline-block;
         width: 33.33%;
+        .borderbox;
+        padding: 6px;
         line-height: 0; // retirar espaço em baixo
     }
     img {
         width: 100%;
+        .borderbox;
+        border: 5px solid #888;
     }
 }
 
