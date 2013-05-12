@@ -95,7 +95,7 @@ function buildLineup(stages, days){
                             }
                             else
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                    '<div class="padded">Não existem espectáculos para este palco neste dia!</div>');
+                                    '<div class="padded"><p>Não existem espectáculos para este palco neste dia!</p></div>');
 
                             if(s == (len - 1))
                                 finishLineupStage(day, stages, day_len);

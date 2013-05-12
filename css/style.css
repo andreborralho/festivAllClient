@@ -268,7 +268,7 @@ a {
   color: white;
 }
 .input_field {
-  height: 50px;
+  height: 60px;
 }
 .textarea {
   height: 90px;
@@ -280,6 +280,9 @@ a {
   box-sizing: border-box;
   padding-top: 20px;
   border: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   margin: 10px auto 0;
   background-color: #b43a34;
   text-align: center;
@@ -599,6 +602,13 @@ a {
 /* SEARCH
 -------------------------------------------------------------------------- */
 
+#search_input_wrap {
+  margin-top: 50px;
+  padding: 0 10px;
+}
+#search_button {
+  margin-top: 40px;
+}
 .icon_search {
   display: inline-block;
   width: 31px;
@@ -609,13 +619,21 @@ a {
 -------------------------------------------------------------------------- */
 
 .before_festival_details {
+  position: relative;
+  z-index: 2;
   font-size: 18px;
   line-height: 24px;
 }
 .before_festival_details span {
   text-shadow: 0 0 5px #232323;
 }
+.countdown_bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
 #festival_countdown {
+  z-index: 2;
   position: absolute;
   display: inline-block;
   top: 50%;
@@ -653,12 +671,6 @@ a {
 #before_festival_page .nav_bottom .item {
   padding: 0;
   line-height: 50px;
-}
-.countdown_bg {
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  width: 100%;
 }
 /* DURING FESTIVAL
 -------------------------------------------------------------------------- */
