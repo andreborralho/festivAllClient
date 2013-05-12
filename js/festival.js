@@ -6,7 +6,7 @@ var current_festival_id, current_festival_name, festival_status;
 function createFestivalContainer(festival_id){
 
     db.transaction(function (tx) {
-        tx.executeSql('SELECT FESTIVALS.*, DAYS.DATE AS day_date, DAYS.ID AS day_id ' +
+        tx.executeSql('SELECT *, FESTIVALS.id AS id, DAYS.id as day_id ' +
             'FROM FESTIVALS INNER JOIN DAYS ON FESTIVALS.ID = DAYS.FESTIVAL_ID ' +
             'WHERE FESTIVALS.ID='+festival_id, [], queryFestivalSuccess, errorQueryCB);
     }, errorCB);
@@ -17,14 +17,13 @@ function queryFestivalSuccess(tx, results) {
 
     var festival = results.rows.item(0);
     var festivals = results.rows;
-    var festival_date = festival.day_date.toString().replace(/-/g,'/');
+    var festival_date = festival.date.toString().replace(/-/g,'/');
+    window.current_time =  new Date(2013, 07, 18, 17, 00, 00).getTime();
+    //window.current_time = new Date().getTime();
+    var first_day_date = new Date(festival_date).getTime();   //falta ver quando um festival tem interregnos no meio sem dias de festival checkIfDuringFestival()
+    var diff = first_day_date - current_time;
 
-    var curr_date = new Date();
-    var first_day_date = new Date(festival_date);   //falta ver quando um festival tem interregnos no meio sem dias de festival checkIfDuringFestival()
-    var diff = Math.abs(first_day_date - curr_date);
-
-
-    diff = -1; //descomentar esta linha para experimentar o festival durante
+    //diff = -1; //descomentar esta linha para experimentar o festival durante
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -35,13 +34,30 @@ function queryFestivalSuccess(tx, results) {
         history_array.pop();
     });
 
-    if(diff < 0){ //during festival
-        createDuringFestival(festival);
-        festival_status = "during";
-    }
-    else if (diff > 0){ //before festival
+    if(diff > 0){ //before festival
         createBeforeFestival(festival, festivals, diff);
         festival_status = "before";
+    }
+    else if (diff < 0){ //during festival
+        var curr_time = current_time;
+
+        for(var i = 0; i< festivals.length; i++){
+            var day = festivals.item(i);
+            var aux_date = toDate(day.date);
+
+            var opening_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(day.opening_time);
+            var closing_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
+
+            if (curr_time >= opening_time && curr_time <= closing_time){
+                createDuringFestival(day);
+                festival_status = "during";
+            }
+            else{
+                /*//entre festivais ou após o ultimo dia, é possivel que não fique isto
+                 createBeforeFestival(festival, festivals, diff);
+                 festival_status = "before";*/
+            }
+        }
     }
     /*
      else if (){ //after festival
@@ -80,7 +96,7 @@ function createBeforeFestival(festival, festivals, diff){
     for(var i=0; i<festivals.length; i++){
         festival = festivals.item(i);
 
-        festival_day = festival.day_date.slice(8,10);
+        festival_day = festival.date.slice(8,10);
         festival_day_first_number = festival_day.slice(0,1).replace("0", "");
         festival_day_second_number = festival_day.slice(1,2);
         festival_day = festival_day_first_number + festival_day_second_number;
@@ -112,6 +128,9 @@ function createBeforeFestival(festival, festivals, diff){
     bindClickToNavBottom("before", festival);
 }
 
+
+
+
 function createDuringFestival(festival){
     db.transaction(function (tx){
         tx.executeSql('SELECT * FROM STAGES WHERE STAGES.festival_id=' + festival.id,[],
@@ -126,10 +145,17 @@ function createDuringFestival(festival){
                         stage = stages.item(i);
                         (function(stage){ //manha gigante, pouco legivel
                             db.transaction(  function(tx){
-                                tx.executeSql('SELECT * FROM SHOWS INNER JOIN DAYS ON SHOWS.day_id = DAYS.id WHERE SHOWS.stage_id=' + stage.id +' AND '+
-                                    'SHOWS.festival_id=' + festival.id + ' AND SHOWS.day_id=' + festival.day_id + ' ORDER BY SHOWS.time',[],
+                                tx.executeSql('SELECT * FROM (SELECT * FROM SHOWS ' +
+                                    ' WHERE SHOWS.festival_id=' + festival.id + ' AND SHOWS.stage_id=' + stage.id + ' AND SHOWS.day_id = ' + festival.day_id +
+                                    ' AND TIME(REPLACE(REPLACE(TIME,"Z",""),"T"," "))>=TIME(REPLACE("' + festival.opening_time + '","T"," ")) ORDER BY TIME)' +
+                                    ' UNION ALL SELECT * FROM (SELECT * FROM SHOWS ' +
+                                    ' WHERE SHOWS.festival_id=' + festival.id + ' AND SHOWS.stage_id=' + stage.id + ' AND SHOWS.day_id = ' + festival.day_id +
+                                    ' AND TIME(REPLACE(REPLACE(TIME,"Z",""),"T"," "))<=TIME(REPLACE("' + festival.closing_time + '","T"," ")) ORDER BY TIME)',
+                                    [],
                                     function(tx,results){
                                         var shows = results.rows;
+                                        var curr_index = 0;
+
                                         var shows_len = shows.length;
                                         $('#during_festival_scroller').append(
                                             '<div class="row during_festival_header">' +
@@ -164,9 +190,10 @@ function createDuringFestival(festival){
                                                     $('#during_festival_show_'+ show.id + ' .icon_swipe_right').remove();
 
 
-                                                if(checkIfCurrentShow(shows, j)){
+                                                if(checkIfCurrentShow(shows, j, festival.date, festival.opening_time, festival.closing_time)){
                                                     //alert(show.name + 'is currently on stage ' + stage.name);
                                                     $('#show_curr_icon' + show.id + '_' + stage.id).addClass('icon_current_show');
+                                                    curr_index = j;
                                                 }
 
                                                 (function (show_name){
@@ -180,7 +207,9 @@ function createDuringFestival(festival){
                                         else
                                             $('#during_festival_' + stage.id + '_carousel').append('<li>Não há bandas para este palco!</li>');
 
-                                        $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
+                                        var curr_carousel = $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
+                                        curr_carousel.onMoveIndex(curr_index, 150);
+
                                     },errorQueryCB);
                             }, errorCB);
                         })(stage);
@@ -289,18 +318,19 @@ function getMiliSeconds(time){
 }
 
 //Returns the start time in miliseconds of the next show
-function getNextShowTime(shows, j, closing_time, day_time, opening_time,  next_day_time){
-    if(j<shows.len-1){
+function getNextShowTime(show_time, shows, j, closing_time, day_time, opening_time,  next_day_time){
+    var next_show_time = closing_time
+    if (j < shows.length-1){
         var next_show = shows.item(j+1);
-        var next_show_time = day_time + getMiliSeconds(next_show.time);
-        next_show_time = amPmTranslation(next_show_time, opening_time, closing_time, next_day_time, day_time );
-        return  next_show_time;
-    }
-    else {
-        return closing_time;
-    }
 
+        var next_show_time_test = day_time + getMiliSeconds(next_show.time);
+        next_show_time_test = amPmTranslation(next_show_time_test, opening_time, closing_time, next_day_time, day_time );
+        if (next_show_time_test >= show_time && next_show_time_test < next_show_time )
+            next_show_time = next_show_time_test;
+    }
+    return next_show_time;
 }
+
 
 //Adds 24 hours to the show if its after mid-night
 function amPmTranslation(show_time, opening_time, closing_time, next_day_time, day_time ){
@@ -324,28 +354,23 @@ function toDate(date){
 }
 
 //checks if a show is currently playing on a stage
-function checkIfCurrentShow(shows, j){
+function checkIfCurrentShow(shows, j, date, opening_time, closing_time){
     var show = shows.item(j);
     //ar current_time = new Date().getTime();
-    var current_time =  new Date(2013, 07, 18, 15, 59, 00).getTime();
 
-    var aux_date = toDate(show.date);
+    var aux_date = toDate(date);
 
     var day_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime();
     var next_day_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000; //dia + 24h
 
-    var opening_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(show.opening_time);
-    var closing_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(show.closing_time);
-
-
+    var opening_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(opening_time);
+    var closing_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(closing_time);
 
 
     var show_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(show.time);
 
     show_time = amPmTranslation(show_time, opening_time, closing_time, next_day_time, day_time);
-
-    var next_show_time = getNextShowTime(shows, j, closing_time, day_time, opening_time, next_day_time);
-
+    var next_show_time = getNextShowTime(show_time, shows, j, closing_time, day_time, opening_time, next_day_time);
 
 
     if (next_show_time >= current_time && current_time >= show_time)
