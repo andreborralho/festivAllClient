@@ -21,9 +21,9 @@ function submitFeedback(){
 
 
     if(name == "")
-        alert("Please insert a name");
+        alert("Tens que inserir o teu nome");
     else if(text == "")
-        alert("Please insert a comment");
+        alert("Tens que falar de alguma coisa");
 
     else{
         $.post("http://festivall.eu/feedbacks", {name: name, text: text, email: email}, function(){

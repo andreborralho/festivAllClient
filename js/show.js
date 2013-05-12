@@ -24,7 +24,9 @@ function queryShowSuccess(tx, results) {
             '<div id="show_page" class="page" data-role="page">' +
                 '<div id="show_scroll_wrapper" class="scroll_wrapper">' +
                     '<div id="show_scroller">' +
-                        '<div id="show_photo"></div>' +
+                        '<div id="show_photo">' +
+                            '<img width="100%" src="img/placeholder.png">' +
+                        '</div>' +
                         '<div class="padded">' +
                             '<ul>' +
                                 '<li id="show_stage"></li>' +
@@ -60,7 +62,9 @@ function queryShowSuccess(tx, results) {
 
     $('#header_subtitle').text(show.festival_name);
 
-    $('#show_photo').html('<img width="100%" src="' + show.photo + '">');
+    if(show.photo != "null")
+        $('#show_photo').html('<img width="100%" src="' + show.photo + '">');
+
     $('#show_stage').text(show.stage_name);
 
     $('#show_date').text(show_day + " de " + show_month);

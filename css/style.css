@@ -251,6 +251,7 @@ a {
 .general_heading {
   margin-bottom: 10px;
   font-weight: normal;
+  overflow: visible;
 }
 .input_wrap {
   position: relative;
