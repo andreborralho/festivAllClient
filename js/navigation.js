@@ -1,5 +1,5 @@
 window.onload = initDisplays;
-window.menuIsUp = false;
+var menuIsUp = false;
 var history_array = [];
 var screen_width;
 //var carousel_pages = {"festivals":0};

@@ -39,6 +39,7 @@ function queryLineupSuccess(tx, results) {
 
 function buildLineup(stages, days){
 
+    if(stages.length >0){
     var days_length = days.length;
     for(var i = 0; i<days_length; i++){
         var day = days.item(i);
@@ -119,6 +120,7 @@ function buildLineup(stages, days){
             })(day,stages[s],stages.length, s, i, days_length);
         }
     }
+    }else{$('#lineup_frame').append('Não há palcos para este festival');}
 }
 
 function appendStagesToNavBar(stages){
@@ -143,16 +145,14 @@ function appendStagesToNavBar(stages){
 function finishLineupStage(day, stages, day_len){
     appendStagesToNavBar(stages);
 
-    $('#lineup_carousel_' + day.id).carousel({
+    var lineup_carousel = $('#lineup_carousel_' + day.id).carousel({
         preventDefaults:false,
         pagingFunction:function(index){
             createPagingSwipeBar(index, lineup_nav_items);
         }
     });
 
-
-    bindClickToNavBar(lineup_nav_items, $('#lineup_carousel_' + day.id).carousel());
-
+    bindClickToNavBar(lineup_nav_items, lineup_carousel);
 
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
@@ -193,13 +193,12 @@ function finishLineupStage(day, stages, day_len){
         $('#lineup_day_buttons .column').removeClass('current');
         $(this).addClass('current');
 
-        $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 200);
-
-        //ERRO: não está ainda a funcionar
         var swipe_bar_list = $('#lineup_stages_bar');
         swipe_bar_list.find('a').removeClass('current');
         swipe_bar_list.removeClass('middle last').addClass('first');
         $('#stage_' + stages[0].id + '_nav_item').addClass('current');
+
+        $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 200);
     });
 
 }
