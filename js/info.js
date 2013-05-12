@@ -66,7 +66,6 @@ function queryInfoSuccess(tx, results) {
     var longitude = coordinates[1];
 
     var tickets_html_tags = festival.tickets.replace(/\r\n/g, "<br>");
-    alert(tickets_html_tags);
     $('#tickets_scroller').html(tickets_html_tags);
     $('#tickets_scroller').scroller();
 
@@ -136,7 +135,7 @@ function queryInfoSuccess(tx, results) {
                                         '<p id="weather_description' + day_index +'"></p>' +
                                     '</div>' +
                                     '<div class="column weather_temperature">' +
-                                        '<span id="weather_max_temperature' + day_index +'" class="max"></span>/' +
+                                        '<span id="weather_max_temperature' + day_index +'" class="max"></span>' +
                                         '<span id="weather_min_temperature' + day_index +'" class="min"></span>' +
                                     '</div>' +
                                 '</li>'
