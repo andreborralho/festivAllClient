@@ -96,7 +96,7 @@ a {
     }
     .column {
         min-height: 55px;
-        padding: 20px 10px;
+        padding: 15px 10px;
     }
     .fixed {
         width: 80px;
@@ -107,10 +107,14 @@ a {
     }
 }
 .list_header {
-    text-transform: uppercase; 
-    padding: 4px 10px;
+    height: 22px;
+    padding: 0 10px;
     background-color: @maincolor;
+    opacity: 0.6;
+    font-size: 0.875em;
+    text-transform: uppercase; 
     color: #FFF;
+    line-height: 22px;
 }
 
 
@@ -252,17 +256,16 @@ a {
     .shadow;
     white-space: nowrap;
 }
-
-
 .swipe_bar_list {
     position: absolute;
-    overflow: visible;
     bottom: 0;
+    overflow: visible;
+    display: block;
+    //min-width: 320px;
     padding: 0 10px;
     text-align: center;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
-    text-align: center;
     &.static {
         position: static;
         li {
@@ -377,20 +380,31 @@ a {
 /* HOME
 -------------------------------------------------------------------------- */
 .festival_list {
-    padding: 0 6px;
+    padding: 0 5px;
     margin-top: 2%;
-    line-height: 0; // retirar espaço em baixo
+    //line-height: 0; // retirar espaço em baixo
     .item {
+        position: relative;
         display: inline-block;
-        width: 33.33%;
+        width: 50%;
         .borderbox;
         padding: 6px;
-        line-height: 0; // retirar espaço em baixo
+        //line-height: 0; // retirar espaço em baixo
+       /* &::before {
+            content: ' ';
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            .box-shadow(inset 0 0 12px 2px @lightgrey);
+        }*/
     }
     img {
         width: 100%;
+        display: block;
         .borderbox;
-        border: 5px solid #888;
+        border: 8px solid @lightgrey;
+        .border-radius(4px);
     }
 }
 
@@ -578,7 +592,7 @@ a {
 /* WEATHER
 -------------------------------------------------------------------------- */
 #weather_current {
-    padding: 10px 0 20px;
+    padding: 6px 0 20px;
     .bdr_b;
 }
 #weather_img_current {
@@ -597,22 +611,34 @@ a {
     text-align: center;
 }
 
-.weather_icon {
-    width: 64px;
-}
 
-.weather_temperature {
-    font-size: 1.25em;
-    line-height: 55px;
-}
 #weather_list {
+    .row {
+        white-space: nowrap;
+    }
     .column {
-        display: inline-block;
-        width: 25%;
-        padding: 6px;
+        float: left;
     }
 }
 
+
+.weather_icon {
+    width: 64px;
+    margin-top: 5px;
+}
+
+.weather_temperature {
+    float: right !important;
+    font-size: 1.25em;
+    span {
+        display: block;
+    }
+    .min {
+        margin-top: 5px;
+        color: #AAA;
+        text-align: right;
+    }
+}
 
 /* SHOW VIDEOS
 -------------------------------------------------------------------------- */

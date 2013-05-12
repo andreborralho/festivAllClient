@@ -1,6 +1,7 @@
 window.onload = initDisplays;
 window.menuIsUp = false;
 var history_array = [];
+var screen_width;
 //var carousel_pages = {"festivals":0};
 
 //Loading
@@ -12,7 +13,8 @@ function initDisplays(){
 
 function setHeightAndWidth(){
     var screen_height = window.innerHeight;
-    var screen_width = window.innerWidth;
+    screen_width = window.innerWidth;
+    $('.swipe_bar_list').css('min-width', screen_width + 'px');
     $('body').css('height', screen_height + 'px').css('width', screen_width + 'px');
 }
 

@@ -60,7 +60,7 @@ function queryInfoSuccess(tx, results) {
                             '<p id="weather_description_current" class="row"></p>' +
                         '</div>' +
 
-                        '<ul id="weather_list" class="list" style="width:100%">' +
+                        '<ul id="weather_list" class="list">' +
                             // TODAY
                             '<li id="weather_day1" class="row">' +
                                 '<div class="column centered">' +
@@ -73,9 +73,9 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column">' +
                                     '<p id="weather_description1"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
-                                    '<span id="weather_max_temperature1" class="weather_temperature"></span>/' +
-                                    '<span id="weather_min_temperature1" class="weather_temperature"></span>' +
+                                '<div class="column weather_temperature">' +
+                                    '<span id="weather_max_temperature1" class=" max"></span>' +
+                                    '<span id="weather_min_temperature1" class=" min"></span>' +
                                 '</div>' +
                             '</li>' +
 
@@ -88,12 +88,12 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column no_padding">' +
                                     '<img src="" id="weather_img2" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column weather_description">' +
                                     '<p id="weather_description2"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
-                                    '<span id="weather_max_temperature2" class="weather_temperature"></span>/' +
-                                    '<span id="weather_min_temperature2" class="weather_temperature"></span>' +
+                                '<div class="column weather_temperature">' +
+                                    '<span id="weather_max_temperature2" class=" max"></span>' +
+                                    '<span id="weather_min_temperature2" class=" min"></span>' +
                                 '</div>' +
                             '</li>' +
 
@@ -106,12 +106,12 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column no_padding">' +
                                     '<img src="" id="weather_img3" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column weather_description">' +
                                     '<p id="weather_description3"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
-                                    '<span id="weather_max_temperature3" class="weather_temperature"></span>/' +
-                                    '<span id="weather_min_temperature3" class="weather_temperature"></span>' +
+                                '<div class="column weather_temperature">' +
+                                    '<span id="weather_max_temperature3" class=" max"></span>' +
+                                    '<span id="weather_min_temperature3" class=" min"></span>' +
                                 '</div>' +
                             '</li>' +
 
@@ -124,12 +124,12 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column no_padding">' +
                                     '<img src="" id="weather_img4" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column weather_description">' +
                                     '<p id="weather_description4"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
-                                    '<span id="weather_max_temperature4" class="weather_temperature"></span>/' +
-                                    '<span id="weather_min_temperature4" class="weather_temperature"></span>' +
+                                '<div class="column weather_temperature">' +
+                                    '<span id="weather_max_temperature4" class="max"></span>' +
+                                    '<span id="weather_min_temperature4" class="min"></span>' +
                                 '</div>' +
                             '</li>' +
 
@@ -142,12 +142,12 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column no_padding">' +
                                     '<img src="" id="weather_img5" class="weather_icon">' +
                                 '</div>' +
-                                '<div class="column">' +
+                                '<div class="column weather_description">' +
                                     '<p id="weather_description5"></p>' +
                                 '</div>' +
-                                '<div class="column">' +
-                                    '<span id="weather_max_temperature5" class="weather_temperature"></span>/' +
-                                    '<span id="weather_min_temperature5" class="weather_temperature"></span>' +
+                                '<div class="column weather_temperature">' +
+                                    '<span id="weather_max_temperature5" class="max"></span>' +
+                                    '<span id="weather_min_temperature5" class="min"></span>' +
                                 '</div>' +
                             '</li>' +
                         '</ul>' +
