@@ -144,27 +144,25 @@ function confirmExit() {
 
 function bindClickToNavBar(nav_items, carousel){
     var nav_item = "";
+
+    //nav width
+    var swipe_bar_list = $('.swipe_bar_list');
+    var nav_width = swipe_bar_list.width() / 2;
+
     for(var i=0; i<nav_items.length; i++){
         nav_item = nav_items[i];
 
         (function (i, nav_item, nav_items, carousel){
             $(nav_item).unbind().bind('click', function(){
+                swipe_bar_list.find('a').removeClass('current');
+                $(nav_items[i]).addClass('current');
 
-                if(i == 0){
-                    $(nav_items[i]).addClass('current').removeClass('not_current prev');
-                    $(nav_items[i+1]).addClass('not_current next').removeClass('current');
-                    $(nav_items[i+2]).addClass('hidden').removeClass('current');
-                }
-                else if(i == 1){
-                    $(nav_items[i-1]).addClass('not_current prev').removeClass('current hidden');
-                    $(nav_items[i]).addClass('current').removeClass('not_current next prev');
-                    $(nav_items[i+1]).addClass('not_current next').removeClass('current hidden');
-                }
-                else if(i == 2){
-                    $(nav_items[i-2]).addClass('hidden').removeClass('current');
-                    $(nav_items[i-1]).addClass('not_current prev').removeClass('current');
-                    $(nav_items[i]).addClass('current').removeClass('not_current next');
-                }
+                if(i == 0)
+                    swipe_bar_list.removeClass('middle last').addClass('first');
+                else if(i == nav_items.length -1)
+                    swipe_bar_list.removeClass('first middle').addClass('last');
+                else
+                    swipe_bar_list.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width + 'px');
 
                 carousel.onMoveIndex(i, 200);
             });
@@ -173,35 +171,24 @@ function bindClickToNavBar(nav_items, carousel){
 }
 
 
+// paging_function do swipebar
+function createPagingSwipeBar(index, nav_items){
 
+    //nav width
+    var swipe_bar_list = $('.swipe_bar_list');
+    var nav_width = swipe_bar_list.width() / 2;
+    swipe_bar_list.find('a').removeClass('current');
 
-/*
-// SWIPE BAR
-function createSwipeBar(){
-    
-    $('li').unbind().bind('click', function() {
-        $('li a').removeClass('current');
-        $(this).find('a').addClass('current');
-    });
-
-
-
-
-
-    //nav Width
-    var ul = $('.swipe_bar_list');
-    var nav_width = ul.width();
-
-    ul.find('li:eq(0)').unbind().bind('click', function() {
-        ul.removeClass('middle last').addClass('first');
-    });
-
-    ul.find('li:eq(1)').unbind().bind('click', function() {
-        ul.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width / 2);
-    });
-
-    ul.find('li:eq(2)').unbind().bind('click', function() {
-        ul.removeClass('first middle').addClass('last');
-    });
-
-}*/
+    if(index == 0){
+        $(nav_items[index]).addClass('current');
+        swipe_bar_list.removeClass('middle last').addClass('first');
+    }
+    else if(index == nav_items.length -1){
+        $(nav_items[index]).addClass('current');
+        swipe_bar_list.removeClass('first middle').addClass('last');
+    }
+    else{
+        $(nav_items[index]).addClass('current');
+        swipe_bar_list.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width + 'px');
+    }
+}

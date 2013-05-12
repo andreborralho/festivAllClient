@@ -2,29 +2,11 @@
 
 function init_info_carousel(){
 
-    //nav Width
-    var ul = $('.swipe_bar_list');
-    var nav_width = ul.width() / 2;
-
     // Inits carousel for info_container
     var info_carousel = $('#info_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
-
-            ul.find('a').removeClass('current');
-
-            if(index == 0){
-                $('#tickets_nav_item').addClass('current');
-                ul.removeClass('middle last').addClass('first');
-            }
-            else if(index == 1){
-                $('#transports_nav_item').addClass('current');
-                ul.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width + 'px');
-            }
-            else if(index == 2){
-                $('#weather_nav_item').addClass('current');
-                ul.removeClass('first middle').addClass('last');
-            }
+            createPagingSwipeBar(index, ['#tickets_nav_item','#transports_nav_item','#weather_nav_item']);
         }
     });
 
