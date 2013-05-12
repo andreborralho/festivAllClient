@@ -165,6 +165,7 @@ function queryInfoSuccess(tx, results) {
     var longitude = coordinates[1];
 
     var tickets_html_tags = festival.tickets.replace(/\r\n/g, "<br>");
+    alert(tickets_html_tags);
     $('#tickets_scroller').html(tickets_html_tags);
     $('#tickets_scroller').scroller();
 

@@ -101,11 +101,11 @@ function createBeforeFestival(festival, festivals, diff){
         festival_day_second_number = festival_day.slice(1,2);
         festival_day = festival_day_first_number + festival_day_second_number;
 
-        numeric_month = festival.day_date.slice(5,7);
+        numeric_month = festival.date.slice(5,7);
         festival_month = changeNumberToMonth(numeric_month);
 
         if(i < festivals.length - 2){
-            next_numeric_month = festivals.item(i+1).day_date.slice(5,7);
+            next_numeric_month = festivals.item(i+1).date.slice(5,7);
             festival_next_month = changeNumberToMonth(next_numeric_month);
 
             if(festival_month == festival_next_month)
@@ -114,7 +114,7 @@ function createBeforeFestival(festival, festivals, diff){
                 $('#festival_days').append(festival_day + " de " + festival_month);
         }
         else if(i == festivals.length - 2){
-            next_numeric_month = festivals.item(i+1).day_date.slice(5,7);
+            next_numeric_month = festivals.item(i+1).date.slice(5,7);
             festival_next_month = changeNumberToMonth(next_numeric_month);
 
             if(festival_month == festival_next_month)
@@ -235,7 +235,7 @@ function bindClickToNavBottom(festival_status, festival){
 
     $('#'+festival_status+'_lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
-        //changeContainers("#lineup", current_festival_name, "Cartaz");
+        changeContainers("#lineup", current_festival_name, "Cartaz");
     });
 
     $('#'+festival_status+'_info_button').unbind().bind('click', function(){
