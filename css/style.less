@@ -253,11 +253,13 @@ a {
     white-space: nowrap;
 }
 
+
 .swipe_bar_list {
     position: absolute;
     overflow: visible;
     bottom: 0;
     padding: 0 10px;
+    text-align: center;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
     text-align: center;
@@ -325,6 +327,9 @@ a {
     .column {
         background-color: #2e2e2e;
         padding: 0;
+        &:last-child .item {
+            border: none !important;
+        }
     }
     .item {
         display: inline-block;
@@ -372,15 +377,20 @@ a {
 /* HOME
 -------------------------------------------------------------------------- */
 .festival_list {
+    padding: 0 6px;
     margin-top: 2%;
-        line-height: 0; // retirar espaço em baixo
+    line-height: 0; // retirar espaço em baixo
     .item {
         display: inline-block;
         width: 33.33%;
+        .borderbox;
+        padding: 6px;
         line-height: 0; // retirar espaço em baixo
     }
     img {
         width: 100%;
+        .borderbox;
+        border: 5px solid #888;
     }
 }
 
@@ -563,6 +573,8 @@ a {
     height: 100%;    
 }
 
+
+
 /* WEATHER
 -------------------------------------------------------------------------- */
 #weather_current {
@@ -588,8 +600,17 @@ a {
 .weather_icon {
     width: 64px;
 }
-.weather_temperature{
+
+.weather_temperature {
     font-size: 1.25em;
+    line-height: 55px;
+}
+#weather_list {
+    .column {
+        display: inline-block;
+        width: 25%;
+        padding: 6px;
+    }
 }
 
 
