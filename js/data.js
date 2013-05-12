@@ -17,6 +17,7 @@ function onDeviceReady() {
     $.ajax({
         url: "http://festivall.eu",
         dataType:"html",
+        timeout: 8000,
         success:function (changes) {
             if(localStorage["firstRun"] == undefined){
                 db.transaction(populateDB, errorCB, successCreateDBCB);
@@ -64,7 +65,7 @@ function getLastSync(callback) {
             tx.executeSql(sql, [],
                 function(tx, results) {
 
-                    var lastSync = results.rows.item(0).lastSync.replace("T"," ");
+                    var lastSync = results.rows.item(0).lastSync.replace("T"," ").replace("Z","");
                     //alert("last synchronization date : " + lastSync);
                     callback(lastSync);
                 }, errorQueryCB);
