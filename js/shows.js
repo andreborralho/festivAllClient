@@ -16,62 +16,63 @@ function queryShowsSuccess(tx, results) {
 	var len = shows.length;
     var show, show_id;
     var show_name_letter, show_name_previous_letter, numeric_month, month;
+    $('#shows_page_list').empty();
 
-    if (len >0 ){
 
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
         fixHeaderLink('#'+festival_status+'_festival');
     });
 
-    $('#shows_page_list').empty();
+    if (len >0 ){
 
-	for (var i=0; i<len; i++){
-        show = shows.item(i);
-		show_id = shows.item(i).id;
-        numeric_month = show.day_date.slice(5,7);
-        show_name_letter = show.name.slice(0,1);
+        for (var i=0; i<len; i++){
+            show = shows.item(i);
+            show_id = shows.item(i).id;
+            numeric_month = show.day_date.slice(5,7);
+            show_name_letter = show.name.slice(0,1);
 
-        month = changeNumberToMonthAbrev(numeric_month);
+            month = changeNumberToMonthAbrev(numeric_month);
 
-        if(show_name_letter != show_name_previous_letter){
-            $('#shows_page_list').append('<li id="show_letter_' + show_name_letter +'"></li>');
+            if(show_name_letter != show_name_previous_letter){
+                $('#shows_page_list').append('<li id="show_letter_' + show_name_letter +'"></li>');
 
-            $('#show_letter_' + show_name_letter).append(
-                '<header class="list_header row"><span>' + show_name_letter + '</span></header>' +
-                '<ul id="show_list_letter_' + show_name_letter +'" class="list"></ul>');
+                $('#show_letter_' + show_name_letter).append(
+                    '<header class="list_header row"><span>' + show_name_letter + '</span></header>' +
+                    '<ul id="show_list_letter_' + show_name_letter +'" class="list"></ul>');
+            }
+
+            $('#show_list_letter_'+show_name_letter).append(
+                '<li id="show_' + show_id + '" class="row">' +
+                    '<div class="column fixed bdr_r">' +
+                        '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
+                        '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
+                    '</div>' +
+                    '<div class="column">' +
+                        '<h3 class="band_name">' + show.name + '</h3>' +
+                        '<p class="stage_name">' + show.stage_name + '</p>' +
+                    '</div>' +
+                '</li>'
+            /* +
+                '<div class="column fixed bdr_l">' +
+                    '<span>%</span>' +
+                '</div>'*/
+            );
+
+            (function (show_name){
+                $('#show_'+show_id).unbind().bind('click', function(){
+                    createShowContainer(this.id.replace("show_", ""));
+                    changeContainers("#show", show_name, current_festival_name);
+                });
+            })(show.name);
+
+            show_name_previous_letter = show_name_letter;
         }
-        
-        $('#show_list_letter_'+show_name_letter).append(
-            '<li id="show_' + show_id + '" class="row">' +
-                '<div class="column fixed bdr_r">' +
-                    '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
-                    '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
-                '</div>' +
-                '<div class="column">' +
-                    '<h3 class="band_name">' + show.name + '</h3>' +
-                    '<p class="stage_name">' + show.stage_name + '</p>' +
-                '</div>' +
-            '</li>'
-        /* +
-            '<div class="column fixed bdr_l">' +
-                '<span>%</span>' +
-            '</div>'*/
-        );
 
-        (function (show_name){
-            $('#show_'+show_id).unbind().bind('click', function(){
-                createShowContainer(this.id.replace("show_", ""));
-                changeContainers("#show", show_name, current_festival_name);
-            });
-        })(show.name);
+        $('#shows_page_list').scroller();
 
-        show_name_previous_letter = show_name_letter;
-	}
-
-    $('#shows_page_list').scroller();
-
-    }else{$('#shows_page_list').append('Ainda não há bandas para este festival!');}
+    }else
+        $('#shows_page_list').append('<div class="padded"><p>Ainda não há bandas para este festival!</p></div>');
 }
 
 function changeNumberToMonthAbrev(numeric_month){
