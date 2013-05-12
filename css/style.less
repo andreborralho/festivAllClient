@@ -3,15 +3,10 @@
 
 /* GLOBAL
 -------------------------------------------------------------------------- */
-html {
-    overflow: hidden;
-}
-
 body {
+    position: relative;
     overflow: hidden;
-    background: url(../img/bg-guitar.png) center 180px no-repeat;
-    //, url(../img/bg.png) 0 0 repeat
-    background-color: @bgcolor;
+    background: url(../img/bg-guitar.png) center 50% no-repeat @bgcolor;
     font-family: 'Open Sans', arial, sans-serif;
     color: #FFF;
     line-height: 1.2em;
@@ -19,17 +14,17 @@ body {
 
 // Scroll Structure
 .container {
-    height: 86%;    
-    display:block;
-    width:100%;
-    -webkit-transition: opacity 0.6s ease-out;
-    opacity: 0;
+    overflow: visible;
+    display: block;
+    width: 100%;
     height: 0;
-    overflow: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 0.6s ease-out;
 }
 .visible {
     opacity: 1;
     height: 86%;
+    overflow: visible;
 }
 
 .carousel {
@@ -113,7 +108,7 @@ a {
 }
 .list_header {
     text-transform: uppercase; 
-    padding: 5px 10px;
+    padding: 4px 10px;
     background-color: @maincolor;
     color: #FFF;
 }
@@ -154,7 +149,6 @@ a {
 -------------------------------------------------------------------------- */
 #header {
     position: relative;
-    overflow: hidden;
     z-index: 8;
     height: 14%;
     border-bottom: 1px solid @maincolor;
@@ -162,6 +156,8 @@ a {
     .heading0 {
         margin-left: 82px;
         font-size: 1.9em;
+        font-weight: normal;
+        overflow: visible;
     }
     .heading1,
     .heading2 {
@@ -208,14 +204,17 @@ a {
 
 /* MAIN MENU
 -------------------------------------------------------------------------- */
-#menu {
+.menu {
     z-index: 99;
-    position: fixed;
-    top: 0;
-    right: 0;
+    position: absolute;
+    top: 13%;
+    right: -80%;
     bottom: 0;
-    left: 0;
-    margin-top: 13%;
+    width: 80%;
+    height: 87%;
+    border-top: 5px solid #b43a34;
+    background-color: #eeeeee;
+    -webkit-transition: right 0.5s ease-out;
     .list {
         border-bottom: 3px solid @maincolor;
     }
@@ -226,16 +225,11 @@ a {
         color: @bgcolor;
     }
 }
-#menu_container {
-    position: absolute;
-    top: 0;
+.active_menu {
     right: 0;
-    bottom: 0;
-    width: 80%;
-    height: 100%;
-    border-top: 5px solid @maincolor;
-    background-color: #EEE;
+    .box-shadow(-6px 0 20px 5px #222);
 }
+
 
 /* FEEDBACK
 -------------------------------------------------------------------------- */
@@ -251,40 +245,75 @@ a {
 -------------------------------------------------------------------------- */
 .swipe_bar {
     position: relative;
+    overflow: visible;
     z-index: 10;
     height: 7%;
-    padding: 6px 0;
     background-color: @grey;
     .shadow;
-    //.box-shadow(0 6px 25px 6px rgba(0,0,0,0.6));
+    white-space: nowrap;
+}
+
+
+.swipe_bar_list {
+    position: absolute;
+    overflow: visible;
+    bottom: 0;
+    padding: 0 10px;
     text-align: center;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    &.static {
+        position: static;
+        li {
+            padding: 0 25px;
+        }
+    }
+    &.first,
+    &.last {
+        margin-left: 0 !important;
+    }
+    &.first {
+        right: auto;
+        left: 0;
+    }
+    &.middle {
+        left: 50%;
+    }
+    &.last {
+        right: 0;
+        left: auto;
+    }
+    li {
+        overflow: visible;
+        display: inline-block;
+        min-width: 100px;
+        text-align: center;
+    }
+    a {
+        overflow: visible;
+        padding-bottom: 4px;
+        margin: 0 10px;
+        text-decoration: none;
+        color: #CCC;
+        line-height: 30px;
+        font-size: 17px;
+    }
     .current {
-        z-index: 1;
         position: relative;
-        padding: 0 5px;
-        background-color: @grey;
+        border-bottom: 2px solid #FFF;
+        color: white;
         &:after {
             content: " ";
             position: absolute;
-            top: 23px;
+            bottom: -16px;
             left: 50%;
-            display: block;
-            width: 49px;
-            height: 7px;
-            margin-left: -25px;
-            background: @sprite -72px 0;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-left: -6px;
+            background: @sprite -72px 0 no-repeat;
         }
-    }
-    .not_current {
-        position: absolute;
-        top: 6px;
-        color: #AAA !important;
-    }
-    .not_current.prev {
-        left: 1px;
-    }
-    .not_current.next {
-        right: 1px;
     }
 }
 
@@ -293,11 +322,14 @@ a {
 -------------------------------------------------------------------------- */
 .nav_top {
     position: relative;
-    z-index: 11;
+    z-index: 9;
     white-space: nowrap;
     .column {
         background-color: #2e2e2e;
         padding: 0;
+        &:last-child .item {
+            border: none !important;
+        }
     }
     .item {
         display: inline-block;
@@ -345,15 +377,20 @@ a {
 /* HOME
 -------------------------------------------------------------------------- */
 .festival_list {
+    padding: 0 6px;
     margin-top: 2%;
-        line-height: 0; // retirar espaço em baixo
+    line-height: 0; // retirar espaço em baixo
     .item {
         display: inline-block;
         width: 33.33%;
+        .borderbox;
+        padding: 6px;
         line-height: 0; // retirar espaço em baixo
     }
     img {
         width: 100%;
+        .borderbox;
+        border: 5px solid #888;
     }
 }
 
@@ -533,8 +570,10 @@ a {
 
 .active{
     opacity: 1;
-    height: 100%;
+    height: 100%;    
 }
+
+
 
 /* WEATHER
 -------------------------------------------------------------------------- */
@@ -547,6 +586,7 @@ a {
 }
 #weather_temperature_current {
     position: relative;
+    overflow: visible;
     bottom: 30px;
     display: inline-block;
     font-size: 2.25em;
@@ -560,8 +600,17 @@ a {
 .weather_icon {
     width: 64px;
 }
-.weather_temperature{
+
+.weather_temperature {
     font-size: 1.25em;
+    line-height: 55px;
+}
+#weather_list {
+    .column {
+        display: inline-block;
+        width: 25%;
+        padding: 6px;
+    }
 }
 
 

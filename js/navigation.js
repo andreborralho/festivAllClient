@@ -38,6 +38,7 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading1').addClass('heading0');
         header_title_selector.html('<img id="logo" alt="FestivAll" src="img/logo.png"> FestivAll');
         $('#header_subtitle').empty();
+        $('#header_link').unbind();
     }
     else if(page == "#before_festival"){
         $('#header_subtitle').empty();
@@ -102,7 +103,7 @@ function changeContainers(page, title, subtitle){
 function backButton(){
     if(menuIsUp){
         menuIsUp = false;
-        $('#menu').hide();
+        $('#menu').removeClass('active_menu');
     }
     else{
         history_array.pop();
@@ -134,7 +135,7 @@ function onConfirm(button) {
 // Show a custom confirmation dialog
 function confirmExit() {
     navigator.notification.confirm(
-        'Queres mesmo bazar?', // message
+        'Queres mesmo sair?', // message
         onConfirm, // callback to invoke with index of button pressed
         'Sair', // title
         'Voltar,Sair' // buttonLabels
@@ -143,30 +144,51 @@ function confirmExit() {
 
 function bindClickToNavBar(nav_items, carousel){
     var nav_item = "";
+
+    //nav width
+    var swipe_bar_list = $('.swipe_bar_list');
+    var nav_width = swipe_bar_list.width() / 2;
+
     for(var i=0; i<nav_items.length; i++){
         nav_item = nav_items[i];
 
         (function (i, nav_item, nav_items, carousel){
             $(nav_item).unbind().bind('click', function(){
+                swipe_bar_list.find('a').removeClass('current');
+                $(nav_items[i]).addClass('current');
 
-                if(i == 0){
-                    $(nav_items[i]).addClass('current').removeClass('not_current prev');
-                    $(nav_items[i+1]).addClass('not_current next').removeClass('current');
-                    $(nav_items[i+2]).addClass('hidden').removeClass('current');
-                }
-                else if(i == 1){
-                    $(nav_items[i-1]).addClass('not_current prev').removeClass('current hidden');
-                    $(nav_items[i]).addClass('current').removeClass('not_current next prev');
-                    $(nav_items[i+1]).addClass('not_current next').removeClass('current hidden');
-                }
-                else if(i == 2){
-                    $(nav_items[i-2]).addClass('hidden').removeClass('current');
-                    $(nav_items[i-1]).addClass('not_current prev').removeClass('current');
-                    $(nav_items[i]).addClass('current').removeClass('not_current next');
-                }
+                if(i == 0)
+                    swipe_bar_list.removeClass('middle last').addClass('first');
+                else if(i == nav_items.length -1)
+                    swipe_bar_list.removeClass('first middle').addClass('last');
+                else
+                    swipe_bar_list.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width + 'px');
 
                 carousel.onMoveIndex(i, 200);
             });
         })(i, nav_item, nav_items, carousel);
+    }
+}
+
+
+// paging_function do swipebar
+function createPagingSwipeBar(index, nav_items){
+
+    //nav width
+    var swipe_bar_list = $('.swipe_bar_list');
+    var nav_width = swipe_bar_list.width() / 2;
+    swipe_bar_list.find('a').removeClass('current');
+
+    if(index == 0){
+        $(nav_items[index]).addClass('current');
+        swipe_bar_list.removeClass('middle last').addClass('first');
+    }
+    else if(index == nav_items.length -1){
+        $(nav_items[index]).addClass('current');
+        swipe_bar_list.removeClass('first middle').addClass('last');
+    }
+    else{
+        $(nav_items[index]).addClass('current');
+        swipe_bar_list.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width + 'px');
     }
 }

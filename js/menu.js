@@ -35,13 +35,15 @@ function createMenuContainer(){
     $('#header_link').unbind().bind('click', function(){
         backButton();
     });
-    alert('eu estou aqui');
+    
     $('#menu').addClass('active_menu');
 
     $('#menu_home_link').unbind().bind('click', function(){
         $('#menu').removeClass('active_menu');
+        menuIsUp=false;
         changeContainers('#festivals', '', '');
         fixHeaderLink('#festivals');
+        history_array.pop();
     });
     $('#menu_search_link').unbind().bind('click', function(){
         searchButton();
@@ -55,10 +57,10 @@ function createMenuContainer(){
     $('#menu_exit_link').unbind().bind('click', function(){
         confirmExit();
     });
-    /*
-    $('#frame').not('#menu').unbind().bind('click', function(){
+
+
+    $('.container').not('#menu').unbind().bind('click', function(){
         $('#menu').removeClass('active_menu');
         menuIsUp = false;
     });
-    */
 }

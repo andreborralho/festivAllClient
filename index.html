@@ -149,7 +149,7 @@
 
     </div>
 
-    <!-- ============================== LINEUP (cartaz) ===================================== -->
+    <!-- ============================== SHOWS (bandas) ===================================== -->
     <div id="shows" class="container" data-role="container">
         <div id="shows_page" class="page" data-role="page">
             <div id="shows_scroll_wrapper" class="scroll_wrapper">
@@ -169,7 +169,7 @@
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
-            <ul id="lineup_stages_bar">
+            <ul id="lineup_stages_bar" class="swipe_bar_list">
             </ul>
         </nav>
 
@@ -182,16 +182,16 @@
     <div id="info" class="container" data-role="container">
 
         <!-- Swipe_bar -->
-        <nav class="swipe_bar row" data-role="swipe_bar">
-            <ul>
+        <nav class="swipe_bar row">
+            <ul class="swipe_bar_list">
                 <li>
                     <a id="tickets_nav_item" class="current" href="#">Bilhetes</a>
                 </li>
                 <li>
-                    <a id="transports_nav_item" class="not_current next" href="#">Como Chegar</a>
+                    <a id="transports_nav_item" href="#">Como Chegar</a>
                 </li>
                 <li>
-                    <a id="weather_nav_item" class="hidden" href="#">Tempo</a>
+                    <a id="weather_nav_item" href="#">Tempo</a>
                 </li>
             </ul>
         </nav>
@@ -205,26 +205,18 @@
     </div>
 
 
-    <!-- ================================ SEARCH-RESULTS ====================================== -->
-    <div id="search_results" class="container" data-role="container">
-        <!-- page -->
-        <div id="search_results_page" class="page" data-role="page"></div>
-    </div>
-
-
-
     <!-- ======================================================================================= -->
     <!-- ============================== SHOW (single band) ===================================== -->
     <div id="show" class="container" data-role="container">
 
         <!-- Swipe_bar -->
         <nav class="swipe_bar row" data-role="swipe_bar">
-            <ul>
+            <ul class="swipe_bar_list static">
                 <li>
                     <a id="show_nav_item" class="current" href="#">Banda</a>
                 </li>
                 <li>
-                    <a id="videos_nav_item" class="not_current next" href="#">Vídeos</a>
+                    <a id="videos_nav_item" href="#">Vídeos</a>
                 </li>
             </ul>
         </nav>
@@ -241,6 +233,13 @@
             </form>
         </div>
     </div>
+
+    <!-- ================================ SEARCH-RESULTS ====================================== -->
+    <div id="search_results" class="container" data-role="container">
+        <!-- page -->
+        <div id="search_results_page" class="page" data-role="page"></div>
+    </div>
+
 
     <!-- ================================ ABOUTUS ====================================== -->
     <div id="about_us" class="container" data-role="container">

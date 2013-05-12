@@ -6,21 +6,7 @@ function init_info_carousel(){
     var info_carousel = $('#info_carousel').carousel({
         preventDefaults:false,
         pagingFunction:function(index){
-            if(index == 0){
-                $('#tickets_nav_item').addClass('current').removeClass('not_current prev');
-                $('#transports_nav_item').addClass('not_current next').removeClass('current');
-                $('#weather_nav_item').addClass('hidden').removeClass('current');
-            }
-            else if(index == 1){
-                $('#tickets_nav_item').addClass('not_current prev').removeClass('current hidden');
-                $('#transports_nav_item').addClass('current').removeClass('not_current next prev');
-                $('#weather_nav_item').addClass('not_current next').removeClass('current hidden');
-            }
-            else if(index == 2){
-                $('#tickets_nav_item').addClass('hidden').removeClass('current');
-                $('#transports_nav_item').addClass('not_current prev').removeClass('current');
-                $('#weather_nav_item').addClass('current').removeClass('not_current next');
-            }
+            createPagingSwipeBar(index, ['#tickets_nav_item','#transports_nav_item','#weather_nav_item']);
         }
     });
 
@@ -74,9 +60,9 @@ function queryInfoSuccess(tx, results) {
                             '<p id="weather_description_current" class="row"></p>' +
                         '</div>' +
 
-                        '<ul class="list">' +
+                        '<ul id="weather_list" class="list" style="width:100%">' +
                             // TODAY
-                            '<div id="weather_day1" class="row">' +
+                            '<li id="weather_day1" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday1" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date1" class="weather_date"></span>' +
@@ -91,10 +77,10 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature1" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature1" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // TOMORROW
-                            '<div id="weather_day2" class="row">' +
+                            '<li id="weather_day2" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday2" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date2" class="weather_date"></span>' +
@@ -109,10 +95,10 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature2" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature2" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // 2 DAYS FROM NOW
-                            '<div id="weather_day3" class="row">' +
+                            '<li id="weather_day3" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday3" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date3" class="weather_date"></span>' +
@@ -127,10 +113,10 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature3" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature3" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // DAY 4
-                            '<div id="weather_day4" class="row">' +
+                            '<li id="weather_day4" class="row">' +
                                 '<div class="column centered">' +
                                     '<strong id="weather_weekday4" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date4" class="weather_date"></span>' +
@@ -145,11 +131,11 @@ function queryInfoSuccess(tx, results) {
                                     '<span id="weather_max_temperature4" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature4" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
 
                             // DAY 5
-                            '<div id="weather_day5" class="row">' +
-                                '<div class="column centered fixed">' +
+                            '<li id="weather_day5" class="row">' +
+                                '<div class="column centered">' +
                                     '<strong id="weather_weekday5" class="weather_weekday"></strong><br>' +
                                     '<span id="weather_date5" class="weather_date"></span>' +
                                 '</div>' +
@@ -159,11 +145,11 @@ function queryInfoSuccess(tx, results) {
                                 '<div class="column">' +
                                     '<p id="weather_description5"></p>' +
                                 '</div>' +
-                                '<div class="column fixed">' +
+                                '<div class="column">' +
                                     '<span id="weather_max_temperature5" class="weather_temperature"></span>/' +
                                     '<span id="weather_min_temperature5" class="weather_temperature"></span>' +
                                 '</div>' +
-                            '</div>' +
+                            '</li>' +
                         '</ul>' +
                     '</div>' +
                 '</div>' +
@@ -433,7 +419,7 @@ function translateWeatherDescription(desc_value){
             desc_value = "Céu nublado";
             break;
         case "Partly Cloudy":
-            desc_value = "Céu parcialmente nublado";
+            desc_value = "Céu pouco nublado";
             break;
         case "Clear":
             desc_value = "Céu limpo";
