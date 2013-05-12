@@ -18,8 +18,8 @@ function queryFestivalSuccess(tx, results) {
     var festival = results.rows.item(0);
     var festivals = results.rows;
     var festival_date = festival.date.toString().replace(/-/g,'/');
-    window.current_time =  new Date(2013, 07, 18, 17, 00, 00).getTime();
-    //window.current_time = new Date().getTime();
+    //window.current_time =  new Date(2013, 07, 18, 17, 00, 00).getTime();
+    window.current_time = new Date().getTime();
     var first_day_date = new Date(festival_date).getTime();   //falta ver quando um festival tem interregnos no meio sem dias de festival checkIfDuringFestival()
     var diff = first_day_date - current_time;
 
