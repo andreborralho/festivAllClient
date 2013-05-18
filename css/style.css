@@ -618,57 +618,16 @@ a {
 #before_festival {
   background: #232323;
 }
-.before_festival_details {
-  position: relative;
-  z-index: 2;
-  padding: 20px 10px 10px;
-  background-color: rgba(46, 46, 46, 0.8);
-  font-size: 17px;
-  line-height: 24px;
-  /*span {
-        text-shadow: 0 0 5px @bgcolor;
-    }*/
-
-}
-.festival_poster {
-  float: left;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 40%;
-  padding-right: 10px;
-}
-.festival_poster .before_festival_days {
-  font-weight: bold;
-}
-.festival_poster img {
-  max-width: 100%;
-}
-.before_festival_list {
-  float: left;
-  width: 60%;
-}
-.before_festival_list li {
-  margin-bottom: 4px;
-  font-size: 16px;
-  line-height: 20px;
-}
-.festival_countdown {
-  position: absolute;
-  height: 100%;
-  bottom: 11%;
-  width: 100%;
-}
 .countdown_bg {
   position: absolute;
-  bottom: 0;
   width: 100%;
 }
 #festival_countdown {
-  position: absolute;
-  right: 10px;
-  bottom: 17%;
+  position: relative;
+  float: right;
+  margin: 25px 15px 0 0;
   display: inline-block;
-  font-size: 16px;
+  font-size: 17px;
 }
 #festival_countdown .last-line {
   display: block;
@@ -678,16 +637,50 @@ a {
   display: block;
 }
 #festival_countdown_days.one {
-  font-size: 70px;
+  font-size: 75px;
   line-height: 60px;
 }
 #festival_countdown_days.two {
-  font-size: 60px;
+  font-size: 65px;
   line-height: 50px;
 }
 #festival_countdown_days.three {
-  font-size: 40px;
-  line-height: 32px;
+  font-size: 50px;
+  line-height: 40px;
+}
+.before_festival_details {
+  position: absolute;
+  bottom: 11%;
+  z-index: 2;
+  width: 100%;
+  overflow: visible;
+  padding: 40px 10px 20px;
+  background-color: rgba(46, 46, 46, 0.7);
+  font-size: 17px;
+  line-height: 24px;
+  /*span {
+        text-shadow: 0 0 5px @bgcolor;
+    }*/
+
+}
+.festival_poster {
+  position: absolute;
+  top: -90%;
+  left: 20px;
+  width: 40%;
+  border: 5px solid #666666;
+  line-height: 0;
+}
+.festival_poster img {
+  max-width: 100%;
+  line-height: 0;
+}
+.before_festival_list {
+  font-size: 16px;
+  line-height: 20px;
+}
+.before_festival_list li {
+  margin-bottom: 6px;
 }
 #before_festival_page {
   position: relative;
