@@ -153,8 +153,6 @@ function finishLineupStage(day, stages, day_len){
         }
     });
 
-    bindClickToNavBar(lineup_nav_items, lineup_carousel);
-
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
@@ -199,6 +197,7 @@ function finishLineupStage(day, stages, day_len){
         swipe_bar_list.removeClass('middle last').addClass('first');
         $('#stage_' + stages[0].id + '_nav_item').addClass('current');
 
+        bindClickToNavBar(lineup_nav_items, lineup_carousel);
         $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 200);
     });
 
