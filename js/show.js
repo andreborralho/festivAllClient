@@ -62,13 +62,17 @@ function queryShowSuccess(tx, results) {
 
     $('#header_subtitle').text(show.festival_name);
 
-    if(show.photo != "null")
+    if(show.photo != "null" && show.photo != "")
         $('#show_photo').html('<img width="100%" src="' + show.photo + '">');
 
     $('#show_stage').text(show.stage_name);
-
     $('#show_date').text(show_day + " de " + show_month);
-    $('#show_time').text(show.time.slice(11,16));
+
+    var show_time = show.time.slice(11,16);
+    if(show_time != "00:01")
+        $('#show_time').text(show_time);
+    else
+        $('#show_time').text("Hora ainda não disponível");
 
     if(show.description == "null")
         $('#show_description').html("Descrição da banda ainda não disponível.");

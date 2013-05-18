@@ -86,7 +86,6 @@ function createBeforeFestival(festival, festivals, diff){
     else if (countdown_days.length == 3) {
         $('#festival_countdown_days').addClass('three');
     }
-    else {}
 
 
 
@@ -235,7 +234,7 @@ function bindClickToNavBottom(festival_status, festival){
 
     $('#'+festival_status+'_lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
-        changeContainers("#lineup", current_festival_name, "Cartaz");
+        //changeContainers("#lineup", current_festival_name, "Cartaz");
     });
 
     $('#'+festival_status+'_info_button').unbind().bind('click', function(){
@@ -319,7 +318,7 @@ function getMiliSeconds(time){
 
 //Returns the start time in miliseconds of the next show
 function getNextShowTime(show_time, shows, j, closing_time, day_time, opening_time,  next_day_time){
-    var next_show_time = closing_time
+    var next_show_time = closing_time;
     if (j < shows.length-1){
         var next_show = shows.item(j+1);
 
@@ -341,7 +340,6 @@ function amPmTranslation(show_time, opening_time, closing_time, next_day_time, d
     else if (day_time <= show_time && show_time <= closing_time){ //depois da meia-noite, acrescenta 24 hora ao show_time
         show_time = show_time + 24*60*60*1000;
     }
-    else {alert('buraco com as horas');}
 
     return show_time;
 }

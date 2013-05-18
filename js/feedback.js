@@ -8,6 +8,9 @@ function createFeedbackContainer(){
     $("#feedbackForm").submit(function(event) {
         submitFeedback();
     });
+
+    if(navigator.network.connection.type == Connection.NONE)
+        window.FestivallToaster.showMessage('É preciso Internet para conseguires submeter!');
 }
 
 function submitFeedback(){
