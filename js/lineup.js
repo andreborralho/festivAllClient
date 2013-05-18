@@ -13,7 +13,9 @@ function createLineupContainer(festival_id){
 // Success callback for the the query of one festival
 function queryLineupSuccess(tx, results) {
 
-    $('#lineup_day_buttons').empty();
+    $('#lineup_day_scroll_wrapper').empty().append('' +
+        '<ul id="lineup_day_buttons" class="nav_top"></ul>');
+
     $('#lineup_stages_bar').empty();
     $('#lineup_frame').empty();
 
@@ -75,14 +77,24 @@ function buildLineup(stages, days){
                                     '<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>' +
                                 '</div>');
 
+                            var show, show_time;
                             if(shows.length > 0){
                                 for(var l = 0; l <shows.length; l ++){
-                                    var show = shows.item(l);
-                                    $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                        '<li id="lineup_show_' + show.id + '" class="row">' +
-                                            '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
+                                    show = shows.item(l);
+                                    show_time = show.time.slice(11,16);
+
+                                    if(show_time != "00:01")
+                                        $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
+                                            '<li id="lineup_show_' + show.id + '" class="row">' +
+                                                '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
+                                                '<div class="column"><h3 class="band_name">' + show.name + '</h3></div>' +
+                                            '</li>');
+                                    else
+                                        $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
+                                            '<li id="lineup_show_' + show.id + '" class="row">' +
+                                            '<div class="column fixed bdr_r">--:--</div>' +
                                             '<div class="column"><h3 class="band_name">' + show.name + '</h3></div>' +
-                                        '</li>');
+                                            '</li>');
 
                                     (function (show_name){
                                         $('#lineup_show_' + show.id ).unbind().bind('click', function(){
@@ -95,7 +107,9 @@ function buildLineup(stages, days){
                             }
                             else
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
-                                    '<div class="padded"><p>Não existem espectáculos para este palco neste dia!</p></div>');
+                                    '<div class="padded">' +
+                                        '<p>Não existem espectáculos para este palco neste dia.</p>' +
+                                    '</div>');
 
                             if(s == (len - 1))
                                 finishLineupStage(day, stages, day_len);
@@ -112,16 +126,20 @@ function buildLineup(stages, days){
                                     });
                                     lineup_day_buttons_scroller.scrollTo({x:0,y:0});
                                 }
-                                else
-                                    $('#lineup_day_buttons').css('width', $('body').width());
                             }
                         },errorQueryCB);
                 }, errorCB);
             })(day,stages[s],stages.length, s, i, days_length);
         }
     }
-    }else{$('#lineup_frame').append('Não há palcos para este festival');
-        changeContainers("#lineup", current_festival_name, "Cartaz");}
+    }
+    else{
+        $('#lineup_frame').append('' +
+            '<div class="padded">' +
+                '<p>Cartaz ainda não disponível.</p>' +
+            '</div>');
+        changeContainers("#lineup", current_festival_name, "Cartaz");
+    }
 }
 
 function appendStagesToNavBar(stages){
@@ -152,8 +170,6 @@ function finishLineupStage(day, stages, day_len){
             createPagingSwipeBar(index, lineup_nav_items);
         }
     });
-
-    bindClickToNavBar(lineup_nav_items, lineup_carousel);
 
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
@@ -199,6 +215,7 @@ function finishLineupStage(day, stages, day_len){
         swipe_bar_list.removeClass('middle last').addClass('first');
         $('#stage_' + stages[0].id + '_nav_item').addClass('current');
 
+        bindClickToNavBar(lineup_nav_items, lineup_carousel);
         $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 200);
     });
 

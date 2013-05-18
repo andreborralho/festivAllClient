@@ -10,9 +10,6 @@ function init_info_carousel(){
         }
     });
 
-    $('#tickets_nav_item').addClass('current');
-    $('.swipe_bar_list').removeClass('middle last').addClass('first');
-
     bindClickToNavBar(['#tickets_nav_item','#transports_nav_item','#weather_nav_item'], info_carousel);
 }
 
@@ -28,6 +25,10 @@ function createInfoContainer(festival_id){
         tx.executeSql('SELECT * FROM FESTIVALS WHERE ID='+festival_id, [], queryInfoSuccess, errorCB);
     }, errorCB);
 
+    $('.swipe_bar_list').removeClass('middle last').addClass('first');
+    $('#tickets_nav_item').addClass('current');
+    $('#transports_nav_item').removeClass('current');
+    $('#weather_nav_item').removeClass('current');
 }
 
 // Success callback for the the query info of one festival
@@ -177,7 +178,10 @@ function queryInfoSuccess(tx, results) {
             init_info_carousel();
         },
         error: function(model, response){
-            $('#weather_scroller').append('<div class="padded weather_offline"><p>É preciso estares ligado à internet para se obter a informação do tempo.</p></div>');
+            $('#weather_scroller').append('' +
+                '<div class="padded weather_offline">' +
+                    '<p>É preciso estares ligado à internet para se obter a informação do tempo.</p>' +
+                '</div>');
             init_info_carousel();
         }
     });
