@@ -215,6 +215,7 @@ function finishLineupStage(day, stages, day_len){
         swipe_bar_list.removeClass('middle last').addClass('first');
         $('#stage_' + stages[0].id + '_nav_item').addClass('current');
 
+        bindClickToNavBar(lineup_nav_items, lineup_carousel);
         $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 200);
     });
 
