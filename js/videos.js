@@ -2,9 +2,9 @@
 
 //Success callback for the query of all the videos of a given show
 function queryShowVideosSuccess(tx, results){
-    if(navigator.network.connection.type == Connection.NONE){
-        $('#band_videos_scroller').append('Sem connexão à Internet é impossível mostrar os vídeos.');
-    }else{
+    if(navigator.network.connection.type == Connection.NONE)
+        $('#band_videos_scroller').append('<div class="padded"><p>Sem conexão à Internet é impossível mostrar os vídeos.</p></div>');
+    else{
 
         var videos = results.rows;
         var len = videos.length;
@@ -26,16 +26,17 @@ function queryShowVideosSuccess(tx, results){
 					'</div>'
 				);
 			}
-			//init scroller
-			$('#band_videos_scroller').scroller();
-
-			//keep the navbar on first page
-			$('#show_nav_item').addClass('current').removeClass('not_current');
-			$('#videos_nav_item').addClass('not_current next').removeClass('current');
-
-			initShowCarousel();
-        }else{$('#band_videos_scroller').append('Não existe nenhum vídeo disponivel');}
+        }else
+            $('#band_videos_scroller').append('<div class="padded"><p>Não existe nenhum vídeo disponivel.</p></div>');
     }
+    //init scroller
+    $('#band_videos_scroller').scroller();
+
+    //keep the navbar on first page
+    $('#show_nav_item').addClass('current').removeClass('not_current');
+    $('#videos_nav_item').addClass('not_current next').removeClass('current');
+
+    initShowCarousel();
 }
 
 function initShowCarousel(){
