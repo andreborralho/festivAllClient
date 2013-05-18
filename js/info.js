@@ -108,7 +108,7 @@ function queryInfoSuccess(tx, results) {
                             else if(temperature_key=="weatherDesc"){
                                 var weather_description_selector = $('#weather_description_current');
                                 $.each(temperature_value[0], function(desc_key, desc_value){
-                                    weather_description_selector.text(translateWeatherDescription(desc_value));
+                                    weather_description_selector.html(translateWeatherDescription(desc_value));
                                 });
                             }
                             else if(temperature_key=="weatherIconUrl"){
@@ -160,7 +160,7 @@ function queryInfoSuccess(tx, results) {
                                 else if(temperature_key=="weatherDesc"){
                                     $.each(temperature_value[0], function(desc_key, desc_value){
                                         description_changed = translateWeatherDescription(desc_value);
-                                        $('#weather_description'+day_index).text(description_changed);
+                                        $('#weather_description'+day_index).html(description_changed);
                                     });
                                 }
                                 else if(temperature_key=="weatherIconUrl"){
@@ -220,37 +220,37 @@ function translateWeatherDescription(desc_value){
 
     switch (desc_value){
         case "Moderate or heavy snow in area with thunder":
-            desc_value = "Nevões fortes e trovoada";
+            desc_value = "Nevões fortes<br> e trovoada";
             break;
         case "Patchy light snow in area with thunder":
-            desc_value = "Nevões fracos e trovoada";
+            desc_value = "Nevões fracos<br> e trovoada";
             break;
         case "Moderate or heavy rain in area with thunder":
-            desc_value = "Chuva forte e trovoada";
+            desc_value = "Chuva forte<br> e trovoada";
             break;
         case "Patchy light rain in area with thunder":
-            desc_value = "Chuva fraca e trovoada";
+            desc_value = "Chuva fraca<br> e trovoada";
             break;
         case "Moderate or heavy showers of ice pellets":
-            desc_value = "Chuva forte com granizo";
+            desc_value = "Chuva forte<br> com granizo";
             break;
         case "Light showers of ice pellets":
-            desc_value = "Chuva fraca com granizo";
+            desc_value = "Chuva fraca<br> com granizo";
             break;
         case "Light sleet showers":
-            desc_value = "Chuva fraca com granizo";
+            desc_value = "Chuva fraca<br> com granizo";
             break;
         case "Light snow showers":
             desc_value = "Nevões fracos";
             break;
         case "Moderate or heavy sleet showers":
-            desc_value = "Chuva com granizo";
+            desc_value = "Chuva<br> com granizo";
             break;
         case "Torrential rain shower":
             desc_value = "Chuva torrencial";
             break;
         case "Moderate or heavy rain shower":
-            desc_value = "Chuva forte ou moderada";
+            desc_value = "Chuva forte<br> ou moderada";
             break;
         case "Light rain shower":
             desc_value = "Chuva fraca";
@@ -271,19 +271,19 @@ function translateWeatherDescription(desc_value){
             desc_value = "Neve moderada";
             break;
         case "Light snow":
-            desc_value = "Queda fraca de neve";
+            desc_value = "Queda fraca<br> de neve";
             break;
         case "Patchy light snow":
-            desc_value = "Queda fraca de neve";
+            desc_value = "Queda fraca<br> de neve";
             break;
         case "Moderate or heavy sleet":
-            desc_value = "Chuva de granizo moderada";
+            desc_value = "Chuva de granizo<br> moderada";
             break;
         case "Light sleet":
             desc_value = "Chuva fraca";
             break;
         case "Moderate or Heavy freezing rain":
-            desc_value = "Chuva forte ou moderada";
+            desc_value = "Chuva forte<br> ou moderada";
             break;
         case "Light freezing rain":
             desc_value = "Chuva fraca";
@@ -292,13 +292,13 @@ function translateWeatherDescription(desc_value){
             desc_value = "Chuva forte";
             break;
         case "Heavy rain at times":
-            desc_value = "Períodos de chuva forte";
+            desc_value = "Períodos de<br> chuva forte";
             break;
         case "Moderate rain":
             desc_value = "Chuva moderada";
             break;
         case "Moderate rain at times":
-            desc_value = "Períodos de chuva moderada";
+            desc_value = "Períodos de<br> chuva moderada";
             break;
         case "Light rain":
             desc_value = "Chuva fraca";
@@ -325,7 +325,7 @@ function translateWeatherDescription(desc_value){
             desc_value = "Nevoeiro";
             break;
         case "Blizzard":
-            desc_value = "Tempestade de neve";
+            desc_value = "Tempestade<br> de neve";
             break;
         case "Blowing snow":
             desc_value = "Neve";
@@ -355,7 +355,7 @@ function translateWeatherDescription(desc_value){
             desc_value = "Céu nublado";
             break;
         case "Partly Cloudy":
-            desc_value = "Céu pouco nublado";
+            desc_value = "Céu pouco<br> nublado";
             break;
         case "Clear":
             desc_value = "Céu limpo";

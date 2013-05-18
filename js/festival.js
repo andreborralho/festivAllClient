@@ -18,7 +18,7 @@ function queryFestivalSuccess(tx, results) {
     var festival = results.rows.item(0);
     var festivals = results.rows;
     var festival_date = festival.date.toString().replace(/-/g,'/');
-    //window.current_time =  new Date(2013, 07, 18, 17, 00, 00).getTime();
+    //window.current_time =  new Date(2013, 05, 31, 17, 00, 00).getTime();
     window.current_time = new Date().getTime();
     var first_day_date = new Date(festival_date).getTime();   //falta ver quando um festival tem interregnos no meio sem dias de festival checkIfDuringFestival()
     var diff = first_day_date - current_time;
@@ -76,6 +76,7 @@ function createBeforeFestival(festival, festivals, diff){
     $('#festival_countdown_days').text(countdown_days);
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
+    $('#festival_poster').attr("src", festival.logo);
 
     if (countdown_days.length == 1) {
         $('#festival_countdown_days').addClass('one');
@@ -86,7 +87,6 @@ function createBeforeFestival(festival, festivals, diff){
     else if (countdown_days.length == 3) {
         $('#festival_countdown_days').addClass('three');
     }
-    else {}
 
 
 

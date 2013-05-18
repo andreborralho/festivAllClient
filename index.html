@@ -66,28 +66,36 @@
     <div id="before_festival" class="container" data-role="container">
         <div id="before_festival_page" class="page" data-role="page">
 
-            <ul class="before_festival_details padded">
-                <li>
-                    <span class="icon_arrow"></span>
-                    <span id="festival_days"></span>
-                </li>
-                <li>
-                    <span class="icon_arrow"></span>
-                    <span id="festival_city"></span>
-                </li>
-                <li>
-                    <span class="icon_arrow"></span>
-                    <span id="festival_price"></span>
-                </li>
-            </ul>
+            <div class="before_festival_details row">
+                <div class="festival_poster">
+                    <img src="test.png" id="festival_poster">
+                </div>
+                <ul class="before_festival_list">
+                    <li>
+                        <span class="icon_arrow"></span>
+                        <span id="festival_days"></span>
+                    </li>
+                    <li>
+                        <span class="icon_arrow"></span>
+                        <span id="festival_city"></span>
+                    </li>
+                    <li>
+                        <span class="icon_arrow"></span>
+                        <span id="festival_price"></span>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
 
-            <p id="festival_countdown">
-                <span>Faltam</span>
-                <span id="festival_countdown_days"></span>
-                <span class="last-line">dias</span>
-            </p>
+            <div class="festival_countdown">
+                <img class="countdown_bg" src="img/countdown_bg.png">
+                <p id="festival_countdown">
+                    <span>Faltam</span>
+                    <span id="festival_countdown_days"></span>
+                    <span class="last-line">dias</span>
+                </p>
+            </div>
 
-            <img class="countdown_bg" src="img/countdown_bg.png">
 
             <nav class="nav_bottom">
                 <ul class="row">
