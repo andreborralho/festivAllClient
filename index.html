@@ -66,9 +66,16 @@
     <div id="before_festival" class="container" data-role="container">
         <div id="before_festival_page" class="page" data-role="page">
 
-            <div class="before_festival_details row">
+            <img class="countdown_bg" src="img/countdown_bg.png">
+            <p id="festival_countdown">
+                <span>Faltam</span>
+                <span id="festival_countdown_days"></span>
+                <span class="last-line">dias</span>
+            </p>
+
+            <div class="before_festival_details">
                 <div class="festival_poster">
-                    <img src="test.png" id="festival_poster">
+                    <img src="" id="festival_poster">
                 </div>
                 <ul class="before_festival_list">
                     <li>
@@ -84,16 +91,6 @@
                         <span id="festival_price"></span>
                     </li>
                 </ul>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="festival_countdown">
-                <img class="countdown_bg" src="img/countdown_bg.png">
-                <p id="festival_countdown">
-                    <span>Faltam</span>
-                    <span id="festival_countdown_days"></span>
-                    <span class="last-line">dias</span>
-                </p>
             </div>
 
 
@@ -250,9 +247,9 @@
 
     <!-- ================================ ABOUTUS ====================================== -->
     <div id="about_us" class="container" data-role="container">
-        <div id="about_us_page" class="page padded" data-role="page">
+        <div id="about_us_page" class="page" data-role="page">
             <div id="about_us_scroll_wrapper" class="scroll_wrapper">
-                <div id="about_us_page_list">
+                <div id="about_us_page_list padded">
                 </div>
             </div>
         </div>
