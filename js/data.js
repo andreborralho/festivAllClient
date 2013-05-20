@@ -20,11 +20,15 @@ function onDeviceReady() {
         timeout: 8000,
         success:function (changes) {
             if(localStorage["firstRun"] == undefined){
+                localStorage.setItem("firstRun", true);
                 db.transaction(populateDB, errorCB, successCreateDBCB);
-                localStorage.setItem("firstRun", false);
             }
             else if(localStorage["firstRun"] == "false"){
                 window.FestivallToaster.showMessage('Sincronizando...');
+                createFestivalsContainer();
+                initFestivalsDisplay();
+
+
                 sync("http://festivall.eu/festivals.json", function(){
                     window.FestivallToaster.showMessage('Sincronização terminada!');
                 });
@@ -272,9 +276,11 @@ function insertData(data){
         }
     });
     //Create festivals container after insertions
-
-    createFestivalsContainer();
-    initFestivalsDisplay();
+    if(localStorage["firstRun"] == "true"){
+        localStorage.setItem("firstRun", false);
+        createFestivalsContainer();
+        initFestivalsDisplay();
+    }
 }
 
 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
