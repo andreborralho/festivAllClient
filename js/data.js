@@ -1,13 +1,16 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("resume", onDeviceReady, false);
 
+var synched;
 //Data - client side DB
 
 // Cordova is ready
 function onDeviceReady() {
+    setHeightAndWidth();
     document.addEventListener("backbutton", backButton, false);
 
-    window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 1000000);
+    window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 5000000);
 
     //menu button
     document.addEventListener("menubutton", menuButton, false);
@@ -22,6 +25,7 @@ function onDeviceReady() {
             if(localStorage["firstRun"] == undefined){
                 db.transaction(populateDB, errorCB, successCreateDBCB);
                 localStorage.setItem("firstRun", false);
+                synched = true;
             }
             else if(localStorage["firstRun"] == "false"){
                 window.FestivallToaster.showMessage('Sincronizando...');
@@ -29,6 +33,7 @@ function onDeviceReady() {
                     window.FestivallToaster.showMessage('Sincronização terminada!');
                 });
             }
+
         },
         error: function(model, response) {
             createFestivalsContainer();
@@ -40,7 +45,7 @@ function onDeviceReady() {
 
 // Callback for create db transaction
 function successCreateDBCB(){
-    window.FestivallToaster.showMessage('Base de dados criada!');
+    //window.FestivallToaster.showMessage('Base de dados criada!');
 }
 
 
@@ -54,13 +59,13 @@ function getLastSync(callback) {
                 + "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
+                //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
 
             tx.executeSql(sql, [],
                 function(tx, results) {
@@ -109,17 +114,18 @@ function sync(syncURL, callback ) {
 // Populate the database
 function populateDB(tx) {
     window.FestivallToaster.showMessage("Base de dados a ser construída...");
+    window.FestivallToaster.showMessage("Poderá demorar mais de um minuto");
 
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
     tx.executeSql('DROP TABLE IF EXISTS SHOWS');
     tx.executeSql('DROP TABLE IF EXISTS DAYS');
     //tx.executeSql('DROP TABLE IF EXISTS PHOTOS');
-    tx.executeSql('DROP TABLE IF EXISTS USERS');
-    tx.executeSql('DROP TABLE IF EXISTS COMMENTS');
+    //tx.executeSql('DROP TABLE IF EXISTS USERS');
+    //tx.executeSql('DROP TABLE IF EXISTS COMMENTS');
     tx.executeSql('DROP TABLE IF EXISTS STAGES');
     //tx.executeSql('DROP TABLE IF EXISTS NOTIFICATIONS');
-    tx.executeSql('DROP TABLE IF EXISTS GALLERIES');
-    tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
+    //tx.executeSql('DROP TABLE IF EXISTS GALLERIES');
+    //tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
     tx.executeSql('DROP TABLE IF EXISTS VIDEOS');
     tx.executeSql('DROP TABLE IF EXISTS ABOUT_US');
 
@@ -130,13 +136,13 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
+    //tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE NOTIFICATIONS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, text TEXT(1024), updated_at DATETIME)');
     //tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
+    //tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
     tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, url VARCHAR(255), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
 
 
     $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
@@ -179,7 +185,7 @@ function insertData(data){
             });
         }
 
-        else if(k=='countries'){
+        /*else if(k=='countries'){
 
             $.each(v, function(i, l){
                 db.transaction(function(tx){
@@ -188,9 +194,9 @@ function insertData(data){
                         ', "' + l.name + '", "' + l.flag + '", "' + l.updated_at + '")');
                 }, errorCB, successCB);
             });
-        }
+        }*/
 
-        else if(k=='comments'){
+        /*else if(k=='comments'){
 
             $.each(v, function(i, l){
                 db.transaction(function(tx){
@@ -199,7 +205,7 @@ function insertData(data){
                         ', ' + l.show_id + ', "' + l.text + '", "' + l.updated_at + '")');
                 }, errorCB, successCB);
             });
-        }
+        }*/
         /*
          else if(k=='notifications'){
          $.each(v, function(i, l){
@@ -254,7 +260,7 @@ function insertData(data){
         else if(k=='about_us'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    //console.log("Inserting in " + k);
+                    console.log("Inserting in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, title, text, updated_at) VALUES (' + l.id +
                         ', "' + l.title + '", "' + l.text + '", "' + l.updated_at + '")');
                 }, errorCB, successCB);
@@ -280,7 +286,7 @@ function insertData(data){
 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
 function updateLastSync(){
     db.transaction(function(tx){
-    console.log("Updating updated_at");
+        console.log("Updating updated_at");
         tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
            var festival = results.rows.item(0);
            db.transaction(function(tx){
@@ -310,7 +316,6 @@ function errorQueryCB(tx, err){
 // Get the current Date, used in syncronization
 function getCurrentDate(){
     var d = new Date();
-    var df = d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
+    return d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
         'T' + ('0' + String(d.getHours())).substr(-2) + ':' + ('0' + String(d.getMinutes())).substr(-2) + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
-    return df;
 }

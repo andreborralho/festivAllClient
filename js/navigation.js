@@ -1,15 +1,15 @@
-window.onload = initDisplays;
+//window.onload = initDisplays;
 var menuIsUp = false;
 var history_array = [];
 var screen_width;
 //var carousel_pages = {"festivals":0};
 
-//Loading
+/*//Loading
 function initDisplays(){
     //set screen width and height according to device
     setHeightAndWidth();
-    $('#loaderSplash').addClass("visible_splash");
-}
+    //$('#loaderSplash').addClass("visible_splash");
+}*/
 
 function setHeightAndWidth(){
     var screen_height = window.innerHeight;
@@ -19,7 +19,7 @@ function setHeightAndWidth(){
 }
 
 function initFestivalsDisplay(){
-    $('#loaderSplash').removeClass("visible_splash");
+    //$('#loaderSplash').removeClass("visible_splash");
     $('#festivals').addClass('visible');
 
     var container_height = $('#header').height()-2 + "px";
@@ -112,7 +112,7 @@ function backButton(){
         var history_popped = history_array.pop();
 
         if(history_popped == undefined)
-            confirmExit();
+            navigator.app.exitApp();
         else
             changeContainers(history_popped);
     }

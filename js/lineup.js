@@ -171,6 +171,9 @@ function finishLineupStage(day, stages, day_len){
         }
     });
 
+    //ERRO: FALTA POR O BIND CLICK AO ENTRAR NO CARTAZ SEM CLICAR NO BOTAO DO DIA
+    //bindClickToNavBar(lineup_nav_items, lineup_carousel);
+
     var show_day = day.date.slice(8,10);
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
@@ -201,6 +204,8 @@ function finishLineupStage(day, stages, day_len){
         $('#lineup_day_buttons .item').css('width', '100%');
 
     $('#lineup_day_buttons .column').eq(0).addClass('current');
+
+
 
     $('#' + day.id + '_day_button').unbind().bind('click', function(){
 

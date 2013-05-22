@@ -11,7 +11,8 @@ function createFestivalsContainer(){
 
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
-
+    if(synched)
+        window.FestivallToaster.showMessage('Base de dados criada!');
     incrementHistory("#festivals");
 
     var len = results.rows.length;
