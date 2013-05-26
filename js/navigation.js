@@ -1,4 +1,3 @@
-//window.onload = initDisplays;
 var menuIsUp = false;
 var history_array = [];
 var screen_width;
@@ -77,6 +76,8 @@ function changeContainers(page, title, subtitle){
             header_title_selector.text(current_festival_name);
         else
             header_title_selector.text(title);
+
+        createPagingSwipeBar(current_linup_page, lineup_nav_items);
     }
     else if(page =="#feedback"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");

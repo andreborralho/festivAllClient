@@ -33,6 +33,7 @@ function queryShowVideosSuccess(tx, results){
     $('#band_videos_scroller').scroller();
 
     //keep the navbar on first page
+    $('.swipe_bar_list').removeClass('middle last').addClass('first');
     $('#show_nav_item').addClass('current').removeClass('not_current');
     $('#videos_nav_item').addClass('not_current next').removeClass('current');
 

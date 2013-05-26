@@ -74,20 +74,26 @@ function createBeforeFestival(festival, festivals, diff){
 
     $('#festival_days').empty();
     $('#festival_countdown_days').text(countdown_days);
+
+    if(countdown_days == 1){
+        $('#festival_left_word').text("Falta");
+        $('#festival_days_word').text("dia");
+    }
+    else{
+        $('#festival_left_word').text("Faltam");
+        $('#festival_days_word').text("dias");
+    }
+
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
     $('#festival_poster').attr("src", festival.logo);
 
-    if (countdown_days.length == 1) {
+    if (countdown_days.length == 1)
         $('#festival_countdown_days').addClass('one');
-    }
-    else if (countdown_days.length == 2) {
+    else if (countdown_days.length == 2)
         $('#festival_countdown_days').addClass('two');
-    }
-    else if (countdown_days.length == 3) {
+    else if (countdown_days.length == 3)
         $('#festival_countdown_days').addClass('three');
-    }
-
 
 
     var festival_day, festival_day_first_number, festival_day_second_number,

@@ -2,6 +2,7 @@
 
 var lineup_day_buttons_scroller;
 var lineup_nav_items = [];
+var current_linup_page = 0;
 
 // Queries the local Database for a show
 function createLineupContainer(festival_id){
@@ -168,6 +169,7 @@ function finishLineupStage(day, stages, day_len){
         preventDefaults:false,
         pagingFunction:function(index){
             createPagingSwipeBar(index, lineup_nav_items);
+            current_linup_page = index;
         }
     });
 

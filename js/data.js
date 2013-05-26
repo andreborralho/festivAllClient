@@ -1,12 +1,12 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
-document.addEventListener("resume", onDeviceReady, false);
+//document.addEventListener("resume", onDeviceReady, false);
 
-var synched;
+var isSynched;
 //Data - client side DB
 
 // Cordova is ready
-function onDeviceReady() {
+function onDeviceReady(){
     setHeightAndWidth();
     document.addEventListener("backbutton", backButton, false);
 
@@ -24,22 +24,29 @@ function onDeviceReady() {
         success:function (changes) {
             if(localStorage["firstRun"] == undefined){
                 db.transaction(populateDB, errorCB, successCreateDBCB);
-                localStorage.setItem("firstRun", false);
-                synched = true;
+                localStorage.setItem("firstRun", true);
+                isSynched = true;
+
+                $('#festivals_buttons').html(''+
+                    '<div class="padded">' +
+                        '<p>Base de dados a ser transferida...</p>' +
+                    '</div>');
             }
-            else if(localStorage["firstRun"] == "false"){
+            else if(localStorage["firstRun"]){
                 window.FestivallToaster.showMessage('Sincronizando...');
                 createFestivalsContainer();
                 initFestivalsDisplay();
-
 
                 sync("http://festivall.eu/festivals.json", function(){
                     window.FestivallToaster.showMessage('Sincronização terminada!');
                 });
             }
-
         },
         error: function(model, response) {
+            if(localStorage["firstRun"] == undefined){
+                alert("Precisas de Internet para sacares a base de dados!");
+                navigator.app.exitApp();
+            }
             createFestivalsContainer();
             initFestivalsDisplay();
             window.FestivallToaster.showMessage("Não há conexão com a internet!");
@@ -282,7 +289,7 @@ function insertData(data){
         }
     });
     //Create festivals container after insertions
-    if(localStorage["firstRun"] == "true"){
+    if(localStorage["firstRun"]){
         localStorage.setItem("firstRun", false);
         createFestivalsContainer();
         initFestivalsDisplay();

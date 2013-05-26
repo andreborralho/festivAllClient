@@ -51,6 +51,7 @@ function queryShowSuccess(tx, results) {
     var show = results.rows.item(0);
     current_festival_id = show.festival_id;
 
+
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(show.festival_id);
         fixHeaderLink('#'+festival_status+'_festival');

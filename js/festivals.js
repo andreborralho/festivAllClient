@@ -11,9 +11,10 @@ function createFestivalsContainer(){
 
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
-    if(synched)
+    if(isSynched)
         window.FestivallToaster.showMessage('Base de dados criada!');
     incrementHistory("#festivals");
+    $('#festivals_buttons').empty();
 
     var len = results.rows.length;
     for (var i=0; i<len; i++){
