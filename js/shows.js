@@ -14,7 +14,7 @@ function queryShowsSuccess(tx, results) {
 
     var shows = results.rows;
 	var len = shows.length;
-    var show, show_id;
+    var show, show_id, show_time;
     var show_name_letter, show_name_previous_letter, numeric_month, month;
     $('#shows_page_list').empty();
 
@@ -29,6 +29,7 @@ function queryShowsSuccess(tx, results) {
         for (var i=0; i<len; i++){
             show = shows.item(i);
             show_id = shows.item(i).id;
+            show_time = show.time.slice(11,16);
             numeric_month = show.day_date.slice(5,7);
             show_name_letter = show.name.slice(0,1);
 
@@ -42,22 +43,40 @@ function queryShowsSuccess(tx, results) {
                     '<ul id="show_list_letter_' + show_name_letter +'" class="list"></ul>');
             }
 
-            $('#show_list_letter_'+show_name_letter).append(
-                '<li id="show_' + show_id + '" class="row">' +
-                    '<div class="column fixed bdr_r">' +
+            if(show_time != "00:01")
+                $('#show_list_letter_'+show_name_letter).append(
+                    '<li id="show_' + show_id + '" class="row">' +
+                        '<div class="column fixed bdr_r">' +
+                            '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
+                            '<span class="show_time">' + show_time + '</span>' +
+                        '</div>' +
+                        '<div class="column">' +
+                            '<h3 class="band_name">' + show.name + '</h3>' +
+                            '<p class="stage_name">' + show.stage_name + '</p>' +
+                        '</div>' +
+                    '</li>'
+                /* +
+                    '<div class="column fixed bdr_l">' +
+                        '<span>%</span>' +
+                    '</div>'*/
+                );
+            else
+                $('#show_list_letter_'+show_name_letter).append(
+                    '<li id="show_' + show_id + '" class="row">' +
+                        '<div class="column fixed bdr_r">' +
                         '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
-                        '<span class="show_time">' + show.time.slice(11,16) + '</span>' +
-                    '</div>' +
-                    '<div class="column">' +
+                        '<span class="show_time">--:--</span>' +
+                        '</div>' +
+                        '<div class="column">' +
                         '<h3 class="band_name">' + show.name + '</h3>' +
                         '<p class="stage_name">' + show.stage_name + '</p>' +
-                    '</div>' +
-                '</li>'
-            /* +
-                '<div class="column fixed bdr_l">' +
-                    '<span>%</span>' +
-                '</div>'*/
-            );
+                        '</div>' +
+                        '</li>'
+                    /* +
+                     '<div class="column fixed bdr_l">' +
+                     '<span>%</span>' +
+                     '</div>'*/
+                );
 
             (function (show_name){
                 $('#show_'+show_id).unbind().bind('click', function(){

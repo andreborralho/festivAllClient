@@ -1,6 +1,6 @@
 // FESTIVAL_CONTAINER
 
-var current_festival_id, current_festival_name, festival_status;
+var current_festival_id, current_festival_name, festival_container, status;
 
 // Queries the local Database for a festival
 function createFestivalContainer(festival_id){
@@ -18,12 +18,12 @@ function queryFestivalSuccess(tx, results) {
     var festival = results.rows.item(0);
     var festivals = results.rows;
     var festival_date = festival.date.toString().replace(/-/g,'/');
-    //window.current_time =  new Date(2013, 05, 31, 17, 00, 00).getTime();
+    //window.current_time =  new Date(2013, 5, 2, 07, 00, 00).getTime(); // o mes é de 0-11
     window.current_time = new Date().getTime();
+    //alert(new Date (current_time));
     var first_day_date = new Date(festival_date).getTime();   //falta ver quando um festival tem interregnos no meio sem dias de festival checkIfDuringFestival()
-    var diff = first_day_date - current_time;
 
-    //diff = -1; //descomentar esta linha para experimentar o festival durante
+    var diff = first_day_date - current_time;
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
@@ -34,70 +34,102 @@ function queryFestivalSuccess(tx, results) {
         history_array.pop();
     });
 
-    if(diff > 0){ //before festival
-        createBeforeFestival(festival, festivals, diff, false);
-        festival_status = "before";
+    var last_closing_time = getLastDayClosingTime(festivals);
+
+    if (current_time > last_closing_time){//after festival
+        festival_container = "before";
+        status="after";
+        createBeforeFestival(festival, festivals, 0, status);
+
+    }
+    else if(diff > 0){ //before festival
+        festival_container = "before";
+        status = "before";
+        createBeforeFestival(festival, festivals, diff, status);
+
     }
     else if (diff < 0){ //during festival
         var curr_time = current_time;
-        var min_diff = {"diff":9007199254740992,"day":undefined }
+        var closest_closing_time = {"diff":9007199254740992,"day":undefined }
         var during = false;
 
         for(var i = 0; i< festivals.length; i++){
             var day = festivals.item(i);
-            var aux_date = toDate(day.date);
+            var day_date = toDate(day.date);
+            var day_time =  new Date(day_date[0], day_date[1], day_date[2]).getTime();
 
-
-            var opening_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(day.opening_time);
-            var closing_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
-
-            if (curr_time >= opening_time && curr_time <= closing_time){
-                createDuringFestival(day);
-                festival_status = "during";
+            var closing_time = new Date(day_date[0], day_date[1], day_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
+            //alert("curr_time :" + new Date(curr_time) + "\n closing time : " + new Date(closing_time) + "\n day_time : " + new Date(day_time));
+            if (curr_time >= day_time && curr_time <= closing_time){
+                var aux_diff = closing_time - curr_time;
+                if (aux_diff < closest_closing_time["diff"])
+                    closest_closing_time = {"diff":aux_diff, "day":day };
                 during = true;
             }
-
-            var aux_diff = {"diff":day.time.getTime() - curr_time, "day":day};
-            if (aux_diff["diff"] <= 0 && aux_diff["diff"] < min_diff["diff"])
-                min_diff = aux_diff;
         }
 
-        if (!during){
-            createBeforeFestival(festival, festivals, min_diff, true);
-            festival_status = "before";
+        if (!during){//in between days
+            festival_container = "before";
+            status="in_between"
+            createBeforeFestival(festival, festivals, 0, status);
+        }else{//during festival day
+            createDuringFestival(closest_closing_time["day"]);
+            festival_container = "during";
         }
     }
 
-    changeContainers('#' + festival_status + '_festival', current_festival_name, "");
+    changeContainers('#' + festival_container + '_festival', current_festival_name, "");
 }
 
-function createBeforeFestival(festival, festivals, diff, between){
+function getLastDayClosingTime(festivals){
+    var result = 0;
+    for(var i = 0; i< festivals.length; i++){
+        var day = festivals.item(i);
+        var day_date = toDate(day.date);
+
+        var closing_time = new Date(day_date[0], day_date[1], day_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
+        if (closing_time > result)
+            result = closing_time;
+    }
+    return result;
+}
+
+function createBeforeFestival(festival, festivals, diff, status){
 
     var dhms = dhm(diff).toString();
     var countdown_days = dhms.split(':')[0];
 
     $('#festival_days').empty();
-    $('#festival_countdown_days').text(countdown_days);
-    $('#festival_city').text("Local: " + festival.city);
-    $('#festival_price').text("Preço: " + festival.tickets_price);
-    $('#festival_poster').attr("src", festival.logo);
 
-    if (countdown_days.length == 1) {
-        $('#festival_countdown_days').addClass('one');
-    }
-    else if (countdown_days.length == 2) {
-        $('#festival_countdown_days').addClass('two');
-    }
-    else if (countdown_days.length == 3) {
-        $('#festival_countdown_days').addClass('three');
-    }
+    if(status == "before"){
+        $('#festival_countdown_days').text(countdown_days);
+        $('#festival_city').text("Local: " + festival.city);
+        $('#festival_price').text("Preço: " + festival.tickets_price);
+        $('#festival_poster').attr("src", festival.logo);
 
-    if(countdown_days == 1){
-        $('#festival_countdown_quantifier').text("Falta");
-        $('#festival_countdown_last_line').text("dia!");
+        if (countdown_days.length == 1) {
+            $('#festival_countdown_days').addClass('one');
+        }
+        else if (countdown_days.length == 2) {
+            $('#festival_countdown_days').addClass('two');
+        }
+        else if (countdown_days.length == 3) {
+            $('#festival_countdown_days').addClass('three');
+        }
+
+        if(countdown_days == 1){
+            $('#festival_countdown_quantifier').text("Falta");
+            $('#festival_countdown_last_line').text("dia!");
+        }
+
+    }else if(status == "in_between"){
+        alert("in between");
+        //to do
     }
-
-
+    else if(status == "after"){
+        alert("after");
+        //to do
+    }
 
     var festival_day, festival_day_first_number, festival_day_second_number,
         festival_month, numeric_month, next_numeric_month, festival_next_month;
@@ -163,7 +195,7 @@ function createDuringFestival(festival){
                                     [],
                                     function(tx,results){
                                         var shows = results.rows;
-                                        var curr_index = 0;
+                                        var curr_index = -1;
 
                                         var shows_len = shows.length;
                                         $('#during_festival_scroller').append(
@@ -217,8 +249,8 @@ function createDuringFestival(festival){
                                             $('#during_festival_' + stage.id + '_carousel').append('<li>Não há bandas para este palco!</li>');
 
                                         var curr_carousel = $('#during_festival_' + stage.id + '_carousel').carousel({preventDefaults:false});
-                                        curr_carousel.onMoveIndex(curr_index, 150);
-
+                                        if(curr_index != -1)
+                                            curr_carousel.onMoveIndex(curr_index, 150);
                                     },errorQueryCB);
                             }, errorCB);
                         })(stage);
@@ -355,9 +387,9 @@ function amPmTranslation(show_time, opening_time, closing_time, next_day_time, d
 }
 
 function toDate(date){
-    var year = date.slice(0,4);
-    var month = date.slice(5,7);
-    var day = date.slice(8,10);
+    var year = parseInt(date.slice(0,4));
+    var month = parseInt(date.slice(5,7))-1;//month in date is 0-11
+    var day = parseInt(date.slice(8,10));
     return [year, month, day];
 }
 

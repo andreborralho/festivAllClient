@@ -82,19 +82,34 @@ function querySearchSuccess(tx, results) {
                         '<ul id="search_list_festival_' + show.festival_id +'" class="list"></ul>');
             }
 
-            $('#search_list_festival_' + show.festival_id).append(''+
-                '<li id="search_show_' + show.show_id +'" class="row">'+
+            if(show_time != "00:01")
+                $('#search_list_festival_' + show.festival_id).append(''+
+                    '<li id="search_show_' + show.show_id +'" class="row">'+
                     '<div class="column fixed bdr_r">' +
-                        '<time>' +
-                            '<span>' + show_day + " " + show_month + '</span><br>' +
-                            '<span>' + show_time +'</span>' +
-                        '</time>' +
+                    '<time>' +
+                    '<span>' + show_day + " " + show_month + '</span><br>' +
+                    '<span>' + show_time +'</span>' +
+                    '</time>' +
                     '</div>' +
                     '<div class="column">' +
-                        '<h3 class="band_name">' + show.show_name + '</h3>'+
-                        '<p class="heading2">' + show.stage_name + '</p>' +
+                    '<h3 class="band_name">' + show.show_name + '</h3>'+
+                    '<p class="heading2">' + show.stage_name + '</p>' +
                     '</div>' +
-                '</li>');
+                    '</li>');
+            else
+                $('#search_list_festival_' + show.festival_id).append(''+
+                    '<li id="search_show_' + show.show_id +'" class="row">'+
+                        '<div class="column fixed bdr_r">' +
+                            '<time>' +
+                                '<span>' + show_day + " " + show_month + '</span><br>' +
+                                '<span>--:--</span>' +
+                            '</time>' +
+                        '</div>' +
+                        '<div class="column">' +
+                            '<h3 class="band_name">' + show.show_name + '</h3>'+
+                            '<p class="heading2">' + show.stage_name + '</p>' +
+                        '</div>' +
+                    '</li>');
 
             (function (show_name, show_festival_name){
                 $('#search_show_' + show.show_id).unbind().bind('click', function(){

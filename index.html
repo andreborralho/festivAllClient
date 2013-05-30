@@ -4,8 +4,8 @@
     <title>FestivAll</title>
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!--meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/-->
+    <!--meta name="apple-mobile-web-app-capable" content="yes" /-->
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600" type="text/css">
     <link rel="stylesheet" type="text/css" href="css/style.css?v2">
@@ -19,11 +19,6 @@
 
 <body id="frame">
 
-    <!-- SPLASH SCREEN -->
-    <div id="loaderSplash">
-        <img id="loaderLogo" src="img/logo.png">
-        <p>Versão beta</p>
-    </div>
 
     <!-- MAIN HEADER SKELETON -->
     <header id="header" class="header row shadow" data-role="header">
@@ -62,15 +57,15 @@
     </div>
 
 
-    <!-- ============================== FESTIVAL - before - single ===================================== -->
+    <!-- ============================== FESTIVAL - before - single (after and in between) ===================================== -->
     <div id="before_festival" class="container" data-role="container">
         <div id="before_festival_page" class="page" data-role="page">
 
             <img class="countdown_bg" src="img/countdown_bg.png">
             <p id="festival_countdown">
-                <span>Faltam</span>
+                <span id="festival_left_word">Faltam</span>
                 <span id="festival_countdown_days"></span>
-                <span class="last-line">dias</span>
+                <span id="festival_days_word" class="last-line">dias</span>
             </p>
 
             <div class="before_festival_details">
@@ -142,16 +137,6 @@
         </div>
     </div>
 
-    <!-- ============================== FESTIVAL - after - single ===================================== -->
-
-    <div id="after_festival" class="container" data-role="container">
-
-        <!-- Pages wrap -->
-
-        <div id="after_festival_page" data-role="page">
-        </div>
-
-    </div>
 
     <!-- ============================== SHOWS (bandas) ===================================== -->
     <div id="shows" class="container" data-role="container">
