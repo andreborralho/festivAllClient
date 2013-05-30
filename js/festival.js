@@ -98,7 +98,25 @@ function createBeforeFestival(festival, festivals, diff, status){
 
 
     if(status == "before"){
-    //xx
+        var dhms = dhm(diff).toString();
+        var countdown_days = dhms.split(':')[0];
+        $('#festival_countdown_days').text(countdown_days);
+
+        if (countdown_days.length == 1) {
+            $('#festival_countdown_days').addClass('one');
+        }
+        else if (countdown_days.length == 2) {
+            $('#festival_countdown_days').addClass('two');
+        }
+        else if (countdown_days.length == 3) {
+            $('#festival_countdown_days').addClass('three');
+        }
+
+        if(countdown_days == 1){
+            $('#festival_countdown_quantifier').text("Falta");
+            $('#festival_countdown_last_line').text("dia!");
+        }
+
     }else if(status == "in_between"){
         alert("in between");
         //to do
@@ -108,32 +126,17 @@ function createBeforeFestival(festival, festivals, diff, status){
         //to do
     }
 
-    
-    var dhms = dhm(diff).toString();
-    var countdown_days = dhms.split(':')[0];
+
 
     $('#festival_days').empty();
 
 
-    $('#festival_countdown_days').text(countdown_days);
+
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
     $('#festival_poster').attr("src", festival.logo);
 
-    if (countdown_days.length == 1) {
-        $('#festival_countdown_days').addClass('one');
-    }
-    else if (countdown_days.length == 2) {
-        $('#festival_countdown_days').addClass('two');
-    }
-    else if (countdown_days.length == 3) {
-        $('#festival_countdown_days').addClass('three');
-    }
 
-    if(countdown_days == 1){
-        $('#festival_countdown_quantifier').text("Falta");
-        $('#festival_countdown_last_line').text("dia!");
-    }
 
 
 
