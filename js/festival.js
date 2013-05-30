@@ -35,15 +35,18 @@ function queryFestivalSuccess(tx, results) {
     });
 
     if(diff > 0){ //before festival
-        createBeforeFestival(festival, festivals, diff);
+        createBeforeFestival(festival, festivals, diff, false);
         festival_status = "before";
     }
     else if (diff < 0){ //during festival
         var curr_time = current_time;
+        var min_diff = {"diff":9007199254740992,"day":undefined }
+        var during = false;
 
         for(var i = 0; i< festivals.length; i++){
             var day = festivals.item(i);
             var aux_date = toDate(day.date);
+
 
             var opening_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + getMiliSeconds(day.opening_time);
             var closing_time = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
@@ -51,23 +54,24 @@ function queryFestivalSuccess(tx, results) {
             if (curr_time >= opening_time && curr_time <= closing_time){
                 createDuringFestival(day);
                 festival_status = "during";
+                during = true;
             }
-            else{
-                /*//entre festivais ou após o ultimo dia, é possivel que não fique isto
-                 createBeforeFestival(festival, festivals, diff);
-                 festival_status = "before";*/
-            }
+
+            var aux_diff = {"diff":day.time.getTime() - curr_time, "day":day};
+            if (aux_diff["diff"] <= 0 && aux_diff["diff"] < min_diff["diff"])
+                min_diff = aux_diff;
+        }
+
+        if (!during){
+            createBeforeFestival(festival, festivals, min_diff, true);
+            festival_status = "before";
         }
     }
-    /*
-     else if (){ //after festival
-     changeContainers("#after_festival");
-     createAfterFestival();
-     }*/
+
     changeContainers('#' + festival_status + '_festival', current_festival_name, "");
 }
 
-function createBeforeFestival(festival, festivals, diff){
+function createBeforeFestival(festival, festivals, diff, between){
 
     var dhms = dhm(diff).toString();
     var countdown_days = dhms.split(':')[0];
@@ -86,6 +90,11 @@ function createBeforeFestival(festival, festivals, diff){
     }
     else if (countdown_days.length == 3) {
         $('#festival_countdown_days').addClass('three');
+    }
+
+    if(countdown_days == 1){
+        $('#festival_countdown_quantifier').text("Falta");
+        $('#festival_countdown_last_line').text("dia!");
     }
 
 
