@@ -636,6 +636,10 @@ a {
 #festival_countdown_days {
   display: block;
 }
+#festival_countdown_days.minus {
+  font-size: 75px;
+  line-height: 60px;
+}
 #festival_countdown_days.one {
   font-size: 75px;
   line-height: 60px;
@@ -730,7 +734,7 @@ a {
 }
 .during_festival_header {
   padding: 6px 0 6px 22px;
-  background-color: #373737;
+  background-color: #b43a34;
   opacity: 0.8;
 }
 .during_festival_column {

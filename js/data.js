@@ -310,18 +310,18 @@ function updateLastSync(){
 }
 
 // Transaction success callback
-function successCB() {
-    console.log("Transaction Success: ");
+function successCB(x) {
+    console.log("Transaction Success: "+ x.message+", "+ x.code);
 }
 
 // Transaction error callback
 function errorCB(err) {
-    alert("Error processing SQL: " + err + ", " + err.message + ", " + err.code);
+    //alert("Error processing SQL: " + err + ", " + err.message + ", " + err.code);
     console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
 function errorQueryCB(tx, err){
-    alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
+    //alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
     console.log("Error processing SQL query: " + err.code + " : " + err.message);
 }
 

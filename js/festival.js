@@ -50,7 +50,7 @@ function queryFestivalSuccess(tx, results) {
     }
     else if (diff < 0){ //during festival
         var curr_time = current_time;
-        var closest_closing_time = {"diff":9007199254740992,"day":undefined }
+        var closest_closing_time = {"diff":9007199254740992,"day":undefined };
         var during = false;
 
         for(var i = 0; i< festivals.length; i++){
@@ -70,7 +70,7 @@ function queryFestivalSuccess(tx, results) {
 
         if (!during){//in between days
             festival_container = "before";
-            status="in_between"
+            status="in_between";
             createBeforeFestival(festival, festivals, 0, status);
         }else{//during festival day
             createDuringFestival(closest_closing_time["day"]);
@@ -96,6 +96,12 @@ function getLastDayClosingTime(festivals){
 
 function createBeforeFestival(festival, festivals, diff, status){
 
+    $('#festival_days').empty();
+
+    $('#festival_city').text("Local: " + festival.city);
+    $('#festival_price').text("Preço: " + festival.tickets_price);
+    $('#festival_poster').attr("src", festival.logo);
+
 
     if(status == "before"){
         var dhms = dhm(diff).toString();
@@ -118,26 +124,13 @@ function createBeforeFestival(festival, festivals, diff, status){
         }
 
     }else if(status == "in_between"){
-        alert("in between");
+        //alert("in between");
         //to do
     }
     else if(status == "after"){
-        alert("after");
+        //alert("after");
         //to do
     }
-
-
-
-    $('#festival_days').empty();
-
-
-
-    $('#festival_city').text("Local: " + festival.city);
-    $('#festival_price').text("Preço: " + festival.tickets_price);
-    $('#festival_poster').attr("src", festival.logo);
-
-
-
 
 
     var festival_day, festival_day_first_number, festival_day_second_number,
@@ -364,7 +357,7 @@ function getMiliSeconds(time){
     var mins = time.slice(14,16);
     var minutes = parseInt(hours)*60 + parseInt(mins);
 
-    return  minutes*60*1000;
+    return minutes*60*1000;
 }
 
 //Returns the start time in miliseconds of the next show
