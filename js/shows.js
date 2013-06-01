@@ -15,7 +15,7 @@ function queryShowsSuccess(tx, results) {
     var shows = results.rows;
 	var len = shows.length;
     var show, show_id, show_time;
-    var show_name_letter, show_name_previous_letter, numeric_month, month;
+    var show_name_letter, show_name_previous_letter, numeric_month, show_day, month;
     $('#shows_page_list').empty();
 
 
@@ -34,6 +34,7 @@ function queryShowsSuccess(tx, results) {
             show_name_letter = show.name.slice(0,1);
 
             month = changeNumberToMonthAbrev(numeric_month);
+            show_day = show.day_date.slice(8,10);
 
             if(show_name_letter != show_name_previous_letter){
                 $('#shows_page_list').append('<li id="show_letter_' + show_name_letter +'"></li>');
@@ -43,11 +44,11 @@ function queryShowsSuccess(tx, results) {
                     '<ul id="show_list_letter_' + show_name_letter +'" class="list"></ul>');
             }
 
-            if(show_time != "00:01")
+            //if(show_time != "00:01")
                 $('#show_list_letter_'+show_name_letter).append(
                     '<li id="show_' + show_id + '" class="row">' +
                         '<div class="column fixed bdr_r">' +
-                            '<span class="show_date">' + show.day_date.slice(8,10) + " " + month + '</span>' +
+                            '<span class="show_date">' + show_day + " " + month + '</span>' +
                             '<span class="show_time">' + show_time + '</span>' +
                         '</div>' +
                         '<div class="column">' +
@@ -60,7 +61,7 @@ function queryShowsSuccess(tx, results) {
                         '<span>%</span>' +
                     '</div>'*/
                 );
-            else
+            /*else
                 $('#show_list_letter_'+show_name_letter).append(
                     '<li id="show_' + show_id + '" class="row">' +
                         '<div class="column fixed bdr_r">' +
@@ -72,11 +73,16 @@ function queryShowsSuccess(tx, results) {
                         '<p class="stage_name">' + show.stage_name + '</p>' +
                         '</div>' +
                         '</li>'
-                    /* +
+                    *//* +
                      '<div class="column fixed bdr_l">' +
                      '<span>%</span>' +
-                     '</div>'*/
-                );
+                     '</div>'*//*
+                );*/
+
+            if(show_time == "00:01")
+                $('#show_'+show_id + ' .show_time').text("--:--");
+            if(show_day == "01" && month == "Jan")
+                $('#show_'+show_id + ' .show_date').text("TBA");
 
             (function (show_name){
                 $('#show_'+show_id).unbind().bind('click', function(){

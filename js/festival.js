@@ -147,12 +147,14 @@ function createBeforeFestival(festival, festivals, diff, status){
         numeric_month = festival.date.slice(5,7);
         festival_month = changeNumberToMonth(numeric_month);
 
-        if(i < festivals.length - 2){
+        if(festival_day == "1" && festival_month == "Janeiro")
+            break;
+        else if(i < festivals.length - 2){
             next_numeric_month = festivals.item(i+1).date.slice(5,7);
             festival_next_month = changeNumberToMonth(next_numeric_month);
 
             if(festival_month == festival_next_month)
-                $('#festival_days').append(festival_day +", ");
+                $('#festival_days').append(festival_day + ", ");
             else
                 $('#festival_days').append(festival_day + " de " + festival_month);
         }

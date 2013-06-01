@@ -28,7 +28,6 @@ function createSearchContainer(){
 
     $('#header_link').unbind().bind('click', function(){
         backButton();
-
     });
 
 }
@@ -82,7 +81,7 @@ function querySearchSuccess(tx, results) {
                         '<ul id="search_list_festival_' + show.festival_id +'" class="list"></ul>');
             }
 
-            if(show_time != "00:01")
+            /*if(show_time != "00:01")
                 $('#search_list_festival_' + show.festival_id).append(''+
                     '<li id="search_show_' + show.show_id +'" class="row">'+
                     '<div class="column fixed bdr_r">' +
@@ -96,13 +95,13 @@ function querySearchSuccess(tx, results) {
                     '<p class="heading2">' + show.stage_name + '</p>' +
                     '</div>' +
                     '</li>');
-            else
+            else*/
                 $('#search_list_festival_' + show.festival_id).append(''+
                     '<li id="search_show_' + show.show_id +'" class="row">'+
                         '<div class="column fixed bdr_r">' +
                             '<time>' +
-                                '<span>' + show_day + " " + show_month + '</span><br>' +
-                                '<span>--:--</span>' +
+                                '<span class="search_show_date">' + show_day + " " + show_month + '</span><br>' +
+                                '<span class="show_time">' + show_time +'</span>' +
                             '</time>' +
                         '</div>' +
                         '<div class="column">' +
@@ -110,6 +109,12 @@ function querySearchSuccess(tx, results) {
                             '<p class="heading2">' + show.stage_name + '</p>' +
                         '</div>' +
                     '</li>');
+
+            if(show_time == "00:01")
+                $('#search_list_festival_' + show.festival_id + ' .show_time').text("--:--");
+            if(show_day == "01" && show_month == "Jan")
+                $('#search_show_' + show.show_id + ' .search_show_date').text("TBA");
+
 
             (function (show_name, show_festival_name){
                 $('#search_show_' + show.show_id).unbind().bind('click', function(){

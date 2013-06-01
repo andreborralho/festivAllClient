@@ -180,11 +180,19 @@ function finishLineupStage(day, stages, day_len){
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
 
-    $('#lineup_day_buttons').append(''+
+    if(show_day == "01" && month == "Jan")
+        $('#lineup_day_buttons').append(''+
+            '<li id="' + day.id + '_day_button" class="column">' +
+            '<a class="item">&nbsp;TBA&nbsp;</a>' +
+            '</li>'
+        );
+    else
+        $('#lineup_day_buttons').append(''+
         '<li id="' + day.id + '_day_button" class="column">' +
             '<a class="item">' +  show_day + ' ' + month + '</a>' +
         '</li>'
     );
+
 
     //Resize the lineup buttons according to their number
     var width;
