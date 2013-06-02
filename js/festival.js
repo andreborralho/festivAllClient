@@ -38,7 +38,7 @@ function queryFestivalSuccess(tx, results) {
 
     if (current_time > last_closing_time){//after festival
         festival_container = "before";
-        status="after";
+        status = "after";
         createBeforeFestival(festival, festivals, 0, status);
 
     }
@@ -56,7 +56,7 @@ function queryFestivalSuccess(tx, results) {
         for(var i = 0; i< festivals.length; i++){
             var day = festivals.item(i);
             var day_date = toDate(day.date);
-            var day_time =  new Date(day_date[0], day_date[1], day_date[2]).getTime();
+            var day_time = new Date(day_date[0], day_date[1], day_date[2]).getTime();
 
             var closing_time = new Date(day_date[0], day_date[1], day_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
             //alert("curr_time :" + new Date(curr_time) + "\n closing time : " + new Date(closing_time) + "\n day_time : " + new Date(day_time));
@@ -102,6 +102,7 @@ function createBeforeFestival(festival, festivals, diff, status){
     $('#festival_price').text("Preço: " + festival.tickets_price);
     $('#festival_poster').attr("src", festival.logo);
 
+    $('.countdown_bg').attr('src', 'img/countdown_bg.png');
 
     if(status == "before"){
         var dhms = dhm(diff).toString();
@@ -119,17 +120,24 @@ function createBeforeFestival(festival, festivals, diff, status){
         }
 
         if(countdown_days == 1){
-            $('#festival_countdown_quantifier').text("Falta");
-            $('#festival_countdown_last_line').text("dia!");
+            $('#festival_left_word').text("Falta");
+            $('#festival_days_word').text("dia!");
         }
+        else{
+            $('#festival_left_word').text("Faltam");
+            $('#festival_days_word').text("dias!");
+        }
+
 
     }else if(status == "in_between"){
         //alert("in between");
         //to do
     }
     else if(status == "after"){
-        //alert("after");
-        //to do
+        $('.countdown_bg').attr('src', 'img/festival-after.png');
+        $('#festival_countdown_days').empty();
+        $('#festival_left_word').empty();
+        $('#festival_days_word').empty();
     }
 
 
