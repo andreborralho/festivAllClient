@@ -42,7 +42,7 @@ function queryFestivalSuccess(tx, results) {
         createBeforeFestival(festival, festivals, 0, status);
 
     }
-    else if(diff > 0){ //before festival
+    else if(diff >= 0){ //before festival
         festival_container = "before";
         status = "before";
         createBeforeFestival(festival, festivals, diff, status);
@@ -81,12 +81,11 @@ function queryFestivalSuccess(tx, results) {
     changeContainers('#' + festival_container + '_festival', current_festival_name, "");
 }
 
-function getLastDayClosingTime(festivals){
+function getLastDayClosingTime(days){
     var result = 0;
-    for(var i = 0; i< festivals.length; i++){
-        var day = festivals.item(i);
+    for(var i = 0; i< days.length; i++){
+        var day = days.item(i);
         var day_date = toDate(day.date);
-
         var closing_time = new Date(day_date[0], day_date[1], day_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
         if (closing_time > result)
             result = closing_time;
@@ -101,7 +100,6 @@ function createBeforeFestival(festival, festivals, diff, status){
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
     $('#festival_poster').attr("src", festival.logo);
-
 
     if(status == "before"){
         var dhms = dhm(diff).toString();
@@ -389,8 +387,8 @@ function amPmTranslation(show_time, opening_time, closing_time, next_day_time, d
 }
 
 function toDate(date){
-    var year = parseInt(date.slice(0,4));
-    var month = parseInt(date.slice(5,7))-1;//month in date is 0-11
+    var year = parseInt(date.slice(0,4), 10);
+    var month = parseInt(date.slice(5,7), 10) -1;//month in date is 0-11
     var day = parseInt(date.slice(8,10));
     return [year, month, day];
 }

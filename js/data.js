@@ -167,7 +167,7 @@ function insertData(data){
         if(k=='festivals'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    //console.log("Inserting in " + k);                    
+                    console.log("Inserting "  + l.name  + " in " + k);
 
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
@@ -179,7 +179,7 @@ function insertData(data){
         else if(k=='stages'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    //console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.festival_id + ', "' + l.updated_at+')');
+                    console.log("Inserting "  + l.name  + " in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO STAGES (id, name, festival_id, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.festival_id + ', "' + l.updated_at +'")');
                 }, errorCB,  successCB);
@@ -189,7 +189,7 @@ function insertData(data){
         else if(k=='days'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    //console.log("Inserting in " + k);
+                    console.log("Inserting "  + l.date  + " in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO DAYS (id, festival_id, date, opening_time, closing_time, updated_at) VALUES (' + l.id +
                         ', ' + l.festival_id + ', "' + l.date + '", "' + l.opening_time + '", "' + l.closing_time + '", "' + l.updated_at +'")');
                 }, errorCB, successCB);
@@ -250,7 +250,7 @@ function insertData(data){
         else if(k=='shows'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    console.log("Inserting in " + k);
+                    console.log("Inserting "  + l.name  + " in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO SHOWS (id, name, festival_id, stage_id, day_id, photo, description, time, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.festival_id + ', ' + l.stage_id + ', ' + l.day_id + ', "' + l.photo + '", "' + l.description +
                         '", "' + l.time + '", "' + l.updated_at + '")');
@@ -261,7 +261,7 @@ function insertData(data){
         else if(k=='videos'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    //console.log("Inserting in " + k);
+                    console.log("Inserting "  + l.name  + " in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO VIDEOS (id, name, show_id, url, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.show_id + ', "' + l.url + '", "' + l.updated_at + '")');
                 }, errorCB, successCB);
@@ -271,7 +271,7 @@ function insertData(data){
         else if(k=='about_us'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
-                    console.log("Inserting in " + k);
+                    console.log("Inserting "  + l.title  + " in " + k);
                     tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, title, text, updated_at) VALUES (' + l.id +
                         ', "' + l.title + '", "' + l.text + '", "' + l.updated_at + '")');
                 }, errorCB, successCB);
@@ -310,8 +310,8 @@ function updateLastSync(){
 }
 
 // Transaction success callback
-function successCB(x) {
-    console.log("Transaction Success: "+ x.message+", "+ x.code);
+function successCB() {
+    console.log("Transaction Success");
 }
 
 // Transaction error callback
