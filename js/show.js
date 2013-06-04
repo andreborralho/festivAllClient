@@ -67,13 +67,17 @@ function queryShowSuccess(tx, results) {
         $('#show_photo').html('<img width="100%" src="' + show.photo + '">');
 
     $('#show_stage').text(show.stage_name);
-    $('#show_date').text(show_day + " de " + show_month);
+
+    if(show_day == "01" && show_month == "Janeiro")
+        $('#show_date').text("Dia por confirmar");
+    else
+        $('#show_date').text(show_day + " de " + show_month);
 
     var show_time = show.time.slice(11,16);
     if(show_time != "00:01")
         $('#show_time').text(show_time);
     else
-        $('#show_time').text("Hora ainda não disponível");
+        $('#show_time').text("Hora não disponível");
 
     if(show.description == "null")
         $('#show_description').html("Descrição da banda ainda não disponível.");

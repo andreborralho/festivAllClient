@@ -38,11 +38,11 @@ function queryFestivalSuccess(tx, results) {
 
     if (current_time > last_closing_time){//after festival
         festival_container = "before";
-        status="after";
+        status = "after";
         createBeforeFestival(festival, festivals, 0, status);
 
     }
-    else if(diff >= 0){ //before festival
+    else if(diff > 0){ //before festival
         festival_container = "before";
         status = "before";
         createBeforeFestival(festival, festivals, diff, status);
@@ -56,7 +56,7 @@ function queryFestivalSuccess(tx, results) {
         for(var i = 0; i< festivals.length; i++){
             var day = festivals.item(i);
             var day_date = toDate(day.date);
-            var day_time =  new Date(day_date[0], day_date[1], day_date[2]).getTime();
+            var day_time = new Date(day_date[0], day_date[1], day_date[2]).getTime();
 
             var closing_time = new Date(day_date[0], day_date[1], day_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
             //alert("curr_time :" + new Date(curr_time) + "\n closing time : " + new Date(closing_time) + "\n day_time : " + new Date(day_time));
@@ -81,11 +81,12 @@ function queryFestivalSuccess(tx, results) {
     changeContainers('#' + festival_container + '_festival', current_festival_name, "");
 }
 
-function getLastDayClosingTime(days){
+function getLastDayClosingTime(festivals){
     var result = 0;
-    for(var i = 0; i< days.length; i++){
-        var day = days.item(i);
+    for(var i = 0; i< festivals.length; i++){
+        var day = festivals.item(i);
         var day_date = toDate(day.date);
+
         var closing_time = new Date(day_date[0], day_date[1], day_date[2]).getTime() + 24*60*60*1000 + getMiliSeconds(day.closing_time);
         if (closing_time > result)
             result = closing_time;
@@ -100,6 +101,8 @@ function createBeforeFestival(festival, festivals, diff, status){
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
     $('#festival_poster').attr("src", festival.logo);
+
+    $('.countdown_bg').attr('src', 'img/countdown_bg.png');
 
     if(status == "before"){
         var dhms = dhm(diff).toString();
@@ -117,17 +120,24 @@ function createBeforeFestival(festival, festivals, diff, status){
         }
 
         if(countdown_days == 1){
-            $('#festival_countdown_quantifier').text("Falta");
-            $('#festival_countdown_last_line').text("dia!");
+            $('#festival_left_word').text("Falta");
+            $('#festival_days_word').text("dia!");
         }
+        else{
+            $('#festival_left_word').text("Faltam");
+            $('#festival_days_word').text("dias!");
+        }
+
 
     }else if(status == "in_between"){
         //alert("in between");
         //to do
     }
     else if(status == "after"){
-        //alert("after");
-        //to do
+        $('.countdown_bg').attr('src', 'img/festival-after.png');
+        $('#festival_countdown_days').empty();
+        $('#festival_left_word').empty();
+        $('#festival_days_word').empty();
     }
 
 
@@ -145,12 +155,14 @@ function createBeforeFestival(festival, festivals, diff, status){
         numeric_month = festival.date.slice(5,7);
         festival_month = changeNumberToMonth(numeric_month);
 
-        if(i < festivals.length - 2){
+        if(festival_day == "1" && festival_month == "Janeiro")
+            break;
+        else if(i < festivals.length - 2){
             next_numeric_month = festivals.item(i+1).date.slice(5,7);
             festival_next_month = changeNumberToMonth(next_numeric_month);
 
             if(festival_month == festival_next_month)
-                $('#festival_days').append(festival_day +", ");
+                $('#festival_days').append(festival_day + ", ");
             else
                 $('#festival_days').append(festival_day + " de " + festival_month);
         }
@@ -387,8 +399,8 @@ function amPmTranslation(show_time, opening_time, closing_time, next_day_time, d
 }
 
 function toDate(date){
-    var year = parseInt(date.slice(0,4), 10);
-    var month = parseInt(date.slice(5,7), 10) -1;//month in date is 0-11
+    var year = parseInt(date.slice(0,4));
+    var month = parseInt(date.slice(5,7))-1;//month in date is 0-11
     var day = parseInt(date.slice(8,10));
     return [year, month, day];
 }
