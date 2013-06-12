@@ -24,15 +24,18 @@ function onDeviceReady(){
         success:function (changes) {
             if(localStorage["firstRun"] == undefined){
                 db.transaction(populateDB, errorCB, successCreateDBCB);
-                localStorage.setItem("firstRun", true);
+                localStorage.setItem("firstRun", "true");
                 isSynched = true;
 
+
+
+                //fica feio, seria melhor usar um toaster
                 $('#festivals_buttons').html(''+
                     '<div class="padded">' +
                         '<p>Base de dados a ser transferida...</p>' +
                     '</div>');
             }
-            else if(localStorage["firstRun"]){
+            else if(localStorage["firstRun"] == "false"){
                 window.FestivallToaster.showMessage('Sincronizando...');
                 createFestivalsContainer();
                 initFestivalsDisplay();
@@ -292,11 +295,13 @@ function insertData(data){
         }
     });
     //Create festivals container after insertions
-    if(localStorage["firstRun"]){
-        localStorage.setItem("firstRun", false);
-        createFestivalsContainer();
+    if(localStorage["firstRun"] == "true"){
+        localStorage.setItem("firstRun", "false");
+        //createFestivalsContainer();
         initFestivalsDisplay();
     }
+    //rebuilding
+    createFestivalsContainer();
 }
 
 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
@@ -314,7 +319,7 @@ function updateLastSync(){
 
 // Transaction success callback
 function successCB() {
-    //console.log("Transaction Success: "+ x.message+", "+ x.code);
+    console.log("Transaction Success");
 }
 
 // Transaction error callback
