@@ -36,6 +36,7 @@ function queryFestivalSuccess(tx, results) {
 
     var last_closing_time = getLastDayClosingTime(festivals);
 
+
     if (current_time > last_closing_time){//after festival
         festival_container = "before";
         status = "after";
@@ -102,11 +103,12 @@ function createBeforeFestival(festival, festivals, diff, status){
     $('#festival_price').text("Preço: " + festival.tickets_price);
     $('#festival_poster').attr("src", festival.logo);
 
-    $('.countdown_bg').attr('src', 'img/countdown_bg.png');
+
     if(status == "before"){
         var dhms = dhm(diff).toString();
         var countdown_days = dhms.split(':')[0];
         $('#festival_countdown_days').text(countdown_days);
+        $('.countdown_bg').attr('src', 'img/countdown_bg.png');
 
         if (countdown_days.length == 1) {
             $('#festival_countdown_days').addClass('one');
