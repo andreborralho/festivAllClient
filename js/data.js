@@ -32,7 +32,8 @@ function onDeviceReady(){
                 //fica feio, seria melhor usar um toaster
                 $('#festivals_buttons').html(''+
                     '<div class="padded">' +
-                        '<p>Base de dados a ser transferida...</p>' +
+                        '<img class="preloader" src="img/preloader.gif">' +
+                        '<p class="loading_msg">A carregar os festivais...</p>' +
                     '</div>');
             }
             else if(localStorage["firstRun"] == "false"){
