@@ -26,7 +26,8 @@ function onDeviceReady(){
                 // Loading festivals
                 $('#festivals_buttons').html(''+
                     '<div class="padded">' +
-                        '<p>Base de dados a ser transferida...</p>' +
+                        '<img class="preloader" src="img/preloader.gif">' +
+                        '<p class="loading_msg">A carregar os festivais...</p>' +
                     '</div>');
 
                 db.transaction(populateDB, errorCB, successCreateDBCB);

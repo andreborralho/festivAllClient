@@ -23,7 +23,7 @@ function queryFestivalsSuccess(tx, results) {
 
         $('#festivals_buttons').append('' +
             '<li id="festival_' + festival_id +'" class="item">' +
-                '<a href="#"><img src="' + festival.logo + '"></a>' +
+                '<a href="#"><img class="festival_logo" src="' + festival.logo + '"></a>' +
             '</li>');
 
         $('#festival_'+festival_id).unbind().bind('click', function(){
