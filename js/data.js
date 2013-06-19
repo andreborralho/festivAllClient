@@ -3,6 +3,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //document.addEventListener("resume", onDeviceReady, false);
 
 //Data - client side DB
+var isSynched;
 
 // Cordova is ready
 function onDeviceReady(){
@@ -30,6 +31,7 @@ function onDeviceReady(){
 
                 db.transaction(populateDB, errorCB, successCreateDBCB);
                 localStorage.setItem("firstRun", "true");
+                isSynched = true;
 
             }
             else if(localStorage["firstRun"] == "false"){
