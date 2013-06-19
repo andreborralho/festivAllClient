@@ -28,6 +28,8 @@ function initFestivalsDisplay(){
 
 //Navigation
 function changeContainers(page, title, subtitle){
+    //showBannerAdd();
+
     var header_title_selector = $('#header_title');
 
     $('.container').removeClass("visible");
@@ -193,5 +195,21 @@ function createPagingSwipeBar(index, nav_items){
     else{
         $(nav_items[index]).addClass('current');
         swipe_bar_list.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width + 'px');
+    }
+}
+
+function showBannerAdd(){
+    var random = new Math.random();
+    for(var i = 0; i < ads.length; i++){
+        if( i == 0){
+            if( random >= 0 && random < ads[i].rel_percentage )
+                //$('#banner').img(ads[i].banner);
+                ;
+        }
+        else {
+            if( random >=ads[i-1].rel_percentage && random < ads[i].rel_percentage )
+            //$('#banner').img(ads[i].banner);
+                ;
+        }
     }
 }

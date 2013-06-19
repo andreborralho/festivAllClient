@@ -4,9 +4,11 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 //Data - client side DB
 var isSynched;
+window.ads = [];
 
 // Cordova is ready
 function onDeviceReady(){
+
     setHeightAndWidth();
     document.addEventListener("backbutton", backButton, false);
 
@@ -32,7 +34,6 @@ function onDeviceReady(){
                 db.transaction(populateDB, errorCB, successCreateDBCB);
                 localStorage.setItem("firstRun", "true");
                 isSynched = true;
-
             }
             else if(localStorage["firstRun"] == "false"){
                 window.FestivallToaster.showMessage('Sincronizando...');
@@ -81,8 +82,9 @@ function getLastSync(callback) {
                 //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
-                //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US UNION ALL "
+            //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+                    + "SELECT MAX(updated_at) as lastSync FROM ADS)";
 
             tx.executeSql(sql, [],
                 function(tx, results) {
@@ -94,18 +96,6 @@ function getLastSync(callback) {
     );
 }
 
-//
-function toServerTz(timezone, date){
-    var tz_date = date.toDate(date);
-    alert('tz_date' + tz_date);
-    if (timezone =='GMT'){
-        tz_date + 60*60*1000; //+1h
-
-    }//2013-04-29T17:00:09Z
-    var date = new Date(tz_date);
-   return date.getYear() + '-' + date.getMonth() + '-' + date.getDay() + 'T' + date.getHours() + ':' +
-        date.getMinutes() + ':' + date.getSeconds() + "Z";
-}
 
 // Get the changes from the server
 function getChanges(syncURL, modifiedSince, callback) {
@@ -118,7 +108,7 @@ function getChanges(syncURL, modifiedSince, callback) {
             callback(changes);
         },
         error: function(model, response) {
-            alert("erro na sync");
+            window.FestivallToaster.showMessage("Não efectuou a sincronização");
         }
     });
 
@@ -158,6 +148,7 @@ function populateDB(tx) {
     //tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
     tx.executeSql('DROP TABLE IF EXISTS VIDEOS');
     tx.executeSql('DROP TABLE IF EXISTS ABOUT_US');
+    tx.executeSql('DROP TABLE IF EXISTS ADS');
 
     tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255),  city VARCHAR(255), ' +
         'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets_price VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
@@ -173,7 +164,7 @@ function populateDB(tx) {
     //tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
     tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, url VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
-
+    tx.executeSql('CREATE TABLE ADS(id INTEGER PRIMARY KEY, sponsor VARCHAR(255),  percentage FLOAT , due_date DATETIME, banner VARCHAR(255), splash VARCHAR(255))');
 
     $.ajax({
         url: "http://festivall.eu/festivals.json?callback=?",
@@ -304,6 +295,16 @@ function insertData(data){
             });
         }
 
+        else if(k=='ads'){
+            $.each(v, function(i, l){
+                db.transaction(function(tx){
+                    console.log(k + 'VALUES (' + l.id + ', "' + l.sponsor + ', "' + l.percentage + ', "' + l.updated_at+')');
+                    tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, sponsor, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
+                        ', "' + l.sponsor + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
+                }, errorCB, successCB);
+            });
+        }
+
         else if(k=='deleted_items'){
             $.each(v, function(i, l){
                 db.transaction(function(tx){
@@ -313,6 +314,8 @@ function insertData(data){
             });
             updateLastSync();
         }
+
+
     });
     //Create festivals container after insertions
     if(localStorage["firstRun"] == "true"){
@@ -339,8 +342,9 @@ function updateLastSync() {
                 //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
-            //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US UNION ALL "
+               //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+                + "SELECT MAX(updated_at) as lastSync FROM ADS)";
 
             tx.executeSql(sql, [],
                 function(tx, results) {
@@ -353,7 +357,6 @@ function updateLastSync() {
 
 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
 function commitChange(last_sync){
-    alert('last_sync : ' + last_sync);
     db.transaction(function(tx){
         console.log("Updating updated_at");
         tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
@@ -389,3 +392,25 @@ function getCurrentDate(){
         'T' + ('0' + String(d.getHours())).substr(-2) + ':' + ('0' + String(d.getMinutes())).substr(-2) + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
 }
 */
+
+function getAds(){
+    db.transaction(function(tx){
+        console.log("Getting Ads");
+        tx.executeSql('SELECT * FROM ADS ', [], function(tx, results){
+            var abs_ads = results.rows
+            var percentage_sum = 0;
+            //calculate percentage sum
+            for(var i = 0; i <abs_ads.length; i++ ){
+                percentage_sum += abs_ads.item(i).percentage;
+            }
+            //calculta relative percentages
+            for(var i = 0; i <abs_ads.length; i++ ){
+                var ad = abs_ads.item(i);
+                var rel_percentage = ad.percentage / percentage_sum;
+                ads[i] = {'sponsor': ad.sponsor, 'rel_percentage':ad.rel_percentage, 'banner':ad.banner, 'splash':ad.splash }
+            }
+
+        }, errorQueryCB );
+    }, errorCB);
+
+}
