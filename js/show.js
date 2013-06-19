@@ -54,7 +54,7 @@ function queryShowSuccess(tx, results) {
 
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(show.festival_id);
-        fixHeaderLink('#'+festival_status+'_festival');
+        fixHeaderLink('#' + festival_container + '_festival');
     });
 
     var show_day = show.day_date.slice(8,10);
