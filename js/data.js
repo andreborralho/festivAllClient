@@ -2,8 +2,8 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 //document.addEventListener("resume", onDeviceReady, false);
 
-var isSynched;
 //Data - client side DB
+var isSynched;
 
 // Cordova is ready
 function onDeviceReady(){
@@ -23,17 +23,17 @@ function onDeviceReady(){
         timeout: 8000,
         success:function (changes) {
             if(localStorage["firstRun"] == undefined){
+                // Loading festivals
+                $('#festivals_buttons').html(''+
+                    '<div class="padded">' +
+                        '<img class="preloader" src="img/preloader.gif">' +
+                        '<p class="loading_msg">A carregar os festivais...</p>' +
+                    '</div>');
+
                 db.transaction(populateDB, errorCB, successCreateDBCB);
                 localStorage.setItem("firstRun", "true");
                 isSynched = true;
 
-
-
-                //fica feio, seria melhor usar um toaster
-                $('#festivals_buttons').html(''+
-                    '<div class="padded">' +
-                        '<p>Base de dados a ser transferida...</p>' +
-                    '</div>');
             }
             else if(localStorage["firstRun"] == "false"){
                 window.FestivallToaster.showMessage('Sincronizando...');
@@ -46,15 +46,19 @@ function onDeviceReady(){
             }
         },
         error: function(model, response) {
-            if(localStorage["firstRun"] == undefined){
-                alert("Precisas de Internet para sacares a base de dados!");
-                navigator.app.exitApp();
-            }
-            createFestivalsContainer();
-            initFestivalsDisplay();
-            window.FestivallToaster.showMessage("Não há conexão com a internet!");
+            errorInstallingDBCB();
         }
     });
+}
+
+function errorInstallingDBCB(){
+    if(localStorage["firstRun"] == undefined){
+        alert("Precisas de Internet para sacares a base de dados!");
+        navigator.app.exitApp();
+    }
+    createFestivalsContainer();
+    initFestivalsDisplay();
+    window.FestivallToaster.showMessage("Não há conexão com a internet!");
 }
 
 // Callback for create db transaction
@@ -84,9 +88,8 @@ function getLastSync(callback) {
             tx.executeSql(sql, [],
                 function(tx, results) {
 
-                    var lastSync = results.rows.item(0).lastSync.replace("T"," ").replace("Z","");
-                    //alert("last synchronization date : " + lastSync);
-                    callback(lastSync);
+                    var last_sync = results.rows.item(0).lastSync.replace("T"," ").replace("Z","");
+                    callback(last_sync);
                 }, errorQueryCB);
         }, errorCB
     );
@@ -96,13 +99,14 @@ function getLastSync(callback) {
 function getChanges(syncURL, modifiedSince, callback) {
     $.ajax({
         url: syncURL,
+        //headers : {'Accept-Encoding' : 'gzip'},
         data: {start_date: modifiedSince},
         dataType:"json",
         success:function (changes) {
             callback(changes);
         },
         error: function(model, response) {
-            alert(response.responseText);
+            window.FestivallToaster.showMessage("erro na sync");
         }
     });
 
@@ -122,7 +126,7 @@ function sync(syncURL, callback ) {
                 applyChanges(changes, callback);
             }
         );
-    });
+    }, true);
 }
 
 // Populate the database
@@ -159,10 +163,14 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
 
 
-    $.getJSON("http://festivall.eu/festivals.json?callback=?", function(data) {
-        insertData(data);
+    $.ajax({
+        url: "http://festivall.eu/festivals.json?callback=?",
+        //headers : {'Accept-Encoding' : 'gzip'},
+        dataType:"json",
+        success:function (changes) {
+            insertData(changes);
+        }
     });
-
 }
 
 function insertData(data){
@@ -304,16 +312,43 @@ function insertData(data){
     createFestivalsContainer();
 }
 
+
+function updateLastSync() {
+    db.transaction(
+        function(tx) {
+            var sql = "SELECT MAX(lastSync) as lastSync FROM("
+                + "SELECT MAX(updated_at) as lastSync FROM FESTIVALS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
+                //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
+                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
+            //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+
+            tx.executeSql(sql, [],
+                function(tx, results) {
+                    var last_sync = results.rows.item(0).lastSync;
+                    commitChange(last_sync);
+                }, errorQueryCB);
+        }, errorCB
+    );
+}
+
 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
-function updateLastSync(){
+function commitChange(last_sync){
     db.transaction(function(tx){
         console.log("Updating updated_at");
         tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
-           var festival = results.rows.item(0);
-           db.transaction(function(tx){
-               tx.executeSql('UPDATE FESTIVALS SET updated_at="' + getCurrentDate() + '" WHERE id=' + festival.id);
-           }, errorCB, successCB);
-       }, errorQueryCB );
+            var festival = results.rows.item(0);
+            db.transaction(function(tx){
+                tx.executeSql('UPDATE FESTIVALS SET updated_at="' + last_sync + '" WHERE id=' + festival.id);
+            }, errorCB, successCB);
+        }, errorQueryCB );
     }, errorCB);
 }
 
@@ -333,10 +368,11 @@ function errorQueryCB(tx, err){
     console.log("Error processing SQL query: " + err.code + " : " + err.message);
 }
 
-
+/*
 // Get the current Date, used in syncronization
 function getCurrentDate(){
     var d = new Date();
     return d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
         'T' + ('0' + String(d.getHours())).substr(-2) + ':' + ('0' + String(d.getMinutes())).substr(-2) + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
 }
+*/
