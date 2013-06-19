@@ -95,19 +95,6 @@ function getLastSync(callback) {
     );
 }
 
-//
-function toServerTz(timezone, date){
-    var tz_date = date.toDate(date);
-    alert('tz_date' + tz_date);
-    if (timezone =='GMT'){
-        tz_date + 60*60*1000; //+1h
-
-    }//2013-04-29T17:00:09Z
-    var date = new Date(tz_date);
-   return date.getYear() + '-' + date.getMonth() + '-' + date.getDay() + 'T' + date.getHours() + ':' +
-        date.getMinutes() + ':' + date.getSeconds() + "Z";
-}
-
 // Get the changes from the server
 function getChanges(syncURL, modifiedSince, callback) {
     $.ajax({
@@ -119,7 +106,7 @@ function getChanges(syncURL, modifiedSince, callback) {
             callback(changes);
         },
         error: function(model, response) {
-            alert("erro na sync");
+            window.FestivallToaster.showMessage("erro na sync");
         }
     });
 
@@ -354,7 +341,6 @@ function updateLastSync() {
 
 //Updates de timestamp of 'a' festival with the date of the most recent synchronization
 function commitChange(last_sync){
-    alert('last_sync : ' + last_sync);
     db.transaction(function(tx){
         console.log("Updating updated_at");
         tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
