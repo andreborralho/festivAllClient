@@ -236,6 +236,53 @@ a {
     .box-shadow(-6px 0 20px 5px #222);
 }
 
+/* LOADING
+-----------------------------------------*/
+#movingBallG{
+position:relative;
+width:264px;
+height:21px;
+margin: 40px auto;
+text-align: center;
+}
+
+.movingBallLineG{
+position:absolute;
+left:0px;
+top:8px;
+height:4px;
+width:264px;
+background-color:#B43B34;
+}
+
+.movingBallG{
+background-color:#ADADAD;
+position:absolute;
+top:0;
+left:0;
+width:21px;
+height:21px;
+-webkit-border-radius:11px;
+-webkit-animation-name:bounce_movingBallG;
+-webkit-animation-duration:2.5s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-direction:linear;
+}
+
+@-webkit-keyframes bounce_movingBallG{
+0%{
+left:0px;
+}
+
+50%{
+left:243px;
+}
+
+100%{
+left:0px;
+}
+
+}
 
 /* FEEDBACK
 -------------------------------------------------------------------------- */
@@ -412,19 +459,19 @@ a {
         border: 8px solid @lightgrey;
         .border-radius(4px);
     }
-    .preloader {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -70px 0 0 -32px;
-    }
-    .loading_msg {
-        margin-top: 10px;
-        text-align: center;
-    }
+    
 }
 
+#installer {
 
+
+    }
+    .loading_msg {
+
+        padding-top: 30%;
+        font-size: 18px;
+        text-align: center;
+    }
 
 /* SEARCH
 -------------------------------------------------------------------------- */
