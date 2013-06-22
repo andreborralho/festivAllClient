@@ -56,6 +56,8 @@ function checkIfAfterFestival(festival_id, ended_festivals, i, len){
             }
             //add ended festivals and scroller
             if(i >= len-1){
+                //meter linha
+                $('#festivals_buttons').append('<br><div class="festivals_line_break">Terminados</div>');
                 for(var j = 0; j <ended_festivals.length; j++){
                     addFestivalToList(ended_festivals[j]);
                 }

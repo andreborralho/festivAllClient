@@ -638,6 +638,12 @@ a {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+.festival_list .festivals_line_break {
+  text-align: center;
+  font-size: 1.1em;
+  margin-top: 10px;
+  border-bottom: 1px solid #b43a34;
+}
 .loading_msg {
   padding-top: 30%;
   font-size: 18px;

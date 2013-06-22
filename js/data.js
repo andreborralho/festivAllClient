@@ -30,7 +30,7 @@ function onDeviceReady(){
             if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
 
                 //populate db
-                db.transaction(populateDB, errorCB, successCB());
+                db.transaction(populateDB, errorCB, successCB);
                 localStorage.setItem("firstRun", "true");
                 isSynched = true;
 
@@ -54,7 +54,7 @@ function onDeviceReady(){
 // Get the last synchronization date
 function getLastSync(callback) {
     var last_sync = localStorage["lastSync"].replace("T"," ").replace("Z","");
-    alert('sync (last sync) : ' + last_sync);
+    //alert('sync (last sync) : ' + last_sync);
     callback(last_sync);
 }
 
@@ -235,7 +235,7 @@ function updateLastSync() {
             tx.executeSql(sql, [],
                 function(tx, results) {
                     var last_sync = results.rows.item(0).lastSync;
-                    alert('update last_sync :' + last_sync);
+                    //alert('update last_sync :' + last_sync);
                     localStorage.setItem("lastSync", last_sync);
                 }, errorQueryCB);
         }, errorCB
