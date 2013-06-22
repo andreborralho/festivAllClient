@@ -109,7 +109,7 @@ function queryInfoSuccess(tx, results) {
                             else if(temperature_key=="weatherDesc"){
                                 var weather_description_selector = $('#weather_description_current');
                                 $.each(temperature_value[0], function(desc_key, desc_value){
-                                    weather_description_selector.html(translateWeatherDescription(desc_value));
+                                    weather_description_selector.html(translateWeatherDescription(desc_value)+'<div id="weather_city">Agora em '+festival.city+'</div>');
                                 });
                             }
                             else if(temperature_key=="weatherIconUrl"){
