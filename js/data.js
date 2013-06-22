@@ -30,13 +30,8 @@ function onDeviceReady(){
             if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
 
                 //populate db
-                db.transaction(populateDB, errorCB, successCreateDBCB);
-                //set last sync
-                db.transaction(setLastSync, errorCB, successCB());
-
+                db.transaction(populateDB, errorCB, successCB());
                 localStorage.setItem("firstRun", "true");
-                db.transaction(populateDB, errorCB, successCreateDBCB);
-
                 isSynched = true;
 
             }
@@ -56,47 +51,9 @@ function onDeviceReady(){
     });
 }
 
-function errorInstallingDBCB(){
-    if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
-        alert("Precisas de Internet para sacares a base de dados!");
-        navigator.app.exitApp();
-    }
-    createFestivalsContainer();
-    initFestivalsDisplay();
-    window.FestivallToaster.showMessage("Não há conexão com a internet!");
-}
-
-// Callback for create db transaction
-function successCreateDBCB(){
-    //window.FestivallToaster.showMessage('Base de dados criada!');
-}
-
-function setLastSync(tx) {
-    var sql = "SELECT MAX(lastSync) as lastSync FROM("
-        + "SELECT MAX(updated_at) as lastSync FROM FESTIVALS UNION ALL "
-        + "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
-        + "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
-        //+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
-        //+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
-        //+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
-        + "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
-        //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
-        //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
-        + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-        + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
-    //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
-
-    tx.executeSql(sql, [],
-        function(tx, results) {
-            var last_sync =  results.rows.item(0);
-            alert('install last sync : ' + last_sync);
-            localStorage.setItem("last_sync", last_sync);
-        }, errorQueryCB);
-}
-
 // Get the last synchronization date
 function getLastSync(callback) {
-    var last_sync = localStorage["last_sync"].replace("T"," ").replace("Z","");
+    var last_sync = localStorage["lastSync"].replace("T"," ").replace("Z","");
     alert('sync (last sync) : ' + last_sync);
     callback(last_sync);
 }
@@ -143,13 +100,7 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS FESTIVALS');
     tx.executeSql('DROP TABLE IF EXISTS SHOWS');
     tx.executeSql('DROP TABLE IF EXISTS DAYS');
-    //tx.executeSql('DROP TABLE IF EXISTS PHOTOS');
-    //tx.executeSql('DROP TABLE IF EXISTS USERS');
-    //tx.executeSql('DROP TABLE IF EXISTS COMMENTS');
     tx.executeSql('DROP TABLE IF EXISTS STAGES');
-    //tx.executeSql('DROP TABLE IF EXISTS NOTIFICATIONS');
-    //tx.executeSql('DROP TABLE IF EXISTS GALLERIES');
-    //tx.executeSql('DROP TABLE IF EXISTS COUNTRIES');
     tx.executeSql('DROP TABLE IF EXISTS VIDEOS');
     tx.executeSql('DROP TABLE IF EXISTS ABOUT_US');
 
@@ -158,13 +109,7 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
         'day_id INTEGER, photo VARCHAR(255), description TEXT(1024), time TIME, updated_at DATETIME)');
     tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
-    //tx.executeSql('CREATE TABLE PHOTOS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, small VARCHAR(255), large VARCHAR(255), updated_at DATETIME)');
-    //tx.executeSql('CREATE TABLE USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), hashed_password VARCHAR(255), salt VARCHAR(255), updated_at DATETIME)');
-    //tx.executeSql('CREATE TABLE COMMENTS(id INTEGER PRIMARY KEY AUTOINCREMENT, show_id INTEGER, text TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
-    //tx.executeSql('CREATE TABLE NOTIFICATIONS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, text TEXT(1024), updated_at DATETIME)');
-    //tx.executeSql('CREATE TABLE GALLERIES(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, photo VARCHAR(255), updated_at DATETIME)');
-    //tx.executeSql('CREATE TABLE COUNTRIES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), updated_at DATETIME, flag VARCHAR(255))');
     tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, url VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
 
@@ -313,11 +258,12 @@ function errorQueryCB(tx, err){
     console.log("Error processing SQL query: " + err.code + " : " + err.message);
 }
 
-/*
-// Get the current Date, used in syncronization
-function getCurrentDate(){
-    var d = new Date();
-    return d.getFullYear() + '-' + ('0' + String(d.getMonth()+1)).substr(-2)+ '-' +('0' + String(d.getDate())).substr(-2) +
-        'T' + ('0' + String(d.getHours())).substr(-2) + ':' + ('0' + String(d.getMinutes())).substr(-2) + ':' + ('0' + String(d.getSeconds())).substr(-2) + 'Z';
+function errorInstallingDBCB(){
+    if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
+        alert("Precisas de Internet para sacares a base de dados!");
+        navigator.app.exitApp();
+    }
+    createFestivalsContainer();
+    initFestivalsDisplay();
+    window.FestivallToaster.showMessage("Não há conexão com a internet!");
 }
-*/
