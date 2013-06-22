@@ -13,6 +13,15 @@ function createFestivalsContainer(){
 function queryFestivalsSuccess(tx, results) {
     if(isSynched)
         window.FestivallToaster.showMessage('Base de dados criada!');
+    //Create festivals container after insertions
+    if(localStorage["firstRun"] == "true"){
+        localStorage.setItem("firstRun", "false");
+        $('#installer').removeClass('visible');
+        initFestivalsDisplay();
+        updateLastSync();
+    }
+
+
     incrementHistory("#festivals");
     $('#festivals_buttons').empty();
 

@@ -129,7 +129,6 @@ function createBeforeFestival(festival, festivals, diff, status){
             $('#festival_days_word').text("dias!");
         }
 
-
     }else if(status == "in_between"){
         //alert("in between");
         //to do

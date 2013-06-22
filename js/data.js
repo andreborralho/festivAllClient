@@ -5,6 +5,11 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //Data - client side DB
 var isSynched;
 
+if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
+    // Loading festivals
+    $('#installer').addClass('visible');
+}
+
 // Cordova is ready
 function onDeviceReady(){
     setHeightAndWidth();
@@ -22,16 +27,11 @@ function onDeviceReady(){
         dataType:"html",
         timeout: 8000,
         success:function (changes) {
-            if(localStorage["firstRun"] == undefined){
-                // Loading festivals
-                $('#festivals_buttons').html(''+
-                    '<div class="padded">' +
-                        '<img class="preloader" src="img/preloader.gif">' +
-                        '<p class="loading_msg">A carregar os festivais...</p>' +
-                    '</div>');
+            if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
 
-                db.transaction(populateDB, errorCB, successCreateDBCB);
                 localStorage.setItem("firstRun", "true");
+                db.transaction(populateDB, errorCB, successCreateDBCB);
+
                 isSynched = true;
 
             }
@@ -52,7 +52,7 @@ function onDeviceReady(){
 }
 
 function errorInstallingDBCB(){
-    if(localStorage["firstRun"] == undefined){
+    if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
         alert("Precisas de Internet para sacares a base de dados!");
         navigator.app.exitApp();
     }
@@ -106,7 +106,7 @@ function getChanges(syncURL, modifiedSince, callback) {
             callback(changes);
         },
         error: function(model, response) {
-            window.FestivallToaster.showMessage("erro na sync");
+            //window.FestivallToaster.showMessage("Erro na sync");
         }
     });
 
@@ -169,6 +169,9 @@ function populateDB(tx) {
         dataType:"json",
         success:function (changes) {
             insertData(changes);
+        },
+        error: function() {
+            errorInstallingDBCB();
         }
     });
 }
@@ -176,141 +179,89 @@ function populateDB(tx) {
 function insertData(data){
     $.each(data, function(k,v){
         if(k=='festivals'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.country_id + ', "' + l.coordinates +
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+                    /*console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.country_id + ', "' + l.coordinates +
                         ', "' + l.city + ', "' + l.logo + ', "' + l.map + ', "' + l.template + ', "' + l.tickets_price + ', "'
-                        + l.tickets + ', "' + l.transports + ', "' + l.updated_at+')');
+                        + l.tickets + ', "' + l.transports + ', "' + l.updated_at+')');*/
 
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
                         l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
-                }, errorCB, successCB);
-            });
+                });
+            }, errorCB, successCB);
+
         }
 
         else if(k=='stages'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.festival_id + ', "' + l.updated_at+')');
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+
+                    //console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.festival_id + ', "' + l.updated_at+')');
                     tx.executeSql('INSERT OR REPLACE INTO STAGES (id, name, festival_id, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.festival_id + ', "' + l.updated_at +'")');
-                }, errorCB,  successCB);
-            });
+                });
+            }, errorCB,  successCB);
         }
 
         else if(k=='days'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.festival_id + '", ' + l.date + ', "' + l.opening_time + ', "' + l.closing_time + ', "' + l.updated_at+')');
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+                    //console.log(k + 'VALUES (' + l.id + ', "' + l.festival_id + '", ' + l.date + ', "' + l.opening_time + ', "' + l.closing_time + ', "' + l.updated_at+')');
                     tx.executeSql('INSERT OR REPLACE INTO DAYS (id, festival_id, date, opening_time, closing_time, updated_at) VALUES (' + l.id +
                         ', ' + l.festival_id + ', "' + l.date + '", "' + l.opening_time + '", "' + l.closing_time + '", "' + l.updated_at +'")');
-                }, errorCB, successCB);
-            });
+                });
+            }, errorCB, successCB);
         }
 
-        /*else if(k=='countries'){
-
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    //console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO COUNTRIES (id, name, flag, updated_at) VALUES (' + l.id +
-                        ', "' + l.name + '", "' + l.flag + '", "' + l.updated_at + '")');
-                }, errorCB, successCB);
-            });
-        }*/
-
-        /*else if(k=='comments'){
-
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    //console.log("Inserting in " + k);
-                    tx.executeSql('INSERT OR REPLACE INTO COMMENTS (id, show_id, text, updated_at) VALUES (' + l.id +
-                        ', ' + l.show_id + ', "' + l.text + '", "' + l.updated_at + '")');
-                }, errorCB, successCB);
-            });
-        }*/
-        /*
-         else if(k=='notifications'){
-         $.each(v, function(i, l){
-         db.transaction(function(tx){
-         console.log("Inserting in " + k);
-         tx.executeSql('INSERT OR REPLACE INTO NOTIFICATIONS (id, festival_id, text, updated_at) VALUES (' + l.id +
-         ', ' + l.festival_id + ', "' + l.text + '", "' + l.updated_at + '")');	}, errorCB, successCB);
-         });
-         }*/
-        /*
-         else if(k=='photos'){
-         $.each(v, function(i, l){
-         db.transaction(function(tx){
-         console.log("Inserting in " + k);
-         tx.executeSql('INSERT OR REPLACE INTO PHOTOS (id, show_id, small, large, updated_at) VALUES (' + l.id +
-         ', ' + l.show_id + ', "' + l.small + '", "' + l.large + '", "' + l.updated_at + '")');	}, errorCB, successCB);
-         });
-         }
-         */
-        /*else if(k=='galleries'){
-         $.each(v, function(i, l){
-         db.transaction(function(tx){
-         //console.log("Inserting in " + k);
-         tx.executeSql('INSERT OR REPLACE INTO GALLERIES (id, festival_id, photo, updated_at) VALUES (' + l.id +
-         ', ' + l.festival_id + ', "' + l.photo + '", "' + l.updated_at + '")');
-         }, errorCB, successCB);
-         });
-
-         }*/
-
         else if(k=='shows'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.festival_id + ', "' + l.stage_id + ', "' +
-                        l.day_id + ', "' + l.photo + ', "' + l.description + ', "' + l.time + ', "' + l.updated_at+')');
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+                    //alert(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.festival_id + ', "' + l.stage_id + ', "' +
+                      //  l.day_id + ', "' + l.photo + ', "' + l.description + ', "' + l.time + ', "' + l.updated_at+')');
+
                     tx.executeSql('INSERT OR REPLACE INTO SHOWS (id, name, festival_id, stage_id, day_id, photo, description, time, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.festival_id + ', ' + l.stage_id + ', ' + l.day_id + ', "' + l.photo + '", "' + l.description +
                         '", "' + l.time + '", "' + l.updated_at + '")');
-                }, errorCB, successCB);
-            });
+                });
+            }, errorCB, successCB);
         }
 
         else if(k=='videos'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + ', "' + l.show_id + ', "' + l.url + ', "' + l.updated_at+')');
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+                    //console.log(k + 'VALUES (' + l.id + ', "' + l.name + ', "' + l.show_id + ', "' + l.url + ', "' + l.updated_at+')');
                     tx.executeSql('INSERT OR REPLACE INTO VIDEOS (id, name, show_id, url, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.show_id + ', "' + l.url + '", "' + l.updated_at + '")');
-                }, errorCB, successCB);
-            });
+                });
+            }, errorCB, successCB);
         }
 
         else if(k=='about_us'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.title + ', "' + l.text + ', "' + l.updated_at+')');
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+                    //console.log(k + 'VALUES (' + l.id + ', "' + l.title + ', "' + l.text + ', "' + l.updated_at+')');
                     tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, title, text, updated_at) VALUES (' + l.id +
                         ', "' + l.title + '", "' + l.text + '", "' + l.updated_at + '")');
-                }, errorCB, successCB);
-            });
+                });
+            }, errorCB, successCB);
         }
 
-        else if(k=='deleted_items'){
-            $.each(v, function(i, l){
-                db.transaction(function(tx){
+        else if(k=='deleted_items'){ //end of synch
+            db.transaction(function(tx){
+            //último callback
+                $.each(v, function(i, l){
                     console.log(k + 'VALUES (' + l.table.toString().toUpperCase() + ', "' + l.element +')');
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
-                }, errorCB, successCB);
-            });
-            updateLastSync();
+                });
+            }, errorCB, successCB);
         }
     });
-    //Create festivals container after insertions
-    if(localStorage["firstRun"] == "true"){
-        localStorage.setItem("firstRun", "false");
-        //createFestivalsContainer();
-        initFestivalsDisplay();
-    }
-    //rebuilding
+
+    //rebuilding for updated logos of festivals
     createFestivalsContainer();
 }
+
 
 
 function updateLastSync() {
