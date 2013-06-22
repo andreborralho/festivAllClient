@@ -30,7 +30,10 @@ function onDeviceReady(){
                         '<p class="loading_msg">A carregar os festivais...</p>' +
                     '</div>');
 
+                //populate db
                 db.transaction(populateDB, errorCB, successCreateDBCB);
+                //set last sync
+                db.transaction(setLastSync, errorCB, successCB());
                 localStorage.setItem("firstRun", "true");
                 isSynched = true;
 
@@ -66,33 +69,34 @@ function successCreateDBCB(){
     //window.FestivallToaster.showMessage('Base de dados criada!');
 }
 
+function setLastSync(tx) {
+    var sql = "SELECT MAX(lastSync) as lastSync FROM("
+        + "SELECT MAX(updated_at) as lastSync FROM FESTIVALS UNION ALL "
+        + "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
+        + "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
+        //+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
+        //+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
+        //+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
+        + "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
+        //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
+        //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
+        + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
+        + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
+    //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+
+    tx.executeSql(sql, [],
+        function(tx, results) {
+            var last_sync =  results.rows.item(0);
+            alert('install last sync : ' + last_sync);
+            localStorage.setItem("last_sync", last_sync);
+        }, errorQueryCB);
+}
 
 // Get the last synchronization date
 function getLastSync(callback) {
-    db.transaction(
-        function(tx) {
-            var sql = "SELECT MAX(lastSync) as lastSync FROM("
-                + "SELECT MAX(updated_at) as lastSync FROM FESTIVALS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM SHOWS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM DAYS UNION ALL "
-                //+ "SELECT MAX(updated_at) as lastSync FROM PHOTOS UNION ALL "
-                //+ "SELECT MAX(updated_at) as lastSync FROM USERS UNION ALL "
-                //+ "SELECT MAX(updated_at) as lastSync FROM COMMENTS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM STAGES UNION ALL "
-                //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
-                //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
-                //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
-
-            tx.executeSql(sql, [],
-                function(tx, results) {
-
-                    var last_sync = results.rows.item(0).lastSync.replace("T"," ").replace("Z","");
-                    callback(last_sync);
-                }, errorQueryCB);
-        }, errorCB
-    );
+    var last_sync = localStorage["last_sync"].replace("T"," ").replace("Z","");
+    alert('sync (last sync) : ' + last_sync);
+    callback(last_sync);
 }
 
 // Get the changes from the server
@@ -333,23 +337,11 @@ function updateLastSync() {
             tx.executeSql(sql, [],
                 function(tx, results) {
                     var last_sync = results.rows.item(0).lastSync;
-                    commitChange(last_sync);
+                    alert('update last_sync :' + last_sync);
+                    localStorage.setItem("lastSync", last_sync);
                 }, errorQueryCB);
         }, errorCB
     );
-}
-
-//Updates de timestamp of 'a' festival with the date of the most recent synchronization
-function commitChange(last_sync){
-    db.transaction(function(tx){
-        console.log("Updating updated_at");
-        tx.executeSql('SELECT * FROM FESTIVALS ', [], function(tx, results){
-            var festival = results.rows.item(0);
-            db.transaction(function(tx){
-                tx.executeSql('UPDATE FESTIVALS SET updated_at="' + last_sync + '" WHERE id=' + festival.id);
-            }, errorCB, successCB);
-        }, errorQueryCB );
-    }, errorCB);
 }
 
 // Transaction success callback
