@@ -21,7 +21,7 @@ function queryShowsSuccess(tx, results) {
 
     $('#header_link').unbind().bind('click', function(){
         createFestivalContainer(current_festival_id);
-        fixHeaderLink('#'+festival_status+'_festival');
+        fixHeaderLink('#'+festival_container+'_festival');
     });
 
     if (len >0 ){
