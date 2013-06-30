@@ -104,8 +104,8 @@ function buildLineup(stages, days){
                                         });
                                     })(show.name);
                                 }
-                                //$('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
-                                var myscroll = new IScroll('#' + day.id + '_' + stage.id + '_lineup_frame_wrapper');
+                                $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
+                                //var myscroll = new IScroll('#' + day.id + '_' + stage.id + '_lineup_frame_wrapper');
                             }
                             else
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
