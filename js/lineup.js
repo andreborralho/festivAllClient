@@ -116,9 +116,10 @@ function buildLineup(stages, days){
                             if(s == (len - 1))
                                 finishLineupStage(day, stages, day_len);
 
-                            if(day_i == (day_len -1) && s == (len - 1)){
-
+                            if(day_i == 0 && s == (len -1)){
                                 changeContainers("#lineup", current_festival_name, "Cartaz");
+                            }
+                            else if(day_i == (day_len -1) && s == (len - 1)){
 
                                 if(day_len > 4){//só inicia o scroll lineup_days se houver mais que 4 dias
 
