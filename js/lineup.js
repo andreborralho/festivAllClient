@@ -74,7 +74,7 @@ function buildLineup(stages, days){
 
                             //append day:stage frame
                             $('#lineup_carousel_' + day.id).append('' +
-                                '<div class="scroll_wrapper">' +
+                                '<div id="' + day.id + '_' + stage.id + '_lineup_frame_wrapper" class="scroll_wrapper">' +
                                     '<div id="' + day.id + '_' + stage.id + '_lineup_frame"></div>' +
                                 '</div>');
 
@@ -104,7 +104,8 @@ function buildLineup(stages, days){
                                         });
                                     })(show.name);
                                 }
-                                $('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
+                                //$('#' + day.id + '_' + stage.id + '_lineup_frame').scroller();
+                                var myscroll = new IScroll('#' + day.id + '_' + stage.id + '_lineup_frame_wrapper');
                             }
                             else
                                 $('#' + day.id + '_' + stage.id + '_lineup_frame').append('' +
