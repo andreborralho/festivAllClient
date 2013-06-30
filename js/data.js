@@ -14,7 +14,7 @@ if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
 function onDeviceReady(){
     setHeightAndWidth();
     document.addEventListener("backbutton", backButton, false);
-
+    document.addEventListener("touchmove", function(e){e.preventDefault();}, false);
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 5000000);
 
     //menu button
