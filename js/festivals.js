@@ -62,6 +62,7 @@ function checkIfAfterFestival(festival_id, ended_festivals, i, len){
                     addFestivalToList(ended_festivals[j]);
                 }
                 $('#festivals_buttons').scroller();
+
             }
         }, errorQueryCB);
     }, errorCB);

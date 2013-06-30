@@ -630,6 +630,7 @@ a {
 }
 .festival_list .festival_logo {
   width: 100%;
+  height: 36%;
   display: block;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -830,7 +831,7 @@ a {
 -------------------------------------------------------------------------- */
 
 .lineup_frame {
-  height: 77%;
+  height: 81%;
 }
 .lineup_carousel {
   height: 100%;
