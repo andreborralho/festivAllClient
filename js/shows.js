@@ -94,7 +94,7 @@ function queryShowsSuccess(tx, results) {
             show_name_previous_letter = show_name_letter;
         }
 
-        $('#shows_page_list').scroller();
+        new IScroll('#shows_scroll_wrapper');
 
     }else
         $('#shows_page_list').append('<div class="padded"><p>Ainda não há bandas para este festival!</p></div>');
