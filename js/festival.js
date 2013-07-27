@@ -8,7 +8,7 @@ function createFestivalContainer(festival_id){
     db.transaction(function (tx) {
         tx.executeSql('SELECT *, FESTIVALS.id AS id, DAYS.id as day_id ' +
             'FROM FESTIVALS INNER JOIN DAYS ON FESTIVALS.ID = DAYS.FESTIVAL_ID ' +
-            'WHERE FESTIVALS.ID='+festival_id, [], queryFestivalSuccess, errorQueryCB);
+            'WHERE FESTIVALS.ID='+festival_id + ' ORDER BY date', [], queryFestivalSuccess, errorQueryCB);
     }, errorCB);
 }
 
@@ -35,7 +35,6 @@ function queryFestivalSuccess(tx, results) {
     });
 
     var last_closing_time = getLastDayClosingTime(festivals);
-
 
     if (current_time > last_closing_time){//after festival
         festival_container = "before";
@@ -81,7 +80,7 @@ function queryFestivalSuccess(tx, results) {
 
     changeContainers('#' + festival_container + '_festival', current_festival_name, "");
 }
-
+//Obter o tempo de fecho do festival
 function getLastDayClosingTime(days){
     var result = 0;
     for(var i = 0; i< days.length; i++){
@@ -106,7 +105,9 @@ function createBeforeFestival(festival, festivals, diff, status){
 
     if(status == "before"){
         var dhms = dhm(diff).toString();
-        var countdown_days = dhms.split(':')[0];
+        var countdown_days = parseInt(dhms.split(':')[0]) + 1; //+1 Porque quando falta 1 aparece 0
+        alert("countdown days :" + countdown_days);
+        countdown_days = String(countdown_days);
         $('#festival_countdown_days').text(countdown_days);
         $('.countdown_bg').attr('src', 'img/countdown_bg.png');
 
@@ -140,44 +141,25 @@ function createBeforeFestival(festival, festivals, diff, status){
         $('#festival_days_word').empty();
     }
 
-
-    var festival_day, festival_day_first_number, festival_day_second_number,
-        festival_month, numeric_month, next_numeric_month, festival_next_month;
-
-    for(var i=0; i<festivals.length; i++){
-        festival = festivals.item(i);
-
-        festival_day = festival.date.slice(8,10);
-        festival_day_first_number = festival_day.slice(0,1).replace("0", "");
-        festival_day_second_number = festival_day.slice(1,2);
-        festival_day = festival_day_first_number + festival_day_second_number;
-
-        numeric_month = festival.date.slice(5,7);
-        festival_month = changeNumberToMonth(numeric_month);
-
-        if(festival_day == "1" && festival_month == "Janeiro")
-            break;
-        else if(i < festivals.length - 2){
-            next_numeric_month = festivals.item(i+1).date.slice(5,7);
-            festival_next_month = changeNumberToMonth(next_numeric_month);
-
-            if(festival_month == festival_next_month)
-                $('#festival_days').append(festival_day + ", ");
-            else
-                $('#festival_days').append(festival_day + " de " + festival_month);
+    //Mostrar os dias do festival
+    var month = changeNumberToMonth(toDate(festivals.item(0).date)[1]); //Obter o mês na data do primeiro dia festival
+    var first_of_month = true;
+    for(var i = 0; i < festivals.length; i++){
+        var this_month = changeNumberToMonth(toDate(festivals.item(i).date)[1]);
+        var day = toDate(festivals.item(i).date)[2]; //Obter o dia da data
+        if(this_month != month){ //Festival que abrange vários meses
+            $('#festival_days').append(' de ' + month + ' e ');
+            month = this_month;
+            first_of_month = true;
         }
-        else if(i == festivals.length - 2){
-            next_numeric_month = festivals.item(i+1).date.slice(5,7);
-            festival_next_month = changeNumberToMonth(next_numeric_month);
-
-            if(festival_month == festival_next_month)
-                $('#festival_days').append(festival_day);
-            else
-                $('#festival_days').append(festival_day + " de " + festival_month);
+        if(first_of_month){
+            $('#festival_days').append(day);
+            first_of_month = false;
         }
-        else
-            $('#festival_days').append(" e " + festival_day + " de " + festival_month);
+        else $('#festival_days').append(', ' +  day);
     }
+    $('#festival_days').append(' de ' + month);
+
     bindClickToNavBottom("before", festival);
 }
 
@@ -313,32 +295,42 @@ function dhm(t){
 
 function changeNumberToMonth(numeric_month){
     var month;
+    numeric_month = String(numeric_month);
     switch(numeric_month){
         case "01":
+        case "1":
             month = "Janeiro";
             break;
         case "02":
+        case "2":
             month = "Fevereiro";
             break;
         case "03":
+        case "3":
             month = "Março";
             break;
         case "04":
+        case "4":
             month = "Abril";
             break;
         case "05":
+        case "5":
             month = "Maio";
             break;
         case "06":
+        case "6":
             month = "Junho";
             break;
         case "07":
+        case "7":
             month = "Julho";
             break;
         case "08":
+        case "8":
             month = "Agosto";
             break;
         case "09":
+        case "9":
             month = "Setembro";
             break;
         case "10":
