@@ -1,5 +1,5 @@
 // LINEUP_CONTAINER
-
+/*
 var lineup_day_buttons_scroller;
 var lineup_nav_items = [];
 var current_linup_page = 0;
@@ -236,4 +236,173 @@ function finishLineupStage(day, stages, day_len){
         $('#lineup_carousel_' + day.id).carousel().onMoveIndex(0, 200);
     });
 
+}
+*/
+/* _____________________________________________________*/
+
+var current_lineup_page;
+
+function createLineupContainer(festival_id){
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT *, DAYS.id AS d_id, STAGES.id AS st_id, SHOWS.id AS sh_id, ' +
+            'STAGES.name AS stage_name, SHOWS.name AS show_name ' +
+            'FROM DAYS inner join STAGES inner join SHOWS ' +
+            'ON DAYS.festival_id = STAGES.festival_id AND SHOWS.day_id = d_id AND SHOWS.stage_id = st_id ' +
+            'WHERE SHOWS.festival_id = ' + festival_id + ' ' +
+            'ORDER BY d_id, st_id, SHOWS.time' , [], queryLineupSuccess, errorQueryCB);
+    }, errorCB);
+}
+
+function queryLineupSuccess(tx, results) {
+/*
+    alert('len ' + results.rows.length);*/
+    for(var i = 0; i <results.rows.length; i++){
+        var row = results.rows.item(i);
+        console.log(i + '. ' + row.show_name + ', ' + row.stage_name + ', ' + row.time + ', ' + row.date + ', day_id:' + row.d_id + ', stage_id :' + row.st_id);
+    }
+
+    $('#lineup_day_scroll_wrapper').empty().append('' +
+        '<ul id="lineup_day_buttons" class="nav_top"></ul>');
+
+    $('#lineup_stages_bar').empty();
+    $('#lineup_frame').empty();
+
+    $('#header_link').unbind().bind('click', function(){
+        createFestivalContainer(current_festival_id);
+        fixHeaderLink('#'+festival_container+'_festival');
+    });
+
+
+    var row = results.rows.item(0);
+    var day_id = row.d_id;
+    var stage_id = row.st_id;
+    beginDay(row);  //adicionar o div do primeiro dia // se um dia não tem shows não aparece o botão
+    $('#lineup_day_frame_' + day_id).addClass('active');
+    beginStage(row);
+    addShow(row);
+
+    //Iterar sobre todos os espectáculos ordenados
+    for(var i = 1; i <results.rows.length; i++){
+        var curr_row = results.rows.item(i);
+        if(row.d_id != curr_row.d_id){
+            finishStage(row);
+            finishDay(row); //finalizar o dia anterior
+            beginDay(curr_row); //começar o dia currente
+            beginStage(curr_row);
+        }
+        else if(row.st_id != curr_row.st_id){
+            finishStage(row);
+            beginStage(curr_row);
+        }
+
+        addShow(curr_row);
+        row = curr_row;
+    }
+    changeContainers("#lineup", current_festival_name, "Cartaz");
+}
+
+function beginDay(show){
+    var day_id = show.d_id;
+
+    //adicionar o botão do dia
+    var show_day = show.date.slice(8,10);
+    var numeric_month = show.date.slice(5,7);
+    var month = changeNumberToMonthAbrev(numeric_month);
+
+    if(show_day == "01" && month == "Jan")
+        $('#lineup_day_buttons').append(''+
+            '<li id="' + day_id + '_day_button" class="column">' +
+            '<a class="item">&nbsp;TBA&nbsp;</a>' +
+            '</li>'
+        );
+    else
+        $('#lineup_day_buttons').append(''+
+            '<li id="' + day_id + '_day_button" class="column">' +
+            '<a class="item">' +  show_day + ' ' + month + '</a>' +
+            '</li>'
+        );
+
+    //Adicionar a frame do dia e a swipe bar
+    $('#lineup_frame').append('' +
+        '<div id="lineup_day_frame_' + day_id + '" class="lineup_day_frame">' +
+            '<nav class="swipe_bar row" data-role="swipe_bar">' +
+            '    <ul id="lineup_stages_bar_' + day_id + '" class="lineup_swipe_bar_list">'+
+            '    </ul>' +
+            '</nav>' +
+        '   <div id="lineup_carousel_' + day_id + '" class="lineup_carousel" data-role="lineup_carousel"></div>' +
+        '</div>');
+}
+
+function finishDay(show){
+    var day_id = show.d_id;
+    //Inicializar o carousel
+
+    var lineup_nav_items = $('#lineup_stages_bar_' + day_id + ' .stage_nav_item');
+
+
+    var lineup_carousel = $('#lineup_carousel_' + day_id).carousel({
+        preventDefaults:false,
+        pagingFunction:function(index){
+            //createPagingSwipeBar(index, lineup_nav_items);
+            current_lineup_page = index; //watt
+        }
+    });
+
+    //interacção do botão dos dias
+    $('#' + day_id + '_day_button').unbind().bind('click', function(){
+
+        //set visibility to the correct lineup_day_frame
+        $('.lineup_day_frame').removeClass('active');
+        $('#lineup_day_frame_' + day_id).addClass('active');
+        $('#lineup_day_buttons .column').removeClass('current');
+        $(this).addClass('current');
+
+        lineup_nav_items.find('a').removeClass('current');
+        lineup_nav_items.removeClass('middle last').addClass('first');
+
+        lineup_nav_items[0].addClass('current');
+
+        //bindClickToNavBar(lineup_nav_items, lineup_carousel);
+        $('#lineup_carousel_' + day_id).carousel().onMoveIndex(0, 200);
+    });
+}
+
+function beginStage(show){
+    var stage_id = show.st_id;
+    var day_id = show.d_id;
+    //Adicionar a frame do palco
+    $('#lineup_carousel_' + day_id).append('' +
+        '<div id="' + day_id + '_' + stage_id + '_lineup_frame_wrapper" class="scroll_wrapper">' +
+            '<div id="' + day_id + '_' + stage_id + '_lineup_frame"></div>' +
+        '</div>');
+    //adicionar a tab ao swipe bar
+
+    $('lineup_stages_bar_' + day_id).append(''
+        + '<li><a id="stage_' + stage_id + '_nav_item" class="stage_nav_item">' + show.stage_name + '</a></li>');
+}
+
+function finishStage(show){
+    var day_id = show.d_id;
+    var stage_id = show.st_id;
+    //Activar o scroller
+    $('#' + day_id + '_' + stage_id + '_lineup_frame').scroller();
+}
+
+function addShow(show){
+    var day_id = show.d_id;
+    var stage_id = show.st_id;
+    var show_time = show.time.slice(11,16);
+
+    if(show_time != "00:01")
+        $('#' + day_id + '_' + stage_id + '_lineup_frame').append('' +
+            '<li id="lineup_show_' + show.sh_id + '" class="row">' +
+            '<div class="column fixed bdr_r">' + show.time.slice(11,16) + '</div>' +
+            '<div class="column"><h3 class="band_name">' + show.show_name + '</h3></div>' +
+            '</li>');
+    else
+        $('#' + day_id + '_' + stage_id + '_lineup_frame').append('' +
+            '<li id="lineup_show_' + show.sh_id + '" class="row">' +
+            '<div class="column fixed bdr_r">--:--</div>' +
+            '<div class="column"><h3 class="band_name">' + show.show_name + '</h3></div>' +
+            '</li>');
 }
