@@ -106,7 +106,6 @@ function createBeforeFestival(festival, festivals, diff, status){
     if(status == "before"){
         var dhms = dhm(diff).toString();
         var countdown_days = parseInt(dhms.split(':')[0]) + 1; //+1 Porque quando falta 1 aparece 0
-        alert("countdown days :" + countdown_days);
         countdown_days = String(countdown_days);
         $('#festival_countdown_days').text(countdown_days);
         $('.countdown_bg').attr('src', 'img/countdown_bg.png');
@@ -141,6 +140,13 @@ function createBeforeFestival(festival, festivals, diff, status){
         $('#festival_days_word').empty();
     }
 
+    addFestivalDays(festivals, '#festival_days');
+
+    bindClickToNavBottom("before", festival);
+}
+
+
+function addFestivalDays(festivals, div_id){
     //Mostrar os dias do festival
     var month = changeNumberToMonth(toDate(festivals.item(0).date)[1]); //Obter o mês na data do primeiro dia festival
     var first_of_month = true;
@@ -148,23 +154,18 @@ function createBeforeFestival(festival, festivals, diff, status){
         var this_month = changeNumberToMonth(toDate(festivals.item(i).date)[1]);
         var day = toDate(festivals.item(i).date)[2]; //Obter o dia da data
         if(this_month != month){ //Festival que abrange vários meses
-            $('#festival_days').append(' de ' + month + ' e ');
+            $(div_id).append(' de ' + month + ' e ');
             month = this_month;
             first_of_month = true;
         }
         if(first_of_month){
-            $('#festival_days').append(day);
+            $(div_id).append(day);
             first_of_month = false;
         }
-        else $('#festival_days').append(', ' +  day);
+        else $(div_id).append(', ' +  day);
     }
-    $('#festival_days').append(' de ' + month);
-
-    bindClickToNavBottom("before", festival);
+    $(div_id).append(' de ' + month);
 }
-
-
-
 
 function createDuringFestival(festival){
     db.transaction(function (tx){
@@ -270,7 +271,6 @@ function bindClickToNavBottom(festival_status, festival){
 
     $('#'+festival_status+'_lineup_button').unbind().bind('click', function(){
         createLineupContainer(festival.id);
-        //changeContainers("#lineup", current_festival_name, "Cartaz");
     });
 
     $('#'+festival_status+'_info_button').unbind().bind('click', function(){
