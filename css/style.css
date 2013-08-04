@@ -770,10 +770,12 @@ a {
   line-height: 50px;
 }
 .during_festival_list {
-  width: 72.5%;
+  width: 71%;
+  height: 24%;
   display: inline-block;
   margin-left: 3px;
   margin-bottom: 10px;
+  font-size: 0.9em;
 }
 .festival_during_poster {
   height: 24%;
