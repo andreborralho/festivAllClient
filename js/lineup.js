@@ -255,11 +255,11 @@ function createLineupContainer(festival_id){
 
 function queryLineupSuccess(tx, results) {
 /*
-    alert('len ' + results.rows.length);*/
+    alert('len ' + results.rows.length);
     for(var i = 0; i <results.rows.length; i++){
         var row = results.rows.item(i);
         console.log(i + '. ' + row.show_name + ', ' + row.stage_name + ', ' + row.time + ', ' + row.date + ', day_id:' + row.d_id + ', stage_id :' + row.st_id);
-    }
+    }*/
 
     $('#lineup_day_scroll_wrapper').empty().append('' +
         '<ul id="lineup_day_buttons" class="nav_top"></ul>');
@@ -273,32 +273,64 @@ function queryLineupSuccess(tx, results) {
     });
 
 
-    var row = results.rows.item(0);
-    var day_id = row.d_id;
-    var stage_id = row.st_id;
-    beginDay(row);  //adicionar o div do primeiro dia // se um dia não tem shows não aparece o botão
-    $('#lineup_day_frame_' + day_id).addClass('active');
-    beginStage(row);
-    addShow(row);
+    if(results.rows.length > 0){
+        var number_of_day
 
-    //Iterar sobre todos os espectáculos ordenados
-    for(var i = 1; i <results.rows.length; i++){
-        var curr_row = results.rows.item(i);
-        if(row.d_id != curr_row.d_id){
-            finishStage(row);
-            finishDay(row); //finalizar o dia anterior
-            beginDay(curr_row); //começar o dia currente
-            beginStage(curr_row);
-        }
-        else if(row.st_id != curr_row.st_id){
-            finishStage(row);
-            beginStage(curr_row);
-        }
+        var row = results.rows.item(0);
+        var day_id = row.d_id;
+        var days = [day_id];
+        var lineup_stage_headers = {};
+        lineup_stage_headers[day_id] = [row];
+        var stage_id = row.st_id;
+        beginDay(row);  //adicionar o div do primeiro dia // se um dia não tem shows não aparece o botão
+        $('#lineup_day_frame_' + day_id).addClass('active');
+        beginStage(row);
 
-        addShow(curr_row);
-        row = curr_row;
+        var late_shows = [];
+        if(checkForLateShow(row))
+            late_shows.push(row);
+        else addShow(row);
+        //Iterar sobre todos os espectáculos ordenados
+        for(var i = 1; i <results.rows.length; i++){
+            var curr_row = results.rows.item(i);
+            if(row.d_id != curr_row.d_id){
+                days.push(curr_row.d_id);
+                lineup_stage_headers[curr_row.d_id] = [curr_row];
+                addLateShows(late_shows);
+                late_shows = [];
+                finishStage(row);
+                finishDay(row, lineup_stage_headers); //finalizar o dia anterior
+                beginDay(curr_row); //começar o dia currente
+                beginStage(curr_row);
+
+            }
+            else if(row.st_id != curr_row.st_id){
+                addLateShows(late_shows);
+                late_shows = [];
+                finishStage(row);
+                beginStage(curr_row);
+                lineup_stage_headers[curr_row.d_id].push(curr_row);
+            }
+            if(checkForLateShow(curr_row))
+                late_shows.push(curr_row);
+            else addShow(curr_row);
+            row = curr_row;
+        }
+        finishStage(row);
+        addLateShows(late_shows);
+        finishDay(row, lineup_stage_headers);
+        setDayButtonsSize(days);
+
+        //activar botão do primeiro dia e frame
+        var first_day_id = days[0];
+        $('#lineup_day_frame_' + first_day_id).addClass('active');
+        $('#' + first_day_id + '_day_button').addClass('current');
+        appendStagesToNavBar(lineup_stage_headers[first_day_id]); //poe os headers dos palcos do primeiro dia
+        //alert(JSON.stringify(lineup_stage_headers));
     }
+    else $('#lineup_frame').text('Cartaz indisponível para este festival');
     changeContainers("#lineup", current_festival_name, "Cartaz");
+
 }
 
 function beginDay(show){
@@ -325,28 +357,29 @@ function beginDay(show){
     //Adicionar a frame do dia e a swipe bar
     $('#lineup_frame').append('' +
         '<div id="lineup_day_frame_' + day_id + '" class="lineup_day_frame">' +
-            '<nav class="swipe_bar row" data-role="swipe_bar">' +
-            '    <ul id="lineup_stages_bar_' + day_id + '" class="lineup_swipe_bar_list">'+
-            '    </ul>' +
-            '</nav>' +
         '   <div id="lineup_carousel_' + day_id + '" class="lineup_carousel" data-role="lineup_carousel"></div>' +
         '</div>');
 }
 
-function finishDay(show){
+function finishDay(show, lineup_stage_headers){
     var day_id = show.d_id;
     //Inicializar o carousel
 
-    var lineup_nav_items = $('#lineup_stages_bar_' + day_id + ' .stage_nav_item');
-
+    var stages = lineup_stage_headers[day_id];
+    var lineup_nav_items = [];
+    for(var p = 0; p < stages.length; p++)
+        lineup_nav_items[p] = "#stage_" + stages[p].stage_id + "_nav_item";
 
     var lineup_carousel = $('#lineup_carousel_' + day_id).carousel({
         preventDefaults:false,
         pagingFunction:function(index){
-            //createPagingSwipeBar(index, lineup_nav_items);
-            current_lineup_page = index; //watt
+            createPagingSwipeBar(index, lineup_nav_items);
+            current_lineup_page = index;
         }
     });
+
+
+    $('#lineup_day_buttons .column').eq(0).addClass('current');
 
     //interacção do botão dos dias
     $('#' + day_id + '_day_button').unbind().bind('click', function(){
@@ -356,13 +389,12 @@ function finishDay(show){
         $('#lineup_day_frame_' + day_id).addClass('active');
         $('#lineup_day_buttons .column').removeClass('current');
         $(this).addClass('current');
-
-        lineup_nav_items.find('a').removeClass('current');
-        lineup_nav_items.removeClass('middle last').addClass('first');
-
-        lineup_nav_items[0].addClass('current');
-
-        //bindClickToNavBar(lineup_nav_items, lineup_carousel);
+        var stages = appendStagesToNavBar(lineup_stage_headers[day_id]);
+        var swipe_bar_list = $('#lineup_stages_bar');
+        swipe_bar_list.find('a').removeClass('current');
+        swipe_bar_list.removeClass('middle last').addClass('first');
+        $(stages[0]).addClass('current');
+        bindClickToNavBar(lineup_nav_items, lineup_carousel);
         $('#lineup_carousel_' + day_id).carousel().onMoveIndex(0, 200);
     });
 }
@@ -377,8 +409,6 @@ function beginStage(show){
         '</div>');
     //adicionar a tab ao swipe bar
 
-    $('lineup_stages_bar_' + day_id).append(''
-        + '<li><a id="stage_' + stage_id + '_nav_item" class="stage_nav_item">' + show.stage_name + '</a></li>');
 }
 
 function finishStage(show){
@@ -405,4 +435,78 @@ function addShow(show){
             '<div class="column fixed bdr_r">--:--</div>' +
             '<div class="column"><h3 class="band_name">' + show.show_name + '</h3></div>' +
             '</li>');
+
+    $('#lineup_show_' + show.sh_id ).unbind().bind('click', function(){
+        createShowContainer(this.id.replace("lineup_show_", ""));
+        changeContainers("#show", show.show_name, current_festival_name);
+    });
+}
+
+
+function setDayButtonsSize(days){
+    var width;
+
+    for(var i = 0; i <days.length; i++){
+        var day_id = days[i];
+        if(days.length == 1){
+            width =  String(window.innerWidth);
+            $('#' + day_id + '_day_button').css("width", width + 'px');
+        }else if (days.length == 2){
+            width =  String(window.innerWidth/2);
+            $('#' + day_id + '_day_button').css("width", width + 'px');
+        }else if (days.length == 3){
+            width =  String(window.innerWidth/3);
+            $('#' + day_id + '_day_button').css("width", width + 'px');
+        }else if (days.length >= 4){
+            width =  String(window.innerWidth/4);
+            $('#' + day_id + '_day_button').css("width", width + 'px');
+        }
+    }
+    if(days.length <= 4)
+        $('#lineup_day_buttons .item').css('width', '100%');
+    else {
+        var lineup_day_buttons_scroller = $('#lineup_day_buttons').scroller({
+            verticalScroll:false,
+            horizontalScroll:true
+        });
+        lineup_day_buttons_scroller.scrollTo({x:0,y:0});
+    }
+}
+
+function appendStagesToNavBar(stages){
+    var lineup_stages_nav_bar = $('#lineup_stages_bar');
+    lineup_stages_nav_bar.empty();
+    var lineup_nav_items = [];
+    for(var p = 0; p < stages.length; p++){
+        lineup_nav_items[p] = "#stage_" + stages[p].stage_id + "_nav_item";
+
+        if(p==0)
+            lineup_stages_nav_bar.append('' +
+                '<li><a id="stage_' + stages[p].stage_id + '_nav_item" class="current" href="#">' + stages[p].stage_name + '</a></li>');
+        else if(p==1)
+            lineup_stages_nav_bar.append('' +
+                '<li><a id="stage_' + stages[p].stage_id + '_nav_item" href="#">' + stages[p].stage_name + '</a></li>');
+        else
+            lineup_stages_nav_bar.append('' +
+                '<li><a id="stage_' + stages[p].stage_id + '_nav_item" href="#">' + stages[p].stage_name + '</a></li>');
+    }
+
+    return lineup_nav_items;
+}
+
+function checkForLateShow(row){
+    var aux_date = toDate(row.date);
+    var date = new Date(aux_date[0], aux_date[1], aux_date[2]).getTime();
+    var opening_time = date + getMiliSeconds(row.opening_time);
+    var show_time = date + getMiliSeconds(row.time);
+    if (show_time < opening_time)
+        return true;
+    else return false;
+}
+
+function addLateShows(late_shows){
+    for(var i = 0; i <late_shows.length; i++){
+        var show = late_shows[i];
+        addShow(show);
+    }
 }
