@@ -755,6 +755,7 @@ a {
 -------------------------------------------------------------------------- */
 
 #during_festival_scroll_wrapper {
+  margin-top: 5px;
   height: 86%;
 }
 #during_festival_page {
@@ -767,6 +768,25 @@ a {
 #during_festival_page .nav_bottom .item {
   padding: 0;
   line-height: 50px;
+}
+.during_festival_list {
+  width: 72.5%;
+  display: inline-block;
+  margin-left: 3px;
+  margin-bottom: 10px;
+}
+.festival_during_poster {
+  height: 24%;
+  width: 24%;
+  margin: 1%;
+  border: 2px solid #666666;
+  display: inline-block;
+  line-height: 0;
+}
+.festival_during_poster img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
 }
 .icon_swipe_left,
 .icon_swipe_right {

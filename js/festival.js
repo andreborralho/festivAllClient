@@ -106,7 +106,7 @@ function createBeforeFestival(festival, festivals, diff, status){
     if(status == "before"){
         var dhms = dhm(diff).toString();
         var countdown_days = parseInt(dhms.split(':')[0]) + 1; //+1 Porque quando falta 1 aparece 0
-        alert("countdown days :" + countdown_days);
+        //alert("countdown days :" + countdown_days);
         countdown_days = String(countdown_days);
         $('#festival_countdown_days').text(countdown_days);
         $('.countdown_bg').attr('src', 'img/countdown_bg.png');
@@ -142,11 +142,14 @@ function createBeforeFestival(festival, festivals, diff, status){
     }
 
     //Mostrar os dias do festival
-    var month = changeNumberToMonth(toDate(festivals.item(0).date)[1]); //Obter o mês na data do primeiro dia festival
+    var month = changeNumberToMonth(toDate(festivals.item(0).date)[1]+ 1); //Obter o mês na data do primeiro dia festival
     var first_of_month = true;
+
     for(var i = 0; i < festivals.length; i++){
-        var this_month = changeNumberToMonth(toDate(festivals.item(i).date)[1]);
+        //somar +1dia ao mes
+        var this_month = changeNumberToMonth(toDate(festivals.item(i).date)[1]+ 1);
         var day = toDate(festivals.item(i).date)[2]; //Obter o dia da data
+
         if(this_month != month){ //Festival que abrange vários meses
             $('#festival_days').append(' de ' + month + ' e ');
             month = this_month;
@@ -174,6 +177,25 @@ function createDuringFestival(festival){
                 var stages_len = stages.length;
                 var stage, stage_id;
                 $('#during_festival_scroller').empty();
+
+                $('#during_festival_scroller').append(''+
+                    '<ul class="during_festival_list">' +
+                        '<li>' +
+                            '<span class="icon_arrow"></span>' +
+                            '<span id="festival_during_days"></span>' +
+                        '</li>' +
+                        '<li>' +
+                            '<span class="icon_arrow"></span>' +
+                            '<span id="festival_during_city">Local: ' + festival.city + '</span>' +
+                        '</li>' +
+                        '<li>' +
+                            '<span class="icon_arrow"></span>' +
+                            '<span id="festival_during_price">Preço: ' + festival.tickets_price + '</span>' +
+                        '</li>' +
+                    '</ul>' +
+                    '<div class="festival_during_poster">' +
+                        '<img src="'+ festival.logo +'" id="festival_during_poster">' +
+                    '</div>');
 
                 if(stages_len > 0){
                     for(var i = 0; i<stages_len; i++){
