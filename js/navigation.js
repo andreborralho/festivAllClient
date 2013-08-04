@@ -77,7 +77,7 @@ function changeContainers(page, title, subtitle){
         else
             header_title_selector.text(title);
 
-        createPagingSwipeBar(current_linup_page, lineup_nav_items);
+        //createPagingSwipeBar(current_linup_page, lineup_nav_items);
     }
     else if(page =="#feedback"){
         header_title_selector.removeClass('heading0').addClass('heading1').empty().text("Menu");
