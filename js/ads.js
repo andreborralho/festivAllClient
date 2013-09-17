@@ -1,18 +1,21 @@
 function getAds(){
     db.transaction(function(tx){
         console.log("Getting Ads");
+
         tx.executeSql('SELECT * FROM ADS ', [], function(tx, results){
-            var abs_ads = results.rows
+            var abs_ads = results.rows;
             var percentage_sum = 0;
+
             //calculate percentage sum
-            for(var i = 0; i <abs_ads.length; i++ ){
+            for(var i = 0; i < abs_ads.length; i++ )
                 percentage_sum += abs_ads.item(i).percentage;
-            }
-            //calculta relative percentages
-            for(var i = 0; i <abs_ads.length; i++ ){
-                var ad = abs_ads.item(i);
+
+            //calculate relative percentages
+            for(var j = 0; j <abs_ads.length; j++ ){
+                var ad = abs_ads.item(j);
                 var rel_percentage = ad.percentage / percentage_sum;
-                ads[i] = {'sponsor': ad.sponsor, 'rel_percentage':ad.rel_percentage, 'banner':ad.banner, 'splash':ad.splash }
+                ads[j] = {'name': ad.name, 'rel_percentage':ad.rel_percentage, 'banner':ad.banner, 'splash':ad.splash };
+                $('#ad_banner_img').attr('src', ad.banner);
             }
 
         }, errorQueryCB );

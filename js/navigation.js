@@ -104,6 +104,9 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading0').addClass('heading1').text(title);
         $('#header_subtitle').text(subtitle);
     }
+
+    getAds();
+
 }
 
 function backButton(){

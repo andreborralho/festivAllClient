@@ -118,7 +118,7 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, ' +
         'url VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE ADS(id INTEGER PRIMARY KEY, sponsor VARCHAR(255),  percentage FLOAT , due_date DATETIME, banner VARCHAR(255), splash VARCHAR(255))');
+    tx.executeSql('CREATE TABLE ADS(id INTEGER PRIMARY KEY, name VARCHAR(255), percentage FLOAT , due_date DATETIME, banner VARCHAR(255), splash VARCHAR(255), updated_at DATETIME)');
 
 
     $.ajax({
@@ -223,19 +223,19 @@ function insertData(data){
         else if(k=='ads'){
             db.transaction(function(tx){
                 $.each(v, function(i, l){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.sponsor + ', "' + l.percentage + ', "' + l.updated_at+')');
-                    tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, sponsor, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
-                        ', "' + l.sponsor + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
+                    //console.log(k + 'VALUES (' + l.id + ', "' + l.name + ', "' + l.percentage + ', "' + l.updated_at+')');
+                    tx.executeSql('INSERT OR REPLACE INTO ADS (id, name, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
+                        ', "' + l.name + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
                 });
             }, errorCB, successCB);
         }
 
-        else if(k=='deleted_items'){ //end of synch
+        else if(k=='deleted_items'){ //end of sync
             db.transaction(function(tx){
             //último callback
                 $.each(v, function(i, l){
-                    console.log(k + 'VALUES (' + l.table.toString().toUpperCase() + ', "' + l.element +')');
-                    tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
+                    //console.log(k + 'VALUES (' + l.table.toString().toUpperCase() + ', "' + l.element +')');
+                    tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element);
                 });
             }, errorCB, successCB);
         }
@@ -261,8 +261,9 @@ function updateLastSync() {
                 //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US)";
+                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US"
             //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
+                + "SELECT MAX(updated_at) as lastSync FROM ADS)";
 
             tx.executeSql(sql, [],
                 function(tx, results) {
