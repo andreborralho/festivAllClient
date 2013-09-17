@@ -1,6 +1,5 @@
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
-//document.addEventListener("resume", onDeviceReady, false);
 
 //Data - client side DB
 var isSynched;
@@ -9,6 +8,7 @@ if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
     // Loading festivals
     $('#installer').addClass('visible');
 }
+
 
 // Cordova is ready
 function onDeviceReady(){
@@ -104,13 +104,16 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS VIDEOS');
     tx.executeSql('DROP TABLE IF EXISTS ABOUT_US');
 
-    tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, coordinates VARCHAR(255),  city VARCHAR(255), ' +
-        'logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), tickets_price VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, ' +
+        'coordinates VARCHAR(255),  city VARCHAR(255), logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), ' +
+        'tickets_price VARCHAR(255), tickets TEXT(1024), transports TEXT(1024), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE SHOWS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id INTEGER, stage_id INTEGER, ' +
         'day_id INTEGER, photo VARCHAR(255), description TEXT(1024), time TIME, updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, opening_time TIME, closing_time TIME, updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE DAYS(id INTEGER PRIMARY KEY AUTOINCREMENT, festival_id INTEGER, date DATETIME, ' +
+        'opening_time TIME, closing_time TIME, updated_at DATETIME)');
     tx.executeSql('CREATE TABLE STAGES(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), festival_id, updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, url VARCHAR(255), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, ' +
+        'url VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
 
 
@@ -119,6 +122,15 @@ function populateDB(tx) {
         //headers : {'Accept-Encoding' : 'gzip'},
         dataType:"json",
         success:function (changes) {
+            if(changes['migration_version']!=localStorage["migration_version"] && localStorage["migration_version"] != undefined){
+
+                localStorage.setItem("migration_version", changes['migration_version']);
+
+                //populate db
+                db.transaction(populateDB, errorCB, successCB);
+                localStorage.setItem("firstRun", "true");
+                isSynched = true;
+            }
             insertData(changes);
         },
         error: function() {
@@ -129,6 +141,10 @@ function populateDB(tx) {
 
 function insertData(data){
     $.each(data, function(k,v){
+
+        if(k=='migration_version' && v!=localStorage["migration_version"])
+            localStorage.setItem("migration_version", v);
+
         if(k=='festivals'){
             db.transaction(function(tx){
                 $.each(v, function(i, l){
@@ -136,8 +152,10 @@ function insertData(data){
                         ', "' + l.city + ', "' + l.logo + ', "' + l.map + ', "' + l.template + ', "' + l.tickets_price + ', "'
                         + l.tickets + ', "' + l.transports + ', "' + l.updated_at+')');*/
 
-                    tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
-                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
+                    tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map,' +
+                        ' template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
+                        ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' +
+                        l.logo +'", "' + l.map + '", "' + l.template + '", "'+
                         l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
                 });
             }, errorCB, successCB);
@@ -265,5 +283,6 @@ function errorInstallingDBCB(){
     }
     createFestivalsContainer();
     initFestivalsDisplay();
+    $('.visible').addClass('visible_without_ads');
     window.FestivallToaster.showMessage("Não há conexão com a internet!");
 }
