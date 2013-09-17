@@ -3,6 +3,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 //Data - client side DB
 var isSynched;
+window.ads = [];
+
 
 if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
     // Loading festivals
@@ -103,6 +105,7 @@ function populateDB(tx) {
     tx.executeSql('DROP TABLE IF EXISTS STAGES');
     tx.executeSql('DROP TABLE IF EXISTS VIDEOS');
     tx.executeSql('DROP TABLE IF EXISTS ABOUT_US');
+    tx.executeSql('DROP TABLE IF EXISTS ADS');
 
     tx.executeSql('CREATE TABLE FESTIVALS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, ' +
         'coordinates VARCHAR(255),  city VARCHAR(255), logo VARCHAR(255), map VARCHAR(255), template VARCHAR(255), ' +
@@ -115,6 +118,7 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, ' +
         'url VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
+    tx.executeSql('CREATE TABLE ADS(id INTEGER PRIMARY KEY, sponsor VARCHAR(255),  percentage FLOAT , due_date DATETIME, banner VARCHAR(255), splash VARCHAR(255))');
 
 
     $.ajax({
@@ -212,6 +216,16 @@ function insertData(data){
                     //console.log(k + 'VALUES (' + l.id + ', "' + l.title + ', "' + l.text + ', "' + l.updated_at+')');
                     tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, title, text, updated_at) VALUES (' + l.id +
                         ', "' + l.title + '", "' + l.text + '", "' + l.updated_at + '")');
+                });
+            }, errorCB, successCB);
+        }
+
+        else if(k=='ads'){
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+                    console.log(k + 'VALUES (' + l.id + ', "' + l.sponsor + ', "' + l.percentage + ', "' + l.updated_at+')');
+                    tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, sponsor, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
+                        ', "' + l.sponsor + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
                 });
             }, errorCB, successCB);
         }
