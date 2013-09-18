@@ -219,8 +219,11 @@ body {
 }
 .visible {
   opacity: 1;
-  height: 86%;
+  height: 76%;
   overflow: visible;
+}
+.visible_without_ads {
+  height: 86% !important;
 }
 .carousel {
   height: 93%;

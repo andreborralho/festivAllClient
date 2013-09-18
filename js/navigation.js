@@ -30,8 +30,11 @@ function initFestivalsDisplay(){
 function changeContainers(page, title, subtitle){
     var header_title_selector = $('#header_title');
 
-    $('.container').removeClass("visible");
+    $('.container').removeClass("visible visible_without_ads");
     $(page).addClass("visible");
+
+    if(navigator.network.connection.type == Connection.NONE)
+        $(page).addClass("visible_without_ads");
 
     incrementHistory(page);
 
