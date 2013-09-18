@@ -10,6 +10,8 @@ function createFestivalsContainer(){
                         'GROUP BY DAYS.festival_id ' +
                         'ORDER BY first_day', [], queryFestivalsSuccess, errorQueryCB);
                 }, errorCB);
+
+    createAds();
 }
 
 
