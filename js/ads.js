@@ -31,12 +31,27 @@ function createAds(){
 function showBannerAd(){
     var random = Math.random();
 
-    for(var i = 0; i < ads.length; i++){alert(random+" "+ads[i].rel_percentage);
-        if(i == 0 && random <= ads[i].rel_percentage ){
-            $('#ad_banner_img').attr('src', ads[0].banner);
+
+    if(random <= ads[0].rel_percentage ){alert("1 - "+random+" ");
+        $('#ad_banner_img').attr('src', ads[0].banner);
+        return;
+    }
+
+    if(random > ads[ads.length-2].rel_percentage ){alert("final - "+random+" ");
+        $('#ad_banner_img').attr('src', ads[ads.length-1].banner);
+        return;
+    }
+
+    var percentage_sum = ads[0].rel_percentage;
+
+    for(var i = 1; i < ads.length-1; i++){
+
+        if(random >= percentage_sum && random < ads[i].rel_percentage){alert("2 -"+random+" "+ads[i].rel_percentage+" "+ ads[i].banner);
+            $('#ad_banner_img').attr('src', ads[i].banner);
             return;
         }
-        else if( random > ads[i-1].rel_percentage && random < ads[i].rel_percentage)
-            $('#ad_banner_img').attr('src', ads[i].banner);
+
+        //calculate percentage sum
+        percentage_sum += ads[i].rel_percentage;
     }
 }
