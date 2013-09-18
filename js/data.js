@@ -4,7 +4,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 //Data - client side DB
 var isSynched;
-
 if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
     // Loading festivals
     $('#installer').addClass('visible');
@@ -13,6 +12,7 @@ if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
 // Cordova is ready
 function onDeviceReady(){
     setHeightAndWidth();
+
     document.addEventListener("backbutton", backButton, false);
     document.addEventListener("touchmove", function(e){e.preventDefault();}, false);
     window.db = window.openDatabase("FestivAllDB", "1.0", "FestivAll Database", 5000000);
@@ -139,6 +139,9 @@ function insertData(data){
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map, template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' + l.logo +'", "' + l.map + '", "' + l.template + '", "'+
                         l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
+                    //download logo image
+                    if (localStorage[l.name + '.jpg'] == undefined)
+                        downloadAndWriteLogo(l);
                 });
             }, errorCB, successCB);
 
@@ -266,4 +269,29 @@ function errorInstallingDBCB(){
     createFestivalsContainer();
     initFestivalsDisplay();
     window.FestivallToaster.showMessage("Não há conexão com a internet!");
+}
+
+function downloadAndWriteLogo(festival){
+    //Check if the logo file exists
+    var filename = festival.name + '.jpg';
+    var filePath = 'file:///data/data/com.festivall_new/'  + filename;
+    var url = festival.logo;
+    console.log('1.Downloading FIRST TIME : filepath - ' + filePath + ', url - ' + url);
+    //Ajax call to download logo
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+        fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
+            var fileTransfer = new FileTransfer();
+            fileTransfer.download(
+                url,
+                filePath,
+                function(entry) {
+                    console.log('download success');
+                    localStorage[festival.name + '.jpg'] = "true";
+                },
+                function(error) {
+                    console.log("download error source " + error.source);
+                }
+            );
+        });
+    }, fail);
 }
