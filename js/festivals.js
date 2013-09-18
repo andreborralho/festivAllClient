@@ -71,9 +71,51 @@ function checkIfAfterFestival(festival_id, ended_festivals, i, len){
 }
 
 function addFestivalToList(festival){
+    //Check if the logo file exists
+    var filename = festival.name + '.jpg';
+    var hasLogo = localStorage[filename];
+    var filePath = 'file:///data/data/com.festivall_new/'  + filename;
+    var url = festival.logo;
+    //Ajax call to download logo
+    if(hasLogo == undefined){
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
+                var fileTransfer = new FileTransfer();
+                fileTransfer.download(
+                    url,
+                    filePath,
+                    function(entry) {
+                        console.log('download success');
+                        localStorage[festival.name + '.jpg'] = "true";
+                        addLogo(festival);
+                },
+                    function(error) {
+                        console.log("download error source " + error.source);
+                    }
+                );
+            });
+        }, fail);
+    }
+    //Reads from the file
+    else{
+        //
+        addLogo(festival);
+    }
+}
+
+
+//fail reading
+function fail(evt) {
+    console.log(' 000.ERROR : ' + evt.target.error.code);
+}
+
+
+function addLogo(festival){
+    var file_path = 'file:///data/data/com.festivall_new/' + festival.name + '.jpg';
+    console.log('FETCHING LOGO with filename :' + file_path);
     $('#festivals_buttons').append('' +
         '<li id="festival_' + festival.id +'" class="item">' +
-        '<a href="#"><img class="festival_logo" src="' + festival.logo + '"></a>' +
+            '<a href="#"><img class="festival_logo" src="' + file_path + '"></a>' +
         '</li>');
 
     $('#festival_'+festival.id).unbind().bind('click', function(){
