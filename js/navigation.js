@@ -23,7 +23,7 @@ function initFestivalsDisplay(){
     var container_height = $('#header').height()-2 + "px";
     $('#header').css('height', container_height);
 
-    showBannerAd();
+    //showBannerAd();
 }
 
 

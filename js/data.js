@@ -272,7 +272,7 @@ function updateLastSync() {
                 //+ "SELECT MAX(updated_at) as lastSync FROM NOTIFICATIONS UNION ALL "
                 //+ "SELECT MAX(updated_at) as lastSync FROM GALLERIES UNION ALL "
                 + "SELECT MAX(updated_at) as lastSync FROM VIDEOS UNION ALL "
-                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US"
+                + "SELECT MAX(updated_at) as lastSync FROM ABOUT_US UNION ALL "
             //+ "SELECT MAX(updated_at) as lastSync FROM COUNTRIES)";
                 + "SELECT MAX(updated_at) as lastSync FROM ADS)";
 
@@ -323,7 +323,7 @@ function errorInstallingDBCB(){
 function downloadAndWriteLogo(festival, url){
     //Check if the logo file exists
     var filename = festival.name + '.jpg';
-    var file_path = 'file:///data/data/com.festivall_new/'  + filename;
+    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
     console.log('1.Downloading : filepath - ' + file_path + ', url - ' + url);
     //Ajax call to download logo
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
@@ -338,8 +338,7 @@ function downloadAndWriteLogo(festival, url){
 
                     if(localStorage['firstRun'] == "false"){//para o caso em que a sincronização se dá depois do contentor festivals já está feito
                         console.log('APPENDING LOGO');
-                        $('#festival_' + festival.id ).empty();
-                        $('#festival_' + festival.id ).append('<a href="#"><img class="festival_logo" src="' + file_path + '"></a>');
+                        $('#festival_' + festival.id ).empty().append('<a href="#"><img class="festival_logo" src="' + file_path + '"></a>');
                     }
                 },
                 function(error) {
