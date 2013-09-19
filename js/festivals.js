@@ -11,9 +11,7 @@ function createFestivalsContainer(){
                         'ON FESTIVALS.id = DAYS.festival_id ' +
                         'GROUP BY DAYS.festival_id ' +
                         'ORDER BY first_day', [], queryFestivalsSuccess, errorQueryCB);
-                }, errorCB);
-
-    createAds();
+                }, errorCB, successCB);
 }
 
 
@@ -40,7 +38,6 @@ function queryFestivalsSuccess(tx, results) {
 
         var festival = festivals.item(i);
         var festival_id = festival.id;
-
         checkIfAfterFestival(festival.id, ended_festivals, i, len);
     }
 }
@@ -56,41 +53,57 @@ function checkIfAfterFestival(festival_id, ended_festivals, i, len){
             if (current_time > closing_time){
                 ended_festivals.push(festival);
             }else{
-                addFestivalToList(festival);
+                addFestivalToList(festival, i, len);
             }
             //add ended festivals and scroller
             if(i >= len-1){
                 //meter linha
                 $('#festivals_buttons').append('<br><div class="festivals_line_break">Terminados</div>');
                 for(var j = 0; j <ended_festivals.length; j++){
-                    addFestivalToList(ended_festivals[j]);
+                    addFestivalToList(ended_festivals[j], i, len);
                 }
                 //$('#festivals_buttons').scroller();
-                new IScroll('#festivals_scroll_wrapper');
+                console.log('FESTIVALS: INITIALIZING SCROLLER :');
+                var festivals_scroller = new IScroll('#festivals_scroll_wrapper');
+
             }
         }, errorQueryCB);
-    }, errorCB);
+    }, errorCB, successCB);
+
 }
 
-function addFestivalToList(festival){
+function addFestivalToList(festival, i, len){
+
+
+    $('#festivals_buttons').append('' +
+        '<li id="festival_' + festival.id +'" class="item">' +
+            '<a href="#"><img class="festival_logo" src=""></a>' +
+        '</li>');
+
+    $('#festival_'+festival.id).unbind().bind('click', function(){
+        createFestivalContainer(this.id.replace("festival_", ""));
+    });
+
+
     //Check if the logo file exists
     var filename = festival.name + '.jpg';
     var hasLogo = localStorage[festival.name];
-    var filePath = 'file:///data/data/com.festivall_new/'  + filename;
+    console.log('ADDING LOGO: has logo :' + hasLogo + ', festival.logo : ' + festival.logo);
+    var file_path = 'file:///data/data/com.festivall_new/'  + filename;
     var url = festival.logo;
-    //Ajax call to download logo
+    //Ajax call to download logo if it is not stored
     if(hasLogo == undefined || festival.logo != hasLogo){
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
             fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
                 var fileTransfer = new FileTransfer();
                 fileTransfer.download(
                     url,
-                    filePath,
+                    file_path,
                     function(entry) {
-                        console.log('download success in festivals');
+                        console.log('download success in festivals from url ' + url);
                         localStorage[festival.name] = url;
-                        addLogo(festival);
-                },
+                        addLogo(festival, file_path,i, len);
+                    },
                     function(error) {
                         console.log("download error source " + error.source);
                     }
@@ -101,26 +114,28 @@ function addFestivalToList(festival){
     //Reads from the file
     else{
         //
-        addLogo(festival);
+        addLogo(festival, file_path, i, len);
     }
 }
-
 
 //fail reading
 function fail(evt) {
     console.log(' 000.ERROR : ' + evt.target.error.code);
 }
 
+function addLogo(festival, file_path, i, len){
+    var dummy = makeid();
+    console.log('FETCHING LOGO :' + file_path);
+    $('#festival_' + festival.id ).empty();
+    $('#festival_' + festival.id ).append('<a href="#"><img class="festival_logo" src="' + file_path + '?dummy=' + dummy + '"></a>');
 
-function addLogo(festival){
-    var file_path = 'file:///data/data/com.festivall_new/' + festival.name + '.jpg';
-    console.log('FETCHING LOGO with filename :' + file_path);
-    $('#festivals_buttons').append('' +
-        '<li id="festival_' + festival.id +'" class="item">' +
-        '<a href="#"><img class="festival_logo" src="' + festival.logo + '"></a>' +
-        '</li>');
+}
 
-    $('#festival_'+festival.id).unbind().bind('click', function(){
-        createFestivalContainer(this.id.replace("festival_", ""));
-    });
+
+function makeid(){
+    var text = "";
+    var possible = "0123456789";
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
 }

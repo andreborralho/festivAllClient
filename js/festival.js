@@ -97,9 +97,11 @@ function getLastDayClosingTime(days){
 function createBeforeFestival(festival, festivals, diff, status){
 
     $('#festival_days').empty();
+    var logo = localStorage[festival.name];
 
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
+    console.log('festival LOGO: ' + logo);
     $('#festival_poster').attr("src", festival.logo);
 
 
@@ -177,6 +179,8 @@ function createDuringFestival(festival, days){
                 var stages = results.rows;
                 var stages_len = stages.length;
                 var stage, stage_id;
+                var logo = localStorage[festival.name];
+
                 $('#during_festival_scroller').empty();
 
                 $('#during_festival_scroller').append(''+
@@ -195,7 +199,8 @@ function createDuringFestival(festival, days){
                         '</li>' +
                     '</ul>' +
                     '<div class="festival_during_poster">' +
-                        '<img src="'+ festival.logo +'" id="festival_during_poster">' +
+                        '<img src="'+ logo +'" id="festival_during_poster">' +
+
                     '</div>');
                 addFestivalDays( days, "#festival_during_days");
                 if(stages_len > 0){

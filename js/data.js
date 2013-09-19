@@ -156,26 +156,13 @@ function insertData(data){
                         ', "' + l.city + ', "' + l.logo + ', "' + l.map + ', "' + l.template + ', "' + l.tickets_price + ', "'
                         + l.tickets + ', "' + l.transports + ', "' + l.updated_at+')');*/
                     //download logo image
-                    var logo = l.logo;
-                    var old_logo = localStorage[l.name];
-                    if (old_logo == undefined)
-                        downloadAndWriteLogo(l, logo);
-                    else {
-                        console.log('CHECKING IF BD LOGO IS DIFFERENT THAN THIS ONE NEW :' + logo + ', bd:' + old_logo);
-                        if(old_logo != logo){ //check if old logo has been updated and if so download it
-                            console.log('UPDATING NEW LOGO FOR: ' + l.name + ' with ' + l.logo);
-                            downloadAndWriteLogo(l, logo);// if it fails, old logo remains written
-                        }
-                    }
-                    //else it's the same logo
-
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map,' +
                         ' template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' +
                         l.logo +'", "' + l.map + '", "' + l.template + '", "'+
                         l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
 
-                }, errorCB, successCB);
+                }, errorCB);
             });
         }
         else if(k=='stages'){
@@ -250,8 +237,9 @@ function insertData(data){
                     tx.executeSql('INSERT OR REPLACE INTO ADS (id, name, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
                 });
+            }, errorCB, function(){
                 updateLastSync();
-            }, errorCB, successCB);
+            });
         }
     });
 }
@@ -280,15 +268,14 @@ function updateLastSync() {
                 function(tx, results) {
                     var last_sync = results.rows.item(0).lastSync;
                     console.log('UPDATING LASTSYNC WITH : ' + last_sync);
-
-                    //alert('update last_sync :' + last_sync);
                     localStorage.setItem("lastSync", last_sync);
                 }, errorQueryCB);
-        }, errorCB, function(){
+        }, errorCB, function(){//last step of synchronization
             if(localStorage['firstRun'] == 'true'){
                 console.log('CREATING FESTIVALS');
                 createFestivalsContainer();
             }
+            createAds();
         }
     );
 }
@@ -318,33 +305,4 @@ function errorInstallingDBCB(){
     initFestivalsDisplay();
     $('.visible').addClass('visible_without_ads');
     window.FestivallToaster.showMessage("Não há conexão com a internet!");
-}
-
-function downloadAndWriteLogo(festival, url){
-    //Check if the logo file exists
-    var filename = festival.name + '.jpg';
-    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
-    console.log('1.Downloading : filepath - ' + file_path + ', url - ' + url);
-    //Ajax call to download logo
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
-        fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
-            var fileTransfer = new FileTransfer();
-            fileTransfer.download(
-                url,
-                file_path,
-                function(entry) {
-                    console.log('download success');
-                    localStorage[festival.name] = url;
-
-                    if(localStorage['firstRun'] == "false"){//para o caso em que a sincronização se dá depois do contentor festivals já está feito
-                        console.log('APPENDING LOGO');
-                        $('#festival_' + festival.id ).empty().append('<a href="#"><img class="festival_logo" src="' + file_path + '"></a>');
-                    }
-                },
-                function(error) {
-                    console.log("download error source " + error.source);
-                }
-            );
-        });
-    }, fail);
 }
