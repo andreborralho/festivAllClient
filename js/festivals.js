@@ -88,7 +88,6 @@ function addFestivalToList(festival, i, len){
     //Check if the logo file exists
     var filename = festival.name + '.jpg';
     var hasLogo = localStorage[festival.name];
-    console.log('ADDING LOGO: has logo :' + hasLogo + ', festival.logo : ' + festival.logo);
     var file_path = 'file:///data/data/com.festivall_new/'  + filename;
     var url = festival.logo;
     //Ajax call to download logo if it is not stored

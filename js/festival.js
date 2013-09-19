@@ -306,7 +306,7 @@ function bindClickToNavBottom(festival_status, festival){
     });
 
     $('#'+festival_status+'_map_button').unbind().bind('click', function(){
-        createMapContainer(festival.map);
+        createMapContainer(festival);
         changeContainers("#map", current_festival_name, "Mapa");
     });
 
