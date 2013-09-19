@@ -4,6 +4,8 @@
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
+        console.log('QUERYING FESTIVALS :');
+
         tx.executeSql('SELECT FESTIVALS.*, MIN(DAYS.date) as first_day ' +
                         'FROM DAYS INNER JOIN FESTIVALS ' +
                         'ON FESTIVALS.id = DAYS.festival_id ' +
@@ -16,24 +18,24 @@ function createFestivalsContainer(){
 
 // Callback for the festivals query
 function queryFestivalsSuccess(tx, results) {
-    if(isSynched)
-        window.FestivallToaster.showMessage('Base de dados criada!');
 
     //Create festivals container after insertions
     if(localStorage["firstRun"] == "true"){
+        window.FestivallToaster.showMessage('Base de dados criada!');
         localStorage.setItem("firstRun", "false");
         $('#installer').removeClass('visible');
+        console.log('INITIALIZING DISPLAY :');
         initFestivalsDisplay();
-        updateLastSync();
     }
-
     incrementHistory("#festivals");
     $('#festivals_buttons').empty();
 
     var len = results.rows.length;
     var festivals = results.rows;
+    console.log('FESTIVALS LENGTH :' + len);
     var ended_festivals = [];
     for (var i=0; i<len; i++){
+
         var festival = festivals.item(i);
         var festival_id = festival.id;
 
@@ -71,11 +73,11 @@ function checkIfAfterFestival(festival_id, ended_festivals, i, len){
 function addFestivalToList(festival){
     //Check if the logo file exists
     var filename = festival.name + '.jpg';
-    var hasLogo = localStorage[filename];
+    var hasLogo = localStorage[festival.name];
     var filePath = 'file:///data/data/com.festivall_new/'  + filename;
     var url = festival.logo;
     //Ajax call to download logo
-    if(hasLogo == undefined){
+    if(hasLogo == undefined || festival.logo != hasLogo){
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
             fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
                 var fileTransfer = new FileTransfer();
@@ -83,8 +85,8 @@ function addFestivalToList(festival){
                     url,
                     filePath,
                     function(entry) {
-                        console.log('download success');
-                        localStorage[festival.name + '.jpg'] = "true";
+                        console.log('download success in festivals');
+                        localStorage[festival.name] = url;
                         addLogo(festival);
                 },
                     function(error) {

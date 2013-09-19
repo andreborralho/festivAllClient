@@ -2,9 +2,12 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 //Data - client side DB
-var isSynched;
-
 window.ads = [];
+/*
+localStorage.clear();
+localStorage.setItem("firstRun", "true");
+*/
+
 if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
     // Loading festivals
     $('#installer').addClass('visible');
@@ -30,14 +33,14 @@ function onDeviceReady(){
         timeout: 8000,
         success:function (changes) {
             if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
-
+                console.log('POPULATING DATABASE');
                 //populate db
                 db.transaction(populateDB, errorCB, successCB);
                 localStorage.setItem("firstRun", "true");
-                isSynched = true;
 
             }
             else if(localStorage["firstRun"] == "false"){
+                console.log('SYNCRONIZING');
                 window.FestivallToaster.showMessage('Sincronizando...');
                 createFestivalsContainer();
                 initFestivalsDisplay();
@@ -118,7 +121,7 @@ function populateDB(tx) {
     tx.executeSql('CREATE TABLE VIDEOS(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), show_id INTEGER, ' +
         'url VARCHAR(255), updated_at DATETIME)');
     tx.executeSql('CREATE TABLE ABOUT_US(id INTEGER PRIMARY KEY, title VARCHAR(255), text TEXT(1024), updated_at DATETIME)');
-    tx.executeSql('CREATE TABLE ADS(id INTEGER PRIMARY KEY, sponsor VARCHAR(255),  percentage FLOAT , due_date DATETIME, banner VARCHAR(255), splash VARCHAR(255))');
+    tx.executeSql('CREATE TABLE ADS(id INTEGER PRIMARY KEY, name VARCHAR(255),  percentage FLOAT , due_date DATETIME, banner VARCHAR(255), splash VARCHAR(255), updated_at DATETIME)');
 
 
     $.ajax({
@@ -133,7 +136,6 @@ function populateDB(tx) {
                 //populate db
                 db.transaction(populateDB, errorCB, successCB);
                 localStorage.setItem("firstRun", "true");
-                isSynched = true;
             }
             insertData(changes);
         },
@@ -151,24 +153,33 @@ function insertData(data){
 
         if(k=='festivals'){
             db.transaction(function(tx){
-                $.each(v, function(i, l){
-                    /*console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.country_id + ', "' + l.coordinates +
+                $.each(v, function(i, l){/*
+                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + '", ' + l.country_id + ', "' + l.coordinates +
                         ', "' + l.city + ', "' + l.logo + ', "' + l.map + ', "' + l.template + ', "' + l.tickets_price + ', "'
                         + l.tickets + ', "' + l.transports + ', "' + l.updated_at+')');*/
+                    //download logo image
+                    var logo = l.logo;
+                    var old_logo = localStorage[l.name];
+                    if (old_logo == undefined)
+                        downloadAndWriteLogo(l, logo);
+                    else {
+                        console.log('CHECKING IF BD LOGO IS DIFFERENT THAN THIS ONE NEW :' + logo + ', bd:' + old_logo);
+                        if(old_logo != logo){ //check if old logo has been updated and if so download it
+                            console.log('UPDATING NEW LOGO FOR: ' + l.name + ' with ' + l.logo);
+                            downloadAndWriteLogo(l, logo);// if it fails, old logo remains written
+                        }
+                    }
+                    //else it's the same logo
 
                     tx.executeSql('INSERT OR REPLACE INTO FESTIVALS (id, name, country_id, coordinates, city, logo, map,' +
                         ' template, tickets_price, tickets, transports, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", "' + l.country_id + '", "' + l.coordinates +'", "' + l.city + '", "' +
                         l.logo +'", "' + l.map + '", "' + l.template + '", "'+
                         l.tickets_price + '", "' + l.tickets + '", "' + l.transports + '", "' + l.updated_at +'")');
-                    //download logo image
-                    if (localStorage[l.name + '.jpg'] == undefined)
-                        downloadAndWriteLogo(l);
-                });
-            }, errorCB, successCB);
 
+                }, errorCB, successCB);
+            });
         }
-
         else if(k=='stages'){
             db.transaction(function(tx){
                 $.each(v, function(i, l){
@@ -223,16 +234,6 @@ function insertData(data){
             }, errorCB, successCB);
         }
 
-        else if(k=='ads'){
-            db.transaction(function(tx){
-                $.each(v, function(i, l){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.sponsor + ', "' + l.percentage + ', "' + l.updated_at+')');
-                    tx.executeSql('INSERT OR REPLACE INTO ABOUT_US (id, sponsor, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
-                        ', "' + l.sponsor + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
-                });
-            }, errorCB, successCB);
-        }
-
         else if(k=='deleted_items'){ //end of synch
             db.transaction(function(tx){
             //último callback
@@ -240,12 +241,21 @@ function insertData(data){
                     console.log(k + 'VALUES (' + l.table.toString().toUpperCase() + ', "' + l.element +')');
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 });
+
+            }, errorCB, successCB);
+        }
+
+        else if(k=='ads'){
+            db.transaction(function(tx){
+                $.each(v, function(i, l){
+                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + ', "' + l.percentage + ', "' + l.updated_at+')');
+                    tx.executeSql('INSERT OR REPLACE INTO ADS (id, name, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
+                        ', "' + l.name + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
+                });
+                updateLastSync();
             }, errorCB, successCB);
         }
     });
-
-    //rebuilding for updated logos of festivals
-    createFestivalsContainer();
 }
 
 
@@ -270,15 +280,22 @@ function updateLastSync() {
             tx.executeSql(sql, [],
                 function(tx, results) {
                     var last_sync = results.rows.item(0).lastSync;
+                    console.log('UPDATING LASTSYNC WITH : ' + last_sync);
+
                     //alert('update last_sync :' + last_sync);
                     localStorage.setItem("lastSync", last_sync);
                 }, errorQueryCB);
-        }, errorCB
+        }, errorCB, function(){
+            if(localStorage['firstRun'] == 'true'){
+                console.log('CREATING FESTIVALS');
+                createFestivalsContainer();
+            }
+        }
     );
 }
 
 // Transaction success callback
-function successCB() {
+function successCB(tx) {
     console.log("Transaction Success");
 }
 
@@ -304,22 +321,27 @@ function errorInstallingDBCB(){
     window.FestivallToaster.showMessage("Não há conexão com a internet!");
 }
 
-function downloadAndWriteLogo(festival){
+function downloadAndWriteLogo(festival, url){
     //Check if the logo file exists
     var filename = festival.name + '.jpg';
-    var filePath = 'file:///data/data/com.festivall_new/'  + filename;
-    var url = festival.logo;
-    console.log('1.Downloading FIRST TIME : filepath - ' + filePath + ', url - ' + url);
+    var file_path = 'file:///data/data/com.festivall_new/'  + filename;
+    console.log('1.Downloading : filepath - ' + file_path + ', url - ' + url);
     //Ajax call to download logo
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
         fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
             var fileTransfer = new FileTransfer();
             fileTransfer.download(
                 url,
-                filePath,
+                file_path,
                 function(entry) {
                     console.log('download success');
-                    localStorage[festival.name + '.jpg'] = "true";
+                    localStorage[festival.name] = url;
+
+                    if(localStorage['firstRun'] == "false"){//para o caso em que a sincronização se dá depois do contentor festivals já está feito
+                        console.log('APPENDING LOGO');
+                        $('#festival_' + festival.id ).empty();
+                        $('#festival_' + festival.id ).append('<a href="#"><img class="festival_logo" src="' + file_path + '"></a>');
+                    }
                 },
                 function(error) {
                     console.log("download error source " + error.source);
