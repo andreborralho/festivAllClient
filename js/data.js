@@ -275,7 +275,7 @@ function updateLastSync() {
                 console.log('CREATING FESTIVALS');
                 createFestivalsContainer();
             }
-            //createAds();
+            createAds();
         }
     );
 }
