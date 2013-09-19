@@ -1,7 +1,6 @@
 var menuIsUp = false;
 var history_array = [];
 var screen_width;
-//var carousel_pages = {"festivals":0};
 
 /*//Loading
 function initDisplays(){
@@ -23,6 +22,8 @@ function initFestivalsDisplay(){
 
     var container_height = $('#header').height()-2 + "px";
     $('#header').css('height', container_height);
+
+    showBannerAd();
 }
 
 
@@ -104,6 +105,7 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading0').addClass('heading1').text(title);
         $('#header_subtitle').text(subtitle);
     }
+    showBannerAd();
 }
 
 function backButton(){

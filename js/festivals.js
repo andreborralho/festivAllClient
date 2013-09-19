@@ -12,6 +12,8 @@ function createFestivalsContainer(){
                         'GROUP BY DAYS.festival_id ' +
                         'ORDER BY first_day', [], queryFestivalsSuccess, errorQueryCB);
                 }, errorCB);
+
+    createAds();
 }
 
 
@@ -115,7 +117,7 @@ function addLogo(festival){
     console.log('FETCHING LOGO with filename :' + file_path);
     $('#festivals_buttons').append('' +
         '<li id="festival_' + festival.id +'" class="item">' +
-            '<a href="#"><img class="festival_logo" src="' + file_path + '"></a>' +
+        '<a href="#"><img class="festival_logo" src="' + festival.logo + '"></a>' +
         '</li>');
 
     $('#festival_'+festival.id).unbind().bind('click', function(){

@@ -225,6 +225,17 @@ body {
 .visible_without_ads {
   height: 86% !important;
 }
+#ads_banner {
+  width: 100%;
+  height: 10%;
+  overflow: visible;
+  margin: 0 auto;
+}
+#ads_banner_img {
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
 .carousel {
   height: 93%;
 }

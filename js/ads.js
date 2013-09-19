@@ -1,37 +1,57 @@
-function getAds(){
+function createAds(){
     db.transaction(function(tx){
-        console.log("Getting Ads");
-        tx.executeSql('SELECT * FROM ADS ', [], function(tx, results){
-            var abs_ads = results.rows
+        tx.executeSql('SELECT * FROM ADS', [], function(tx, results){
+            var abs_ads = results.rows;
             var percentage_sum = 0;
+
             //calculate percentage sum
-            for(var i = 0; i <abs_ads.length; i++ ){
+            for(var i = 0; i < abs_ads.length; i++ )
                 percentage_sum += abs_ads.item(i).percentage;
+
+
+            var ad = 0; var rel_percentage = 0;
+
+            //calculate relative percentages
+            for(var j = 0; j <abs_ads.length; j++ ){
+                ad = abs_ads.item(j);
+
+                //Exemplo: 0.666% = 40%(ad.percentage) / 60%(percentage_sum)
+                rel_percentage = ad.percentage / percentage_sum;
+
+                ads[j] = {'name': ad.name, 'rel_percentage':rel_percentage, 'banner':ad.banner, 'splash':ad.splash };
+
             }
-            //calculta relative percentages
-            for(var i = 0; i <abs_ads.length; i++ ){
-                var ad = abs_ads.item(i);
-                var rel_percentage = ad.percentage / percentage_sum;
-                ads[i] = {'sponsor': ad.sponsor, 'rel_percentage':ad.rel_percentage, 'banner':ad.banner, 'splash':ad.splash }
-            }
+            showBannerAd();
 
         }, errorQueryCB );
     }, errorCB);
 
 }
 
-function showBannerAdd(){
-    var random = new Math.random();
-    for(var i = 0; i < ads.length; i++){
-        if( i == 0){
-            if( random >= 0 && random < ads[i].rel_percentage )
-                //$('#banner').img(ads[i].banner);
-                ;
+function showBannerAd(){
+    var random = Math.random();
+
+
+    if(random <= ads[0].rel_percentage ){alert("1 - "+random+" ");
+        $('#ad_banner_img').attr('src', ads[0].banner);
+        return;
+    }
+
+    if(random > ads[ads.length-2].rel_percentage ){alert("final - "+random+" ");
+        $('#ad_banner_img').attr('src', ads[ads.length-1].banner);
+        return;
+    }
+
+    var percentage_sum = ads[0].rel_percentage;
+
+    for(var i = 1; i < ads.length-1; i++){
+
+        if(random >= percentage_sum && random < ads[i].rel_percentage){alert("2 -"+random+" "+ads[i].rel_percentage+" "+ ads[i].banner);
+            $('#ad_banner_img').attr('src', ads[i].banner);
+            return;
         }
-        else {
-            if( random >=ads[i-1].rel_percentage && random < ads[i].rel_percentage )
-            //$('#banner').img(ads[i].banner);
-                ;
-        }
+
+        //calculate percentage sum
+        percentage_sum += ads[i].rel_percentage;
     }
 }
