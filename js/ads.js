@@ -32,12 +32,12 @@ function showBannerAd(){
     var random = Math.random();
 
 
-    if(random <= ads[0].rel_percentage ){alert("1 - "+random+" ");
+    if(random <= ads[0].rel_percentage ){
         $('#ad_banner_img').attr('src', ads[0].banner);
         return;
     }
 
-    if(random > ads[ads.length-2].rel_percentage ){alert("final - "+random+" ");
+    if(random > ads[ads.length-2].rel_percentage ){
         $('#ad_banner_img').attr('src', ads[ads.length-1].banner);
         return;
     }
@@ -46,7 +46,7 @@ function showBannerAd(){
 
     for(var i = 1; i < ads.length-1; i++){
 
-        if(random >= percentage_sum && random < ads[i].rel_percentage){alert("2 -"+random+" "+ads[i].rel_percentage+" "+ ads[i].banner);
+        if(random >= percentage_sum && random < ads[i].rel_percentage){
             $('#ad_banner_img').attr('src', ads[i].banner);
             return;
         }
