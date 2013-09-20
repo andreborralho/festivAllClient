@@ -100,7 +100,7 @@ function createBeforeFestival(festival, festivals, diff, status){
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
     var dummy = makeid();
-    var file_path = 'file:///data/data/com.festivall_new/logos/'  + festival.name + '.jpg' + '?dummy=' + dummy;
+    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + festival.name + '.jpg' + '?dummy=' + dummy;
     $('#festival_poster').attr("src", file_path);
 
 
@@ -179,7 +179,7 @@ function createDuringFestival(festival, days){
                 var stages_len = stages.length;
                 var stage, stage_id;
                 var dummy = makeid();
-                var file_path = 'file:///data/data/com.festivall_new/logos/'  + festival.name + '.jpg' + '?dummy=' + dummy;
+                var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + festival.name + '.jpg' + '?dummy=' + dummy;
 
 
                 $('#during_festival_scroller').empty();

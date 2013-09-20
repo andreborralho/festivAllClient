@@ -103,7 +103,7 @@ function addFestivalToList(festival, i, len){
             url,
             file_path,
             function(entry) {
-                console.log('DOWNLOAD LOGO FROM ' + festival.name + 'SUCCESS, URL:' + url);
+                console.log('SUCCESS DOWNLOAD LOGO FROM ' + festival.name + ', URL:' + url);
                 localStorage[festival.name] = url;
                 addLogo(festival, file_path,i, len);  //Reads from the file
             },
@@ -146,7 +146,7 @@ function cacheMap(festival){
     //Check if the logo file exists
     var filename = 'FestivAll/' + festival.name + '_map.jpg';
     var hasMap = localStorage[festival.name + '_map.jpg'];
-    console.log('ADDING MAP: hasMap :' + hasMap + ', festival.map : ' + festival.map);
+    console.log('CHECKING MAP: old map :' + hasMap + ', festival.map : ' + festival.map);
     var file_path = 'file:///data/data/com.festivall_new/'  + filename;
     var url = festival.map;
     //Ajax call to download logo if it is not stored
@@ -161,7 +161,7 @@ function cacheMap(festival){
             url,
             file_path,
             function(entry) {
-                console.log('DOWNLOAD MAP FROM ' + festival.name + 'SUCCESS, URL:' + url);
+                console.log('SUCCESS DOWNLOAD MAP FROM ' + festival.name + ', URL:' + url);
                 localStorage[festival.name + '_map.jpg'] = url;
             },
             function(error) {
