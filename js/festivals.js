@@ -25,6 +25,7 @@ function queryFestivalsSuccess(tx, results) {
         localStorage.setItem("firstRun", "false");
         $('#installer').removeClass('visible');
         console.log('INITIALIZING DISPLAY :');
+        createAppDir('FestivAll'); //creates the directory for the local storage files
         initFestivalsDisplay();
     }
     incrementHistory("#festivals");
@@ -89,7 +90,7 @@ function addFestivalToList(festival, i, len){
     //Check if the logo file exists
     var filename = festival.name + '.jpg';
     var hasLogo = localStorage[festival.name];
-    var file_path = 'file:///data/data/com.festivall_new/logos/'  + filename;
+    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
     var url = festival.logo;
     //Ajax call to download logo if it is not stored
     if(hasLogo == undefined || festival.logo != hasLogo){
@@ -102,7 +103,7 @@ function addFestivalToList(festival, i, len){
                     function(entry) {
                         console.log('DOWNLOAD LOGO FROM ' + festival.name + 'SUCCESS, URL:' + url);
                         localStorage[festival.name] = url;
-                        addLogo(festival, file_path,i, len);
+                        addLogo(festival, file_path,i, len);  //Reads from the file
                     },
                     function(error) {
                         console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
@@ -111,12 +112,9 @@ function addFestivalToList(festival, i, len){
             });
         }, fail);
     }
-    //Reads from the file
-    else{
-        //
+    else{  //Reads from the file
         addLogo(festival, file_path, i, len);
     }
-
     //Cache the map of the festival
     cacheMap(festival);
 
@@ -149,25 +147,42 @@ function cacheMap(festival){
     var filename = festival.name + '_map.jpg';
     var hasMap = localStorage[filename];
     console.log('ADDING MAP: hasMap :' + hasMap + ', festival.map : ' + festival.map);
-    var file_path = 'file:///data/data/com.festivall_new/maps/'  + filename;
+    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
     var url = festival.map;
     //Ajax call to download logo if it is not stored
-    if(hasMap == undefined || festival.map != hasMap){
+    if(hasMap == undefined )
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
-            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
-                var fileTransfer = new FileTransfer();
-                fileTransfer.download(
-                    url,
-                    file_path,
-                    function(entry) {
-                        console.log('DOWNLOAD MAP FROM ' + festival.name + 'SUCCESS, URL:' + url);
-                        localStorage[festival.name + '_map.jpg'] = url;
-                    },
-                    function(error) {
-                        console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
-                    }
-                );
-            });
-        }, fail);
+            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {});
+        });
+
+    if(festival.map != hasMap || hasMap == undefined ){
+        var fileTransfer = new FileTransfer();
+        fileTransfer.download(
+            url,
+            file_path,
+            function(entry) {
+                console.log('DOWNLOAD MAP FROM ' + festival.name + 'SUCCESS, URL:' + url);
+                localStorage[festival.name + '_map.jpg'] = url;
+            },
+            function(error) {
+                console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
+            }
+        );
+    }
+}
+
+function createAppDir(filename){
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+            var entry=fileSystem.root;
+            entry.getDirectory(filename, {create: true, exclusive: false}, onGetDirectorySuccess, onGetDirectoryFail);
+        } , null);
+
+
+    function onGetDirectorySuccess(dir) {
+        console.log("Created dir "+dir.name);
+    }
+
+    function onGetDirectoryFail(error) {
+        console.log("Error creating directory "+error.code);
     }
 }
