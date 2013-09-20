@@ -3,10 +3,12 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 //Data - client side DB
 window.ads = [];
+
 /*
 localStorage.clear();
 localStorage.setItem("firstRun", "true");
 */
+
 if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
     // Loading festivals
     $('#installer').addClass('visible');

@@ -27,7 +27,6 @@ function queryFestivalSuccess(tx, results) {
 
     current_festival_id = festival.id;
     current_festival_name = festival.name;
-
     $('#header_link').unbind().bind('click', function(){
         changeContainers("#festivals", "FestivAll", "");
         fixHeaderLink("#festivals");
@@ -97,12 +96,12 @@ function getLastDayClosingTime(days){
 function createBeforeFestival(festival, festivals, diff, status){
 
     $('#festival_days').empty();
-    var logo = localStorage[festival.name];
 
     $('#festival_city').text("Local: " + festival.city);
     $('#festival_price').text("Preço: " + festival.tickets_price);
-    console.log('festival LOGO: ' + logo);
-    $('#festival_poster').attr("src", festival.logo);
+    var dummy = makeid();
+    var file_path = 'file:///data/data/com.festivall_new/logos/'  + festival.name + '.jpg' + '?dummy=' + dummy;
+    $('#festival_poster').attr("src", file_path);
 
 
     if(status == "before"){
@@ -179,7 +178,9 @@ function createDuringFestival(festival, days){
                 var stages = results.rows;
                 var stages_len = stages.length;
                 var stage, stage_id;
-                var logo = localStorage[festival.name];
+                var dummy = makeid();
+                var file_path = 'file:///data/data/com.festivall_new/logos/'  + festival.name + '.jpg' + '?dummy=' + dummy;
+
 
                 $('#during_festival_scroller').empty();
 
@@ -199,7 +200,7 @@ function createDuringFestival(festival, days){
                         '</li>' +
                     '</ul>' +
                     '<div class="festival_during_poster">' +
-                        '<img src="'+ logo +'" id="festival_during_poster">' +
+                        '<img src="'+ file_path +'" id="festival_during_poster">' +
 
                     '</div>');
                 addFestivalDays( days, "#festival_during_days");
