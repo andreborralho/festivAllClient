@@ -24,28 +24,30 @@ function createAds(){
 function showBannerAd(){
     var random = Math.random();
 
-    if(random <= ads[0].rel_percentage ){
+    if(ads.length > 0 && random <= ads[0].rel_percentage){
         $('#ad_banner_img').attr('src', ads[0].banner);
         return;
     }
     //intervalo final: 1 - 0.33 = 0.66
-    if(random > (1 - ads[ads.length-2].rel_percentage)){
+    if(ads.length > 1 && random > (1 - ads[ads.length-2].rel_percentage)){
         $('#ad_banner_img').attr('src', ads[ads.length-1].banner);
         return;
     }
 
-    var percentage_sum = ads[0].rel_percentage;
-    var next_percentage_sum = 0;
+    if(ads.length > 0){
+        var percentage_sum = ads[0].rel_percentage;
+        var next_percentage_sum = 0;
 
-    for(var i = 1; i < ads.length-1; i++){
-        next_percentage_sum = percentage_sum + ads[i].rel_percentage;
+        for(var i = 1; i < ads.length-1; i++){
+            next_percentage_sum = percentage_sum + ads[i].rel_percentage;
 
-        if(random > percentage_sum && random <= next_percentage_sum){
-            $('#ad_banner_img').attr('src', ads[i].banner);
-            return;
+            if(random > percentage_sum && random <= next_percentage_sum){
+                $('#ad_banner_img').attr('src', ads[i].banner);
+                return;
+            }
+
+            //calculate percentage sum
+            percentage_sum += ads[i].rel_percentage;
         }
-
-        //calculate percentage sum
-        percentage_sum += ads[i].rel_percentage;
     }
 }

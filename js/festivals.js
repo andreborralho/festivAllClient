@@ -4,7 +4,7 @@
 // Queries the local Database for all festivals
 function createFestivalsContainer(){
     db.transaction(function queryFestivals(tx) {
-        console.log('QUERYING FESTIVALS :');
+        //console.log('QUERYING FESTIVALS :');
 
         tx.executeSql('SELECT FESTIVALS.*, MIN(DAYS.date) as first_day ' +
                         'FROM DAYS INNER JOIN FESTIVALS ' +
@@ -64,7 +64,7 @@ function checkIfAfterFestival(festival_id, ended_festivals, i, len){
                     addFestivalToList(ended_festivals[j], i, len);
                 }
                 //$('#festivals_buttons').scroller();
-                console.log('FESTIVALS: INITIALIZING SCROLLER :');
+                //console.log('FESTIVALS: INITIALIZING SCROLLER :');
                 var festivals_scroller = new IScroll('#festivals_scroll_wrapper');
 
 
@@ -101,12 +101,12 @@ function addFestivalToList(festival, i, len){
                     url,
                     file_path,
                     function(entry) {
-                        console.log('DOWNLOAD LOGO FROM ' + festival.name + 'SUCCESS, URL:' + url);
+                        //console.log('DOWNLOAD LOGO FROM ' + festival.name + 'SUCCESS, URL:' + url);
                         localStorage[festival.name] = url;
                         addLogo(festival, file_path,i, len);  //Reads from the file
                     },
                     function(error) {
-                        console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
+                        //console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
                     }
                 );
             });
@@ -122,12 +122,12 @@ function addFestivalToList(festival, i, len){
 
 //fail reading
 function fail(evt) {
-    console.log(' 000.ERROR : ' + evt.target.error.code);
+    //console.log(' 000.ERROR : ' + evt.target.error.code);
 }
 
 function addLogo(festival, file_path, i, len){
     var dummy = makeid();
-    console.log('FETCHING LOGO :' + file_path);
+    //console.log('FETCHING LOGO :' + file_path);
     $('#festival_' + festival.id ).empty();
     $('#festival_' + festival.id ).append('<a href="#"><img class="festival_logo" src="' + file_path + '?dummy=' + dummy + '"></a>');
 
@@ -146,7 +146,7 @@ function cacheMap(festival){
     //Check if the logo file exists
     var filename = festival.name + '_map.jpg';
     var hasMap = localStorage[filename];
-    console.log('ADDING MAP: hasMap :' + hasMap + ', festival.map : ' + festival.map);
+    //console.log('ADDING MAP: hasMap :' + hasMap + ', festival.map : ' + festival.map);
     var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
     var url = festival.map;
     //Ajax call to download logo if it is not stored
@@ -161,11 +161,11 @@ function cacheMap(festival){
             url,
             file_path,
             function(entry) {
-                console.log('DOWNLOAD MAP FROM ' + festival.name + 'SUCCESS, URL:' + url);
+                //console.log('DOWNLOAD MAP FROM ' + festival.name + 'SUCCESS, URL:' + url);
                 localStorage[festival.name + '_map.jpg'] = url;
             },
             function(error) {
-                console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
+                //console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
             }
         );
     }

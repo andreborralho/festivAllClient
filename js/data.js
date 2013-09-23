@@ -42,8 +42,6 @@ function onDeviceReady(){
             else if(localStorage["firstRun"] == "false"){
                 console.log('SYNCRONIZING');
                 window.FestivallToaster.showMessage('Sincronizando...');
-                createFestivalsContainer();
-                initFestivalsDisplay();
 
                 sync("http://festivall.eu/festivals.json", function(){
                     window.FestivallToaster.showMessage('Sincronização terminada!');
@@ -82,7 +80,20 @@ function getChanges(syncURL, modifiedSince, callback) {
 
 // Apply the changes to cache webSQL database
 function applyChanges(response, callback) {
-    insertData(response);
+
+    if(response['migration_version']!=localStorage["migration_version"]){
+
+        localStorage.setItem("migration_version", response['migration_version']);
+        //populate db
+        localStorage.setItem("firstRun", "true");
+        db.transaction(populateDB, errorCB, successCB);
+    }
+
+    else{
+        insertData(response);
+        createFestivalsContainer();
+        initFestivalsDisplay();
+    }
     callback();
 }
 
@@ -129,14 +140,6 @@ function populateDB(tx) {
         //headers : {'Accept-Encoding' : 'gzip'},
         dataType:"json",
         success:function (changes) {
-            if(changes['migration_version']!=localStorage["migration_version"] && localStorage["migration_version"] != undefined){
-
-                localStorage.setItem("migration_version", changes['migration_version']);
-
-                //populate db
-                db.transaction(populateDB, errorCB, successCB);
-                localStorage.setItem("firstRun", "true");
-            }
             insertData(changes);
         },
         error: function() {
@@ -148,8 +151,7 @@ function populateDB(tx) {
 function insertData(data){
     $.each(data, function(k,v){
 
-        if(k=='migration_version' && v!=localStorage["migration_version"])
-            localStorage.setItem("migration_version", v);
+
 
         if(k=='festivals'){
             db.transaction(function(tx){
@@ -225,7 +227,7 @@ function insertData(data){
             db.transaction(function(tx){
             //último callback
                 $.each(v, function(i, l){
-                    console.log(k + 'VALUES (' + l.table.toString().toUpperCase() + ', "' + l.element +')');
+                    //console.log(k + 'VALUES (' + l.table.toString().toUpperCase() + ', "' + l.element +')');
                     tx.executeSql('DELETE FROM ' + l.table.toString().toUpperCase() +  ' WHERE id=' + l.element );
                 });
 
@@ -235,7 +237,7 @@ function insertData(data){
         else if(k=='ads'){
             db.transaction(function(tx){
                 $.each(v, function(i, l){
-                    console.log(k + 'VALUES (' + l.id + ', "' + l.name + ', "' + l.percentage + ', "' + l.updated_at+')');
+                    //console.log(k + 'VALUES (' + l.id + ', "' + l.name + ', "' + l.percentage + ', "' + l.updated_at+')');
                     tx.executeSql('INSERT OR REPLACE INTO ADS (id, name, percentage, due_date, banner, splash, updated_at) VALUES (' + l.id +
                         ', "' + l.name + '", ' + l.percentage + ', "' + l.due_date + '", "' + l.banner + '", "' + l.splash +  '", "' + l.updated_at + '")');
                 });
