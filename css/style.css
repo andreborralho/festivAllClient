@@ -219,11 +219,11 @@ body {
 }
 .visible {
   opacity: 1;
-  height: 76%;
+  height: 86%;
   overflow: visible;
 }
-.visible_without_ads {
-  height: 86% !important;
+.visible_with_ads {
+    height: 76%; !important
 }
 #ads_banner {
   width: 100%;

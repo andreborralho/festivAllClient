@@ -26,6 +26,11 @@ function onDeviceReady(){
     document.addEventListener("menubutton", menuButton, false);
     $('#menu_button').unbind().bind("click", menuButton);
 
+    if(localStorage["firstRun"] == "false"){
+        createFestivalsContainer();
+        initFestivalsDisplay();
+    }
+
     //Check if the application is running for the first time
     $.ajax({
         url: "http://festivall.eu",
@@ -42,9 +47,6 @@ function onDeviceReady(){
             else if(localStorage["firstRun"] == "false"){
                 console.log('SYNCRONIZING');
                 window.FestivallToaster.showMessage('Sincronizando...');
-                createFestivalsContainer();
-                initFestivalsDisplay();
-
                 sync("http://festivall.eu/festivals.json", function(){
                     window.FestivallToaster.showMessage('Sincronização terminada!');
                 });
@@ -300,11 +302,10 @@ function errorQueryCB(tx, err){
 
 function errorInstallingDBCB(){
     if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
-        alert("Precisas de Internet para sacares a base de dados!");
+        window.FestivallToaster.showMessage('Precisas de Internet para sacares a base de dados!');
         navigator.app.exitApp();
     }
-    createFestivalsContainer();
-    initFestivalsDisplay();
-    $('.visible').addClass('visible_without_ads');
     window.FestivallToaster.showMessage("Não há conexão com a internet!");
+    createAds();
+
 }

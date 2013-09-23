@@ -18,10 +18,10 @@ function setHeightAndWidth(){
 
 function initFestivalsDisplay(){
     //$('#loaderSplash').removeClass("visible_splash");
-    $('#festivals').addClass('visible');
 
     var container_height = $('#header').height()-2 + "px";
     $('#header').css('height', container_height);
+    $('#festivals').addClass('visible');
 }
 
 
@@ -29,11 +29,17 @@ function initFestivalsDisplay(){
 function changeContainers(page, title, subtitle){
     var header_title_selector = $('#header_title');
 
-    $('.container').removeClass("visible visible_without_ads");
-    $(page).addClass("visible");
+    $('.container').removeClass('visible visible_with_ads');
 
-    if(navigator.network.connection.type == Connection.NONE)
-        $(page).addClass("visible_without_ads");
+    var networkState = navigator.connection.type;
+    console.log('checking if it should create add : ads.length - ' + ads.length + ', net - ' + networkState);
+    $(page).addClass("visible");
+    if(ads.length > 0 && networkState != Connection.NONE){
+        $(page).addClass("visible_with_ads");
+        console.log('showing ad');
+        showBannerAd();
+    }
+
 
     incrementHistory(page);
 
@@ -103,7 +109,6 @@ function changeContainers(page, title, subtitle){
         header_title_selector.removeClass('heading0').addClass('heading1').text(title);
         $('#header_subtitle').text(subtitle);
     }
-    showBannerAd();
 }
 
 function backButton(){

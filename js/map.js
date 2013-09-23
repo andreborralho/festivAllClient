@@ -12,7 +12,7 @@ function createMapContainer(festival) {
     var filename = festival.name + '_map.jpg';
     var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
     var hasMap = localStorage[filename];
-
+    console.log('MAP EXISTS ? ' + hasMap);
     if(hasMap!= undefined){
         var dummy = makeid();
         $('#map_page').empty().append('<div id="map_scroll_wrapper" class="scroll_wrapper"><div>');
@@ -25,9 +25,7 @@ function createMapContainer(festival) {
             horizontalScroll:true
         });
     }else{
-        $('#map_scroll_wrapper').empty();
-        $('#map_scroll_wrapper').append('' +
-            '<div id="map_scroller" class="padded"><p>Mapa ainda não disponível.</p></div>');
+        $('#map_page').empty().append( '<div id="no_map" class="padded"><p>Mapa ainda não disponível.</p></div>');
     }
 
 

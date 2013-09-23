@@ -22,11 +22,11 @@ function queryFestivalsSuccess(tx, results) {
     //Create festivals container after insertions
     if(localStorage["firstRun"] == "true"){
         window.FestivallToaster.showMessage('Base de dados criada!');
+        initFestivalsDisplay();
         localStorage.setItem("firstRun", "false");
         $('#installer').removeClass('visible');
         console.log('INITIALIZING DISPLAY :');
         createAppDir('FestivAll'); //creates the directory for the local storage files
-        initFestivalsDisplay();
     }
     incrementHistory("#festivals");
     $('#festivals_buttons').empty();
@@ -65,7 +65,7 @@ function checkIfAfterFestival(festival_id, ended_festivals, i, len){
                 }
                 //$('#festivals_buttons').scroller();
                 console.log('FESTIVALS: INITIALIZING SCROLLER :');
-                var festivals_scroller = new IScroll('#festivals_scroll_wrapper');
+                festivals_scroller = new IScroll('#festivals_scroll_wrapper');
 
 
             }
@@ -97,7 +97,7 @@ function addFestivalToList(festival, i, len){
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
             fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {});
         });
-    if(hasLogo == undefined || festival.logo != hasLogo){
+    if(hasLogo == undefined || festival.logo != hasLogo){//Might not sync correctly first time because of lag in syncronization
         var fileTransfer = new FileTransfer();
         fileTransfer.download(
             url,
@@ -105,15 +105,17 @@ function addFestivalToList(festival, i, len){
             function(entry) {
                 console.log('SUCCESS DOWNLOAD LOGO FROM ' + festival.name + ', URL:' + url);
                 localStorage[festival.name] = url;
-                addLogo(festival, file_path,i, len);  //Reads from the file
+                addLogo(festival, file_path);  //Reads from the file
             },
             function(error) {
-                console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
+                console.log('ERROR LOGO FROM ' + festival.name + 'FAIL, URL:' + url);
+                if(hasLogo != undefined)
+                    addLogo(festival, file_path);
             }
         );
     }
     else{  //Reads from the file
-        addLogo(festival, file_path, i, len);
+        addLogo(festival, file_path);
     }
     //Cache the map of the festival
     cacheMap(festival);
@@ -125,12 +127,10 @@ function fail(evt) {
     console.log(' 000.ERROR : ' + evt.target.error.code);
 }
 
-function addLogo(festival, file_path, i, len){
+function addLogo(festival, file_path){
     var dummy = makeid();
     console.log('FETCHING LOGO :' + file_path);
-    $('#festival_' + festival.id ).empty();
-    $('#festival_' + festival.id ).append('<a href="#"><img class="festival_logo" src="' + file_path + '?dummy=' + dummy + '"></a>');
-
+    $('#festival_' + festival.id ).empty().append('<a href="#"><img class="festival_logo" src="' + file_path + '?dummy=' + dummy + '"></a>');;
 }
 
 
@@ -165,7 +165,7 @@ function cacheMap(festival){
                 localStorage[festival.name + '_map.jpg'] = url;
             },
             function(error) {
-                console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
+                console.log('ERROR MAP FROM ' + festival.name + ' FAIL, URL:' + url);
             }
         );
     }
