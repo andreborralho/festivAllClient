@@ -10,7 +10,7 @@ function createMapContainer(festival) {
     });
 
     var filename = festival.name + '_map.jpg';
-    var file_path = 'file:///data/data/com.festivall_new/maps/'  + filename;
+    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
     var hasMap = localStorage[filename];
 
     if(hasMap!= undefined){

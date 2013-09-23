@@ -88,29 +88,29 @@ function addFestivalToList(festival, i, len){
 
 
     //Check if the logo file exists
-    var filename = festival.name + '.jpg';
+    var filename = 'FestivAll/' + festival.name + '.jpg';
     var hasLogo = localStorage[festival.name];
-    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
+    var file_path = 'file:///data/data/com.festivall_new/'  + filename;
     var url = festival.logo;
     //Ajax call to download logo if it is not stored
-    if(hasLogo == undefined || festival.logo != hasLogo){
+    if(hasLogo == undefined)
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
-            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
-                var fileTransfer = new FileTransfer();
-                fileTransfer.download(
-                    url,
-                    file_path,
-                    function(entry) {
-                        //console.log('DOWNLOAD LOGO FROM ' + festival.name + 'SUCCESS, URL:' + url);
-                        localStorage[festival.name] = url;
-                        addLogo(festival, file_path,i, len);  //Reads from the file
-                    },
-                    function(error) {
-                        //console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
-                    }
-                );
-            });
-        }, fail);
+            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {});
+        });
+    if(hasLogo == undefined || festival.logo != hasLogo){
+        var fileTransfer = new FileTransfer();
+        fileTransfer.download(
+            url,
+            file_path,
+            function(entry) {
+                console.log('SUCCESS DOWNLOAD LOGO FROM ' + festival.name + ', URL:' + url);
+                localStorage[festival.name] = url;
+                addLogo(festival, file_path,i, len);  //Reads from the file
+            },
+            function(error) {
+                console.log('ERROR MAP FROM ' + festival.name + 'FAIL, URL:' + url);
+            }
+        );
     }
     else{  //Reads from the file
         addLogo(festival, file_path, i, len);
@@ -144,11 +144,12 @@ function makeid(){
 
 function cacheMap(festival){
     //Check if the logo file exists
-    var filename = festival.name + '_map.jpg';
-    var hasMap = localStorage[filename];
-    //console.log('ADDING MAP: hasMap :' + hasMap + ', festival.map : ' + festival.map);
-    var file_path = 'file:///data/data/com.festivall_new/FestivAll/'  + filename;
-    var url = festival.map;
+    var filename = 'FestivAll/' + festival.name + '_map.jpg';
+    var hasMap = localStorage[festival.name + '_map.jpg'];
+    console.log('CHECKING MAP: old map :' + hasMap + ', festival.map : ' + festival.map);
+    var file_path = 'file:///data/data/com.festivall_new/'  + filename;
+    var url = festival.map
+	;
     //Ajax call to download logo if it is not stored
     if(hasMap == undefined )
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
@@ -161,7 +162,7 @@ function cacheMap(festival){
             url,
             file_path,
             function(entry) {
-                //console.log('DOWNLOAD MAP FROM ' + festival.name + 'SUCCESS, URL:' + url);
+                console.log('SUCCESS DOWNLOAD MAP FROM ' + festival.name + ', URL:' + url);
                 localStorage[festival.name + '_map.jpg'] = url;
             },
             function(error) {
